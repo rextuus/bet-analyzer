@@ -145,7 +145,7 @@ class SpmFixtureData
         $this->setSeasonApiId($response['season_id']);
         $this->setRoundApiId($response['round_id']);
         $this->setLeagueApiId($response['league_id']);
-        $this->setResultInfo($response['result_info'] ?: '');
+        $this->setResultInfo(strval($response['result_info']));
         $this->setStartingAt(new DateTime($response['starting_at']));
         $this->setStartingAtTimestamp($response['starting_at_timestamp']);
         $this->setHasOdds($response['has_odds']);
