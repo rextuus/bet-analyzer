@@ -5,92 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.env.test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/bet-analyzer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/console" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/phpunit" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/cache.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/debug.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/doctrine_migrations.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/mailer.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/monolog.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/notifier.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/routing.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/translation.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/validator.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/web_profiler.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/preload.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/framework.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/web_profiler.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.override.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identifier.sqlite" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/phpunit.xml.dist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/OddsCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/RoundCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/TestCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SpmFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SpmLeague.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SpmOdd.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SpmRound.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SpmScore.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Kernel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiCallMessage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiCallMessageHandler.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiRoute.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/GuzzleClientFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/OddAndScoreResponse.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/RoundAndFixtureResponse.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkApiGateway.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/Data/SpmFixtureData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/League/Data/SpmLeagueData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/League/SpmLeagueFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/League/SpmLeagueRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/League/SpmLeagueService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/Data/SpmOddData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/Data/SpmRoundData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/SpmRoundFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/SpmRoundRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/SpmRoundService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/Data/SpmScoreData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/bootstrap.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/translations/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,11 +201,24 @@
       <updated>1694175683631</updated>
       <workItem from="1694175685290" duration="1036000" />
       <workItem from="1694193936369" duration="25359000" />
-      <workItem from="1694344169184" duration="13290000" />
+      <workItem from="1694344169184" duration="13956000" />
+      <workItem from="1694416143166" duration="4000" />
     </task>
+    <task id="LOCAL-00001" summary="Init">
+      <created>1694389582865</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1694389582865</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init" />
+    <option name="LAST_COMMIT_MESSAGE" value="Init" />
   </component>
 </project>
