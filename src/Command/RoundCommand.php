@@ -32,13 +32,17 @@ class RoundCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
+            ->addArgument('page', InputArgument::OPTIONAL, 'Argument description')
             ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->sportsmonkService->storeRoundsAndFixturesByPage();
+        $page = null;
+        if ($input->getArgument('page')){
+            $page = $input->getArgument('page');
+        }
+        $this->sportsmonkService->storeRoundsAndFixturesByPage($page);
 
         return Command::SUCCESS;
     }
