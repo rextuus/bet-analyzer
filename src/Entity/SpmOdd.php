@@ -13,7 +13,7 @@ class SpmOdd
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(unique: true)]
+    #[ORM\Column(type: 'bigint', unique: true)]
     private ?int $apiId = null;
 
     #[ORM\Column]
