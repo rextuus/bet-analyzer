@@ -34,7 +34,7 @@ class OddsCommand extends Command
     {
         $fixtureId = null;
         if ($input->getArgument('fixtureId')){
-            $fixtureId = $input->getArgument('page');
+            $fixtureId = $input->getArgument('fixtureId');
         }
 
         if (!is_null($fixtureId)){
