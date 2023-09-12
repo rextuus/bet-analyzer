@@ -2,17 +2,13 @@
 
 namespace App\Command;
 
-use App\Service\Sportmonks\Api\SportsmonkApiGateway;
 use App\Service\Sportmonks\Api\SportsmonkService;
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
-use App\Service\Sportmonks\Content\League\SpmLeagueService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'odds:init',
@@ -31,17 +27,23 @@ class OddsCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description');
+        $this->addArgument('fixtureId', InputArgument::OPTIONAL, 'Start page');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $fixtureId = null;
+        if ($input->getArgument('fixtureId')){
+            $fixtureId = $input->getArgument('page');
+        }
+
+        if (!is_null($fixtureId)){
+            $this->sportsmonkService->storeOddForFixture($fixtureId);
+            return Command::SUCCESS;
+        }
+
         $undecorated = $this->fixtureService->findBy(['oddDecorated' => false]);
-
         $this->sportsmonkService->storeOddForFixture($undecorated[0]->getApiId());
-
         return Command::SUCCESS;
     }
 }
