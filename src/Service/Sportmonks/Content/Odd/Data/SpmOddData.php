@@ -101,7 +101,7 @@ class SpmOddData
         $this->checkForNecessaryKeys($needed, $response);
 
         $this->setApiId($response['id']);
-        $this->setName($response['name']);
+        $this->setName($response['name'] ?: '-');
         $this->setLabel($response['label']);
         $this->setFixtureApiId($response['fixture_id']);
         $this->setBookmakerApiId($response['bookmaker_id']);
