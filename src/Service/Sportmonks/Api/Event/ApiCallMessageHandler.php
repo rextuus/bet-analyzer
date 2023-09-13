@@ -20,8 +20,10 @@ class ApiCallMessageHandler
     public function __invoke(ApiCallMessage $message)
     {
         match($message->getApiRoute()){
-            ApiRoute::ROUND => $this->callRoundApi($message->getPage()),
-            ApiRoute::ODD => $this->callOddApi($message->getFixtureId())
+            ApiRoute::ROUND => $this->callRoundApi($message->getMessageParameter()),
+            ApiRoute::ODD => $this->callOddApi($message->getApiId()),
+            ApiRoute::SEASON => $this->callSeasonApi($message->getMessageParameter()),
+            ApiRoute::STANDING => $this->callStandingApi($message->getApiId())
         };
     }
 
@@ -33,5 +35,15 @@ class ApiCallMessageHandler
     private function callOddApi(int $fixtureId): void
     {
         $this->sportsmonkService->storeOddForFixture($fixtureId);
+    }
+
+    private function callSeasonApi(int $page): void
+    {
+        $this->sportsmonkService->storeSeasonsAndTeams($page);
+    }
+
+    private function callStandingApi(int $roundId): void
+    {
+        $this->sportsmonkService->storeStandings($roundId);
     }
 }

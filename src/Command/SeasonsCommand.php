@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Service\Sportmonks\Api\SportsmonkApiGateway;
 use App\Service\Sportmonks\Api\SportsmonkService;
 use App\Service\Sportmonks\Content\League\SpmLeagueService;
+use App\Service\Sportmonks\Content\Standing\SpmStandingService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,10 +15,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'rounds:init',
+    name: 'seasons:init',
     description: 'Add a short description for your command',
 )]
-class RoundCommand extends Command
+class SeasonsCommand extends Command
 {
 
 
@@ -29,16 +30,11 @@ class RoundCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('page', InputArgument::OPTIONAL, 'Start page');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $page = null;
-        if ($input->getArgument('page')){
-            $page = $input->getArgument('page');
-        }
-        $this->sportsmonkService->storeRoundsAndFixturesByPage($page);
+        $this->sportsmonkService->storeSeasonsAndTeams();
 
         return Command::SUCCESS;
     }

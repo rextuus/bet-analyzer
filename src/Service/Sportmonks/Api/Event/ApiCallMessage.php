@@ -4,8 +4,7 @@ namespace App\Service\Sportmonks\Api\Event;
 
 final class ApiCallMessage
 {
-    private int $page;
-    private int $fixtureId;
+    private int $messageParameter;
 
     public function __construct(
         private readonly ApiRoute $apiRoute,
@@ -17,25 +16,14 @@ final class ApiCallMessage
         return $this->apiRoute;
     }
 
-    public function getPage(): int
+    public function getMessageParameter(): int
     {
-        return $this->page;
+        return $this->messageParameter;
     }
 
-    public function setPage(int $page): ApiCallMessage
+    public function setMessageParameter(int $messageParameter): ApiCallMessage
     {
-        $this->page = $page;
-        return $this;
-    }
-
-    public function getFixtureId(): int
-    {
-        return $this->fixtureId;
-    }
-
-    public function setFixtureId(int $fixtureId): ApiCallMessage
-    {
-        $this->fixtureId = $fixtureId;
+        $this->messageParameter = $messageParameter;
         return $this;
     }
 }

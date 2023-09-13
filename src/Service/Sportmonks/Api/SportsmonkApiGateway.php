@@ -4,25 +4,20 @@
 namespace App\Service\Sportmonks\Api;
 
 
-use App\Entity\FixtureOdd;
-use App\Service\Api\Response\ClubStanding;
-use App\Service\Api\Response\FixtureOddResponse;
-use App\Service\Api\Response\FixtureResponse;
-use App\Service\Api\Response\RoundResponse;
-use App\Service\Api\Response\StandingResponse;
-use App\Service\Setting\FootballApiManagerService;
-use App\Service\Sportmonks\Api\Event\ApiCallMessage;
-use App\Service\Sportmonks\Api\Event\ApiRoute;
+use App\Service\Sportmonks\Api\Response\OddAndScoreResponseCan;
+use App\Service\Sportmonks\Api\Response\RoundAndFixtureResponseCan;
+use App\Service\Sportmonks\Api\Response\SeasonAndTeamsResponseCan;
+use App\Service\Sportmonks\Api\Response\StandingResponseCan;
 use App\Service\Sportmonks\Content\Fixture\Data\SpmFixtureData;
 use App\Service\Sportmonks\Content\League\Data\SpmLeagueData;
 use App\Service\Sportmonks\Content\Odd\Data\SpmOddData;
 use App\Service\Sportmonks\Content\Round\Data\SpmRoundData;
 use App\Service\Sportmonks\Content\Score\Data\SpmScoreData;
-use DateTime;
+use App\Service\Sportmonks\Content\Season\Data\SpmSeasonData;
+use App\Service\Sportmonks\Content\Standing\Data\SpmStandingData;
+use App\Service\Sportmonks\Content\Team\Data\SpmTeamData;
 use GuzzleHttp\Exception\GuzzleException;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 class SportsmonkApiGateway
 {
@@ -62,7 +57,38 @@ class SportsmonkApiGateway
         return $data;
     }
 
-    public function getRoundsInclusiveFixtures(int $page = null): RoundAndFixtureResponse
+    public function getStandings(int $roundId): StandingResponseCan
+    {
+        $client = $this->clientFactory->createClient([], self::BASE_URI);
+
+        $options = [
+            'query' => ['api_token' => self::API_KEY]
+        ];
+
+        try {
+            $response = $client->request('GET', 'standings/rounds/'.$roundId, $options);
+        } catch (GuzzleException $e) {
+            dump($e);
+            return [];
+        }
+
+        $response = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+
+        $limits = $response['rate_limit'];
+        $waitToContinue = null;
+        if ($limits['remaining'] === 1){
+            $waitToContinue = $limits['resets_in_seconds'];
+        }
+
+        $data = [];
+        foreach ($response['data'] as $entry){
+            $data[] = (new SpmStandingData())->initFromApiResponse($entry);
+        }
+
+        return new StandingResponseCan($data, $waitToContinue);
+    }
+
+    public function getRoundsInclusiveFixtures(int $page = null): RoundAndFixtureResponseCan
     {
         //https://api.sportmonks.com/v3/football/rounds?api_token={{api_token}}&include=fixtures;
         $client = $this->clientFactory->createClient([], self::BASE_URI);
@@ -107,22 +133,25 @@ class SportsmonkApiGateway
             $rounds[] = (new SpmRoundData())->initFromApiResponse($round);
         }
 
-        return new RoundAndFixtureResponse($rounds, $fixtures, $nextPage, $waitToContinue);
+        return new RoundAndFixtureResponseCan($rounds, $fixtures, $nextPage, $waitToContinue);
     }
 
-    public function getOddsForFixtures(int $fixtureId): OddAndScoreResponse
+    public function getSeasonsAndTeams(int $page = null): SeasonAndTeamsResponseCan
     {
-        //https://api.sportmonks.com/v3/football/rounds?api_token={{api_token}}&include=fixtures;
+        //https://api.sportmonks.com/v3/football/seasons?api_token={{api_token}}&include=fixtures;
         $client = $this->clientFactory->createClient([], self::BASE_URI);
 
-        $queryParams = ['api_token' => self::API_KEY];
+        $queryParams = ['api_token' => self::API_KEY, 'include' => 'teams'];
+        if ($page){
+            $queryParams['page'] = $page;
+        }
 
         $options = [
             'query' => $queryParams
         ];
 
         try {
-            $response = $client->request('GET', 'odds/pre-match/fixtures/'.$fixtureId, $options);
+            $response = $client->request('GET', 'seasons', $options);
         } catch (GuzzleException $e) {
             dump($e);
             return [];
@@ -130,21 +159,32 @@ class SportsmonkApiGateway
 
         $response = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
+        $nextPage = null;
+        $pagination = $response['pagination'];
+        if ($pagination['has_more']){
+            $nextPage = $pagination['current_page'] + 1;
+        }
+
         $limits = $response['rate_limit'];
         $waitToContinue = null;
         if ($limits['remaining'] === 1){
             $waitToContinue = $limits['resets_in_seconds'];
         }
 
-        $odds = [];
-        foreach ($response['data'] as $odd){
-            $odds[] = (new SpmOddData())->initFromApiResponse($odd);
+        $seasons = [];
+        $teams = [];
+        foreach ($response['data'] as $season){
+            $teamData = $season['teams'];
+            foreach ($teamData as $team){
+                $teams[] = (new SpmTeamData())->initFromApiResponse($team);
+            }
+            $seasons[] = (new SpmSeasonData())->initFromApiResponse($season);
         }
 
-        return new OddAndScoreResponse($odds, $waitToContinue);
+        return new SeasonAndTeamsResponseCan($teams, $seasons, $nextPage, $waitToContinue);
     }
 
-    public function getOddsAndDetailsForFixtures(int $fixtureId): OddAndScoreResponse
+    public function getOddsAndDetailsForFixtures(int $fixtureId): OddAndScoreResponseCan
     {
         //https://api.sportmonks.com/v3/football/rounds?api_token={{api_token}}&include=fixtures;
         $client = $this->clientFactory->createClient([], self::BASE_URI);
@@ -180,16 +220,20 @@ class SportsmonkApiGateway
 
         $odds = [];
         foreach ($oddData as $odd){
+            dump($odd);
             $odds[] = (new SpmOddData())->initFromApiResponse($odd);
         }
 
-        return new OddAndScoreResponse($odds, $scores, $waitToContinue);
+        return new OddAndScoreResponseCan($odds, $scores, $waitToContinue);
     }
 
 
 
         /////////////////////////////////////////////
 
+    /**
+     * @deprecated
+     */
     public function getLeagueById(int $sportMonksId): array
     {
         $client = $this->clientFactory->createClient([], self::BASE_URI);
@@ -211,7 +255,7 @@ class SportsmonkApiGateway
     }
 
     /**
-     * @return array
+     * @deprecated
      */
     public function getAvailableSeasons(int $page): array
     {
@@ -235,7 +279,7 @@ class SportsmonkApiGateway
     }
 
     /**
-     * @return array
+     * @deprecated
      */
     public function getAvailableSeasonsPageCall(): array
     {
@@ -258,7 +302,7 @@ class SportsmonkApiGateway
     }
 
     /**
-     * @return array
+     * @deprecated
      */
     public function getClubsForSeason(int $seasonId): array
     {
@@ -281,7 +325,7 @@ class SportsmonkApiGateway
     }
 
     /**
-     * @return array
+     * @deprecated
      */
     public function getRoundForSeason(int $seasonId): array
     {
@@ -304,7 +348,7 @@ class SportsmonkApiGateway
     }
 
     /**
-     * @return FixtureOddResponse[]
+     * @deprecated
      */
     public function getOddsForFixture(int $fixtureId): array
     {
@@ -331,6 +375,9 @@ class SportsmonkApiGateway
         return $this->parseOddResponse($response, $fixtureId);
     }
 
+    /**
+     * @deprecated
+     */
     public function getFixtureInfosByIds(array $fixtureIds)
     {
         $client = $this->clientFactory->createClient([], self::BASE_URI);
@@ -359,7 +406,7 @@ class SportsmonkApiGateway
     }
 
     /**
-     * @return FixtureOddResponse[]
+     * @deprecated
      */
     private function parseOddResponse(array $response, int $fixtureId): array
     {
@@ -424,6 +471,9 @@ class SportsmonkApiGateway
         return $oddResponses;
     }
 
+    /**
+     * @deprecated
+     */
     public function getStandingsForSeasonRound(int $seasonId, int $roundId): array
     {
         $client = $this->clientFactory->createClient([], self::BASE_URI);
@@ -444,8 +494,7 @@ class SportsmonkApiGateway
     }
 
     /**
-     * @param string|null $endDate
-     * @return array
+     * @deprecated
      */
     public function getFixturesInDateRangeForLeague(string $startDate, string $endDate, int $leagueId): array
     {

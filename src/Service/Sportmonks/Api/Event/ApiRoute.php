@@ -6,4 +6,6 @@ enum ApiRoute
 {
     case ROUND;
     case ODD;
+    case SEASON;
+    case STANDING;
 }

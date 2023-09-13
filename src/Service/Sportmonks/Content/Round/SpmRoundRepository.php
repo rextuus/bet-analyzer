@@ -3,6 +3,7 @@
 namespace App\Service\Sportmonks\Content\Round;
 
 use App\Entity\SpmRound;
+use App\Entity\SpmStanding;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -50,4 +51,13 @@ class SpmRoundRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findRoundWithoutStandings()
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb->select('r');
+        $qb->leftJoin(SpmStanding::class, 's', 'WITH', 's.roundApiId = r.id');
+        $qb->where('s.id IS NULL');
+        $qb->andWhere('r.id = 44');
+        return $qb->getQuery()->getResult();
+    }
 }

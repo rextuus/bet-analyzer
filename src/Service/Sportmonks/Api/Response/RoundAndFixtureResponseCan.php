@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Sportmonks\Api;
+namespace App\Service\Sportmonks\Api\Response;
 
+use App\Service\Sportmonks\Api\Event\ApiRoute;
+use App\Service\Sportmonks\Api\ResponseCanTriggerNextMessageInterface;
 use App\Service\Sportmonks\Content\Fixture\Data\SpmFixtureData;
 use App\Service\Sportmonks\Content\Round\Data\SpmRoundData;
 
@@ -11,7 +13,7 @@ use App\Service\Sportmonks\Content\Round\Data\SpmRoundData;
  * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2023 DocCheck Community GmbH
  */
-class RoundAndFixtureResponse
+class RoundAndFixtureResponseCan implements ResponseCanTriggerNextMessageInterface
 {
     /**
      * @var SpmRoundData[]
@@ -54,8 +56,29 @@ class RoundAndFixtureResponse
         return $this->nextPage;
     }
 
+    public function setNextPage(?int $nextPage): RoundAndFixtureResponseCan
+    {
+        $this->nextPage = $nextPage;
+        return $this;
+    }
+
+    public function getMessageParameter(): ?int
+    {
+        return $this->getNextPage();
+    }
+
     public function getWaitToContinue(): ?int
     {
         return $this->waitToContinue;
+    }
+
+    public function getApiRoute(): ApiRoute
+    {
+        return ApiRoute::ROUND;
+    }
+
+    public function setMessageParameter(int $parameter): void
+    {
+        $this->setNextPage($parameter);
     }
 }

@@ -13,29 +13,37 @@ use App\Service\Sportmonks\Content\Round\Data\SpmRoundData;
  */
 class SpmRoundService
 {
-public function __construct(private SpmRoundRepository $repository, private SpmRoundFactory $factory)
-{
-}
+    public function __construct(private SpmRoundRepository $repository, private SpmRoundFactory $factory)
+    {
+    }
 
-public function createByData(SpmRoundData $data): SpmRound
-{
-    $spmRound = $this->factory->createByData($data);
-    $this->repository->save($spmRound);
-    return $spmRound;
-}
+    public function createByData(SpmRoundData $data): SpmRound
+    {
+        $spmRound = $this->factory->createByData($data);
+        $this->repository->save($spmRound);
+        return $spmRound;
+    }
 
-public function update(SpmRound $spmRound, SpmRoundData $data): SpmRound
-{
-    $spmRound = $this->factory->mapData($data, $spmRound);
-    $this->repository->save($spmRound);
-    return $spmRound;
-}
+    public function update(SpmRound $spmRound, SpmRoundData $data): SpmRound
+    {
+        $spmRound = $this->factory->mapData($data, $spmRound);
+        $this->repository->save($spmRound);
+        return $spmRound;
+    }
 
-/**
- * @return SpmRound[]
- */
-public function findBy(array $conditions): array
-{
-    return $this->repository->findBy($conditions);
-}
+    /**
+     * @return SpmRound[]
+     */
+    public function findBy(array $conditions): array
+    {
+        return $this->repository->findBy($conditions);
+    }
+
+    /**
+     * @return SpmRound[]
+     */
+    public function findRoundWithoutStandings(): array
+    {
+        return $this->repository->findRoundWithoutStandings();
+    }
 }
