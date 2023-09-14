@@ -21,7 +21,9 @@ class InvalidFixtureFactory
 
     public function mapData(InvalidFixtureData $data, InvalidFixture $invalidFixture): InvalidFixture
     {
-        $invalidFixture->setExample($data->getExample());
+        $invalidFixture->setFixtureApiId($data->getFixtureApiId());
+        $invalidFixture->setDecorationAttempt($data->getDecorationAttempt());
+        $invalidFixture->setReason($data->getReason());
 
         return $invalidFixture;
     }
