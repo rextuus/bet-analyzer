@@ -13,7 +13,7 @@ use App\Service\Sportmonks\Content\Score\Data\SpmScoreData;
  * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2023 DocCheck Community GmbH
  */
-class OddAndScoreResponseCan implements ResponseCanTriggerNextMessageInterface
+class OddAndScoreResponse implements ResponseCanTriggerNextMessageInterface
 {
     /**
      * @var SpmOddData[]
@@ -41,7 +41,7 @@ class OddAndScoreResponseCan implements ResponseCanTriggerNextMessageInterface
         return $this->odds;
     }
 
-    public function setOdds(array $odds): OddAndScoreResponseCan
+    public function setOdds(array $odds): OddAndScoreResponse
     {
         $this->odds = $odds;
         return $this;
@@ -52,7 +52,7 @@ class OddAndScoreResponseCan implements ResponseCanTriggerNextMessageInterface
         return $this->scores;
     }
 
-    public function setScores(array $scores): OddAndScoreResponseCan
+    public function setScores(array $scores): OddAndScoreResponse
     {
         $this->scores = $scores;
         return $this;
@@ -63,7 +63,7 @@ class OddAndScoreResponseCan implements ResponseCanTriggerNextMessageInterface
         return $this->nextFixture;
     }
 
-    public function setNextFixture(?int $nextFixture): OddAndScoreResponseCan
+    public function setNextFixture(?int $nextFixture): OddAndScoreResponse
     {
         $this->nextFixture = $nextFixture;
         return $this;
@@ -74,7 +74,7 @@ class OddAndScoreResponseCan implements ResponseCanTriggerNextMessageInterface
         return $this->waitToContinue;
     }
 
-    public function setWaitToContinue(?int $waitToContinue): OddAndScoreResponseCan
+    public function setWaitToContinue(?int $waitToContinue): OddAndScoreResponse
     {
         $this->waitToContinue = $waitToContinue;
         return $this;

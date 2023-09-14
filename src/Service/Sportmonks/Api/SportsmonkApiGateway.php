@@ -4,10 +4,10 @@
 namespace App\Service\Sportmonks\Api;
 
 
-use App\Service\Sportmonks\Api\Response\OddAndScoreResponseCan;
-use App\Service\Sportmonks\Api\Response\RoundAndFixtureResponseCan;
-use App\Service\Sportmonks\Api\Response\SeasonAndTeamsResponseCan;
-use App\Service\Sportmonks\Api\Response\StandingResponseCan;
+use App\Service\Sportmonks\Api\Response\OddAndScoreResponse;
+use App\Service\Sportmonks\Api\Response\RoundAndFixtureResponse;
+use App\Service\Sportmonks\Api\Response\SeasonAndTeamsResponse;
+use App\Service\Sportmonks\Api\Response\StandingResponse;
 use App\Service\Sportmonks\Content\Fixture\Data\SpmFixtureData;
 use App\Service\Sportmonks\Content\League\Data\SpmLeagueData;
 use App\Service\Sportmonks\Content\Odd\Data\SpmOddData;
@@ -57,7 +57,7 @@ class SportsmonkApiGateway
         return $data;
     }
 
-    public function getStandings(int $roundId): StandingResponseCan
+    public function getStandings(int $seasonId): StandingResponse
     {
         $client = $this->clientFactory->createClient([], self::BASE_URI);
 
@@ -66,7 +66,7 @@ class SportsmonkApiGateway
         ];
 
         try {
-            $response = $client->request('GET', 'standings/rounds/'.$roundId, $options);
+            $response = $client->request('GET', 'standings/seasons/'.$seasonId, $options);
         } catch (GuzzleException $e) {
             dump($e);
             return [];
@@ -81,14 +81,17 @@ class SportsmonkApiGateway
         }
 
         $data = [];
-        foreach ($response['data'] as $entry){
-            $data[] = (new SpmStandingData())->initFromApiResponse($entry);
+        if (array_key_exists('data', $response)){
+            foreach ($response['data'] as $entry){
+                $data[] = (new SpmStandingData())->initFromApiResponse($entry);
+            }
+            return (new StandingResponse($data, $waitToContinue))->setNextRoundApiId($seasonId);
         }
 
-        return new StandingResponseCan($data, $waitToContinue);
+        return (new StandingResponse($data, $waitToContinue))->setNextRoundApiId($seasonId);
     }
 
-    public function getRoundsInclusiveFixtures(int $page = null): RoundAndFixtureResponseCan
+    public function getRoundsInclusiveFixtures(int $page = null): RoundAndFixtureResponse
     {
         //https://api.sportmonks.com/v3/football/rounds?api_token={{api_token}}&include=fixtures;
         $client = $this->clientFactory->createClient([], self::BASE_URI);
@@ -133,10 +136,10 @@ class SportsmonkApiGateway
             $rounds[] = (new SpmRoundData())->initFromApiResponse($round);
         }
 
-        return new RoundAndFixtureResponseCan($rounds, $fixtures, $nextPage, $waitToContinue);
+        return new RoundAndFixtureResponse($rounds, $fixtures, $nextPage, $waitToContinue);
     }
 
-    public function getSeasonsAndTeams(int $page = null): SeasonAndTeamsResponseCan
+    public function getSeasonsAndTeams(int $page = null): SeasonAndTeamsResponse
     {
         //https://api.sportmonks.com/v3/football/seasons?api_token={{api_token}}&include=fixtures;
         $client = $this->clientFactory->createClient([], self::BASE_URI);
@@ -181,10 +184,10 @@ class SportsmonkApiGateway
             $seasons[] = (new SpmSeasonData())->initFromApiResponse($season);
         }
 
-        return new SeasonAndTeamsResponseCan($teams, $seasons, $nextPage, $waitToContinue);
+        return new SeasonAndTeamsResponse($teams, $seasons, $nextPage, $waitToContinue);
     }
 
-    public function getOddsAndDetailsForFixtures(int $fixtureId): OddAndScoreResponseCan
+    public function getOddsAndDetailsForFixtures(int $fixtureId): OddAndScoreResponse
     {
         //https://api.sportmonks.com/v3/football/rounds?api_token={{api_token}}&include=fixtures;
         $client = $this->clientFactory->createClient([], self::BASE_URI);
@@ -220,11 +223,10 @@ class SportsmonkApiGateway
 
         $odds = [];
         foreach ($oddData as $odd){
-            dump($odd);
             $odds[] = (new SpmOddData())->initFromApiResponse($odd);
         }
 
-        return new OddAndScoreResponseCan($odds, $scores, $waitToContinue);
+        return new OddAndScoreResponse($odds, $scores, $waitToContinue);
     }
 
 

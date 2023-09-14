@@ -13,7 +13,7 @@ use App\Service\Sportmonks\Content\Team\Data\SpmTeamData;
  * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2023 DocCheck Community GmbH
  */
-class SeasonAndTeamsResponseCan implements ResponseCanTriggerNextMessageInterface
+class SeasonAndTeamsResponse implements ResponseCanTriggerNextMessageInterface
 {
     /**
      * @var SpmTeamData[]
@@ -56,7 +56,7 @@ class SeasonAndTeamsResponseCan implements ResponseCanTriggerNextMessageInterfac
         return $this->nextPage;
     }
 
-    public function setNextPage(?int $nextPage): SeasonAndTeamsResponseCan
+    public function setNextPage(?int $nextPage): SeasonAndTeamsResponse
     {
         $this->nextPage = $nextPage;
         return $this;

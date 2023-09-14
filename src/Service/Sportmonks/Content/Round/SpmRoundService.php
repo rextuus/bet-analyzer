@@ -46,4 +46,9 @@ class SpmRoundService
     {
         return $this->repository->findRoundWithoutStandings();
     }
+
+    public function findRoundsBySeason(?int $roundApiId): array
+    {
+        return $this->repository->findBy(['seasonApiId' => $roundApiId]);
+    }
 }

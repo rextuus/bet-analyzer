@@ -55,9 +55,10 @@ class SpmRoundRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('r');
         $qb->select('r');
-        $qb->leftJoin(SpmStanding::class, 's', 'WITH', 's.roundApiId = r.id');
+        $qb->leftJoin(SpmStanding::class, 's', 'WITH', 's.roundApiId = r.apiId');
         $qb->where('s.id IS NULL');
-        $qb->andWhere('r.id = 44');
+//        $qb->andWhere('r.id = 316');
+        $qb->setMaxResults(1);
         return $qb->getQuery()->getResult();
     }
 }

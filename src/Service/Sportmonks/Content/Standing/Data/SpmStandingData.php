@@ -130,10 +130,10 @@ class SpmStandingData
         $this->setLeagueApiId($response['league_id']);
         $this->setSeasonApiId($response['season_id']);
         $this->setStageApiId($response['stage_id']);
-        $this->setRoundApiId($response['round_id']);
+        $this->setRoundApiId($response['round_id'] ?: 0);
         $this->setPosition($response['position']);
         $this->setPoints($response['points']);
-        $this->setResult($response['result']);
+        $this->setResult($response['result'] ?: '');
 
         return $this;
     }

@@ -2,7 +2,10 @@
 
 namespace App\Service\Sportmonks\Content\Season;
 
+use App\Entity\SpmLeague;
+use App\Entity\SpmRound;
 use App\Entity\SpmSeason;
+use App\Entity\SpmStanding;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -50,4 +53,29 @@ class SpmSeasonRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function getSeasonFixtureAmountBasedOnStanding()
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s as season, count(st) as teams');
+        $qb->leftJoin(SpmStanding::class, 'st', 'WITH', 'st.seasonApiId = s.apiId');
+//        $qb->innerJoin(SpmRound::class, 'r', 'WITH', 'st.roundApiId = r.apiId');
+//        $qb->innerJoin(SpmLeague::class, 'l', 'WITH', 'l.apiId = r.leagueApiId');
+//        $qb->where($qb->expr()->eq('r.name', ':round'));
+//        $qb->setParameter('round', '1');
+        $qb->groupBy('s');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findRoundWithoutStandings()
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s');
+        $qb->leftJoin(SpmStanding::class, 'st', 'WITH', 'st.seasonApiId = s.apiId');
+        $qb->where('st.id IS NULL');
+        $qb->andWhere('s.standingsAvailable = true');
+//        $qb->andWhere('r.id = 316');
+        $qb->setMaxResults(1);
+        return $qb->getQuery()->getResult();
+    }
 }

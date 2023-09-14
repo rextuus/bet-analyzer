@@ -37,4 +37,14 @@ class SpmSeasonService
     {
         return $this->repository->findBy($conditions);
     }
+
+    public function getSeasonFixtureAmountBasedOnStanding()
+    {
+        return $this->repository->getSeasonFixtureAmountBasedOnStanding();
+    }
+
+    public function findSeasonsWithoutStanding()
+    {
+        return $this->repository->findRoundWithoutStandings();
+    }
 }

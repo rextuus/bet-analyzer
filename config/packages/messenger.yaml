@@ -20,6 +20,7 @@ framework:
             Symfony\Component\Notifier\Message\ChatMessage: async
             Symfony\Component\Notifier\Message\SmsMessage: async
             App\Service\Sportmonks\Api\Event\ApiCallMessage: async
+            App\Service\Sportmonks\Content\Season\Event\CalculateFixtureAmountForSeasonMessage: async
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async

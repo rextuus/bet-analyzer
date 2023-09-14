@@ -44,6 +44,9 @@ class SpmSeason
     #[ORM\Column]
     private ?int $expectedFixtures = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $standingsAvailable = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +168,18 @@ class SpmSeason
     public function setExpectedFixtures(int $expectedFixtures): static
     {
         $this->expectedFixtures = $expectedFixtures;
+
+        return $this;
+    }
+
+    public function isStandingsAvailable(): ?bool
+    {
+        return $this->standingsAvailable;
+    }
+
+    public function setStandingsAvailable(bool $standingsAvailable): static
+    {
+        $this->standingsAvailable = $standingsAvailable;
 
         return $this;
     }

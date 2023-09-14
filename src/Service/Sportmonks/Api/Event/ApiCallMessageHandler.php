@@ -21,9 +21,9 @@ class ApiCallMessageHandler
     {
         match($message->getApiRoute()){
             ApiRoute::ROUND => $this->callRoundApi($message->getMessageParameter()),
-            ApiRoute::ODD => $this->callOddApi($message->getApiId()),
+            ApiRoute::ODD => $this->callOddApi($message->getMessageParameter()),
             ApiRoute::SEASON => $this->callSeasonApi($message->getMessageParameter()),
-            ApiRoute::STANDING => $this->callStandingApi($message->getApiId())
+            ApiRoute::STANDING => $this->callStandingApi($message->getMessageParameter())
         };
     }
 

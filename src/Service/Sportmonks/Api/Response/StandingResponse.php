@@ -12,7 +12,7 @@ use App\Service\Sportmonks\Content\Standing\Data\SpmStandingData;
  * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2023 DocCheck Community GmbH
  */
-class StandingResponseCan implements ResponseCanTriggerNextMessageInterface
+class StandingResponse implements ResponseCanTriggerNextMessageInterface
 {
     /**
      * @var SpmStandingData[]
@@ -34,7 +34,7 @@ class StandingResponseCan implements ResponseCanTriggerNextMessageInterface
         return $this->standings;
     }
 
-    public function setStandings(array $standings): StandingResponseCan
+    public function setStandings(array $standings): StandingResponse
     {
         $this->standings = $standings;
         return $this;
@@ -45,7 +45,7 @@ class StandingResponseCan implements ResponseCanTriggerNextMessageInterface
         return $this->waitToContinue;
     }
 
-    public function setWaitToContinue(?int $waitToContinue): StandingResponseCan
+    public function setWaitToContinue(?int $waitToContinue): StandingResponse
     {
         $this->waitToContinue = $waitToContinue;
         return $this;
@@ -56,7 +56,7 @@ class StandingResponseCan implements ResponseCanTriggerNextMessageInterface
         return $this->nextRoundApiId;
     }
 
-    public function setNextRoundApiId(?int $nextRoundApiId): StandingResponseCan
+    public function setNextRoundApiId(?int $nextRoundApiId): StandingResponse
     {
         $this->nextRoundApiId = $nextRoundApiId;
         return $this;

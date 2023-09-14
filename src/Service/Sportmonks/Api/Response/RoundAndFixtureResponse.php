@@ -13,7 +13,7 @@ use App\Service\Sportmonks\Content\Round\Data\SpmRoundData;
  * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2023 DocCheck Community GmbH
  */
-class RoundAndFixtureResponseCan implements ResponseCanTriggerNextMessageInterface
+class RoundAndFixtureResponse implements ResponseCanTriggerNextMessageInterface
 {
     /**
      * @var SpmRoundData[]
@@ -56,7 +56,7 @@ class RoundAndFixtureResponseCan implements ResponseCanTriggerNextMessageInterfa
         return $this->nextPage;
     }
 
-    public function setNextPage(?int $nextPage): RoundAndFixtureResponseCan
+    public function setNextPage(?int $nextPage): RoundAndFixtureResponse
     {
         $this->nextPage = $nextPage;
         return $this;

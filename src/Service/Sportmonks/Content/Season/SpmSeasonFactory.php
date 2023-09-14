@@ -31,6 +31,7 @@ class SpmSeasonFactory
         $spmSeason->setFixtureDecorated($data->getFixtureDecorated());
         $spmSeason->setOddDecorated($data->getOddDecorated());
         $spmSeason->setExpectedFixtures($data->getExpectedFixtures());
+        $spmSeason->setStandingsAvailable($data->isStandingsAvailable());
 
         return $spmSeason;
     }

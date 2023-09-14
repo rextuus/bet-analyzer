@@ -4,41 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Command/LeagueCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/SeasonsCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/StandingsCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SpmSeason.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SpmStanding.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SpmTeam.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/SeasonAndTeamsResponseCan.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/StandingResponseCan.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/ResponseCanTriggerNextMessageInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/Data/SpmSeasonData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Standing/Data/SpmStandingData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Standing/SpmStandingFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Standing/SpmStandingRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Standing/SpmStandingService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Team/Data/SpmTeamData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Team/SpmTeamFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Team/SpmTeamRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Team/SpmTeamService.php" afterDir="false" />
+    <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="Added mechanic to handle undefeatable fixtures">
+      <change afterPath="$PROJECT_DIR$/src/Command/SeasonsFixtureExpectationCommand.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/RoundCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/RoundCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiCallMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiCallMessage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/SpmSeason.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SpmSeason.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiCallMessageHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiCallMessageHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiRoute.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiRoute.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/OddAndScoreResponse.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/OddAndScoreResponseCan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/RoundAndFixtureResponse.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/RoundAndFixtureResponseCan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/OddAndScoreResponseCan.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/OddAndScoreResponse.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/RoundAndFixtureResponseCan.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/RoundAndFixtureResponse.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/SeasonAndTeamsResponseCan.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/SeasonAndTeamsResponse.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/StandingResponseCan.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Response/StandingResponse.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkApiGateway.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkApiGateway.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/SpmRoundRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/SpmRoundRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/SpmRoundService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/SpmRoundService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/Data/SpmSeasonData.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/Data/SpmSeasonData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Standing/Data/SpmStandingData.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Standing/Data/SpmStandingData.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +232,9 @@
       <workItem from="1694453195883" duration="5218000" />
       <workItem from="1694524706336" duration="18912000" />
       <workItem from="1694589036291" duration="26000" />
-      <workItem from="1694623334284" duration="4340000" />
+      <workItem from="1694623334284" duration="17600000" />
+      <workItem from="1694675719273" duration="11000" />
+      <workItem from="1694683046275" duration="13888000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -305,7 +292,42 @@
       <option name="project" value="LOCAL" />
       <updated>1694625424742</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added new entities for standing, teams and seasons">
+      <created>1694629325505</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1694629325505</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added mechanic to handle undefeatable fixtures">
+      <created>1694706963393</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1694706963393</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added mechanic to handle undefeatable fixtures">
+      <created>1694711959621</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1694711959621</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added mapping">
+      <created>1694712288855</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1694712288855</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added mechanic to handle undefeatable fixtures">
+      <created>1694712559375</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1694712559375</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -318,6 +340,9 @@
     <MESSAGE value="Added option to run specific fixture odd decoration" />
     <MESSAGE value="use bigInt for oddApiId" />
     <MESSAGE value="Allow null name for odds" />
-    <option name="LAST_COMMIT_MESSAGE" value="Allow null name for odds" />
+    <MESSAGE value="Added new entities for standing, teams and seasons" />
+    <MESSAGE value="Added mapping" />
+    <MESSAGE value="Added mechanic to handle undefeatable fixtures" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added mechanic to handle undefeatable fixtures" />
   </component>
 </project>
