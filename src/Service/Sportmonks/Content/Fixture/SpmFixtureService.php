@@ -38,4 +38,9 @@ class SpmFixtureService
     {
         return $this->repository->findBy($conditions);
     }
+
+    public function findNextUndecoratedFixture()
+    {
+        return $this->repository->findNextUndecoratedFixture();
+    }
 }

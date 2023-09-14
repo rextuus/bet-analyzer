@@ -2,6 +2,7 @@
 
 namespace App\Service\Sportmonks\Content\Fixture;
 
+use App\Entity\InvalidFixture;
 use App\Entity\SpmFixture;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -50,4 +51,15 @@ class SpmFixtureRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findNextUndecoratedFixture()
+    {
+        $qb = $this->createQueryBuilder('f');
+        $qb->select('f');
+        $qb->leftJoin(InvalidFixture::class, 'i', 'WITH', 'i.fixtureApiId = f.apiId');
+        $qb->where('i.id IS NULL');
+        $qb->andWhere('f.oddDecorated = :oddDecorated')
+        ->setParameter('oddDecorated', false);
+
+        return $qb->getQuery()->getResult();
+    }
 }
