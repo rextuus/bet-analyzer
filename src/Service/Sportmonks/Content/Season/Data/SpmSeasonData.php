@@ -23,7 +23,6 @@ class SpmSeasonData
     private int $fixtureDecorated;
     private int $oddDecorated;
     private int $expectedFixtures;
-    private bool $standingsAvailable;
 
     public function getApiId(): int
     {
@@ -135,17 +134,6 @@ class SpmSeasonData
         return $this;
     }
 
-    public function isStandingsAvailable(): bool
-    {
-        return $this->standingsAvailable;
-    }
-
-    public function setStandingsAvailable(bool $standingsAvailable): SpmSeasonData
-    {
-        $this->standingsAvailable = $standingsAvailable;
-        return $this;
-    }
-
     public function initFromApiResponse(array $response): SpmSeasonData
     {
         $needed = ['id', 'league_id', 'name', 'finished', 'is_current', 'starting_at', 'ending_at'];
@@ -171,7 +159,6 @@ class SpmSeasonData
         $this->setFixtureDecorated(0);
         $this->setOddDecorated(0);
         $this->setExpectedFixtures(0);
-        $this->setStandingsAvailable(true);
 
         return $this;
     }
@@ -197,7 +184,6 @@ class SpmSeasonData
         $this->setFixtureDecorated($season->getFixtureDecorated());
         $this->setOddDecorated($season->getOddDecorated());
         $this->setExpectedFixtures($season->getExpectedFixtures());
-        $this->setStandingsAvailable($season->isStandingsAvailable());
 
         return $this;
     }

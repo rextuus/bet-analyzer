@@ -121,6 +121,9 @@ class SportsmonkService
         }
     }
 
+    /**
+     * @deprecated
+     */
     public function storeStandings(int $roundId): void
     {
         $response = $this->sportsmonkApiGateway->getStandings($roundId);
@@ -132,7 +135,6 @@ class SportsmonkService
         if (count($seasons)){
             if ($seasons[0]->getApiId() === $response->getNextRoundApiId()){
                 $data = (new SpmSeasonData())->initFromEntity($seasons[0]);
-                $data->setStandingsAvailable(false);
                 $this->seasonService->update($seasons[0], $data);
 
                 $seasons = $this->seasonService->findSeasonsWithoutStanding();

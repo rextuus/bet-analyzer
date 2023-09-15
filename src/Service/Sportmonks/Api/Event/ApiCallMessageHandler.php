@@ -42,6 +42,9 @@ class ApiCallMessageHandler
         $this->sportsmonkService->storeSeasonsAndTeams($page);
     }
 
+    /**
+     * @deprecated
+     */
     private function callStandingApi(int $roundId): void
     {
         $this->sportsmonkService->storeStandings($roundId);

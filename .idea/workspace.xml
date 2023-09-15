@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/Event/CalculateFixtureAmountForSeasonMessage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/Event/CalculateFixtureAmountForSeasonMessageHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/StandingsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/StandingsCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/SpmSeason.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SpmSeason.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiCallMessageHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/Event/ApiCallMessageHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/Data/SpmSeasonData.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/Data/SpmSeasonData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonFactory.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,7 +223,7 @@
       <workItem from="1694589036291" duration="26000" />
       <workItem from="1694623334284" duration="17600000" />
       <workItem from="1694675719273" duration="11000" />
-      <workItem from="1694683046275" duration="14215000" />
+      <workItem from="1694683046275" duration="44135000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -317,7 +323,21 @@
       <option name="project" value="LOCAL" />
       <updated>1694713009355</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Messenger for fixture caculation">
+      <created>1694713321972</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1694713321972</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added SeasonStatistic">
+      <created>1694792011493</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1694792011493</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,6 +354,8 @@
     <MESSAGE value="Added mapping" />
     <MESSAGE value="Added mechanic to handle undefeatable fixtures" />
     <MESSAGE value="Message Refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Message Refactoring" />
+    <MESSAGE value="Messenger for fixture caculation" />
+    <MESSAGE value="Added SeasonStatistic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added SeasonStatistic" />
   </component>
 </project>

@@ -19,6 +19,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'standings:init',
     description: 'Add a short description for your command',
 )]
+/**
+ * @deprecated
+ */
 class StandingsCommand extends Command
 {
 

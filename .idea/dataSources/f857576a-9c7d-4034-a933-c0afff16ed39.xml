@@ -1426,254 +1426,251 @@
     <table id="504" parent="173" name="doctrine_migration_versions"/>
     <table id="505" parent="173" name="invalid_fixture"/>
     <table id="506" parent="173" name="messenger_messages"/>
-    <table id="507" parent="173" name="spm_fixture"/>
-    <table id="508" parent="173" name="spm_league"/>
-    <table id="509" parent="173" name="spm_odd"/>
-    <table id="510" parent="173" name="spm_round"/>
-    <table id="511" parent="173" name="spm_score"/>
-    <table id="512" parent="173" name="spm_season"/>
-    <table id="513" parent="173" name="spm_standing"/>
-    <table id="514" parent="173" name="spm_team"/>
-    <table id="515" parent="173" name="sqlite_master">
+    <table id="507" parent="173" name="season_statistic"/>
+    <table id="508" parent="173" name="spm_fixture"/>
+    <table id="509" parent="173" name="spm_league"/>
+    <table id="510" parent="173" name="spm_odd"/>
+    <table id="511" parent="173" name="spm_round"/>
+    <table id="512" parent="173" name="spm_score"/>
+    <table id="513" parent="173" name="spm_season"/>
+    <table id="514" parent="173" name="spm_standing"/>
+    <table id="515" parent="173" name="spm_team"/>
+    <table id="516" parent="173" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="516" parent="173" name="sqlite_sequence">
+    <table id="517" parent="173" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <column id="517" parent="504" name="version">
+    <column id="518" parent="504" name="version">
       <DasType>VARCHAR(191)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="518" parent="504" name="executed_at">
+    <column id="519" parent="504" name="executed_at">
       <DasType>DATETIME|0s</DasType>
       <DefaultExpression>NULL</DefaultExpression>
       <Position>2</Position>
     </column>
-    <column id="519" parent="504" name="execution_time">
+    <column id="520" parent="504" name="execution_time">
       <DasType>INTEGER|0s</DasType>
       <DefaultExpression>NULL</DefaultExpression>
       <Position>3</Position>
     </column>
-    <index id="520" parent="504" name="sqlite_autoindex_doctrine_migration_versions_1">
+    <index id="521" parent="504" name="sqlite_autoindex_doctrine_migration_versions_1">
       <ColNames>version</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="521" parent="504">
+    <key id="522" parent="504">
       <ColNames>version</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_doctrine_migration_versions_1</UnderlyingIndexName>
     </key>
-    <column id="522" parent="505" name="id">
+    <column id="523" parent="505" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="523" parent="505" name="fixture_api_id">
+    <column id="524" parent="505" name="fixture_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="524" parent="505" name="decoration_attempt">
+    <column id="525" parent="505" name="decoration_attempt">
       <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="525" parent="505" name="reason">
+    <column id="526" parent="505" name="reason">
       <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <key id="526" parent="505">
+    <key id="527" parent="505">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="527" parent="506" name="id">
+    <column id="528" parent="506" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="528" parent="506" name="body">
+    <column id="529" parent="506" name="body">
       <DasType>CLOB|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="529" parent="506" name="headers">
+    <column id="530" parent="506" name="headers">
       <DasType>CLOB|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="530" parent="506" name="queue_name">
+    <column id="531" parent="506" name="queue_name">
       <DasType>VARCHAR(190)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="531" parent="506" name="created_at">
+    <column id="532" parent="506" name="created_at">
       <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="532" parent="506" name="available_at">
+    <column id="533" parent="506" name="available_at">
       <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="533" parent="506" name="delivered_at">
+    <column id="534" parent="506" name="delivered_at">
       <DasType>DATETIME|0s</DasType>
       <DefaultExpression>NULL</DefaultExpression>
       <Position>7</Position>
     </column>
-    <index id="534" parent="506" name="IDX_75EA56E0FB7336F0">
+    <index id="535" parent="506" name="IDX_75EA56E0FB7336F0">
       <ColNames>queue_name</ColNames>
     </index>
-    <index id="535" parent="506" name="IDX_75EA56E0E3BD61CE">
+    <index id="536" parent="506" name="IDX_75EA56E0E3BD61CE">
       <ColNames>available_at</ColNames>
     </index>
-    <index id="536" parent="506" name="IDX_75EA56E016BA31DB">
+    <index id="537" parent="506" name="IDX_75EA56E016BA31DB">
       <ColNames>delivered_at</ColNames>
     </index>
-    <key id="537" parent="506">
+    <key id="538" parent="506">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="538" parent="507" name="id">
+    <column id="539" parent="507" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="539" parent="507" name="api_id">
+    <column id="540" parent="507" name="season_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="540" parent="507" name="league_api_id">
-      <DasType>INTEGER|0s</DasType>
+    <column id="541" parent="507" name="league">
+      <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="541" parent="507" name="season_api_id">
-      <DasType>INTEGER|0s</DasType>
+    <column id="542" parent="507" name="year">
+      <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="542" parent="507" name="round_api_id">
+    <column id="543" parent="507" name="match_days">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="543" parent="507" name="starting_at">
+    <column id="544" parent="507" name="teams">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="545" parent="507" name="decorated_fixtures">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <column id="546" parent="507" name="invalid_round">
+      <DasType>VARCHAR(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+    </column>
+    <key id="547" parent="507">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="548" parent="508" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="549" parent="508" name="api_id">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="550" parent="508" name="league_api_id">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="551" parent="508" name="season_api_id">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="552" parent="508" name="round_api_id">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="553" parent="508" name="starting_at">
       <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="544" parent="507" name="starting_at_timestamp">
+    <column id="554" parent="508" name="starting_at_timestamp">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="545" parent="507" name="result_info">
+    <column id="555" parent="508" name="result_info">
       <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="546" parent="507" name="odd_decorated">
+    <column id="556" parent="508" name="odd_decorated">
       <DasType>BOOLEAN|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
-    <column id="547" parent="507" name="score_decorated">
+    <column id="557" parent="508" name="score_decorated">
       <DasType>BOOLEAN|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
-    <index id="548" parent="507" name="UNIQ_43AD188F54963938">
+    <index id="558" parent="508" name="UNIQ_43AD188F54963938">
       <ColNames>api_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="549" parent="507">
+    <key id="559" parent="508">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="550" parent="508" name="id">
+    <column id="560" parent="509" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="551" parent="508" name="country">
+    <column id="561" parent="509" name="country">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="552" parent="508" name="short">
+    <column id="562" parent="509" name="short">
       <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
-    </column>
-    <column id="553" parent="508" name="name">
-      <DasType>VARCHAR(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="554" parent="508" name="api_id">
-      <DasType>INTEGER|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <index id="555" parent="508" name="UNIQ_1F52DBB754963938">
-      <ColNames>api_id</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="556" parent="508">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="557" parent="509" name="id">
-      <AutoIncrement>1</AutoIncrement>
-      <DasType>INTEGER|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="558" parent="509" name="api_id">
-      <DasType>BIGINT|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="559" parent="509" name="fixture_api_id">
-      <DasType>INTEGER|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="560" parent="509" name="bookmaker_api_id">
-      <DasType>INTEGER|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="561" parent="509" name="value">
-      <DasType>DOUBLE PRECISION|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <column id="562" parent="509" name="market_description">
-      <DasType>VARCHAR(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
     </column>
     <column id="563" parent="509" name="name">
       <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
-      <Position>7</Position>
+      <Position>4</Position>
     </column>
-    <column id="564" parent="509" name="label">
-      <DasType>VARCHAR(255)|0s</DasType>
+    <column id="564" parent="509" name="api_id">
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
-      <Position>8</Position>
+      <Position>5</Position>
     </column>
-    <index id="565" parent="509" name="UNIQ_B1C733FE54963938">
+    <index id="565" parent="509" name="UNIQ_1F52DBB754963938">
       <ColNames>api_id</ColNames>
       <Unique>1</Unique>
     </index>
@@ -1687,289 +1684,338 @@
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="568" parent="510" name="league_api_id">
-      <DasType>INTEGER|0s</DasType>
+    <column id="568" parent="510" name="api_id">
+      <DasType>BIGINT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="569" parent="510" name="season_api_id">
+    <column id="569" parent="510" name="fixture_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="570" parent="510" name="api_id">
+    <column id="570" parent="510" name="bookmaker_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="571" parent="510" name="name">
-      <DasType>VARCHAR(255)|0s</DasType>
+    <column id="571" parent="510" name="value">
+      <DasType>DOUBLE PRECISION|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="572" parent="510" name="starting_at">
-      <DasType>DATETIME|0s</DasType>
+    <column id="572" parent="510" name="market_description">
+      <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="573" parent="510" name="ending_at">
-      <DasType>DATETIME|0s</DasType>
+    <column id="573" parent="510" name="name">
+      <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="574" parent="510" name="fixtures_complete">
-      <DasType>BOOLEAN|0s</DasType>
+    <column id="574" parent="510" name="label">
+      <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="575" parent="510" name="odds_complete">
-      <DasType>BOOLEAN|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>9</Position>
-    </column>
-    <index id="576" parent="510" name="UNIQ_9702F00054963938">
+    <index id="575" parent="510" name="UNIQ_B1C733FE54963938">
       <ColNames>api_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="577" parent="510">
+    <key id="576" parent="510">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="578" parent="511" name="id">
+    <column id="577" parent="511" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="579" parent="511" name="api_id">
+    <column id="578" parent="511" name="league_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="580" parent="511" name="fixture_api_id">
+    <column id="579" parent="511" name="season_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="581" parent="511" name="description">
-      <DasType>VARCHAR(255)|0s</DasType>
+    <column id="580" parent="511" name="api_id">
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="582" parent="511" name="goals">
-      <DasType>INTEGER|0s</DasType>
+    <column id="581" parent="511" name="name">
+      <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="583" parent="511" name="participant_api_id">
-      <DasType>INTEGER|0s</DasType>
+    <column id="582" parent="511" name="starting_at">
+      <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="584" parent="511" name="participant">
-      <DasType>VARCHAR(255)|0s</DasType>
+    <column id="583" parent="511" name="ending_at">
+      <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="585" parent="511" name="UNIQ_60752D6554963938">
+    <column id="584" parent="511" name="fixtures_complete">
+      <DasType>BOOLEAN|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+    </column>
+    <column id="585" parent="511" name="odds_complete">
+      <DasType>BOOLEAN|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+    </column>
+    <index id="586" parent="511" name="UNIQ_9702F00054963938">
       <ColNames>api_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="586" parent="511">
+    <key id="587" parent="511">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="587" parent="512" name="id">
+    <column id="588" parent="512" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="588" parent="512" name="api_id">
+    <column id="589" parent="512" name="api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="589" parent="512" name="league_api_id">
+    <column id="590" parent="512" name="fixture_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="590" parent="512" name="name">
+    <column id="591" parent="512" name="description">
       <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="591" parent="512" name="finished">
+    <column id="592" parent="512" name="goals">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="593" parent="512" name="participant_api_id">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="594" parent="512" name="participant">
+      <DasType>VARCHAR(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <index id="595" parent="512" name="UNIQ_60752D6554963938">
+      <ColNames>api_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="596" parent="512">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="597" parent="513" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="598" parent="513" name="api_id">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="599" parent="513" name="league_api_id">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="600" parent="513" name="name">
+      <DasType>VARCHAR(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="601" parent="513" name="finished">
       <DasType>BOOLEAN|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="592" parent="512" name="is_current">
+    <column id="602" parent="513" name="is_current">
       <DasType>BOOLEAN|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="593" parent="512" name="starting_at">
+    <column id="603" parent="513" name="starting_at">
       <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="594" parent="512" name="ending_at">
+    <column id="604" parent="513" name="ending_at">
       <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="595" parent="512" name="fixture_decorated">
+    <column id="605" parent="513" name="fixture_decorated">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
-    <column id="596" parent="512" name="odd_decorated">
+    <column id="606" parent="513" name="odd_decorated">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
-    <column id="597" parent="512" name="expected_fixtures">
+    <column id="607" parent="513" name="expected_fixtures">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>11</Position>
     </column>
-    <column id="598" parent="512" name="standings_available">
+    <column id="608" parent="513" name="standings_available">
       <DasType>BOOLEAN|0s</DasType>
       <DefaultExpression>NULL</DefaultExpression>
       <Position>12</Position>
     </column>
-    <index id="599" parent="512" name="UNIQ_D102430654963938">
+    <index id="609" parent="513" name="UNIQ_D102430654963938">
       <ColNames>api_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="600" parent="512">
+    <key id="610" parent="513">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="601" parent="513" name="id">
+    <column id="611" parent="514" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="602" parent="513" name="api_id">
+    <column id="612" parent="514" name="api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="603" parent="513" name="participant_api_id">
+    <column id="613" parent="514" name="participant_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="604" parent="513" name="league_api_id">
+    <column id="614" parent="514" name="league_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="605" parent="513" name="season_api_id">
+    <column id="615" parent="514" name="season_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="606" parent="513" name="round_api_id">
+    <column id="616" parent="514" name="round_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="607" parent="513" name="position">
+    <column id="617" parent="514" name="position">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="608" parent="513" name="points">
+    <column id="618" parent="514" name="points">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="609" parent="513" name="stage_api_id">
+    <column id="619" parent="514" name="stage_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
-    <column id="610" parent="513" name="result">
+    <column id="620" parent="514" name="result">
       <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
-    <index id="611" parent="513" name="UNIQ_5B69934E54963938">
+    <index id="621" parent="514" name="UNIQ_5B69934E54963938">
       <ColNames>api_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="612" parent="513">
+    <key id="622" parent="514">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="613" parent="514" name="id">
+    <column id="623" parent="515" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="614" parent="514" name="api_id">
+    <column id="624" parent="515" name="api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="615" parent="514" name="country_api_id">
+    <column id="625" parent="515" name="country_api_id">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="616" parent="514" name="name">
+    <column id="626" parent="515" name="name">
       <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="617" parent="514" name="short_code">
+    <column id="627" parent="515" name="short_code">
       <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="618" parent="514" name="img_path">
+    <column id="628" parent="515" name="img_path">
       <DasType>VARCHAR(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <index id="619" parent="514" name="UNIQ_4018A4AC54963938">
+    <index id="629" parent="515" name="UNIQ_4018A4AC54963938">
       <ColNames>api_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="620" parent="514">
+    <key id="630" parent="515">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="621" parent="515" name="type">
+    <column id="631" parent="516" name="type">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="622" parent="515" name="name">
+    <column id="632" parent="516" name="name">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="623" parent="515" name="tbl_name">
+    <column id="633" parent="516" name="tbl_name">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="624" parent="515" name="rootpage">
+    <column id="634" parent="516" name="rootpage">
       <DasType>INT|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="625" parent="515" name="sql">
+    <column id="635" parent="516" name="sql">
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="626" parent="516" name="name">
+    <column id="636" parent="517" name="name">
       <Position>1</Position>
     </column>
-    <column id="627" parent="516" name="seq">
+    <column id="637" parent="517" name="seq">
       <Position>2</Position>
     </column>
   </database-model>
