@@ -229,6 +229,25 @@ class SportsmonkApiGateway
         return new OddAndScoreResponse($odds, $scores, $waitToContinue);
     }
 
+    public function getStageBySeason(int $seasonApiId): array
+    {
+        $client = $this->clientFactory->createClient([], self::BASE_URI);
+
+        $options = [
+            'query' => ['api_token' => self::API_KEY]
+        ];
+
+        try {
+            $response = $client->request('GET', 'stages/seasons/'.$seasonApiId, $options);
+        } catch (GuzzleException $e) {
+            dump($e);
+            return [];
+        }
+
+        $response = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+
+        return $response['data'][0];
+    }
 
 
         /////////////////////////////////////////////

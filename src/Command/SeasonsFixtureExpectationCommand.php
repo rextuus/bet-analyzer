@@ -38,19 +38,27 @@ class SeasonsFixtureExpectationCommand extends Command
 
     protected function configure(): void
     {
+        $this->addOption('local', 'l', InputOption::VALUE_NONE, 'Dev mode');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        dd($this->fixtureService->findNextUndecoratedFixture());
-
         $seasons = $this->seasonService->findBy([]);
 
-        $this->sportsmonkService->calculateExpectedFixtureAmountForSeason($seasons[50]);
-//        foreach ($seasons as $season){
-//            $message = new CalculateFixtureAmountForSeasonMessage($season);
-//            $this->bus->dispatch($message);
-//        }
+        if ($input->getOption('local')){
+            $i = 0;
+            while ($i <= count($seasons) -1){
+                $this->sportsmonkService->calculateExpectedFixtureAmountForSeason($seasons[$i]);
+                $i++;
+            }
+            return Command::SUCCESS;
+        }
+
+
+        foreach ($seasons as $season){
+            $message = new CalculateFixtureAmountForSeasonMessage($season);
+            $this->bus->dispatch($message);
+        }
 
         return Command::SUCCESS;
     }
