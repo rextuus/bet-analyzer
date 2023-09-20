@@ -44,6 +44,9 @@ class SpmSeason
     #[ORM\Column]
     private ?int $expectedFixtures = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $displayName = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +168,18 @@ class SpmSeason
     public function setExpectedFixtures(int $expectedFixtures): static
     {
         $this->expectedFixtures = $expectedFixtures;
+
+        return $this;
+    }
+
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
+    }
+
+    public function setDisplayName(string $displayName): static
+    {
+        $this->displayName = $displayName;
 
         return $this;
     }

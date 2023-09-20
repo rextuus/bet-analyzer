@@ -8,6 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: SpmScoreRepository::class)]
 class SpmScore
 {
+    public const FIRST_HALF = '1ST_HALF';
+    public const SECOND_HALF = '2ND_HALF';
+    public const PARTICIPANT_HOME = 'home';
+    public const PARTICIPANT_AWAY = 'away';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

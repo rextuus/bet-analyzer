@@ -6,6 +6,7 @@ namespace App\Service\Sportmonks\Content\Fixture;
 
 use App\Entity\SeasonStatistic;
 use App\Entity\SpmFixture;
+use App\Entity\SpmSeason;
 use App\Service\Sportmonks\Content\Fixture\Data\SpmFixtureData;
 
 /**
@@ -40,6 +41,11 @@ class SpmFixtureService
         return $this->repository->findBy($conditions);
     }
 
+    public function findById(int $apiId): ?SpmFixture
+    {
+        return $this->repository->findOneBy(['apiId' => $apiId]);
+    }
+
     public function findNextUndecoratedFixture()
     {
         return $this->repository->findNextUndecoratedFixture();
@@ -48,5 +54,10 @@ class SpmFixtureService
     public function getFixtureWithOddDecorationBySeason(SeasonStatistic $seasonStatistic): int
     {
         return $this->repository->getFixtureWithOddDecorationBySeason($seasonStatistic);
+    }
+
+    public function findFixturesAndOddsBySeason(SpmSeason $season)
+    {
+        return $this->repository->findFixturesAndOddsBySeason($season);
     }
 }

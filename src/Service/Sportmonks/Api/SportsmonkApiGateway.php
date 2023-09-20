@@ -192,7 +192,7 @@ class SportsmonkApiGateway
         //https://api.sportmonks.com/v3/football/rounds?api_token={{api_token}}&include=fixtures;
         $client = $this->clientFactory->createClient([], self::BASE_URI);
 
-        $queryParams = ['api_token' => self::API_KEY, 'include' => 'scores;odds'];
+        $queryParams = ['api_token' => self::API_KEY, 'include' => 'scores;oddIds'];
 
         $options = [
             'query' => $queryParams
@@ -213,7 +213,7 @@ class SportsmonkApiGateway
             $waitToContinue = $limits['resets_in_seconds'];
         }
 
-        $oddData = $response['data']['odds'];
+        $oddData = $response['data']['oddIds'];
         $scoreData = $response['data']['scores'];
 
         $scores = [];
@@ -380,7 +380,7 @@ class SportsmonkApiGateway
         ];
 
         try {
-            $response = $client->request('GET', 'odds/fixture/'.$fixtureId, $options);
+            $response = $client->request('GET', 'oddIds/fixture/'.$fixtureId, $options);
         } catch (GuzzleException) {
             return [];
         }
@@ -388,7 +388,7 @@ class SportsmonkApiGateway
         $response = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
         if (array_key_exists('error', $response)){
             if ($response['error']['code'] == 429){
-                $this->logger->info("Limit reached for odds route");
+                $this->logger->info("Limit reached for oddIds route");
                 dd("Limit reached");
             }
         }
@@ -404,7 +404,7 @@ class SportsmonkApiGateway
         $client = $this->clientFactory->createClient([], self::BASE_URI);
 
         $options = [
-            'query' => ['api_token' => self::API_KEY, 'include' => 'scores;odds']
+            'query' => ['api_token' => self::API_KEY, 'include' => 'scores;oddIds']
         ];
 
         try {
@@ -417,7 +417,7 @@ class SportsmonkApiGateway
         $response = json_decode($response->getBody(), true);
         if (array_key_exists('error', $response)){
             if ($response['error']['code'] == 429){
-                $this->logger->info("Limit reached for odds route");
+                $this->logger->info("Limit reached for oddIds route");
                 dd("Limit reached");
             }
         }
@@ -443,7 +443,7 @@ class SportsmonkApiGateway
                 $oddResponse->setProvider($betVariant['name']);
                 $oddResponse->setFixtureApiId($fixtureId);
                 if ($betVariant['name'] === '3Way Result') {
-                    $odds = $bookmaker['odds']['data'];
+                    $odds = $bookmaker['oddIds']['data'];
                     foreach ($odds as $odd) {
                         try {
                             $odd['value'] = str_replace(',', '', $odd['value']);
@@ -466,7 +466,7 @@ class SportsmonkApiGateway
 
                 }
                 if ($betVariant['name'] === 'Double Chance') {
-                    $odds = $bookmaker['odds']['data'];
+                    $odds = $bookmaker['oddIds']['data'];
                     foreach ($odds as $odd) {
                         try {
                             $odd['value'] = str_replace(',', '', $odd['value']);
@@ -547,7 +547,7 @@ class SportsmonkApiGateway
     // TODO
     // 1.get rounds ?
     // 2.get fixtures for rounds </
-    // 3.get odds for fixtures </
+    // 3.get oddIds for fixtures </
     // 4.get standings
     // 5.calculate seedings
     // search league by name

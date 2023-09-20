@@ -80,4 +80,18 @@ class SpmFixtureRepository extends ServiceEntityRepository
         }
         return 0;
     }
+
+    public function findFixturesAndOddsBySeason(SpmSeason $season)
+    {
+        $qb = $this->createQueryBuilder('f');
+        $qb->select('f, o');
+//        $qb->innerJoin(SpmSeason::class, 's', 'WITH', 'f.seasonApiId = s.apiId');
+        $qb->innerJoin(SpmOdd::class, 'o', 'WITH', 'o.fixtureApiId = f.apiId');
+        $qb->where('f.seasonApiId = :seasonId')
+            ->setParameter('seasonId', $season->getApiId());
+        $qb->groupBy('f');
+
+        $result = $qb->getQuery()->getResult();
+        return $result;
+    }
 }

@@ -39,6 +39,11 @@ class SpmRoundService
         return $this->repository->findBy($conditions);
     }
 
+    public function findById(int $apiId): ?SpmRound
+    {
+        return $this->repository->findOneBy(['apiId' => $apiId]);
+    }
+
     /**
      * @return SpmRound[]
      */

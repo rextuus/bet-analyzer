@@ -38,4 +38,9 @@ class SpmLeagueService
     {
         return $this->repository->findBy($conditions);
     }
+
+    public function findById(int $apiId): ?SpmLeague
+    {
+        return $this->repository->findOneBy(['apiId' => $apiId]);
+    }
 }

@@ -21,6 +21,8 @@ framework:
             Symfony\Component\Notifier\Message\SmsMessage: async
             App\Service\Sportmonks\Api\Event\ApiCallMessage: async
             App\Service\Sportmonks\Content\Season\Event\CalculateFixtureAmountForSeasonMessage: async
+            App\Service\Evaluation\Message\PlaceBetMessage: async
+            App\Service\Evaluation\Message\InitBetRowMessage: async
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async

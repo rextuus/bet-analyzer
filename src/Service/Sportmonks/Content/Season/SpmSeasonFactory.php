@@ -31,6 +31,7 @@ class SpmSeasonFactory
         $spmSeason->setFixtureDecorated($data->getFixtureDecorated());
         $spmSeason->setOddDecorated($data->getOddDecorated());
         $spmSeason->setExpectedFixtures($data->getExpectedFixtures());
+        $spmSeason->setDisplayName($data->getDisplayName());
 
         return $spmSeason;
     }

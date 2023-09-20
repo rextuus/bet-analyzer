@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Odd;
 
+use App\Entity\BetRowOddFilter;
+use App\Entity\SpmFixture;
 use App\Entity\SpmOdd;
+use App\Service\Sportmonks\Content\Odd\Data\OddFilter;
+use App\Service\Sportmonks\Content\Odd\Data\OddSearchFilter;
 use App\Service\Sportmonks\Content\Odd\Data\SpmOddData;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,5 +61,10 @@ class SpmOddService
         $this->entityManager->flush();
 
         return $stored;
+    }
+
+    public function findByFixtureAndVariant(SpmFixture $fixture, BetRowOddFilter $filter): array
+    {
+        return $this->repository->findByFixtureAndVariant($fixture, $filter);
     }
 }

@@ -2,7 +2,11 @@
 
 namespace App\Service\Sportmonks\Content\Odd;
 
+use App\Entity\BetRowOddFilter;
+use App\Entity\SpmFixture;
 use App\Entity\SpmOdd;
+use App\Service\Sportmonks\Content\Odd\Data\OddFilter;
+use App\Service\Sportmonks\Content\Odd\Data\OddSearchFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -53,4 +57,21 @@ class SpmOddRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findByFixtureAndVariant(SpmFixture $fixture, BetRowOddFilter $filter): array
+    {
+        $qb =  $this->createQueryBuilder('o');
+        $qb->select('o');
+        $qb->where('o.fixtureApiId = :fixture')
+            ->setParameter('fixture', $fixture->getApiId());
+        $qb->andWhere($qb->expr()->in('o.marketDescription', ':variants'))
+            ->setParameter('variants', $filter->getOddVariant()->value);
+        $qb->andWhere($qb->expr()->in('o.name', ':names'))
+            ->setParameter('names', $filter->getBetOn()->value);
+        $qb->andWhere($qb->expr()->gte('o.value', ':min'))
+            ->setParameter('min', $filter->getMin());
+        $qb->andWhere($qb->expr()->lte('o.value', ':max'))
+            ->setParameter('max', $filter->getMax());
+
+        return $qb->getQuery()->getResult();
+    }
 }

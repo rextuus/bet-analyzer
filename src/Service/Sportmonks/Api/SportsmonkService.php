@@ -95,7 +95,7 @@ class SportsmonkService
         $data->setScoreDecorated($scoreDecorated);
         $this->fixtureService->update($fixture, $data);
 
-        // if decoration could not be done due to no odds mark the fixture as invalid
+        // if decoration could not be done due to no oddIds mark the fixture as invalid
         if (!$oddDecorated) {
             $invalidFixtureData = new InvalidFixtureData();
             $invalidFixtureData->setFixtureApiId($fixtureId);

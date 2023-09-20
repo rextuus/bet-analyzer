@@ -23,6 +23,7 @@ class SpmSeasonData
     private int $fixtureDecorated;
     private int $oddDecorated;
     private int $expectedFixtures;
+    private ?string $displayName;
 
     public function getApiId(): int
     {
@@ -134,6 +135,17 @@ class SpmSeasonData
         return $this;
     }
 
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
+    }
+
+    public function setDisplayName(?string $displayName): SpmSeasonData
+    {
+        $this->displayName = $displayName;
+        return $this;
+    }
+
     public function initFromApiResponse(array $response): SpmSeasonData
     {
         $needed = ['id', 'league_id', 'name', 'finished', 'is_current', 'starting_at', 'ending_at'];
@@ -184,6 +196,7 @@ class SpmSeasonData
         $this->setFixtureDecorated($season->getFixtureDecorated());
         $this->setOddDecorated($season->getOddDecorated());
         $this->setExpectedFixtures($season->getExpectedFixtures());
+        $this->setDisplayName($season->getDisplayName());
 
         return $this;
     }
