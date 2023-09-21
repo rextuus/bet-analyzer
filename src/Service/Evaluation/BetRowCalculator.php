@@ -272,7 +272,7 @@ class BetRowCalculator
             $placedBetData->setOdd($accumulation->{$getter}());
 
             $matchDay = -1;
-            $round = $this->spmRoundService->findById($fixture->getApiId());
+            $round = $this->spmRoundService->findById($fixture->getRoundApiId());
             if ($round) {
                 $matchDay = (int)$round->getName();
             }
