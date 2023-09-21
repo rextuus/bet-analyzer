@@ -224,7 +224,7 @@ class BetRowCalculator
         }
 
         $placedBetData->setWon($result === $filter->getBetOn());
-        $output = $placedBetData->getWager() * -1;
+        $output = 0;
         if ($placedBetData->isWon()) {
             $totalWin = $placedBetData->getWager() * $placedBetData->getOdd();
             $tax = 0.0;
