@@ -199,9 +199,9 @@ class BetRowCalculator
         bool            $includeTax = true
     ): void
     {
-        $scores = $this->scoreService->findBy(['fixtureApiId' => $fixture->getId()]);
+        $scores = $this->scoreService->findBy(['fixtureApiId' => $fixture->getApiId()]);
         if (!count($scores)) {
-            throw new NoScoresFoundForFixtureException('Fixture id: ' . $fixture->getId());
+            throw new NoScoresFoundForFixtureException('Fixture id: ' . $fixture->getApiId());
         }
 
         $home = 0;
@@ -260,7 +260,7 @@ class BetRowCalculator
             $placedBetData->setVariant($betRowVariant);
             $placedBetData->setOddApiIds($accumulation->getOddIds());
             $placedBetData->setWager($wager);
-            $placedBetData->setFixtureApiId($fixture->getId());
+            $placedBetData->setFixtureApiId($fixture->getApiId());
 
             // choose the odd
             $getter = match ($accumulationVariant) {

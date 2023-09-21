@@ -49,7 +49,7 @@ class PlaceBetCommand extends Command
 
         $fixture = null;
         if ($input->getArgument('fixtureApiId')) {
-            $fixture = $this->fixtureService->findById($input->getArgument('fixtureApiId'));
+            $fixture = $this->fixtureService->findByApiId($input->getArgument('fixtureApiId'));
         }
 
         $filter = null;

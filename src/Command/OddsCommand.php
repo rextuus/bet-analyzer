@@ -27,14 +27,14 @@ class OddsCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('fixtureId', InputArgument::OPTIONAL, 'Start page');
+        $this->addArgument('fixtureApiId', InputArgument::OPTIONAL, 'Start page');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $fixtureId = null;
-        if ($input->getArgument('fixtureId')){
-            $fixtureId = $input->getArgument('fixtureId');
+        if ($input->getArgument('fixtureApiId')){
+            $fixtureId = $input->getArgument('fixtureApiId');
         }
 
         if (!is_null($fixtureId)){

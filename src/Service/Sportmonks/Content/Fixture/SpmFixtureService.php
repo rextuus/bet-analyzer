@@ -41,7 +41,7 @@ class SpmFixtureService
         return $this->repository->findBy($conditions);
     }
 
-    public function findById(int $apiId): ?SpmFixture
+    public function findByApiId(int $apiId): ?SpmFixture
     {
         return $this->repository->findOneBy(['apiId' => $apiId]);
     }

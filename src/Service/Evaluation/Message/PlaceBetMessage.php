@@ -14,7 +14,7 @@ final class PlaceBetMessage
      */
 
      private OddAccumulationVariant $accumulationVariant;
-     private int $fixtureId;
+     private int $fixtureApiId;
      private int $betRowOddFilterId;
 
      private int $betRowId;
@@ -22,10 +22,10 @@ final class PlaceBetMessage
      private float $wager;
      private bool $includeTax;
 
-    public function __construct(OddAccumulationVariant $accumulationVariant, int $fixtureId, int $betRowOddFilterId, int $betRowId, BetRowVariant $betRowVariant, float $wager, bool $includeTax)
+    public function __construct(OddAccumulationVariant $accumulationVariant, int $fixtureApiId, int $betRowOddFilterId, int $betRowId, BetRowVariant $betRowVariant, float $wager, bool $includeTax)
     {
         $this->accumulationVariant = $accumulationVariant;
-        $this->fixtureId = $fixtureId;
+        $this->fixtureApiId = $fixtureApiId;
         $this->betRowOddFilterId = $betRowOddFilterId;
         $this->betRowId = $betRowId;
         $this->betRowVariant = $betRowVariant;
@@ -45,14 +45,14 @@ final class PlaceBetMessage
         return $this;
     }
 
-    public function getFixtureId(): int
+    public function getFixtureApiId(): int
     {
-        return $this->fixtureId;
+        return $this->fixtureApiId;
     }
 
-    public function setFixtureId(int $fixtureId): PlaceBetMessage
+    public function setFixtureApiId(int $fixtureApiId): PlaceBetMessage
     {
-        $this->fixtureId = $fixtureId;
+        $this->fixtureApiId = $fixtureApiId;
         return $this;
     }
 

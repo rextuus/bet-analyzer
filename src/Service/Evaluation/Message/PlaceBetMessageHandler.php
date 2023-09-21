@@ -22,7 +22,7 @@ class PlaceBetMessageHandler
 
     public function __invoke(PlaceBetMessage $message): void
     {
-        $fixture = $this->fixtureService->findById($message->getFixtureId());
+        $fixture = $this->fixtureService->findByApiId($message->getFixtureApiId());
         $filter = $this->filterService->findById($message->getBetRowOddFilterId());
         $betRow = $this->betRowService->findById($message->getBetRowId());
         $this->betRowCalculator->placeBet(
