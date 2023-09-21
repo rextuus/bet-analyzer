@@ -4,21 +4,17 @@ namespace App\Form;
 
 use App\Entity\SeasonStatistic;
 use App\Entity\SpmSeason;
-use App\Service\Evaluation\BetAccumulation;
 use App\Service\Evaluation\OddAccumulationVariant;
 use App\Service\Sportmonks\Content\Season\SpmSeasonRepository;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\Annotation\Route;
 
 class InitSimpleBetRowsForSeasonType extends AbstractType
 {
@@ -38,6 +34,14 @@ class InitSimpleBetRowsForSeasonType extends AbstractType
                             ;
                     },
                     'choice_label' => 'displayName',
+                    'row_attr' => ['class' => 'form-row'],
+                ]
+            )
+            ->add(
+                'initSimpleBetRowVariant',
+                EnumType::class,
+                [
+                    'class' => InitSimpleBetRowVariant::class,
                     'row_attr' => ['class' => 'form-row'],
                 ]
             )

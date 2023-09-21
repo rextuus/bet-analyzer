@@ -20,6 +20,18 @@ class InitSimpleBetRowsForSeasonData
     private float $wager;
     private bool $includeTax = true;
     private OddAccumulationVariant $oddAccumulationVariant;
+    private InitSimpleBetRowVariant $initSimpleBetRowVariant;
+
+    public function getInitSimpleBetRowVariant(): InitSimpleBetRowVariant
+    {
+        return $this->initSimpleBetRowVariant;
+    }
+
+    public function setInitSimpleBetRowVariant(InitSimpleBetRowVariant $initSimpleBetRowVariant): InitSimpleBetRowsForSeasonData
+    {
+        $this->initSimpleBetRowVariant = $initSimpleBetRowVariant;
+        return $this;
+    }
 
     public function getSeason(): SpmSeason
     {

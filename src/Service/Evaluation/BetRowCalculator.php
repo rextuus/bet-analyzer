@@ -8,6 +8,7 @@ use App\Entity\SpmFixture;
 use App\Entity\SpmOdd;
 use App\Entity\SpmScore;
 use App\Form\InitSimpleBetRowsForSeasonData;
+use App\Form\InitSimpleBetRowVariant;
 use App\Service\Evaluation\Content\BetRow\BetRowInterface;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\Data\SimpleBetRowData;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowService;
@@ -48,7 +49,11 @@ class BetRowCalculator
     public function initClassicBetRowSetForSeason(InitSimpleBetRowsForSeasonData $data): void
     {
         $betOnVariants = [BetOn::HOME, BetOn::DRAW, BetOn::AWAY];
-        $steps = $this->calculateSteps($data);
+        $steps = match ($data->getInitSimpleBetRowVariant()) {
+            InitSimpleBetRowVariant::STEP_WINDOW => $this->calculateStepsForSlideWindow($data),
+            InitSimpleBetRowVariant::DECREASING_WINDOW => $this->calculateStepsForDecreasingWindow($data),
+        };
+
         foreach ($betOnVariants as $betOnVariant){
             foreach ($steps as $step){
                 $message = new InitBetRowMessage($data, $betOnVariant, $step['from'], $step['to']);
@@ -57,13 +62,23 @@ class BetRowCalculator
         }
     }
 
-    private function calculateSteps(InitSimpleBetRowsForSeasonData $data): array
+    private function calculateStepsForSlideWindow(InitSimpleBetRowsForSeasonData $data): array
     {
         $steps = [];
         $to = $data->getMin() + $data->getSteps();
         for ($from = $data->getMin(); $from <= $data->getMax() - $data->getSteps(); $from = $from + $data->getSteps()){
             $steps[] = ['from' => $from, 'to' => $to];
             $to = $to + $data->getSteps();
+        }
+        return $steps;
+    }
+
+    private function calculateStepsForDecreasingWindow(InitSimpleBetRowsForSeasonData $data): array
+    {
+        $steps = [];
+        $to = $data->getMax();
+        for ($from = $data->getMin(); $from < $data->getMax(); $from = $from + $data->getSteps()){
+            $steps[] = ['from' => $from, 'to' => $to];
         }
         return $steps;
     }
