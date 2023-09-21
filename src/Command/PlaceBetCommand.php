@@ -15,7 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'odds:init',
+    name: 'bet:place',
     description: 'Add a short description for your command',
 )]
 class PlaceBetCommand extends Command
