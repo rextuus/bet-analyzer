@@ -5,57 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Command/SeasonsInitDescriptionCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/EvaluationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/BetRowOddFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/PlacedBet.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SimpleBetRow.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/InitSimpleBetRowsForSeasonData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/InitSimpleBetRowsForSeasonType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/BetAccumulation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/BetOn.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/BetRowCalculator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/ClassicBetRowCalculatorInitData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/BetRowInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/Data/SimpleBetRowData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRowOddFilter/BetRowOddFilterFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRowOddFilter/BetRowOddFilterRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRowOddFilter/BetRowOddFilterService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRowOddFilter/Data/BetRowOddFilterData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/PlacedBet/BetRowVariant.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/PlacedBet/Data/PlacedBetData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/PlacedBet/PlacedBetFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/PlacedBet/PlacedBetRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/PlacedBet/PlacedBetService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/InitBetRowMessage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/InitBetRowMessageHandler.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/PlaceBetMessage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/PlaceBetMessageHandler.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/NoScoresFoundForFixtureException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/OddAccumulationVariant.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/OddVariant.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/Data/OddFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/evaluation/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/TestCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/TestCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/SpmScore.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SpmScore.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/SpmSeason.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SpmSeason.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkApiGateway.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkApiGateway.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Api/SportsmonkService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/League/SpmLeagueService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/League/SpmLeagueService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/SpmRoundService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Round/SpmRoundService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/Data/SpmSeasonData.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/Data/SpmSeasonData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Season/SpmSeasonFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +219,9 @@
       <workItem from="1694683046275" duration="45543000" />
       <workItem from="1695040280320" duration="48478000" />
       <workItem from="1695195383885" duration="59000" />
-      <workItem from="1695218139644" duration="24278000" />
+      <workItem from="1695218139644" duration="28052000" />
+      <workItem from="1695280144267" duration="84000" />
+      <workItem from="1695290901968" duration="1415000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -390,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1694793110188</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added evaluation package">
+      <created>1695248885759</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1695248885759</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -410,6 +369,7 @@
     <MESSAGE value="Messenger for fixture caculation" />
     <MESSAGE value="Added SeasonStatistic" />
     <MESSAGE value="Removed unnecessary column" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed unnecessary column" />
+    <MESSAGE value="Added evaluation package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added evaluation package" />
   </component>
 </project>
