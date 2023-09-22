@@ -3,17 +3,12 @@
 namespace App\Command;
 
 use App\Form\InitSimpleBetRowsForSeasonData;
-use App\Service\Evaluation\BetOn;
 use App\Service\Evaluation\BetRowCalculator;
-use App\Service\Evaluation\ClassicBetRowCalculatorInitData;
-use App\Service\Evaluation\Content\BetRow\SimpleBetRow\Data\SimpleBetRowData;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowRepository;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowService;
 use App\Service\Evaluation\Content\BetRowOddFilter\BetRowOddFilterService;
-use App\Service\Evaluation\Content\BetRowOddFilter\Data\BetRowOddFilterData;
-use App\Service\Evaluation\Content\PlacedBet\BetRowVariant;
+use App\Service\Evaluation\Message\TriggerBetRowsForSeasonMessage;
 use App\Service\Evaluation\OddAccumulationVariant;
-use App\Service\Evaluation\OddVariant;
 use App\Service\Sportmonks\Api\SportsmonkApiGateway;
 use App\Service\Sportmonks\Api\SportsmonkService;
 use App\Service\Sportmonks\Content\League\SpmLeagueService;
@@ -57,6 +52,12 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+
+        $seasonsWithoutBetRows = $this->seasonService->findApprovedSeasonsBetRows();
+        $nextSeasonToDecorate = $seasonsWithoutBetRows[0];
+
+        $message = new TriggerBetRowsForSeasonMessage($nextSeasonToDecorate);
+        dd(count($seasonsWithoutBetRows));
 
         $season = $this->seasonService->findBy(['apiId' => 18147])[0];
 

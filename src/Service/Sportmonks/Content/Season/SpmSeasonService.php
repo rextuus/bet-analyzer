@@ -47,4 +47,12 @@ class SpmSeasonService
     {
         return $this->repository->findRoundWithoutStandings();
     }
+
+    /**
+     * @return SpmSeason[]
+     */
+    public function findApprovedSeasonsBetRows(): array
+    {
+        return $this->repository->findApprovedSeasonsBetRows();
+    }
 }

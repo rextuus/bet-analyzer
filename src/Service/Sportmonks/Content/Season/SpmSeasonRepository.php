@@ -2,6 +2,8 @@
 
 namespace App\Service\Sportmonks\Content\Season;
 
+use App\Entity\SeasonStatistic;
+use App\Entity\SimpleBetRow;
 use App\Entity\SpmLeague;
 use App\Entity\SpmRound;
 use App\Entity\SpmSeason;
@@ -76,6 +78,22 @@ class SpmSeasonRepository extends ServiceEntityRepository
         $qb->andWhere('s.standingsAvailable = true');
 //        $qb->andWhere('r.id = 316');
         $qb->setMaxResults(1);
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return SpmSeason[]
+     */
+    public function findApprovedSeasonsBetRows(): array
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s, count(br) as betRows');
+        $qb->leftJoin(SeasonStatistic::class, 'ss', 'WITH', 'ss.seasonApiId = s.apiId');
+        $qb->leftJoin(SimpleBetRow::class, 'br', 'WITH', 'br.seasonApiId = s.apiId');
+        $qb->andWhere($qb->expr()->eq('ss.manuallyConfirmed', ':confirmed'))
+            ->setParameter('confirmed', true);
+        $qb->groupBy('s');
+        $qb->having('betRows = 0');
         return $qb->getQuery()->getResult();
     }
 }

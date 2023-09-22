@@ -23,6 +23,7 @@ framework:
             App\Service\Sportmonks\Content\Season\Event\CalculateFixtureAmountForSeasonMessage: async
             App\Service\Evaluation\Message\PlaceBetMessage: async
             App\Service\Evaluation\Message\InitBetRowMessage: async
+            App\Service\Evaluation\Message\TriggerBetRowsForSeasonMessage: async
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async
