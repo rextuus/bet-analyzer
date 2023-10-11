@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Service\Sportmonks\Content\Odd\SpmOddRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SpmOddRepository::class)]

@@ -3,6 +3,7 @@
 namespace App\Service\Evaluation\Content\PlacedBet;
 
 use App\Entity\PlacedBet;
+use App\Entity\SimpleBetRow;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

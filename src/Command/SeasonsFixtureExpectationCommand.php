@@ -20,7 +20,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
-    name: 'seasons:fixture:expectation',
+    name: 'variants:fixture:expectation',
     description: 'Add a short description for your command',
 )]
 class SeasonsFixtureExpectationCommand extends Command

@@ -2,6 +2,9 @@
 
 namespace App\Command;
 
+use App\Entity\BetRowSummary;
+use App\Entity\SimpleBetRow;
+use App\Entity\SpmSeason;
 use App\Form\InitSimpleBetRowsForSeasonData;
 use App\Service\Evaluation\BetRowCalculator;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowRepository;
@@ -13,6 +16,7 @@ use App\Service\Sportmonks\Api\SportsmonkApiGateway;
 use App\Service\Sportmonks\Api\SportsmonkService;
 use App\Service\Sportmonks\Content\League\SpmLeagueService;
 use App\Service\Sportmonks\Content\Season\SpmSeasonService;
+use App\Service\Statistic\SeasonBetRowMap;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -52,6 +56,28 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+
+        $league = $this->leagueService->findById(82);
+        $rows = $this->betRowRepository->findRowsExistingInAllSeasonsOfLeagueInDeltaRange($league, 100.01, 200.0);
+
+        $map = new SeasonBetRowMap();
+        $currentKey = -1;
+        foreach ($rows as $row){
+            if ($row instanceof SpmSeason){
+                $map->addSeason($row->getApiId());
+                $currentKey = $row->getApiId();
+            }
+            if ($row instanceof BetRowSummary){
+                $map->addBetRow($currentKey, $row);
+            }
+        }
+
+        foreach (($map->getMap()[19744]) as $key => $value){
+            if (array_key_exists($key, $map->getMap()[18444])){
+                dump($key);
+            }
+        }
+        dd();
 
         $seasonsWithoutBetRows = $this->seasonService->findApprovedSeasonsBetRows();
         $nextSeasonToDecorate = $seasonsWithoutBetRows[0];

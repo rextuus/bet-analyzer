@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'seasons:init:description',
+    name: 'variants:init:description',
     description: 'Add a short description for your command',
 )]
 class SeasonsInitDescriptionCommand extends Command

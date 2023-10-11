@@ -56,6 +56,90 @@ class SimpleBetRow implements BetRowInterface
         return $this->id;
     }
 
+    public function getLeagueApiId(): ?int
+    {
+        return $this->leagueApiId;
+    }
+
+    public function setLeagueApiId(int $leagueApiId): static
+    {
+        $this->leagueApiId = $leagueApiId;
+
+        return $this;
+    }
+
+    public function getSeasonApiId(): ?int
+    {
+        return $this->seasonApiId;
+    }
+
+    public function setSeasonApiId(int $seasonApiId): static
+    {
+        $this->seasonApiId = $seasonApiId;
+
+        return $this;
+    }
+
+    public function getVariant(): ?BetRowVariant
+    {
+        return $this->variant;
+    }
+
+    public function setVariant(BetRowVariant $variant): static
+    {
+        $this->variant = $variant;
+
+        return $this;
+    }
+
+    public function getAccumulationVariant(): ?string
+    {
+        return $this->accumulationVariant;
+    }
+
+    public function setAccumulationVariant(string $accumulationVariant): static
+    {
+        $this->accumulationVariant = $accumulationVariant;
+
+        return $this;
+    }
+
+    public function isIncludeTax(): ?bool
+    {
+        return $this->includeTax;
+    }
+
+    public function setIncludeTax(bool $includeTax): static
+    {
+        $this->includeTax = $includeTax;
+
+        return $this;
+    }
+
+    public function getCashBox(): ?float
+    {
+        return $this->cashBox;
+    }
+
+    public function setCashBox(float $cashBox): static
+    {
+        $this->cashBox = $cashBox;
+
+        return $this;
+    }
+
+    public function getWager(): ?float
+    {
+        return $this->wager;
+    }
+
+    public function setWager(float $wager): static
+    {
+        $this->wager = $wager;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, PlacedBet>
      */
@@ -86,119 +170,6 @@ class SimpleBetRow implements BetRowInterface
         return $this;
     }
 
-    public function getLeagueApiId(): ?int
-    {
-        return $this->leagueApiId;
-    }
-
-    public function setLeagueApiId(int $leagueApiId): static
-    {
-        $this->leagueApiId = $leagueApiId;
-
-        return $this;
-    }
-
-    public function getSeasonApiId(): ?int
-    {
-        return $this->seasonApiId;
-    }
-
-    public function setSeasonApiId(int $seasonApiId): static
-    {
-        $this->seasonApiId = $seasonApiId;
-
-        return $this;
-    }
-
-    public function getVariant(): BetRowVariant
-    {
-        return $this->variant;
-    }
-
-    public function setVariant(BetRowVariant $variant): SimpleBetRow
-    {
-        $this->variant = $variant;
-        return $this;
-    }
-
-    public function getCashBox(): ?float
-    {
-        return $this->cashBox;
-    }
-
-    public function setCashBox(float $cashBox): static
-    {
-        $this->cashBox = $cashBox;
-
-        return $this;
-    }
-
-    public function getWager(): ?float
-    {
-        return $this->wager;
-    }
-
-    public function setWager(float $wager): static
-    {
-        $this->wager = $wager;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, BetRowOddFilter>
-     */
-    public function getBetRowOddFilters(): Collection
-    {
-        return $this->betRowOddFilters;
-    }
-
-    public function addBetRowOddFilter(BetRowOddFilter $betRowOddFilter): BetRowInterface
-    {
-        if (!$this->betRowOddFilters->contains($betRowOddFilter)) {
-            $this->betRowOddFilters->add($betRowOddFilter);
-            $betRowOddFilter->setBetRow($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBetRowOddFilter(BetRowOddFilter $betRowOddFilter): static
-    {
-        if ($this->betRowOddFilters->removeElement($betRowOddFilter)) {
-            // set the owning side to null (unless already changed)
-            if ($betRowOddFilter->getBetRow() === $this) {
-                $betRowOddFilter->setBetRow(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function isIncludeTax(): ?bool
-    {
-        return $this->includeTax;
-    }
-
-    public function setIncludeTax(bool $includeTax): static
-    {
-        $this->includeTax = $includeTax;
-
-        return $this;
-    }
-
-    public function getAccumulationVariant(): ?OddAccumulationVariant
-    {
-        return $this->accumulationVariant;
-    }
-
-    public function setAccumulationVariant(OddAccumulationVariant $accumulationVariant): static
-    {
-        $this->accumulationVariant = $accumulationVariant;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, BetRowOddFilter>
      */
@@ -222,4 +193,6 @@ class SimpleBetRow implements BetRowInterface
 
         return $this;
     }
+
+
 }

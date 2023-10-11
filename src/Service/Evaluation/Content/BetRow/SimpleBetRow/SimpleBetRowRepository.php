@@ -3,7 +3,9 @@
 namespace App\Service\Evaluation\Content\BetRow\SimpleBetRow;
 
 use App\Entity\BetRowOddFilter;
+use App\Entity\BetRowSummary;
 use App\Entity\SimpleBetRow;
+use App\Entity\SpmLeague;
 use App\Entity\SpmSeason;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -74,5 +76,38 @@ class SimpleBetRowRepository extends ServiceEntityRepository
         } catch (NoResultException|NonUniqueResultException $e) {
         }
         return $result;
+    }
+
+    public function findBySeasonIncludingSummaries(SpmSeason $season)
+    {
+        $qb = $this->createQueryBuilder('br');
+        $qb->select('br, brs');
+        $qb->join(BetRowSummary::class, 'brs', 'WITH', 'br.id = brs.betRow');
+//        $qb->join('br.betRowSummary', 'brs');
+        $qb->where($qb->expr()->isNotNull('brs.id', ':season'));
+//        $qb->setParameter('season', $season->getApiId());
+        $qb->andWhere($qb->expr()->gte('brs.cashBox', ':cashBoxMin'));
+        $qb->setParameter('cashBoxMin', 100.01);
+        $qb->andWhere($qb->expr()->eq('br.seasonApiId', ':season'));
+        $qb->setParameter('season', $season->getApiId());
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findRowsExistingInAllSeasonsOfLeagueInDeltaRange(SpmLeague $league, float $min, float $max)
+    {
+        $qb = $this->createQueryBuilder('br');
+        $qb->select('s, brs');
+        $qb->innerJoin(SpmSeason::class, 's', 'WITH', 's.apiId = br.seasonApiId');
+        $qb->innerJoin(BetRowSummary::class, 'brs', 'WITH', 'br.id = brs.betRow');
+        $qb->leftJoin('br.betRowFilters', 'f');
+
+        $qb->where($qb->expr()->eq('s.leagueApiId', ':leagueApiId'));
+        $qb->setParameter('leagueApiId', $league->getApiId());
+
+        $qb->groupBy('s, brs');
+        $qb->having($qb->expr()->gte('brs.cashBox', ':min'));
+        $qb->setParameter('min', $min);
+
+        return $qb->getQuery()->getResult();
     }
 }

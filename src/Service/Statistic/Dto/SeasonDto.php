@@ -12,6 +12,7 @@ class SeasonDto
     private string $season;
     private float $highest;
     private string $highestFilter;
+    private int $highestMadeBets;
     private array $missingHomeFilters;
     private array $missingAwayFilters;
     private array $missingDrawFilters;
@@ -79,6 +80,17 @@ class SeasonDto
     public function setMissingDrawFilters(array $missingDrawFilters): SeasonDto
     {
         $this->missingDrawFilters = $missingDrawFilters;
+        return $this;
+    }
+
+    public function getHighestMadeBets(): int
+    {
+        return $this->highestMadeBets;
+    }
+
+    public function setHighestMadeBets(int $highestMadeBets): SeasonDto
+    {
+        $this->highestMadeBets = $highestMadeBets;
         return $this;
     }
 }

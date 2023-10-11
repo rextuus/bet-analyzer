@@ -247,7 +247,7 @@ class SportsmonkService
             $matchDays = (int) $round[0]->getName();
         }
 
-        //5. calculate matchday by teams (standings found for seasonId) and matchDays: teams * teams - teams <=> matchDays * teams/2
+        //5. calculate matchday by teams (standings found for seasonApiId) and matchDays: teams * teams - teams <=> matchDays * teams/2
         $teams = count($newStandings);
         $expectedMatchdays = $teams * $teams - $teams;
         dump("Teams: $teams");

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BetRowController!{% endblock %}
+
+{% block body %}
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Overview</th>
+            <th>Outcome</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+            <tr>
+                <td>
+                    <table>
+                        {% for season in row.displayNames %}
+                        <tr>
+                            <td>
+                                {{ season }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    {{ render_chart(row.chart) }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -51,8 +51,8 @@ class SpmSeasonService
     /**
      * @return SpmSeason[]
      */
-    public function findApprovedSeasonsBetRows(): array
+    public function findApprovedSeasonsBetRows(bool $havePlacedBets = false): array
     {
-        return $this->repository->findApprovedSeasonsBetRows();
+        return $this->repository->findApprovedSeasonsBetRows($havePlacedBets);
     }
 }

@@ -126,4 +126,14 @@ class BetRowOddFilter
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return sprintf(
+          '%s -> [%.2f-%.2f]',
+            $this->betOn->name,
+            $this->min,
+            $this->max
+        );
+    }
 }

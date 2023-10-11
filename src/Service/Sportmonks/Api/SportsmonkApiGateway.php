@@ -66,7 +66,7 @@ class SportsmonkApiGateway
         ];
 
         try {
-            $response = $client->request('GET', 'standings/seasons/'.$seasonId, $options);
+            $response = $client->request('GET', 'standings/variants/'.$seasonId, $options);
         } catch (GuzzleException $e) {
             dump($e);
             return [];
@@ -154,7 +154,7 @@ class SportsmonkApiGateway
         ];
 
         try {
-            $response = $client->request('GET', 'seasons', $options);
+            $response = $client->request('GET', 'variants', $options);
         } catch (GuzzleException $e) {
             dump($e);
             return [];
@@ -238,7 +238,7 @@ class SportsmonkApiGateway
         ];
 
         try {
-            $response = $client->request('GET', 'stages/seasons/'.$seasonApiId, $options);
+            $response = $client->request('GET', 'stages/variants/'.$seasonApiId, $options);
         } catch (GuzzleException $e) {
             dump($e);
             return [];
@@ -287,7 +287,7 @@ class SportsmonkApiGateway
         ];
 
         try {
-            $response = $client->request('GET', 'seasons', $options);
+            $response = $client->request('GET', 'variants', $options);
         } catch (GuzzleException) {
             return [];
         }
@@ -311,7 +311,7 @@ class SportsmonkApiGateway
         ];
 
         try {
-            $response = $client->request('GET', 'seasons', $options);
+            $response = $client->request('GET', 'variants', $options);
         } catch (GuzzleException $e) {
             dd($e);
             return [];
@@ -334,7 +334,7 @@ class SportsmonkApiGateway
         ];
 
         try {
-            $response = $client->request('GET', 'teams/seasons/'.$seasonId, $options);
+            $response = $client->request('GET', 'teams/variants/'.$seasonId, $options);
         } catch (GuzzleException $e) {
             dd($e);
             return [];
@@ -357,7 +357,7 @@ class SportsmonkApiGateway
         ];
 
         try {
-            $response = $client->request('GET', 'rounds/seasons/'.$seasonId, $options);
+            $response = $client->request('GET', 'rounds/variants/'.$seasonId, $options);
         } catch (GuzzleException $e) {
             dd($e);
             return [];

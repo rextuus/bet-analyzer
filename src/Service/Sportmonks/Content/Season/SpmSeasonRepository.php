@@ -84,7 +84,7 @@ class SpmSeasonRepository extends ServiceEntityRepository
     /**
      * @return SpmSeason[]
      */
-    public function findApprovedSeasonsBetRows(): array
+    public function findApprovedSeasonsBetRows(bool $havePlacedBets = false): array
     {
         $qb = $this->createQueryBuilder('s');
         $qb->select('s, count(br) as betRows');
@@ -93,7 +93,9 @@ class SpmSeasonRepository extends ServiceEntityRepository
         $qb->andWhere($qb->expr()->eq('ss.manuallyConfirmed', ':confirmed'))
             ->setParameter('confirmed', true);
         $qb->groupBy('s');
-        $qb->having('betRows = 0');
+        if (!$havePlacedBets){
+            $qb->having('betRows = 0');
+        }
         return $qb->getQuery()->getResult();
     }
 }

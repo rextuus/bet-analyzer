@@ -68,4 +68,9 @@ class SimpleBetRowService
     {
         return $this->repository->findBySeasonAndFilter($season, $filter);
     }
+
+    public function findBySeasonIncludingSummaries(SpmSeason $season)
+    {
+        return $this->repository->findBySeasonIncludingSummaries($season);
+    }
 }

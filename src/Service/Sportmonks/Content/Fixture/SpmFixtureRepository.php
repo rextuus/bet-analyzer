@@ -71,8 +71,8 @@ class SpmFixtureRepository extends ServiceEntityRepository
         $qb->select('f');
         $qb->innerJoin(SpmSeason::class, 's', 'WITH', 'f.seasonApiId = s.apiId');
         $qb->innerJoin(SpmOdd::class, 'o', 'WITH', 'o.fixtureApiId = f.apiId');
-        $qb->where('s.apiId = :seasonId')
-            ->setParameter('seasonId', $seasonStatistic->getSeasonApiId());
+        $qb->where('s.apiId = :seasonApiId')
+            ->setParameter('seasonApiId', $seasonStatistic->getSeasonApiId());
 
         $result = $qb->getQuery()->getResult();
         if (is_array($result)){
@@ -87,8 +87,8 @@ class SpmFixtureRepository extends ServiceEntityRepository
         $qb->select('f, o');
 //        $qb->innerJoin(SpmSeason::class, 's', 'WITH', 'f.seasonApiId = s.apiId');
         $qb->innerJoin(SpmOdd::class, 'o', 'WITH', 'o.fixtureApiId = f.apiId');
-        $qb->where('f.seasonApiId = :seasonId')
-            ->setParameter('seasonId', $season->getApiId());
+        $qb->where('f.seasonApiId = :seasonApiId')
+            ->setParameter('seasonApiId', $season->getApiId());
         $qb->groupBy('f');
 
         $result = $qb->getQuery()->getResult();
