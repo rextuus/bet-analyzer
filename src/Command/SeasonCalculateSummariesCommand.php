@@ -35,6 +35,7 @@ class SeasonCalculateSummariesCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $nextOnes = $this->seasonService->findApprovedSeasonsBetRows();
+        dd($nextOnes);
         foreach ($nextOnes as $nextOne){
             $message = new CalculateSummariesMessage($nextOne[0]->getApiId());
             $this->bus->dispatch($message);
