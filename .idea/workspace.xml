@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/OddsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/OddsCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/PlaceBetCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/PlaceBetCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Evaluation/BetRowCalculator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Evaluation/BetRowCalculator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Evaluation/Message/PlaceBetMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/PlaceBetMessage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Evaluation/Message/PlaceBetMessageHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/PlaceBetMessageHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +29,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.1">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8.2">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/sebastian/complexity" />
       <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
@@ -165,6 +166,9 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
       <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
       <path value="$PROJECT_DIR$/vendor/symfony/apache-pack" />
+      <path value="$PROJECT_DIR$/vendor/symfony/webpack-encore-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-chartjs" />
+      <path value="$PROJECT_DIR$/vendor/symfony/stimulus-bundle" />
     </include_path>
   </component>
   <component name="ProjectId" id="2V78J1i88CcvBtzriLx5M5qSeZO" />
@@ -178,32 +182,85 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/wolfgang/Documents/programming/bet-analyzer/templates/bet_row&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.086407766&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ],
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\&quot;bet_analyzer\&quot;&quot;
+    ],
     &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;MySQL&quot;,
       &quot;TEXT&quot;
     ]
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/bet_row" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../seasons" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="PHPUnit.LeagueStatisticServiceTest.testCalculateDistribution">
+    <configuration name="bet_analyzer.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/bet_analyzer.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="placed_bet.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/placed_bet.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="season.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/season.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="LeagueStatisticServiceTest.test" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP 8.2" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <TestRunner class="LeagueStatisticServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/LeagueStatisticServiceTest.php" method="test" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="LeagueStatisticServiceTest.testCalculateDistribution" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="LeagueStatisticServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/LeagueStatisticServiceTest.php" method="testCalculateDistribution" scope="Method" />
+      <method v="2" />
+    </configuration>
     <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHPUnit.LeagueStatisticServiceTest.testCalculateDistribution" />
+        <item itemvalue="PHPUnit.LeagueStatisticServiceTest.test" />
+        <item itemvalue="Database Script.placed_bet.sql" />
+        <item itemvalue="Database Script.season.sql" />
+        <item itemvalue="Database Script.bet_analyzer.sql" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -227,7 +284,23 @@
       <workItem from="1695195383885" duration="59000" />
       <workItem from="1695218139644" duration="28052000" />
       <workItem from="1695280144267" duration="84000" />
-      <workItem from="1695290901968" duration="2666000" />
+      <workItem from="1695290901968" duration="11858000" />
+      <workItem from="1695388521173" duration="16571000" />
+      <workItem from="1695726115292" duration="15967000" />
+      <workItem from="1695798535263" duration="3000" />
+      <workItem from="1695826798546" duration="21996000" />
+      <workItem from="1695885121824" duration="10000" />
+      <workItem from="1695893780259" duration="1847000" />
+      <workItem from="1695909118844" duration="10030000" />
+      <workItem from="1696003221585" duration="9000" />
+      <workItem from="1696275900060" duration="707000" />
+      <workItem from="1696343146925" duration="20263000" />
+      <workItem from="1696404717825" duration="16000" />
+      <workItem from="1696411035114" duration="15000" />
+      <workItem from="1696458555736" duration="5193000" />
+      <workItem from="1696520504666" duration="5086000" />
+      <workItem from="1696600419330" duration="613000" />
+      <workItem from="1697060300490" duration="1200000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -369,7 +442,63 @@
       <option name="project" value="LOCAL" />
       <updated>1695316956403</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="test command">
+      <created>1695318018608</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1695318018608</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Fixed round get for matchday">
+      <created>1695318573371</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1695318573371</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added additional names for 3 way result odds">
+      <created>1695329698882</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1695329698882</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fixed bet output">
+      <created>1695333320690</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1695333320690</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Added decreasing window init variant">
+      <created>1695336078632</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1695336078632</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Added decreasing window init variant">
+      <created>1695424194697</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1695424194697</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Init Statistic package">
+      <created>1695425127903</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1695425127903</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Init Statistic package">
+      <created>1697060771257</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1697060771257</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,6 +520,22 @@
     <MESSAGE value="Removed unnecessary column" />
     <MESSAGE value="Added evaluation package" />
     <MESSAGE value="test command" />
-    <option name="LAST_COMMIT_MESSAGE" value="test command" />
+    <MESSAGE value="Fixed round get for matchday" />
+    <MESSAGE value="Added additional names for 3 way result odds" />
+    <MESSAGE value="Fixed bet output" />
+    <MESSAGE value="Added decreasing window init variant" />
+    <MESSAGE value="Init Statistic package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Init Statistic package" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/Service/Statistic/Dto/SeasonVariantDto.php</url>
+          <line>36</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

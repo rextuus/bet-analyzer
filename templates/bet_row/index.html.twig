@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BetRowController!{% endblock %}
+
+{% block body %}
+    <h1>{{ season.displayName }}</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Filter</th>
+            <th>Made Bets</th>
+            <th>#</th>
+            <th>Outcomes</th>
+            <th>CashBox</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for dto in dtos %}
+            <tr>
+                <td>    {{ dto.filter }}</td>
+                <td>    {{ render_chart(dto.madeBetsChart) }}</td>
+                <td>    {{ dto.madeBets }}</td>
+                <td>    {{ render_chart(dto.outcomeChart) }}</td>
+                <td>    {{ dto.cashBox }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
