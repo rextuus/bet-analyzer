@@ -37,7 +37,15 @@ class LeagueStatisticService
             }
         }
 
-        return $this->createRows($distribution);
+        // sort rows so that with highest total amount is top
+        $rows = $this->createRows($distribution);
+        usort($rows,
+        function (Row $a, Row $b){
+            return array_sum($a->getChartData()['cashBoxes']) < array_sum($b->getChartData()['cashBoxes']);
+        }
+        );
+
+        return $rows;
     }
 
     private function getSeasonWithMostBetRows(SeasonBetRowMap $map): array

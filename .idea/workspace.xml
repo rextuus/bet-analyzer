@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="Init Statistic package">
+      <change afterPath="$PROJECT_DIR$/src/Form/LeagueStatisticFilterData.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/SeasonStatisticFilterType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/BetRowCombinationStatisticService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/BetRowController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BetRowController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Statistic/LeagueStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Statistic/LeagueStatisticService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/bet_row/league.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bet_row/league.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,53 +176,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/wolfgang/Documents/programming/bet-analyzer/templates/bet_row&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.086407766&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/wolfgang/Documents/programming/bet-analyzer/sql",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php",
+    "settings.editor.splitter.proportion": "0.086407766",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;RunConfigurationTargetLRU&quot;: [
-      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\&quot;bet_analyzer\&quot;&quot;
+    "RunConfigurationTargetLRU": [
+      "f9001e92-ef92-4534-9318-2c4de0a8ae3e",
+      "f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\"bet_analyzer\""
     ],
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;MySQL&quot;,
-      &quot;TEXT&quot;
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "MySQL",
+      "TEXT"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sql" />
       <recent name="$PROJECT_DIR$/templates/bet_row" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sql" />
       <recent name="$PROJECT_DIR$/../seasons" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="PHPUnit.LeagueStatisticServiceTest.testCalculateDistribution">
-    <configuration name="bet_analyzer.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/bet_analyzer.sql" />
-      <script-mode>FILE</script-mode>
-      <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Database Script.summaries.sql">
     <configuration name="placed_bet.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/placed_bet.sql" />
       <script-mode>FILE</script-mode>
@@ -231,6 +228,12 @@
     </configuration>
     <configuration name="season.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/season.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="summaries.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/sql/summaries.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
       <method v="2" />
@@ -254,11 +257,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Database Script.summaries.sql" />
         <item itemvalue="PHPUnit.LeagueStatisticServiceTest.testCalculateDistribution" />
         <item itemvalue="PHPUnit.LeagueStatisticServiceTest.test" />
         <item itemvalue="Database Script.placed_bet.sql" />
         <item itemvalue="Database Script.season.sql" />
-        <item itemvalue="Database Script.bet_analyzer.sql" />
       </list>
     </recent_temporary>
   </component>
@@ -300,7 +303,8 @@
       <workItem from="1696458555736" duration="5193000" />
       <workItem from="1696520504666" duration="5086000" />
       <workItem from="1696600419330" duration="613000" />
-      <workItem from="1697060300490" duration="1200000" />
+      <workItem from="1697060300490" duration="6650000" />
+      <workItem from="1697123615719" duration="3807000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -498,7 +502,42 @@
       <option name="project" value="LOCAL" />
       <updated>1697060771257</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Init Statistic package">
+      <created>1697061510087</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1697061510087</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Init Statistic package">
+      <created>1697061802333</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1697061802333</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Init Statistic package">
+      <created>1697061858474</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1697061858474</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Init Statistic package">
+      <created>1697063980696</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1697063980696</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Init Statistic package">
+      <created>1697064967863</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1697064967863</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

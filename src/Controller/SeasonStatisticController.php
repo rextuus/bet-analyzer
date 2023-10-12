@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/season/statistic')]
+#[Route('/league/statistic')]
 class SeasonStatisticController extends AbstractController
 {
     #[Route('/', name: 'app_season_statistic_list')]

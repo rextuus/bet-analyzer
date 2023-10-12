@@ -6,6 +6,8 @@ use App\Entity\BetRowSummary;
 use App\Entity\SimpleBetRow;
 use App\Entity\SpmLeague;
 use App\Entity\SpmSeason;
+use App\Form\LeagueStatisticFilterData;
+use App\Form\SeasonStatisticFilterType;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowRepository;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowService;
 use App\Service\Statistic\Dto\BetRowDto;
@@ -14,6 +16,7 @@ use App\Service\Statistic\LeagueStatisticService;
 use App\Service\Statistic\SeasonBetRowDistribution;
 use App\Service\Statistic\SeasonBetRowMap;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
@@ -26,7 +29,7 @@ class BetRowController extends AbstractController
     {
     }
 
-    #[Route('/season/{apiId}', name: 'app_bet_row_list')]
+    #[Route('/league/{apiId}', name: 'app_bet_row_list')]
     public function index(SpmSeason $season): Response
     {
 //        $betRows = $this->betRowService->findBy(['seasonApiId' => 19744]);
@@ -54,36 +57,48 @@ class BetRowController extends AbstractController
 
 
         return $this->render('bet_row/index.html.twig', [
-            'season' => $season,
+            'league' => $season,
             'dtos' => $dtos,
         ]);
     }
 
-    #[Route('/league/{apiId}', name: 'app_bet_row_league')]
-    public function league(SpmLeague $league, SimpleBetRowRepository $betRowRepository, LeagueStatisticService $leagueStatisticService): Response
+    #[Route('/league', name: 'app_bet_row_league')]
+    public function league(Request $request, SimpleBetRowRepository $betRowRepository, LeagueStatisticService $leagueStatisticService): Response
     {
-        $rows = $betRowRepository->findRowsExistingInAllSeasonsOfLeagueInDeltaRange($league, 100.01, 200.0);
+        $rows = [];
 
-        $map = new SeasonBetRowMap();
-        $currentKey = -1;
-        foreach ($rows as $row){
-            if ($row instanceof SpmSeason){
-                $map->addSeason($row->getApiId());
-                $currentKey = $row->getApiId();
+        $data = new LeagueStatisticFilterData();
+        $form = $this->createForm(SeasonStatisticFilterType::class, $data);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            /** @var LeagueStatisticFilterData $data */
+            $data = $form->getData();
+
+            $rows = $betRowRepository->findRowsExistingInAllSeasonsOfLeagueInDeltaRange($data->getLeague(), $data->getMin(), 200.0);
+
+            $map = new SeasonBetRowMap();
+            $currentKey = -1;
+            foreach ($rows as $row){
+                if ($row instanceof SpmSeason){
+                    $map->addSeason($row->getApiId());
+                    $currentKey = $row->getApiId();
+                }
+                if ($row instanceof BetRowSummary){
+                    $map->addBetRow($currentKey, $row);
+                }
             }
-            if ($row instanceof BetRowSummary){
-                $map->addBetRow($currentKey, $row);
+
+            $rows = $leagueStatisticService->calculateDistribution($map);
+            foreach ($rows as $row){
+                $row->setChart($this->createLeagueChart($row->getChartData(), 1));
             }
         }
-
-        $rows = $leagueStatisticService->calculateDistribution($map);
-        foreach ($rows as $row){
-            $row->setChart($this->createLeagueChart($row->getChartData(), 1));
-        }
-
 
         return $this->render('bet_row/league.html.twig', [
-            'rows' => $rows
+            'rows' => $rows,
+            'form' => $form
         ]);
     }
 
@@ -101,6 +116,13 @@ class BetRowController extends AbstractController
                     'backgroundColor' => 'rgb(71, 80, 62)',
                     'borderColor' => 'rgb(71, 80, 62)',
                     'data' => $data['cashBoxes'],
+                ],
+                [
+                    'pointRadius' => 0.0,
+                    'label' => '',
+                    'backgroundColor' => 'rgb(198, 0, 15)',
+                    'borderColor' => 'rgb(198, 0, 15)',
+                    'data' => array_fill(0, count($data['cashBoxes']), 100.0),
                 ],
             ],
         ]);
