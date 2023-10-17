@@ -14,8 +14,6 @@ use App\Service\Statistic\Content\BetRowSummary\BetRowSummaryService;
 use App\Service\Statistic\Content\BetRowSummary\Data\BetRowSummaryData;
 use App\Service\Statistic\Content\SeasonSummary\Data\SeasonSummaryData;
 use App\Service\Statistic\Content\SeasonSummary\SeasonSummaryService;
-use App\Service\Statistic\Dto\BetRowStatistics;
-use App\Service\Statistic\Dto\SeasonDto;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -23,8 +21,6 @@ use App\Service\Statistic\Dto\SeasonDto;
  */
 class StatisticService
 {
-
-
     public function __construct(
         private readonly SimpleBetRowService  $betRowService,
         private readonly SpmSeasonService     $seasonService,
@@ -33,18 +29,6 @@ class StatisticService
         private readonly BetRowSummaryService $betRowSummaryService,
     )
     {
-    }
-
-    public function getSeasonDtos(): array
-    {
-        $seasonsWithBets = $this->seasonService->findApprovedSeasonsBetRows(true);
-
-        $dtos = [];
-        foreach ($seasonsWithBets as $seasonsWithBet) {
-            $dtos[] = $this->getSeasonDto($seasonsWithBet[0]);
-        }
-
-        return $dtos;
     }
 
     public function getSeasonDto(SpmSeason $season): void
@@ -178,7 +162,7 @@ class StatisticService
             $betRowData->setHighest(0.0);
             $betRowData->setSeriesStatistics([]);
             $betRowData->setPositiveDays(0);
-            $this->checkDailyReproduction($betRowData, $daysMadeOutcomes);
+            $this->analyzeSeriesEvents($betRowData, $daysMadeOutcomes);
 
             $rowSummaryDatas[] = $betRowData;
         }
@@ -191,7 +175,7 @@ class StatisticService
         }
     }
 
-    private function checkDailyReproduction(BetRowSummaryData $betRowData, array $daysMadeOutcomes): bool
+    private function analyzeSeriesEvents(BetRowSummaryData $betRowData, array $daysMadeOutcomes): void
     {
         // reduce to non 0.0 values
         $daysMadeOutcomes = array_filter(
@@ -205,7 +189,7 @@ class StatisticService
         );
 
         if (count($daysMadeOutcomes) === 0) {
-            return false;
+            return;
         }
 
         $minStart = array_keys($daysMadeOutcomes)[0];
@@ -285,6 +269,5 @@ class StatisticService
             $betRowData->setDailyReproductionChance($positiveNonSingles / $positiveDays);
         }
 
-        return true;
     }
 }

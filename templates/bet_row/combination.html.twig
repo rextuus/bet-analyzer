@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BetRowController!{% endblock %}
+
+{% block body %}
+    <div>{{ form(form) }}</div>
+    <div style="margin-bottom: 10px"></div>
+    <div>{{ form(form2) }}</div>
+    <div>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Row</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for select in selected %}
+                <tr>
+                    <td>
+                        {{ select }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

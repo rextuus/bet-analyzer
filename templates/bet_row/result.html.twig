@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BetRowController!{% endblock %}
+
+{% block body %}
+    <h1>{{ statistic.ident }}</h1>
+    <div>{{ statistic.total }}</div>
+    <div>{{ statistic.madeBets }}</div>
+    <div>
+        <table>
+
+            {% for row in statistic.betRowNames %}
+                <tr>
+                    <td>{{ row }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div>
+        {{ render_chart(chart) }}
+    </div>
+{% endblock %}

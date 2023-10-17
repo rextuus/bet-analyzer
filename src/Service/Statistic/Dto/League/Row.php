@@ -12,9 +12,46 @@ use Symfony\UX\Chartjs\Model\Chart;
 class Row
 {
     private array $displayNames;
+    private string $rowIds;
+
+    private bool $addable;
     private array $chartData;
 
     private Chart $chart;
+
+    private string  $buttonClass = '';
+
+    public function getButtonClass(): string
+    {
+        return $this->buttonClass;
+    }
+
+    public function setButtonClass(string $buttonClass): Row
+    {
+        $this->buttonClass = $buttonClass;
+        return $this;
+    }
+    public function isAddable(): bool
+    {
+        return $this->addable;
+    }
+
+    public function setAddable(bool $addable): Row
+    {
+        $this->addable = $addable;
+        return $this;
+    }
+
+    public function getRowIds(): string
+    {
+        return $this->rowIds;
+    }
+
+    public function setRowIds(string $rowIds): Row
+    {
+        $this->rowIds = $rowIds;
+        return $this;
+    }
 
     public function getChart(): Chart
     {

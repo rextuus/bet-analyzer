@@ -45,10 +45,14 @@ class SimpleBetRow implements BetRowInterface
     #[ORM\ManyToMany(targetEntity: BetRowOddFilter::class, inversedBy: 'simpleBetRows')]
     private Collection $betRowFilters;
 
+    #[ORM\ManyToMany(targetEntity: BetRowCombination::class, mappedBy: 'betRows')]
+    private Collection $betRowCombinations;
+
     public function __construct()
     {
         $this->placedBets = new ArrayCollection();
         $this->betRowFilters = new ArrayCollection();
+        $this->betRowCombinations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,6 +194,33 @@ class SimpleBetRow implements BetRowInterface
     public function removeBetRowFilter(BetRowOddFilter $betRowFilter): static
     {
         $this->betRowFilters->removeElement($betRowFilter);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BetRowCombination>
+     */
+    public function getBetRowCombinations(): Collection
+    {
+        return $this->betRowCombinations;
+    }
+
+    public function addBetRowCombination(BetRowCombination $betRowCombination): static
+    {
+        if (!$this->betRowCombinations->contains($betRowCombination)) {
+            $this->betRowCombinations->add($betRowCombination);
+            $betRowCombination->addBetRow($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBetRowCombination(BetRowCombination $betRowCombination): static
+    {
+        if ($this->betRowCombinations->removeElement($betRowCombination)) {
+            $betRowCombination->removeBetRow($this);
+        }
 
         return $this;
     }
