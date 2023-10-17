@@ -112,8 +112,12 @@ class BetRowController extends AbstractController
     #[Route('/combination', name: 'app_bet_row_combination')]
     public function combination(Request $request, SpmSeasonService $seasonService): Response
     {
-        $activeOnes = $this->betRowCombinationService->getActiveCombination();
-        $selected = $activeOnes->getBetRows()->toArray();
+        $selected = [];
+        try {
+            $activeOnes = $this->betRowCombinationService->getActiveCombination();
+            $selected = $activeOnes->getBetRows()->toArray();
+        } catch (\Exception $e) {
+        }
 //dd($selected);
         $data = new BetRowCombinationCreateData();
         $form = $this->createForm(BetRowCombinationCreateType::class, $data);
