@@ -73,4 +73,12 @@ class SimpleBetRowService
     {
         return $this->repository->findBySeasonIncludingSummaries($season);
     }
+
+    /**
+     * @param BetRowOddFilter[] $filter
+     */
+    public function findRowsWithFilter(array $filter)
+    {
+        return $this->repository->findRowsWithFilter($filter);
+    }
 }

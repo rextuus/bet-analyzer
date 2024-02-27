@@ -41,6 +41,14 @@ class SpmFixtureService
         return $this->repository->findBy($conditions);
     }
 
+    /**
+     * @return SpmFixture[]
+     */
+    public function findBySeasonOrderedByTime(array $conditions): array
+    {
+        return $this->repository->findBy($conditions, ['startingAtTimestamp' => 'DESC']);
+    }
+
     public function findByApiId(int $apiId): ?SpmFixture
     {
         return $this->repository->findOneBy(['apiId' => $apiId]);

@@ -4,11 +4,14 @@ declare(strict_types=1);
 namespace App\Service\Statistic;
 
 use App\Entity\BetRowSummary;
+use App\Entity\SpmLeague;
 use App\Entity\SpmSeason;
+use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowRepository;
 use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Statistic\Content\BetRowCombination\BetRowCombinationService;
 use App\Service\Statistic\Content\BetRowCombination\Data\BetRowCombinationData;
 use App\Service\Statistic\Dto\League\Row;
+use App\Service\Statistic\Dto\League\RowInformation;
 use Exception;
 
 /**
@@ -19,7 +22,7 @@ class LeagueStatisticService
 {
 
 
-    public function __construct(private SpmSeasonService $seasonService, private BetRowCombinationService $betRowCombinationService)
+    public function __construct(private SpmSeasonService $seasonService, private BetRowCombinationService $betRowCombinationService, private SimpleBetRowRepository $betRowRepository)
     {
     }
 
@@ -27,8 +30,25 @@ class LeagueStatisticService
      * @return Row[]
      * @throws Exception
      */
-    public function calculateDistribution(SeasonBetRowMap $map): array
+    public function calculateDistribution(SpmLeague $league, float $min): array
     {
+        $information = new RowInformation();
+
+        $rows = $this->betRowRepository->findRowsExistingInAllSeasonsOfLeagueInDeltaRange($league, $min, 200.0);
+        $information->setDescription($league->getName());
+
+        $map = new SeasonBetRowMap();
+        $currentKey = -1;
+        foreach ($rows as $row){
+            if ($row instanceof SpmSeason){
+                $map->addSeason($row->getApiId());
+                $currentKey = $row->getApiId();
+            }
+            if ($row instanceof BetRowSummary){
+                $map->addBetRow($currentKey, $row);
+            }
+        }
+
         $distribution = new SeasonBetRowDistribution();
         // goal: variant = [season1, season3, ...]
 
@@ -110,6 +130,7 @@ class LeagueStatisticService
             $row->setChartData($timeOrderChartData);
             $row->setDisplayNames($displayNames);
             $row->setRowIds(implode('~', $ids));
+            $row->setTotalAmount(array_sum($cashBoxes));
 
             $row->setAddable(count($rowSummaries) !== $alreadyAddedRowsCounter);
             if ($row->isAddable()){

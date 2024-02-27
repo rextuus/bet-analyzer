@@ -93,7 +93,7 @@ class SimpleBetRowRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findRowsExistingInAllSeasonsOfLeagueInDeltaRange(SpmLeague $league, float $min, float $max)
+    public function findRowsExistingInAllSeasonsOfLeagueInDeltaRange(SpmLeague $league, ?float $min, float $max)
     {
         $qb = $this->createQueryBuilder('br');
         $qb->select('s, brs');
@@ -105,8 +105,31 @@ class SimpleBetRowRepository extends ServiceEntityRepository
         $qb->setParameter('leagueApiId', $league->getApiId());
 
         $qb->groupBy('s, brs');
-        $qb->having($qb->expr()->gte('brs.cashBox', ':min'));
-        $qb->setParameter('min', $min);
+        if ($min){
+            $qb->having($qb->expr()->gte('brs.cashBox', ':min'));
+            $qb->setParameter('min', $min);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param BetRowOddFilter[] $filter
+     */
+    public function findRowsWithFilter(array $filter)
+    {
+        $ids = array_map(
+          function (BetRowOddFilter $filter){
+              return $filter->getId();
+          },
+            $filter
+        );
+
+        $qb = $this->createQueryBuilder('br');
+        $qb->innerJoin(BetRowSummary::class, 'brs', 'WITH', 'br.id = brs.betRow');
+        $qb->innerJoin('br.betRowFilters', 'f');
+        $qb->where($qb->expr()->in('f.id', ':ids'));
+        $qb->setParameter('ids', $ids);
 
         return $qb->getQuery()->getResult();
     }

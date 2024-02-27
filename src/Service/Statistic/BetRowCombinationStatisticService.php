@@ -5,6 +5,7 @@ namespace App\Service\Statistic;
 
 use App\Entity\PlacedBet;
 use App\Entity\SpmFixture;
+use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowService;
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
 use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Statistic\Content\BetRowCombination\BetRowCombinationService;
@@ -23,7 +24,8 @@ class BetRowCombinationStatisticService
     public function __construct(
         private BetRowCombinationService $betRowCombinationService,
         private SpmFixtureService $fixtureService,
-        private SpmSeasonService $seasonService
+        private SpmSeasonService $seasonService,
+        private SimpleBetRowService $betRowService,
     )
     {
     }
@@ -33,7 +35,19 @@ class BetRowCombinationStatisticService
         $statistic = new BetRowCombinationStatistic();
 
         $activeCombination = $this->betRowCombinationService->getActiveCombination();
+
+        // here we need to get only the betRow conditions first. Then we have to collect ALL Betrows fitting to this and work with this
         $betRows = $activeCombination->getBetRows()->toArray();
+
+        $filter = [];
+        $seasons = [];
+        foreach ($betRows as $row){
+            $currentFilter = $row->getBetRowFilters()->toArray()[0];
+            $filter [$currentFilter->getId()] = $currentFilter;
+        }
+
+//        $betRows = $this->betRowService->findRowsWithFilter($filter);
+//        dd($betRows);
 
         $betRowNames = [];
         $allBets = [];

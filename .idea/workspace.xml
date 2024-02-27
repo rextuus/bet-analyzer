@@ -5,35 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Fixtures/PlacedBetFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/BetRowCombinationChoiceData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/BetRowCombinationChoiceType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/BetRowCombinationCreateType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/BetRowCombinationStatistic.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/CombinationMadeBetEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/BetRowCombination/BetRowCombinationRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/BetRowCombination/BetRowCombinationService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/BetRowCombination/Data/BetRowCombinationData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/BetRowCombination/Data/BetRowCombinationFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/bet_row/combination.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/bet_row/result.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/BetRowCombinationStatisticServiceTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.test" beforeDir="false" afterPath="$PROJECT_DIR$/.env.test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Dto/League/RowInformation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bet-analyzer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bet-analyzer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/BetRowController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BetRowController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/SimpleBetRow.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SimpleBetRow.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/Test2Command.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Test2Command.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Statistic/BetRowCombinationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Statistic/BetRowCombinationStatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Statistic/Dto/BetRowStatistics.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Statistic/Dto/League/Row.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Statistic/Dto/League/Row.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Statistic/Dto/LeagueDto.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/BetRowCombinationCreateData.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Statistic/LeagueStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Statistic/LeagueStatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Statistic/StatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Statistic/StatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bet_row/league.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bet_row/league.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/season_statistic/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/season_statistic/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,6 +181,9 @@
       <path value="$PROJECT_DIR$/vendor/liip/test-fixtures-bundle" />
     </include_path>
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2V78J1i88CcvBtzriLx5M5qSeZO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -287,6 +276,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-php-predefined-ba97393d7c68-b4dcf6bb9de9-com.jetbrains.php.sharedIndexes-PS-233.13135.108" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -331,6 +327,19 @@
       <workItem from="1697440196852" duration="598000" />
       <workItem from="1697456592961" duration="24860000" />
       <workItem from="1697526524277" duration="507000" />
+      <workItem from="1697580634004" duration="1538000" />
+      <workItem from="1697613025118" duration="181000" />
+      <workItem from="1697699539055" duration="77000" />
+      <workItem from="1697785482450" duration="69000" />
+      <workItem from="1698131600089" duration="92000" />
+      <workItem from="1699537804196" duration="153000" />
+      <workItem from="1699624302775" duration="16000" />
+      <workItem from="1699624342100" duration="13000" />
+      <workItem from="1702646238183" duration="1357000" />
+      <workItem from="1702887137326" duration="157000" />
+      <workItem from="1706879067563" duration="66000" />
+      <workItem from="1708986718354" duration="1428000" />
+      <workItem from="1709044787982" duration="5634000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -570,7 +579,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697129259548</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Added bet row combinations">
+      <created>1697580836463</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1697580836463</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -598,7 +614,8 @@
     <MESSAGE value="Added decreasing window init variant" />
     <MESSAGE value="Init Statistic package" />
     <MESSAGE value="Added filter for league page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added filter for league page" />
+    <MESSAGE value="Added bet row combinations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added bet row combinations" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

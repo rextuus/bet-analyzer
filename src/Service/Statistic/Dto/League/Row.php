@@ -21,6 +21,31 @@ class Row
 
     private string  $buttonClass = '';
 
+    private int $totalAmount;
+    private int $totalBets;
+
+    public function getTotalAmount(): int
+    {
+        return $this->totalAmount;
+    }
+
+    public function setTotalAmount(int $totalAmount): Row
+    {
+        $this->totalAmount = $totalAmount;
+        return $this;
+    }
+
+    public function getTotalBets(): int
+    {
+        return $this->totalBets;
+    }
+
+    public function setTotalBets(int $totalBets): Row
+    {
+        $this->totalBets = $totalBets;
+        return $this;
+    }
+
     public function getButtonClass(): string
     {
         return $this->buttonClass;

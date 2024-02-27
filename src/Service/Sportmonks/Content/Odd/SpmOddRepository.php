@@ -82,4 +82,22 @@ class SpmOddRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findByFixture(SpmFixture $fixture): array
+    {
+        $qb =  $this->createQueryBuilder('o');
+        $qb->select('o');
+        $qb->where('o.fixtureApiId = :fixture')
+            ->setParameter('fixture', $fixture->getApiId());
+        $qb->andWhere($qb->expr()->in('o.marketDescription', ':variants'))
+            ->setParameter('variants', $filter->getOddVariant()->value);
+        $qb->andWhere($qb->expr()->in('o.name', ':names'))
+            ->setParameter('names', $betOns);
+        $qb->andWhere($qb->expr()->gte('o.value', ':min'))
+            ->setParameter('min', $filter->getMin());
+        $qb->andWhere($qb->expr()->lte('o.value', ':max'))
+            ->setParameter('max', $filter->getMax());
+
+        return $qb->getQuery()->getResult();
+    }
 }
