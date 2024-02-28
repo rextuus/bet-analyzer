@@ -72,20 +72,24 @@ class InitOutcomeCommand extends Command
         $fixtureIds = [];
         foreach ($fixtures as $fixture) {
 
-            $fixtureIds[] = $fixture->getId();
-            if ($counter % 50 === 0) {
-                $message = new UpdateOddOutcomeMessage();
-                $message->setFixtureIds($fixtureIds);
-                $this->messageBus->dispatch($message);
+//            $fixtureIds[] = $fixture->getId();
+//            if ($counter % 50 === 0) {
+//                $message = new UpdateOddOutcomeMessage();
+//                $message->setFixtureIds($fixtureIds);
+//                $this->messageBus->dispatch($message);
+//
+//                $fixtureIds = [];
+//            }
+//            $counter++;
+            $message = new UpdateOddOutcomeMessage();
 
-                $fixtureIds = [];
-            }
-            $counter++;
+            $message->setFixtureIds([$fixture->getId()]);
+            $this->messageBus->dispatch($message);
         }
 
-        $message = new UpdateOddOutcomeMessage();
-        $message->setFixtureIds($fixtureIds);
-        $this->messageBus->dispatch($message);
+//        $message = new UpdateOddOutcomeMessage();
+//        $message->setFixtureIds($fixtureIds);
+//        $this->messageBus->dispatch($message);
 
 
         return Command::SUCCESS;
