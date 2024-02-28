@@ -73,7 +73,7 @@ class InitOutcomeCommand extends Command
         $fixtureIds = [];
         foreach ($fixtures as $fixture) {
 
-            $fixtureIds[] = $fixture->getId();
+            $fixtureIds[] = $fixture->getApiId();
             if ($counter % 50 === 0) {
                 $message = new InitOddOutcomeMessage();
                 $message->setFixtureIds($fixtureIds);

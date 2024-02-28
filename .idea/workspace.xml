@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/InitOddOutcomeMessage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/InitOddOutcomeMessageHandler.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Command/InitOutcomeCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/InitOutcomeCommand.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -333,7 +328,7 @@
       <workItem from="1706879067563" duration="66000" />
       <workItem from="1708986718354" duration="1428000" />
       <workItem from="1709044787982" duration="15027000" />
-      <workItem from="1709139055624" duration="10634000" />
+      <workItem from="1709139055624" duration="12215000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -604,7 +599,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709146101799</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Improve">
+      <option name="closed" value="true" />
+      <created>1709151102179</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1709151102179</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -635,7 +638,8 @@
     <MESSAGE value="Added bet row combinations" />
     <MESSAGE value="commiz" />
     <MESSAGE value="Outcome" />
-    <option name="LAST_COMMIT_MESSAGE" value="Outcome" />
+    <MESSAGE value="Improve" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
