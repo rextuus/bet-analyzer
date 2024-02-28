@@ -5,21 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Dto/League/RowInformation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bet-analyzer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bet-analyzer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f857576a-9c7d-4034-a933-c0afff16ed39.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/OddOutcome.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/UpdateOddOutcomeMessage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/UpdateOddOutcomeMessageHandler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/Data/OddOutcomeData.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/OddOutcomeFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/OddOutcomeRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/OddOutcomeService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/OutcomeCalculator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Command/Test2Command.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Test2Command.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Evaluation/Content/BetRow/SimpleBetRow/SimpleBetRowService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Fixture/SpmFixtureService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Statistic/BetRowCombinationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Statistic/BetRowCombinationStatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Statistic/Dto/League/Row.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Statistic/Dto/League/Row.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Statistic/LeagueStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Statistic/LeagueStatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/season_statistic/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/season_statistic/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/SpmFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SpmFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,9 +225,9 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/sql" />
       <recent name="$PROJECT_DIR$/../seasons" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.BetRowCombinationStatisticServiceTest.testChangeProductPrice">
@@ -339,7 +337,8 @@
       <workItem from="1702887137326" duration="157000" />
       <workItem from="1706879067563" duration="66000" />
       <workItem from="1708986718354" duration="1428000" />
-      <workItem from="1709044787982" duration="5634000" />
+      <workItem from="1709044787982" duration="15027000" />
+      <workItem from="1709139055624" duration="5473000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -586,7 +585,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="commiz">
+      <option name="closed" value="true" />
+      <created>1709050435794</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1709050435794</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -615,7 +622,8 @@
     <MESSAGE value="Init Statistic package" />
     <MESSAGE value="Added filter for league page" />
     <MESSAGE value="Added bet row combinations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added bet row combinations" />
+    <MESSAGE value="commiz" />
+    <option name="LAST_COMMIT_MESSAGE" value="commiz" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

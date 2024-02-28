@@ -4,10 +4,12 @@ namespace App\Command;
 
 use App\Entity\BetRowOddFilter;
 use App\Entity\SpmFixture;
+use App\Service\Evaluation\Message\UpdateOddOutcomeMessage;
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
 use App\Service\Sportmonks\Content\Odd\SpmOddService;
 use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Sportmonks\Content\Season\Statistic\SeasonStatisticService;
+use App\Service\Statistic\Content\OddOutcome\OutcomeCalculator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -16,12 +18,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
-    name: 'Test2',
+    name: 'InitOutcome',
     description: 'Add a short description for your command',
 )]
-class Test2Command extends Command
+class InitOutcomeCommand extends Command
 {
 
 
@@ -30,6 +33,8 @@ class Test2Command extends Command
         private SpmFixtureService $fixtureService,
         private SeasonStatisticService $seasonStatisticService,
         private SpmOddService $oddService,
+        private OutcomeCalculator $outcomeCalculator,
+        private MessageBusInterface $messageBus
     )
     {
         parent::__construct();
@@ -44,6 +49,10 @@ class Test2Command extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+//        $message = new UpdateOddOutcomeMessage();
+//        $message->setFixtureIds([7626]);
+//        dd($this->outcomeCalculator->calculateAll($message));
+
         $statistics = $this->seasonStatisticService->findBy(['manuallyConfirmed' => true]);
         $fixtures = [];
         foreach ($statistics as $statistic) {
@@ -54,19 +63,30 @@ class Test2Command extends Command
 
         usort(
             $fixtures,
-            function (SpmFixture $a, SpmFixture $b){
-                return $a->getStartingAtTimestamp() >$b->getStartingAtTimestamp();
+            function (SpmFixture $a, SpmFixture $b) {
+                return $a->getStartingAtTimestamp() > $b->getStartingAtTimestamp();
             }
         );
 
-        dump($fixtures[0]->getStartingAtTimestamp());
-        dd($fixtures[array_key_last($fixtures)]->getStartingAtTimestamp());
-//        $filter = new BetRowOddFilter();
-//
-//        $this->oddService->findByFixtureAndVariant();
+        $counter = 0;
+        $fixtureIds = [];
+        foreach ($fixtures as $fixture) {
 
+            $fixtureIds[] = $fixture->getId();
+            if ($counter % 50 === 0) {
+                $message = new UpdateOddOutcomeMessage();
+                $message->setFixtureIds($fixtureIds);
+                $this->messageBus->dispatch($message);
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+                $fixtureIds = [];
+            }
+            $counter++;
+        }
+
+        $message = new UpdateOddOutcomeMessage();
+        $message->setFixtureIds($fixtureIds);
+        $this->messageBus->dispatch($message);
+
 
         return Command::SUCCESS;
     }

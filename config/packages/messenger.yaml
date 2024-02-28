@@ -25,6 +25,7 @@ framework:
             App\Service\Evaluation\Message\InitBetRowMessage: async
             App\Service\Evaluation\Message\TriggerBetRowsForSeasonMessage: async
             App\Service\Evaluation\Message\CalculateSummariesMessage: async
+            App\Service\Evaluation\Message\UpdateOddOutcomeMessage: async
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async

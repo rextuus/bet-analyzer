@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,6 +42,14 @@ class SpmFixture
 
     #[ORM\Column]
     private bool $scoreDecorated = false;
+
+    #[ORM\ManyToMany(targetEntity: OddOutcome::class, mappedBy: 'fixtures')]
+    private Collection $oddOutcomes;
+
+    public function __construct()
+    {
+        $this->oddOutcomes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +160,33 @@ class SpmFixture
     public function setScoreDecorated(bool $scoreDecorated): static
     {
         $this->scoreDecorated = $scoreDecorated;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OddOutcome>
+     */
+    public function getOddOutcomes(): Collection
+    {
+        return $this->oddOutcomes;
+    }
+
+    public function addOddOutcome(OddOutcome $oddOutcome): static
+    {
+        if (!$this->oddOutcomes->contains($oddOutcome)) {
+            $this->oddOutcomes->add($oddOutcome);
+            $oddOutcome->addFixture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOddOutcome(OddOutcome $oddOutcome): static
+    {
+        if ($this->oddOutcomes->removeElement($oddOutcome)) {
+            $oddOutcome->removeFixture($this);
+        }
 
         return $this;
     }

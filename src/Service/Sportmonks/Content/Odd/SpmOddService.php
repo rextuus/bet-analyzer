@@ -63,6 +63,9 @@ class SpmOddService
         return $stored;
     }
 
+    /**
+     * @return SpmOdd[]
+     */
     public function findByFixtureAndVariant(SpmFixture $fixture, BetRowOddFilter $filter): array
     {
         return $this->repository->findByFixtureAndVariant($fixture, $filter);
