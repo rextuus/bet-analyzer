@@ -2,7 +2,9 @@
 
 namespace App\Service\Sportmonks\Content\Score;
 
+use App\Entity\SpmFixture;
 use App\Entity\SpmScore;
+use App\Entity\SpmSeason;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -53,4 +55,13 @@ class SpmScoreRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findScoresForFixture(int $fixtureApi)
+    {
+        $qb = $this->createQueryBuilder('s');
+//        $qb->select('f, s');
+        $qb->innerJoin(SpmFixture::class, 'f', 'WITH', 's.fixtureApiId = f.apiId');
+        $qb->where('f.apiId = :fixtureApiId')
+            ->setParameter('fixtureApiId', $fixtureApi);
+        return $qb->getQuery()->getResult();
+    }
 }

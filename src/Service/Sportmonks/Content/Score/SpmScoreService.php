@@ -39,6 +39,11 @@ class SpmScoreService
         return $this->repository->findBy($conditions);
     }
 
+    public function findScoresForFixture(int $fixtureApi): array
+    {
+        return $this->repository->findScoresForFixture($fixtureApi);
+    }
+
     public function createMultipleByData(array $scores): int
     {
         $stored = 0;

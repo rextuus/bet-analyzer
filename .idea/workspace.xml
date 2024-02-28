@@ -5,19 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/OddOutcome.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/UpdateOddOutcomeMessage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/UpdateOddOutcomeMessageHandler.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/Data/OddOutcomeData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/OddOutcomeFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/OddOutcomeRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/OddOutcomeService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Statistic/Content/OddOutcome/OutcomeCalculator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/InitOddOutcomeMessage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/Message/InitOddOutcomeMessageHandler.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/Test2Command.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Test2Command.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/SpmFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SpmFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Odd/SpmOddService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/InitOutcomeCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/InitOutcomeCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Sportmonks/Content/Score/SpmScoreService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,37 +182,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/wolfgang/Documents/programming/bet-analyzer/templates/bet_row&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.086407766&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/wolfgang/Documents/programming/bet-analyzer/templates/bet_row",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php",
+    "settings.editor.splitter.proportion": "0.086407766",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;RunConfigurationTargetLRU&quot;: [
-      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e&quot;,
-      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\&quot;bet_analyzer\&quot;&quot;
+    "RunConfigurationTargetLRU": [
+      "f9001e92-ef92-4534-9318-2c4de0a8ae3e",
+      "f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\"bet_analyzer\""
     ],
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;MySQL&quot;,
-      &quot;TEXT&quot;
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "TEXT",
+      "MySQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/bet_row" />
@@ -338,7 +333,7 @@
       <workItem from="1706879067563" duration="66000" />
       <workItem from="1708986718354" duration="1428000" />
       <workItem from="1709044787982" duration="15027000" />
-      <workItem from="1709139055624" duration="5473000" />
+      <workItem from="1709139055624" duration="10634000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -593,7 +588,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709050435794</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Outcome">
+      <option name="closed" value="true" />
+      <created>1709145513992</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1709145513992</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Outcome">
+      <option name="closed" value="true" />
+      <created>1709146101799</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1709146101799</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -623,7 +634,8 @@
     <MESSAGE value="Added filter for league page" />
     <MESSAGE value="Added bet row combinations" />
     <MESSAGE value="commiz" />
-    <option name="LAST_COMMIT_MESSAGE" value="commiz" />
+    <MESSAGE value="Outcome" />
+    <option name="LAST_COMMIT_MESSAGE" value="Outcome" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

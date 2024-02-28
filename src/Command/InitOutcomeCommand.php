@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\BetRowOddFilter;
 use App\Entity\SpmFixture;
+use App\Service\Evaluation\Message\InitOddOutcomeMessage;
 use App\Service\Evaluation\Message\UpdateOddOutcomeMessage;
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
 use App\Service\Sportmonks\Content\Odd\SpmOddService;
@@ -50,7 +51,7 @@ class InitOutcomeCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
 //        $message = new UpdateOddOutcomeMessage();
-//        $message->setFixtureIds([7626]);
+//        $message->setFixtureIds([6781]);
 //        dd($this->outcomeCalculator->calculateAll($message));
 
         $statistics = $this->seasonStatisticService->findBy(['manuallyConfirmed' => true]);
@@ -72,24 +73,24 @@ class InitOutcomeCommand extends Command
         $fixtureIds = [];
         foreach ($fixtures as $fixture) {
 
-//            $fixtureIds[] = $fixture->getId();
-//            if ($counter % 50 === 0) {
-//                $message = new UpdateOddOutcomeMessage();
-//                $message->setFixtureIds($fixtureIds);
-//                $this->messageBus->dispatch($message);
-//
-//                $fixtureIds = [];
-//            }
-//            $counter++;
-            $message = new UpdateOddOutcomeMessage();
+            $fixtureIds[] = $fixture->getId();
+            if ($counter % 50 === 0) {
+                $message = new InitOddOutcomeMessage();
+                $message->setFixtureIds($fixtureIds);
+                $this->messageBus->dispatch($message);
 
-            $message->setFixtureIds([$fixture->getId()]);
-            $this->messageBus->dispatch($message);
+                $fixtureIds = [];
+            }
+            $counter++;
+//            $message = new InitOddOutcomeMessage();
+//
+//            $message->setFixtureIds([$fixture->getId()]);
+//            $this->messageBus->dispatch($message);
         }
 
-//        $message = new UpdateOddOutcomeMessage();
-//        $message->setFixtureIds($fixtureIds);
-//        $this->messageBus->dispatch($message);
+        $message = new InitOddOutcomeMessage();
+        $message->setFixtureIds($fixtureIds);
+        $this->messageBus->dispatch($message);
 
 
         return Command::SUCCESS;
