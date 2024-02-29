@@ -4,7 +4,7 @@ Event outcome by tipico-id:
 https://sports.tipico.de/json/services/event/598504610
 
 telegram bot
-token: 7052734818:AAH8HjFTyaF5UyNEuNjNpiVHb0HtFXRxLqM
+token:
 username: BetAnalyzerFeedBot
 botname: BetAnalyzerFeed
 https://t.me/BetAnalyzerFeedBot
