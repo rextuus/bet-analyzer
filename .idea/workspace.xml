@@ -5,30 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/TipicoBet.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/OutcomeTestCalculation/TestBet.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/OutcomeTestCalculation/TestCalculator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Api/Response/TipicoDailyMatchesResponse.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Api/Response/TipicoMatchResultResponse.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Api/TipicoApiGateway.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/Data/TipicoBetData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/CollectDailyMatchesMessage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/CollectDailyMatchesMessageHandler.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/CollectDailyMatchesScheduleProvider.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tipico-api.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bet-analyzer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bet-analyzer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/notifier.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/notifier.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/CollectDailyMatchesCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/CollectDailyMatchesCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -368,7 +347,7 @@
       <workItem from="1709044787982" duration="15027000" />
       <workItem from="1709139055624" duration="40112000" />
       <workItem from="1709220698130" duration="299000" />
-      <workItem from="1709221980254" duration="4096000" />
+      <workItem from="1709221980254" duration="7652000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -655,15 +634,29 @@
       <option name="project" value="LOCAL" />
       <updated>1709153065266</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Tipico package">
+      <option name="closed" value="true" />
+      <created>1709228535389</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1709228535389</updated>
+    </task>
+    <task id="LOCAL-00042" summary="New Command">
+      <option name="closed" value="true" />
+      <created>1709230495771</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1709230495771</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added" />
-    <MESSAGE value="Add defualt for missing info" />
     <MESSAGE value="Added option to run specific fixture odd decoration" />
     <MESSAGE value="use bigInt for oddApiId" />
     <MESSAGE value="Allow null name for odds" />
@@ -687,7 +680,9 @@
     <MESSAGE value="Outcome" />
     <MESSAGE value="Improve" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Tipico package" />
+    <MESSAGE value="New Command" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Command" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -3,13 +3,11 @@
 namespace App\Command;
 
 use App\Service\Tipico\TipicoBetSimulationService;
+use DateTime;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'CollectDailyMatchesCommand',
@@ -30,7 +28,13 @@ class CollectDailyMatchesCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $time = (new \DateTime())->format('d/m/y H:i');
-        $this->betSimulationService->sendMessageToTelegramFeed($time);
+        $message = sprintf('Start harvesting matches at %s', $time);
+        $this->betSimulationService->sendMessageToTelegramFeed($message);
+
+        $stored = $this->betSimulationService->storeDailyMatches();
+
+        $message = sprintf('Added %d new matches for %s', $stored, (new DateTime())->format('d.m.Y'));
+        $this->betSimulationService->sendMessageToTelegramFeed($message);
 
         return Command::SUCCESS;
     }

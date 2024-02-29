@@ -28,18 +28,21 @@ class TipicoBetSimulationService
     {
     }
 
-    public function storeDailyMatches(): void
+    public function storeDailyMatches(): int
     {
         $response = $this->tipicoApiGateway->getDailyMatchEvents();
 
         $stored = 0;
         foreach ($response->getMatches() as $tipicoBetData) {
+            if ($this->tipicoBetService->findByTipicoId($tipicoBetData->getTipicoId())){
+                continue;
+            }
+
             $this->tipicoBetService->createByData($tipicoBetData);
             $stored++;
         }
-        $message = sprintf('Added %d new matches for %s', $stored, (new DateTime())->format('d.m.Y'));
 
-        $this->sendMessageToTelegramFeed($message);
+        return $stored;
     }
 
     public function checkMatchOutcome(TipicoBet $match): bool
