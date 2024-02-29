@@ -5,9 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Entity/TipicoBet.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/OutcomeTestCalculation/TestBet.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Evaluation/OutcomeTestCalculation/TestCalculator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Api/Response/TipicoDailyMatchesResponse.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Api/Response/TipicoMatchResultResponse.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Api/TipicoApiGateway.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/Data/TipicoBetData.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/CollectDailyMatchesMessage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/CollectDailyMatchesMessageHandler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/CollectDailyMatchesScheduleProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tipico-api.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bet-analyzer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bet-analyzer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/InitOutcomeCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/InitOutcomeCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/notifier.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/notifier.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SeasonStatisticController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,6 +188,21 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/vendor/liip/test-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/telegram-notifier" />
+      <path value="$PROJECT_DIR$/vendor/jean85/pretty-package-versions" />
+      <path value="$PROJECT_DIR$/vendor/http-interop/http-factory-guzzle" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message" />
+      <path value="$PROJECT_DIR$/vendor/php-http/discovery" />
+      <path value="$PROJECT_DIR$/vendor/php-http/httplug" />
+      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/vendor/php-http/promise" />
+      <path value="$PROJECT_DIR$/vendor/php-http/client-common" />
+      <path value="$PROJECT_DIR$/vendor/sentry/sentry" />
+      <path value="$PROJECT_DIR$/vendor/sentry/sentry-symfony" />
+      <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
+      <path value="$PROJECT_DIR$/vendor/symfony/scheduler" />
+      <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -177,37 +213,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/wolfgang/Documents/programming/bet-analyzer/templates/bet_row",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php",
-    "settings.editor.splitter.proportion": "0.086407766",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/wolfgang/Documents/programming/bet-analyzer/templates/bet_row&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.086407766&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "f9001e92-ef92-4534-9318-2c4de0a8ae3e",
-      "f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\"bet_analyzer\""
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e&quot;,
+      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\&quot;bet_analyzer\&quot;&quot;
     ],
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "TEXT",
-      "MySQL"
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;JSON&quot;,
+      &quot;HTML&quot;,
+      &quot;TEXT&quot;,
+      &quot;MySQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/bet_row" />
@@ -328,7 +366,9 @@
       <workItem from="1706879067563" duration="66000" />
       <workItem from="1708986718354" duration="1428000" />
       <workItem from="1709044787982" duration="15027000" />
-      <workItem from="1709139055624" duration="12215000" />
+      <workItem from="1709139055624" duration="40112000" />
+      <workItem from="1709220698130" duration="299000" />
+      <workItem from="1709221980254" duration="4096000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -607,14 +647,21 @@
       <option name="project" value="LOCAL" />
       <updated>1709151102179</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1709153065266</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1709153065266</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Init" />
     <MESSAGE value="Added" />
     <MESSAGE value="Add defualt for missing info" />
     <MESSAGE value="Added option to run specific fixture odd decoration" />
@@ -639,15 +686,26 @@
     <MESSAGE value="commiz" />
     <MESSAGE value="Outcome" />
     <MESSAGE value="Improve" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve" />
+    <MESSAGE value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/vendor/liip/test-fixtures-bundle/src/Services/DatabaseTools/AbstractDatabaseTool.php</url>
-          <line>30</line>
+          <line>31</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php</url>
+          <line>4</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_51.html</url>
+          <line>91</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

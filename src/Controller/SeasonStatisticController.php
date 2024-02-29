@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\SeasonStatistic;
+use App\Service\Evaluation\Message\UpdateOddOutcomeMessage;
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
 use App\Service\Sportmonks\Content\Season\Statistic\Data\SeasonStatisticData;
 use App\Service\Sportmonks\Content\Season\Statistic\SeasonStatisticService;
+use App\Service\Statistic\Content\OddOutcome\OutcomeCalculator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,8 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class SeasonStatisticController extends AbstractController
 {
     #[Route('/', name: 'app_season_statistic_list')]
-    public function list(SeasonStatisticService $seasonStatisticService): Response
+    public function list(SeasonStatisticService $seasonStatisticService, OutcomeCalculator $calculator): Response
     {
+        $message = new UpdateOddOutcomeMessage();
+        $message->setFixtureIds([6781]);
+        $calculator->calculateAll($message);
+
+        return $this->render('season_statistic/index.html.twig', [
+            'dtos' => [],
+        ]);
+
         $dtos = $seasonStatisticService->getViewDtos();
 
         return $this->render('season_statistic/index.html.twig', [

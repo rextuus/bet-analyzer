@@ -1,0 +1,11 @@
+All events till the end of the day:
+https://sports.tipico.de/json/program/hourEvents/today
+Event outcome by tipico-id:
+https://sports.tipico.de/json/services/event/598504610
+
+telegram bot
+token: 7052734818:AAH8HjFTyaF5UyNEuNjNpiVHb0HtFXRxLqM
+username: BetAnalyzerFeedBot
+botname: BetAnalyzerFeed
+https://t.me/BetAnalyzerFeedBot
+chatId: 704862488
