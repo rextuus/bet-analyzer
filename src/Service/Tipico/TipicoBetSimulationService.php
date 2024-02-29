@@ -64,15 +64,17 @@ class TipicoBetSimulationService
         return false;
     }
 
-    public function checkMatches(): void
+    public function checkMatches(): int
     {
         $matches = $this->tipicoBetService->findAllUndecoratedMatches();
-dd($matches);
+
         $finished = 0;
         foreach ($matches as $match){
             $this->checkMatchOutcome($match);
             $finished++;
         }
+
+        return $finished;
     }
 
     public function sendMessageToTelegramFeed(string $message): void
