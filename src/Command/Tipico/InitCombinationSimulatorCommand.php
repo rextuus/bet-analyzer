@@ -65,6 +65,7 @@ class InitCombinationSimulatorCommand extends Command
         $simulatorData->setIdentifier($identifier);
         $simulatorData->setStrategy($strategy);
         $simulatorData->setFixtures([]);
+        $simulatorData->setPlacements([]);
         $this->simulatorService->createByData($simulatorData);
 
         return Command::SUCCESS;

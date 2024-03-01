@@ -7,7 +7,6 @@ use App\Entity\Simulator;
 use App\Entity\TipicoBet;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
-use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\TelegramMessageService;
