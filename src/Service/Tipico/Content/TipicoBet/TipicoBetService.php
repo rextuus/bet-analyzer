@@ -50,4 +50,12 @@ class TipicoBetService
     {
         return $this->repository->findAllUndecoratedMatches();
     }
+
+    /**
+     * @return TipicoBet[]
+     */
+    public function findInRange(float $min, float $max, string $targetOddColumn, array $alreadyUsed): array
+    {
+        return $this->repository->findInRange($min, $max, $targetOddColumn, $alreadyUsed);
+    }
 }

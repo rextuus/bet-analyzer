@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\Tipico;
 
 use App\Service\Tipico\TipicoBetSimulationService;
 use DateTime;

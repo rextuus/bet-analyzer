@@ -62,13 +62,37 @@ class TipicoBetRepository extends ServiceEntityRepository
     {
         $timeStamp = (new DateTime('+2h'))->getTimestamp();
         $timeStamp = $timeStamp * 1000;
-dump($timeStamp);
+
         $qb = $this->createQueryBuilder('t');
         $qb->where($qb->expr()->lt('t.startAtTimeStamp', ':timeStamp'));
         $qb->setParameter('timeStamp', $timeStamp);
         $qb->andWhere($qb->expr()->eq('t.finished', ':finished'));
         $qb->setParameter('finished', false);
 
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return TipicoBet[]
+     */
+    public function findInRange(float $min, float $max, string $targetOddColumn, array $alreadyUsed): array
+    {
+        $alreadyUsed = array_merge($alreadyUsed, [-1]);
+
+        $qb = $this->createQueryBuilder('t');
+        $qb->where($qb->expr()->gte('t.'.$targetOddColumn, ':min'));
+        $qb->setParameter('min', $min);
+        $qb->andWhere($qb->expr()->lte('t.'.$targetOddColumn, ':max'));
+        $qb->setParameter('max', $max);
+        $qb->andWhere($qb->expr()->eq('t.finished', ':finished'));
+        $qb->setParameter('finished', true);
+
+        $qb->andWhere($qb->expr()->notIn('t.id', ':ids'));
+        $qb->setParameter('ids', $alreadyUsed);
+
+        $qb->orderBy('t.startAtTimeStamp', 'ASC');
+//dump($qb->getParameters());
+//dd($qb->getDQL());
         return $qb->getQuery()->getResult();
     }
 }

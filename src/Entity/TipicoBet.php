@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -53,6 +55,18 @@ class TipicoBet
 
     #[ORM\Column(type: "string", enumType: BetOn::class)]
     private BetOn $result;
+
+    #[ORM\ManyToMany(targetEntity: Simulator::class, mappedBy: 'fixtures')]
+    private Collection $simulators;
+
+    #[ORM\ManyToMany(targetEntity: TipicoPlacement::class, mappedBy: 'fixtures')]
+    private Collection $tipicoPlacements;
+
+    public function __construct()
+    {
+        $this->simulators = new ArrayCollection();
+        $this->tipicoPlacements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -211,6 +225,60 @@ class TipicoBet
     public function setResult(BetOn $result): TipicoBet
     {
         $this->result = $result;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Simulator>
+     */
+    public function getSimulators(): Collection
+    {
+        return $this->simulators;
+    }
+
+    public function addSimulator(Simulator $simulator): static
+    {
+        if (!$this->simulators->contains($simulator)) {
+            $this->simulators->add($simulator);
+            $simulator->addFixture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSimulator(Simulator $simulator): static
+    {
+        if ($this->simulators->removeElement($simulator)) {
+            $simulator->removeFixture($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TipicoPlacement>
+     */
+    public function getTipicoPlacements(): Collection
+    {
+        return $this->tipicoPlacements;
+    }
+
+    public function addTipicoPlacement(TipicoPlacement $tipicoPlacement): static
+    {
+        if (!$this->tipicoPlacements->contains($tipicoPlacement)) {
+            $this->tipicoPlacements->add($tipicoPlacement);
+            $tipicoPlacement->addFixture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTipicoPlacement(TipicoPlacement $tipicoPlacement): static
+    {
+        if ($this->tipicoPlacements->removeElement($tipicoPlacement)) {
+            $tipicoPlacement->removeFixture($this);
+        }
+
         return $this;
     }
 }
