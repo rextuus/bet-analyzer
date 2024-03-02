@@ -7,7 +7,7 @@ use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
-use App\Service\Tipico\SimulationProcessors\CombineStrategy;
+use App\Service\Tipico\SimulationProcessors\CompensateLossStrategy;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,10 +15,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'InitCombinationSimulator',
+    name: 'InitCompensationSimulator',
     description: 'Add a short description for your command',
 )]
-class InitCombinationSimulatorCommand extends Command
+class InitCompensationSimulatorCommand extends Command
 {
     public function __construct(
         private readonly SimulationStrategyService $simulationStrategyService,
@@ -35,7 +35,7 @@ class InitCombinationSimulatorCommand extends Command
             ->addArgument('min', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('max', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('betOn', InputArgument::REQUIRED, 'Argument description')
-            ->addArgument('combinationAmount', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('defaultIn', InputArgument::OPTIONAL, 'Argument description')
         ;
     }
 
@@ -45,15 +45,21 @@ class InitCombinationSimulatorCommand extends Command
         $min = $input->getArgument('min');
         $max = $input->getArgument('max');
         $betOn = $input->getArgument('betOn');
-        $combinationAmount = $input->getArgument('combinationAmount');
+        $defaultIn = $input->getArgument('defaultIn');
+        if (!$defaultIn){
+            $defaultIn = 1.0;
+        }
+
+        $compensation = 0.0;
 
         $simulationStrategyData = new SimulationStrategyData();
-        $simulationStrategyData->setIdentifier(CombineStrategy::IDENT);
+        $simulationStrategyData->setIdentifier(CompensateLossStrategy::IDENT);
 
         $parameters = [
-            CombineStrategy::PARAMETER_MIN => $min,
-            CombineStrategy::PARAMETER_MAX => $max,
-            CombineStrategy::PARAMETER_COMBINATION_AMOUNT => $combinationAmount,
+            AbstractSimulationProcessor::PARAMETER_MIN => $min,
+            AbstractSimulationProcessor::PARAMETER_MAX => $max,
+            CompensateLossStrategy::PARAMETER_DEFAULT_IN => $defaultIn,
+            CompensateLossStrategy::PARAMETER_COMPENSATION => $compensation,
             AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
         ];
         $simulationStrategyData->setParameters(json_encode($parameters));

@@ -3,10 +3,13 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\SimulationProcessors;
 
+use App\Entity\SimulationStrategy;
 use App\Entity\Simulator;
 use App\Entity\TipicoBet;
 use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
+use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
+use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
@@ -20,10 +23,14 @@ use App\Service\Tipico\TipicoBetSimulator;
 class AbstractSimulationProcessor
 {
     public const PARAMETER_BET_ON = 'betOn';
+    public const PARAMETER_MIN = 'min';
+    public const PARAMETER_MAX = 'max';
 
     public function __construct(
         private readonly TipicoPlacementService $placementService,
         private readonly SimulatorService $simulatorService,
+        private readonly SimulationStrategyService $simulationStrategyService,
+        private readonly TipicoBetService $tipicoBetService,
     )
     {
     }
@@ -93,5 +100,25 @@ class AbstractSimulationProcessor
             },
             $simulator->getFixtures()->toArray()
         );
+    }
+
+    /**
+     * @return TipicoBet[]
+     */
+    protected function getFittingFixtures(float $min, float $max, string $targetOddColumn, array $alreadyUsed): array
+    {
+        return $this->tipicoBetService->findInRange($min, $max, $targetOddColumn, $alreadyUsed);
+    }
+
+    protected function storeSimulatorStrategyChanges(Simulator $simulator, float $compensationIn): void
+    {
+        $strategy = $simulator->getStrategy();
+        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
+        $parameters[CompensateLossStrategy::PARAMETER_COMPENSATION] = $compensationIn;
+
+        $simulationStrategyData = (new SimulationStrategyData())->initFromEntity($strategy);
+        $simulationStrategyData->setParameters(json_encode($parameters));
+
+        $this->simulationStrategyService->update($strategy, $simulationStrategyData);
     }
 }

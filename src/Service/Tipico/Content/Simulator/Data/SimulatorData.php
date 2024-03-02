@@ -24,6 +24,8 @@ class SimulatorData
     private string $identifier;
     private SimulationStrategy $strategy;
 
+    private float $currentIn;
+
     /**
      * @var TipicoPlacement[] $placements
      */
@@ -84,6 +86,17 @@ class SimulatorData
         return $this;
     }
 
+    public function getCurrentIn(): float
+    {
+        return $this->currentIn;
+    }
+
+    public function setCurrentIn(float $currentIn): SimulatorData
+    {
+        $this->currentIn = $currentIn;
+        return $this;
+    }
+
     public function initFromEntity(Simulator $simulator): SimulatorData
     {
         $this->setFixtures([]);
@@ -91,6 +104,7 @@ class SimulatorData
         $this->setStrategy($simulator->getStrategy());
         $this->setIdentifier($simulator->getIdentifier());
         $this->setCashBox($simulator->getCashBox());
+        $this->setCurrentIn($simulator->getCurrentIn());
 
         return $this;
     }

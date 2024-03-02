@@ -53,4 +53,37 @@ class TipicoBetSimulator
 
         return $data;
     }
+
+    /**
+     * @param TipicoBet[] $fixtures
+     */
+    public function createPlacement(
+        array $fixtures,
+        float $input,
+        float $value,
+        DateTime $created,
+        bool $isWon,
+        Simulator $simulator,
+    ): TipicoPlacementData
+    {
+        $data = new TipicoPlacementData();
+        $data->setFixtures($fixtures);
+        $data->setInput($input);
+        $data->setValue($value);
+        $data->setCreated($created);
+        $data->setWon($isWon);
+        $data->setSimulator($simulator);
+
+        return $data;
+    }
+    public function getOddValueByBeton(TipicoBet $tipicoBet, BetOn $betOn): float
+    {
+        match($betOn){
+            BetOn::HOME => $value = $tipicoBet->getOddHome(),
+            BetOn::DRAW => $value = $tipicoBet->getOddDraw(),
+            BetOn::AWAY => $value = $tipicoBet->getOddAway(),
+        };
+
+        return $value;
+    }
 }

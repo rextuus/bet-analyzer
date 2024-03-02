@@ -24,6 +24,7 @@ class SimulatorFactory
     $simulator->setIdentifier($data->getIdentifier());
     $simulator->setCashBox($data->getCashBox());
     $simulator->setStrategy($data->getStrategy());
+    $simulator->setCurrentIn($data->getCurrentIn());
 
     foreach ($data->getFixtures() as $fixture){
         $simulator->addFixture($fixture);

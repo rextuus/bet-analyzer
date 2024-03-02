@@ -31,6 +31,9 @@ class Simulator
     #[ORM\OneToMany(mappedBy: 'simulator', targetEntity: TipicoPlacement::class)]
     private Collection $tipicoPlacements;
 
+    #[ORM\Column]
+    private ?float $currentIn = 0.0;
+
     public function __construct()
     {
         $this->fixtures = new ArrayCollection();
@@ -128,6 +131,18 @@ class Simulator
                 $tipicoPlacement->setSimulator(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCurrentIn(): ?float
+    {
+        return $this->currentIn;
+    }
+
+    public function setCurrentIn(float $currentIn): static
+    {
+        $this->currentIn = $currentIn;
 
         return $this;
     }
