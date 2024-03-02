@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Command/Tipico/InitCompensationSimulatorCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/CompensateLossStrategy.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Command/Tipico/InitAgainstSimulatorCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AgainstStrategy.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/Tipico/InitCombinationSimulatorCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/InitCombinationSimulatorCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Simulator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Simulator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/SimulationStrategy/Data/SimulationStrategyData.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/SimulationStrategy/Data/SimulationStrategyData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/Data/SimulatorData.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/Data/SimulatorData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/CombineStrategy.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/CombineStrategy.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulator.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -356,7 +348,7 @@
       <workItem from="1709139055624" duration="40112000" />
       <workItem from="1709220698130" duration="299000" />
       <workItem from="1709221980254" duration="36590000" />
-      <workItem from="1709298382501" duration="20701000" />
+      <workItem from="1709298382501" duration="24624000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -691,7 +683,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709294008829</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1709398725320</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1709398725320</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
