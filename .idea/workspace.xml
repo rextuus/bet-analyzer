@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Command/Tipico/InitAgainstSimulatorCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AgainstStrategy.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -348,7 +346,7 @@
       <workItem from="1709139055624" duration="40112000" />
       <workItem from="1709220698130" duration="299000" />
       <workItem from="1709221980254" duration="36590000" />
-      <workItem from="1709298382501" duration="24624000" />
+      <workItem from="1709298382501" duration="27068000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -691,14 +689,21 @@
       <option name="project" value="LOCAL" />
       <updated>1709398725320</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Simple against strategy">
+      <option name="closed" value="true" />
+      <created>1709403112385</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1709403112385</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Allow null name for odds" />
     <MESSAGE value="Added new entities for standing, teams and seasons" />
     <MESSAGE value="Added mapping" />
     <MESSAGE value="Added mechanic to handle undefeatable fixtures" />
@@ -723,7 +728,8 @@
     <MESSAGE value="Command" />
     <MESSAGE value="Simulator" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Simple against strategy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simple against strategy" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

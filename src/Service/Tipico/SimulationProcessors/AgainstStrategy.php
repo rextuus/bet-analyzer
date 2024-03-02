@@ -97,14 +97,16 @@ class AgainstStrategy extends AbstractSimulationProcessor implements SimulationP
         $container = $this->storePlacementsToDatabase($placementData);
         $this->storeSimulatorChangesToDatabase($simulator, $fixturesActuallyUsed, $container);
 
-        $message = sprintf(
-            '"%s" simulator placed %d bets and made a sales volume of %.2f. Current cash box: %.2f',
-            $simulator->getIdentifier(),
-            count($container->getPlacements()),
-            $container->getCashBoxChange(),
-            $simulator->getCashBox(),
-        );
+        if (count($placementData) > 0){
+            $message = sprintf(
+                '"%s" simulator placed %d bets and made a sales volume of %.2f. Current cash box: %.2f',
+                $simulator->getIdentifier(),
+                count($container->getPlacements()),
+                $container->getCashBoxChange(),
+                $simulator->getCashBox(),
+            );
 
-        $this->telegramMessageService->sendMessageToTelegramFeed($message);
+            $this->telegramMessageService->sendMessageToTelegramFeed($message);
+        }
     }
 }
