@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Command/Tipico/InitSimpleSimulatorCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/SimpleStrategy.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Api/TipicoApiGateway.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Api/TipicoApiGateway.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tipico-api.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tipico-api.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -350,7 +350,7 @@
       <workItem from="1709139055624" duration="40112000" />
       <workItem from="1709220698130" duration="299000" />
       <workItem from="1709221980254" duration="36590000" />
-      <workItem from="1709298382501" duration="36451000" />
+      <workItem from="1709298382501" duration="41160000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -597,14 +597,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00038" summary="Outcome">
-      <option name="closed" value="true" />
-      <created>1709146101799</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1709146101799</updated>
-    </task>
     <task id="LOCAL-00039" summary="Improve">
       <option name="closed" value="true" />
       <created>1709151102179</created>
@@ -709,7 +701,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709429826245</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Fix eval">
+      <option name="closed" value="true" />
+      <created>1709464589581</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1709464589581</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
