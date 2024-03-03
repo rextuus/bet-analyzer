@@ -12,7 +12,7 @@ use App\Service\Evaluation\BetOn;
 class TipicoMatchResultResponse
 {
     private const KEY_BASE = 'event';
-    private const KEY_POINT_SCORE = 'fullTimeScore';
+    private const KEY_POINT_SCORE = 'fulltimeScore';
     private const KEY_ENDED = 'ended';
     private const KEY_COUNT_1 = 'count1';
     private const KEY_COUNT_2 = 'count2';
