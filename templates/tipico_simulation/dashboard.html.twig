@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipico Simulators{% endblock %}
+
+{% block body %}
+
+
+    <div class="table-container">
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th>Ident</th>
+                <th>Cashbox</th>
+                <th>Cashbox change</th>
+                <th>Bets</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for simulator in simulators %}
+                <tr>
+                    <td>{{ simulator.identifier }}</td>
+                    <td>{{ simulator.cashBox }}</td>
+
+                    <td>{{ render_chart(cashBoxCharts[loop.index-1]) }}</td>
+                    <td>{{ render_chart(betOutcomeCharts[loop.index-1]) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

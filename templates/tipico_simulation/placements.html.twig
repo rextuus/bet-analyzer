@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipico Simulators{% endblock %}
+
+{% block body %}
+
+    <h1>{{ simulator.identifier }}</h1>
+    <div class="table-container">
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Home</th>
+                <th>Away</th>
+                <th>1</th>
+                <th>X</th>
+                <th>2</th>
+                <th>Result</th>
+                <th>Goals home</th>
+                <th>Goals away</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for placement in placements %}
+                <tr>
+                    <td>{{ placement.created|date() }}</td>
+                    <td>{{ placement.fixtures[0].homeTeamName }}</td>
+                    <td>{{ placement.fixtures[0].awayTeamName }}</td>
+                    <td>{{ placement.fixtures[0].oddHome }}</td>
+                    <td>{{ placement.fixtures[0].oddDraw }}</td>
+                    <td>{{ placement.fixtures[0].oddAway }}</td>
+                    <td>{{ placement.fixtures[0].result.value }}</td>
+                    <td>{{ placement.fixtures[0].endScoreHome }}</td>
+                    <td>{{ placement.fixtures[0].endScoreAway }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

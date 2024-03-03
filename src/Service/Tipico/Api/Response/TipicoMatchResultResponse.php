@@ -12,7 +12,8 @@ use App\Service\Evaluation\BetOn;
 class TipicoMatchResultResponse
 {
     private const KEY_BASE = 'event';
-    private const KEY_POINT_SCORE = 'pointScore';
+    private const KEY_POINT_SCORE = 'fullTimeScore';
+    private const KEY_ENDED = 'ended';
     private const KEY_COUNT_1 = 'count1';
     private const KEY_COUNT_2 = 'count2';
 
@@ -37,7 +38,12 @@ class TipicoMatchResultResponse
     public function parseResponse(): void
     {
         $event = $this->decodedResponseBody[self::KEY_BASE];
-        if (!array_key_exists(self::KEY_POINT_SCORE, $event)){
+
+        if (!array_key_exists(self::KEY_POINT_SCORE, $event)) {
+            return;
+        }
+
+        if (!$event[self::KEY_ENDED]) {
             return;
         }
 
@@ -46,16 +52,16 @@ class TipicoMatchResultResponse
         $home = $score[self::KEY_COUNT_1];
         $away = $score[self::KEY_COUNT_2];
 
-        if($home > $away){
+        if ($home > $away) {
             $this->result = BetOn::HOME;
         }
 
-        if($away > $home){
+        if ($away > $home) {
             $this->result = BetOn::AWAY;
         }
 
-        $this->homeGoals = (int) $home;
-        $this->awayGoals = (int) $away;
+        $this->homeGoals = (int)$home;
+        $this->awayGoals = (int)$away;
         $this->gameIsFinished = true;
     }
 
