@@ -38,11 +38,15 @@ class TipicoApiGateway
         return $response;
     }
 
-    public function getEventInfo(string $tipicoMatchId): TipicoMatchResultResponse
+    public function getEventInfo(string $tipicoMatchId): ?TipicoMatchResultResponse
     {
         $client = $this->clientFactory->createClient([], self::EVENT_INFO_API_URI);
 
-        $response = $client->request('GET', $tipicoMatchId);
+        try {
+            $response = $client->request('GET', $tipicoMatchId);
+        } catch (GuzzleException $e) {
+            return null;
+        }
 
         $data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
         $response = new TipicoMatchResultResponse($data);

@@ -53,6 +53,9 @@ class TipicoBetSimulationService
     public function checkMatchOutcome(TipicoBet $match): bool
     {
         $response = $this->tipicoApiGateway->getEventInfo((string)$match->getTipicoId());
+        if(!$response){
+            return false;
+        }
 
         $data = (new TipicoBetData())->initFromEntity($match);
 
