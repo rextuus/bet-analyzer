@@ -13,7 +13,7 @@ body {
     }
 
     .styled-table thead tr {
-        background-color: #009879;
+        background-color: #858585;
         color: #ffffff;
         text-align: left;
     }
@@ -23,5 +23,33 @@ body {
         padding: 12px 15px;
     }
 
+    .transaction {
+        display: flex;
+        align-items: center;
 
+        padding: 3px;
+        .icon {
+            margin-right: 10px; // Add some space between icon and amount
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        .amount {
+            font-size: 18px;
+        }
+
+
+        &.increase{
+            background-color: #769467;
+        }
+        &.decrease{
+            background-color: rgba(255, 50, 50, 0.3);
+        }
+    }
+
+    .winner-team{
+        font-weight: bold;
+    }
 }

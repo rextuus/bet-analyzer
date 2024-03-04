@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Simulator;
 use App\Entity\TipicoPlacement;
 use App\Service\Statistic\BetRowCombinationStatistic;
+use App\Service\Tipico\Content\Placement\Data\PlacementMetaData;
+use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,6 +54,18 @@ class TipicoSimulationController extends AbstractController
             'placements' => $placements,
             'simulator' => $simulator,
         ]);
+    }
+
+    /**
+     * @param TipicoPlacement[] $placements
+     * @return PlacementMetaData[]
+     */
+    public function createMetaDataForPlacement(array $placements): array
+    {
+        $metaData = [];
+        foreach ($placements as $placement){
+            $data = new PlacementMetaData();
+        }
     }
 
     public function createBetOutcomeChart(Simulator $simulator): Chart

@@ -18,6 +18,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/telegram-notifier" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dragonmantank/cron-expression" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/scheduler" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-twig-component" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

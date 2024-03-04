@@ -1,0 +1,23 @@
+<div class="placement" {{ attributes }}>
+    <tr class="{{ this.rowClass }}">
+        <td>{{ placement.created|date() }}</td>
+        <td class="{{ this.homeClass }}">{{ placement.fixtures[0].homeTeamName }}</td>
+        <td class="{{ this.awayClass }}">{{ placement.fixtures[0].awayTeamName }}</td>
+        <td class="{{ this.homeClass }}">{{ placement.fixtures[0].oddHome }}</td>
+        <td class="{{ this.drawClass }}">{{ placement.fixtures[0].oddDraw }}</td>
+        <td class="{{ this.awayClass }}">{{ placement.fixtures[0].oddAway }}</td>
+        <td>{{ placement.fixtures[0].result.value }}</td>
+        <td>
+            <div class="transaction {{ this.rowClass }}">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        {{ this.iconPath|raw }}
+                    </svg>
+                </div>
+                <div class="amount">{{this.outPut}}</div>
+            </div>
+        </td>
+        <td><div class="result">{{  placement.fixtures[0].endScoreHome }} - {{ placement.fixtures[0].endScoreAway }}</div></td>
+        <td><a href="https://www.google.com/search?q={{ placement.fixtures[0].homeTeamName }} - {{ placement.fixtures[0].homeTeamName }} {{ placement.created|date() }} result" target="_blank">Google</a></td>
+    </tr>
+</div>

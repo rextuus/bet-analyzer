@@ -17,4 +17,5 @@ return [
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     Liip\TestFixturesBundle\LiipTestFixturesBundle::class => ['dev' => true, 'test' => true],
     Sentry\SentryBundle\SentryBundle::class => ['all' => true],
+    Symfony\UX\TwigComponent\TwigComponentBundle::class => ['all' => true],
 ];

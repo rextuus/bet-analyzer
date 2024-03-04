@@ -168,6 +168,7 @@
       <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
       <path value="$PROJECT_DIR$/vendor/symfony/scheduler" />
       <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-twig-component" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

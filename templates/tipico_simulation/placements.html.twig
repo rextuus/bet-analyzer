@@ -16,23 +16,14 @@
                 <th>X</th>
                 <th>2</th>
                 <th>Result</th>
-                <th>Goals home</th>
-                <th>Goals away</th>
+                <th>Output</th>
+                <th>Goals</th>
+                <th>Search</th>
             </tr>
             </thead>
             <tbody>
             {% for placement in placements %}
-                <tr>
-                    <td>{{ placement.created|date() }}</td>
-                    <td>{{ placement.fixtures[0].homeTeamName }}</td>
-                    <td>{{ placement.fixtures[0].awayTeamName }}</td>
-                    <td>{{ placement.fixtures[0].oddHome }}</td>
-                    <td>{{ placement.fixtures[0].oddDraw }}</td>
-                    <td>{{ placement.fixtures[0].oddAway }}</td>
-                    <td>{{ placement.fixtures[0].result.value }}</td>
-                    <td>{{ placement.fixtures[0].endScoreHome }}</td>
-                    <td>{{ placement.fixtures[0].endScoreAway }}</td>
-                </tr>
+                {{ component('Placement', {'placement' : placement}) }}
             {% endfor %}
             </tbody>
         </table>

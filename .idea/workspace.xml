@@ -4,12 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="Simple strategy">
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Placement/Data/PlacementMetaData.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Twig/Components/Placement.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/Placement.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bet-analyzer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bet-analyzer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AgainstStrategy.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AgainstStrategy.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/placements.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/placements.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tipico-api.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tipico-api.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -185,6 +193,7 @@
       <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
       <path value="$PROJECT_DIR$/vendor/symfony/scheduler" />
       <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-twig-component" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -354,7 +363,7 @@
       <workItem from="1709221980254" duration="36590000" />
       <workItem from="1709298382501" duration="41826000" />
       <workItem from="1709548712818" duration="65000" />
-      <workItem from="1709570804256" duration="2968000" />
+      <workItem from="1709570804256" duration="11297000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -601,14 +610,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00040" summary="Fix">
-      <option name="closed" value="true" />
-      <created>1709153065266</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1709153065266</updated>
-    </task>
     <task id="LOCAL-00041" summary="Tipico package">
       <option name="closed" value="true" />
       <created>1709228535389</created>
@@ -713,14 +714,21 @@
       <option name="project" value="LOCAL" />
       <updated>1709510393312</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Update">
+      <option name="closed" value="true" />
+      <created>1709576802032</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1709576802032</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Message Refactoring" />
     <MESSAGE value="Messenger for fixture caculation" />
     <MESSAGE value="Added SeasonStatistic" />
     <MESSAGE value="Removed unnecessary column" />
@@ -745,7 +753,8 @@
     <MESSAGE value="Optimized" />
     <MESSAGE value="Fix eval" />
     <MESSAGE value="Simple strategy" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simple strategy" />
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
