@@ -53,7 +53,7 @@ class AgainstStrategy extends AbstractSimulationProcessor implements SimulationP
             $this->getUsedFixtureIds($simulator)
         );
 
-        $againstBoth = $parameters[self::PARAMETER_AGAINST_BOTH];
+        $againstBoth = (bool) $parameters[self::PARAMETER_AGAINST_BOTH];
         $against = $parameters[self::PARAMETER_AGAINST];
 
         $placementData = [];

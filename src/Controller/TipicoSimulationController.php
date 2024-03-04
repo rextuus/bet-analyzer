@@ -48,7 +48,6 @@ class TipicoSimulationController extends AbstractController
     public function placements(Simulator $simulator): Response
     {
         $placements = $simulator->getTipicoPlacements();
-
         return $this->render('tipico_simulation/placements.html.twig', [
             'placements' => $placements,
             'simulator' => $simulator,
@@ -97,7 +96,7 @@ class TipicoSimulationController extends AbstractController
             'scales' => [
                 'y' => [
                     'suggestedMin' => -2,
-                    'suggestedMax' => 10,
+                    'suggestedMax' => 8,
                 ],
             ],
         ]);
@@ -110,6 +109,7 @@ class TipicoSimulationController extends AbstractController
 
         $placements = $simulator->getTipicoPlacements()->toArray();
         $nr = array_keys($placements);
+        $nr[] = count($nr);
 
         $betOutcomes = array_map(
             function (TipicoPlacement $placement){

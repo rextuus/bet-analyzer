@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Command/Tipico/InitSimpleSimulatorCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/SimpleStrategy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AgainstStrategy.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AgainstStrategy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tipico-api.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tipico-api.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -193,39 +195,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/wolfgang/Documents/programming/bet-analyzer/templates/tipico_simulation",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php",
-    "settings.editor.splitter.proportion": "0.086407766",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/wolfgang/Documents/programming/bet-analyzer/templates/tipico_simulation&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.086407766&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "f9001e92-ef92-4534-9318-2c4de0a8ae3e",
-      "f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\"bet_analyzer\""
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e&quot;,
+      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\&quot;bet_analyzer\&quot;&quot;
     ],
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "JSON",
-      "HTML",
-      "TEXT",
-      "MySQL"
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;JSON&quot;,
+      &quot;HTML&quot;,
+      &quot;TEXT&quot;,
+      &quot;MySQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/tipico_simulation" />
@@ -350,7 +352,9 @@
       <workItem from="1709139055624" duration="40112000" />
       <workItem from="1709220698130" duration="299000" />
       <workItem from="1709221980254" duration="36590000" />
-      <workItem from="1709298382501" duration="41160000" />
+      <workItem from="1709298382501" duration="41826000" />
+      <workItem from="1709548712818" duration="65000" />
+      <workItem from="1709570804256" duration="2968000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -597,14 +601,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00039" summary="Improve">
-      <option name="closed" value="true" />
-      <created>1709151102179</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1709151102179</updated>
-    </task>
     <task id="LOCAL-00040" summary="Fix">
       <option name="closed" value="true" />
       <created>1709153065266</created>
@@ -709,14 +705,21 @@
       <option name="project" value="LOCAL" />
       <updated>1709464589581</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Simple strategy">
+      <option name="closed" value="true" />
+      <created>1709510393312</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1709510393312</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added mechanic to handle undefeatable fixtures" />
     <MESSAGE value="Message Refactoring" />
     <MESSAGE value="Messenger for fixture caculation" />
     <MESSAGE value="Added SeasonStatistic" />
@@ -741,7 +744,8 @@
     <MESSAGE value="Simple against strategy" />
     <MESSAGE value="Optimized" />
     <MESSAGE value="Fix eval" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix eval" />
+    <MESSAGE value="Simple strategy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simple strategy" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

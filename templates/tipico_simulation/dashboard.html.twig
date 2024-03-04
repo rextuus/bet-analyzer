@@ -9,6 +9,7 @@
         <table class="styled-table">
             <thead>
             <tr>
+                <th>Id</th>
                 <th>Ident</th>
                 <th>Cashbox</th>
                 <th>Cashbox change</th>
@@ -18,7 +19,8 @@
             <tbody>
             {% for simulator in simulators %}
                 <tr>
-                    <td>{{ simulator.identifier }}</td>
+                    <td>{{ simulator.id }}</td>
+                    <td><a href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a></td>
                     <td>{{ simulator.cashBox }}</td>
 
                     <td>{{ render_chart(cashBoxCharts[loop.index-1]) }}</td>
