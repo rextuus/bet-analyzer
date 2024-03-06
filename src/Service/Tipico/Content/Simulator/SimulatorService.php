@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Tipico\Content\Simulator;
 
 use App\Entity\Simulator;
+use App\Entity\TipicoPlacement;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 
 /**
@@ -44,5 +45,14 @@ class SimulatorService
     public function findAll(): array
     {
         return $this->repository->findAll();
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @return Simulator[]
+     */
+    public function findByFilter(array $data): array
+    {
+        return $this->repository->findByFilter($data);
     }
 }

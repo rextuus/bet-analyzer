@@ -5,18 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="Simple strategy">
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Placement/Data/PlacementMetaData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Twig/Components/Placement.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/Placement.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bet-analyzer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bet-analyzer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/asset/chess.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/asset/stadium.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/asset/train.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/TipicoSimulatorFilterType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Twig/Components/Simulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/Simulator.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/SimulationStrategyProcessorProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/SimulationStrategyProcessorProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/Components/Placement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/Placement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/Placement.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Placement.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/placements.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/placements.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tipico-api.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tipico-api.txt" afterDir="false" />
     </list>
@@ -246,6 +249,7 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/sql" />
+      <recent name="$PROJECT_DIR$/public/asset" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/../seasons" />
     </key>
@@ -363,7 +367,10 @@
       <workItem from="1709221980254" duration="36590000" />
       <workItem from="1709298382501" duration="41826000" />
       <workItem from="1709548712818" duration="65000" />
-      <workItem from="1709570804256" duration="11297000" />
+      <workItem from="1709570804256" duration="12607000" />
+      <workItem from="1709647485512" duration="6118000" />
+      <workItem from="1709666852913" duration="1188000" />
+      <workItem from="1709715055771" duration="8869000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -610,14 +617,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00041" summary="Tipico package">
-      <option name="closed" value="true" />
-      <created>1709228535389</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1709228535389</updated>
-    </task>
     <task id="LOCAL-00042" summary="New Command">
       <option name="closed" value="true" />
       <created>1709230495771</created>
@@ -722,7 +721,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709576802032</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Simple strategy">
+      <option name="closed" value="true" />
+      <created>1709590686046</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1709590686046</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -752,9 +759,9 @@
     <MESSAGE value="Simple against strategy" />
     <MESSAGE value="Optimized" />
     <MESSAGE value="Fix eval" />
-    <MESSAGE value="Simple strategy" />
     <MESSAGE value="Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update" />
+    <MESSAGE value="Simple strategy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simple strategy" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

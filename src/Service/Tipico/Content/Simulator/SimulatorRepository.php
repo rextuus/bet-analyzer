@@ -2,6 +2,7 @@
 
 namespace App\Service\Tipico\Content\Simulator;
 
+use App\Entity\SimulationStrategy;
 use App\Entity\Simulator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -49,8 +50,28 @@ class SimulatorRepository extends ServiceEntityRepository
     public function save(Simulator $simulator, bool $flush = true): void
     {
         $this->_em->persist($simulator);
-        if($flush){
+        if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @return Simulator[]
+     */
+    public function findByFilter(array $data): array
+    {
+        $qb = $this->createQueryBuilder('s');
+        if (array_key_exists('excludeNegative', $data) && $data['excludeNegative']){
+            $qb->andWhere($qb->expr()->gte('s.cashBox', 100.0));
+        }
+        if (array_key_exists('variant', $data)){
+            $qb->leftJoin(SimulationStrategy::class, 'ss', 'WITH', 's.strategy = ss.id');
+
+            $qb->andWhere($qb->expr()->eq('ss.identifier', ':strategy'));
+            $qb->setParameter('strategy', $data['variant']);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }

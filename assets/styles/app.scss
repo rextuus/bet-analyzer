@@ -52,4 +52,35 @@ body {
     .winner-team{
         font-weight: bold;
     }
+
+    .game-result {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon-container {
+            display: flex;
+            border: black solid 2px;
+            padding: 2px;
+
+            .icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            .home-win path,
+            .away-win path {
+                fill: green; /* Change the color as per your preference */
+            }
+
+            .draw circle {
+                fill: gray; /* Change the color as per your preference */
+            }
+        }
+    }
+}
+
+.simulator-name{
+    display: flex;
+    flex-direction: column;
 }

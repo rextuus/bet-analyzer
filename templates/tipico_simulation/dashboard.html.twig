@@ -4,7 +4,9 @@
 
 {% block body %}
 
-
+    <div class="filter">
+        {{ form(filter) }}
+    </div>
     <div class="table-container">
         <table class="styled-table">
             <thead>
@@ -13,19 +15,12 @@
                 <th>Ident</th>
                 <th>Cashbox</th>
                 <th>Cashbox change</th>
-                <th>Bets</th>
+                <th>Statistics</th>
             </tr>
             </thead>
             <tbody>
             {% for simulator in simulators %}
-                <tr>
-                    <td>{{ simulator.id }}</td>
-                    <td><a href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a></td>
-                    <td>{{ simulator.cashBox }}</td>
-
-                    <td>{{ render_chart(cashBoxCharts[loop.index-1]) }}</td>
-                    <td>{{ render_chart(betOutcomeCharts[loop.index-1]) }}</td>
-                </tr>
+                {{ component('Simulator', {'simulator' : simulator}) }}
             {% endfor %}
             </tbody>
         </table>

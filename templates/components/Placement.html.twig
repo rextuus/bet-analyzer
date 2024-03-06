@@ -2,6 +2,13 @@
     <tr class="{{ this.rowClass }}">
         <td>{{ placement.created|date() }}</td>
         <td class="{{ this.homeClass }}">{{ placement.fixtures[0].homeTeamName }}</td>
+        <td>
+            <div class="game-result">
+                <div class="icon-container">
+                    <img class="icon home-win" src="{{ asset(this.getAssetPath) }}" alt="Home Win Icon">
+                </div>
+            </div>
+        </td>
         <td class="{{ this.awayClass }}">{{ placement.fixtures[0].awayTeamName }}</td>
         <td class="{{ this.homeClass }}">{{ placement.fixtures[0].oddHome }}</td>
         <td class="{{ this.drawClass }}">{{ placement.fixtures[0].oddDraw }}</td>
@@ -16,6 +23,7 @@
                 </div>
                 <div class="amount">{{this.outPut}}</div>
             </div>
+            {{ this.newCashBox }}
         </td>
         <td><div class="result">{{  placement.fixtures[0].endScoreHome }} - {{ placement.fixtures[0].endScoreAway }}</div></td>
         <td><a href="https://www.google.com/search?q={{ placement.fixtures[0].homeTeamName }} - {{ placement.fixtures[0].homeTeamName }} {{ placement.created|date() }} result" target="_blank">Google</a></td>

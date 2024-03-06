@@ -11,6 +11,7 @@
             <tr>
                 <th>Date</th>
                 <th>Home</th>
+                <th></th>
                 <th>Away</th>
                 <th>1</th>
                 <th>X</th>
@@ -23,7 +24,7 @@
             </thead>
             <tbody>
             {% for placement in placements %}
-                {{ component('Placement', {'placement' : placement}) }}
+                {{ component('Placement', {'placement' : placement, 'currentCashBox' : cashBoxValues[loop.index-1]}) }}
             {% endfor %}
             </tbody>
         </table>

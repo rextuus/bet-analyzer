@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Simulator;
 use App\Entity\TipicoPlacement;
-use App\Service\Statistic\BetRowCombinationStatistic;
-use App\Service\Tipico\Content\Placement\Data\PlacementMetaData;
-use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
+use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
@@ -25,24 +27,31 @@ class TipicoSimulationController extends AbstractController
     }
 
     #[Route('/', name: 'app_tipico_simulation_dashboard')]
-    public function index(): Response
+    public function index(Request $request, SimulationStrategyProcessorProvider $processorProvider): Response
     {
-        $simulators = $this->simulatorService->findAll();
-
-        $betOutcomeCharts = [];
-        foreach ($simulators as $simulator){
-            $betOutcomeCharts[] = $this->createBetOutcomeChart($simulator);
+        $idents = $processorProvider->getIdents();
+        $choices = [];
+        foreach ($idents as $ident){
+            $choices[$ident] = $ident;
         }
 
-        $cashBoxCharts = [];
-        foreach ($simulators as $simulator){
-            $cashBoxCharts[] = $this->createCashBoxChart($simulator);
+        $defaultData = [];
+        $form = $this->createFormBuilder($defaultData)
+            ->add('excludeNegative', CheckboxType::class, ['attr' => ['checked' => 1], 'required' => false])
+            ->add('variant', ChoiceType::class, ['multiple' => true, 'choices' => $choices])
+            ->add('filter', SubmitType::class)
+            ->getForm();
+
+        $data = ['excludeNegative' => true];
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
         }
+        $simulators = $this->simulatorService->findByFilter($data);
 
         return $this->render('tipico_simulation/dashboard.html.twig', [
             'simulators' => $simulators,
-            'betOutcomeCharts' => $betOutcomeCharts,
-            'cashBoxCharts' => $cashBoxCharts,
+            'filter' => $form,
         ]);
     }
 
@@ -50,85 +59,26 @@ class TipicoSimulationController extends AbstractController
     public function placements(Simulator $simulator): Response
     {
         $placements = $simulator->getTipicoPlacements();
+
+        $cashBoxValues = $this->getCashBoxChangeArray($placements->toArray());
+
         return $this->render('tipico_simulation/placements.html.twig', [
             'placements' => $placements,
+            'cashBoxValues' => $cashBoxValues,
             'simulator' => $simulator,
         ]);
     }
 
     /**
      * @param TipicoPlacement[] $placements
-     * @return PlacementMetaData[]
+     * @return float[]
      */
-    public function createMetaDataForPlacement(array $placements): array
+    private function getCashBoxChangeArray(array $placements): array
     {
-        $metaData = [];
-        foreach ($placements as $placement){
-            $data = new PlacementMetaData();
-        }
-    }
-
-    public function createBetOutcomeChart(Simulator $simulator): Chart
-    {
-        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
-
-        $placements = $simulator->getTipicoPlacements()->toArray();
-        $nr = array_keys($placements);
-
         $betOutcomes = array_map(
-            function (TipicoPlacement $placement){
+            function (TipicoPlacement $placement) {
                 $value = 0.0 - $placement->getInput();
-                if ($placement->isWon()){
-                    $value = ($placement->getValue() * $placement->getInput()) - $placement->getInput();
-                }
-                return $value;
-            },
-            $placements
-        );
-
-        $chart->setData([
-            'labels' => $nr,
-            'datasets' => [
-                [
-//                    'pointRadius' => 0.5,
-                    'label' => '',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
-                    'data' => $betOutcomes,
-                ],
-                [
-                    'pointRadius' => 0.0,
-                    'label' => '',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
-                    'data' => array_fill(0, count($nr), 0.0),
-                ],
-            ],
-        ]);
-
-        $chart->setOptions([
-            'scales' => [
-                'y' => [
-                    'suggestedMin' => -2,
-                    'suggestedMax' => 8,
-                ],
-            ],
-        ]);
-        return $chart;
-    }
-
-    public function createCashBoxChart(Simulator $simulator): Chart
-    {
-        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
-
-        $placements = $simulator->getTipicoPlacements()->toArray();
-        $nr = array_keys($placements);
-        $nr[] = count($nr);
-
-        $betOutcomes = array_map(
-            function (TipicoPlacement $placement){
-                $value = 0.0 - $placement->getInput();
-                if ($placement->isWon()){
+                if ($placement->isWon()) {
                     $value = ($placement->getValue() * $placement->getInput()) - $placement->getInput();
                 }
                 return $value;
@@ -137,38 +87,10 @@ class TipicoSimulationController extends AbstractController
         );
 
         $cashBoxValues = [0 => 100.0];
-        foreach ($betOutcomes as $nrr => $betOutcome){
-            $cashBoxValues[$nrr+1] = $cashBoxValues[$nrr] + $betOutcome;
+        foreach ($betOutcomes as $nrr => $betOutcome) {
+            $cashBoxValues[$nrr + 1] = $cashBoxValues[$nrr] + $betOutcome;
         }
 
-        $chart->setData([
-            'labels' => $nr,
-            'datasets' => [
-                [
-//                    'pointRadius' => 0.5,
-                    'label' => '',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
-                    'data' => $cashBoxValues,
-                ],
-                [
-                    'pointRadius' => 0.0,
-                    'label' => '',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
-                    'data' => array_fill(0, count($nr), 100.0),
-                ],
-            ],
-        ]);
-
-        $chart->setOptions([
-            'scales' => [
-                'y' => [
-                    'suggestedMin' => 120.0,
-                    'suggestedMax' => 80.0,
-                ],
-            ],
-        ]);
-        return $chart;
+        return $cashBoxValues;
     }
 }

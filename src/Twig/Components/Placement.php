@@ -9,6 +9,7 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class Placement
 {
     public TipicoPlacement $placement;
+    public float $currentCashBox;
 
     public function getRowClass(): string
     {
@@ -69,5 +70,22 @@ final class Placement
         }
 
         return '';
+    }
+
+    public function getNewCashBox(): float
+    {
+        return $this->currentCashBox + $this->getOutput();
+    }
+
+    public function getAssetPath(): string
+    {
+        $fixture = $this->placement->getFixtures()->toArray()[0];
+        if ($fixture->getEndScoreHome() > $fixture->getEndScoreAway()){
+            return 'asset/stadium.svg';
+        }
+        if ($fixture->getEndScoreHome() < $fixture->getEndScoreAway()){
+            return 'asset/train.svg';
+        }
+        return 'asset/chess.svg';
     }
 }

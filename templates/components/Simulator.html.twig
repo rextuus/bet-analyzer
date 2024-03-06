@@ -1,0 +1,17 @@
+<div class="simulator" {{ attributes }}>
+    <tr>
+        <td>{{ simulator.id }}</td>
+        <td>
+            <div class="simulator-name">
+                <a href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a>
+
+                {{ this.description|raw }}
+            </div>
+        </td>
+        <td>{{ simulator.cashBox }}</td>
+        <td>
+            {{ render_chart(this.cashBoxChart) }}
+        </td>
+        <td>{{ this.statistics|raw }}</td>
+    </tr>
+</div>
