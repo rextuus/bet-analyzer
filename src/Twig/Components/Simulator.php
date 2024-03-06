@@ -23,7 +23,7 @@ final class Simulator
         $strategy = $this->simulator->getStrategy();
         $parameters = json_decode($strategy->getParameters(), true);
         $table = '<table>';
-        foreach ($parameters as $key => $parameter){
+        foreach ($parameters as $key => $parameter) {
             $t = sprintf('<tr><td>%s</td><td>%s</td></tr>', $key, $parameter);
             $table = $table . $t;
         }
@@ -35,54 +35,59 @@ final class Simulator
     public function getStatistics(): string
     {
         $placements = $this->simulator->getTipicoPlacements()->toArray();
+        if (count($placements) === 0) {
+            return '';
+        }
         $cashBoxChanges = $this->getCashBoxChangeArray($placements);
 
         $lowest = 100.0;
         $lowestNr = 0;
         $highest = 100.0;
         $highestNr = 0;
-        foreach ($cashBoxChanges as $nr => $cashBoxChange){
-            if ($cashBoxChange < $lowest){
+
+        foreach ($cashBoxChanges as $nr => $cashBoxChange) {
+            if ($cashBoxChange < $lowest) {
                 $lowest = $cashBoxChange;
                 $lowestNr = $nr;
             }
-            if ($cashBoxChange > $highest){
+            if ($cashBoxChange > $highest) {
                 $highest = $cashBoxChange;
                 $highestNr = $nr;
             }
         }
 
-        $highestPlacements = $placements[$highestNr]->getCreated();
-        $current = $placements[array_key_last($cashBoxChanges)-1]->getCreated();
+        $timeDistance = '-';
+
+        $highestPlacements = $placements[$highestNr - 1]->getCreated();
+        $current = $placements[array_key_last($cashBoxChanges) - 1]->getCreated();
         $interval = $highestPlacements->diff($current);
-
-        $time_distance = '';
-
         if ($interval->d > 0) {
-            $time_distance .= $interval->d . ' days ';
+            $timeDistance .= $interval->d . ' days ';
         }
-
         if ($interval->h > 0) {
-            $time_distance .= $interval->h . ' hours ';
+            $timeDistance .= $interval->h . ' hours ';
         }
-
         if ($interval->i > 0) {
-            $time_distance .= $interval->i . ' minutes ';
+            $timeDistance .= $interval->i . ' minutes ';
+        }
+        if ($interval->s > 0) {
+            $timeDistance .= $interval->s . ' seconds ';
         }
 
-        if ($interval->s > 0) {
-            $time_distance .= $interval->s . ' seconds ';
+        $distance = -1 * ($highest - $cashBoxChanges[array_key_last($cashBoxChanges)]);
+        if ($timeDistance === '-'){
+            $distance = '-';
         }
 
         $result = [
             'lowest' => $lowest,
             'highest' => $highest,
-            'currentDistance' => -1 * ($highest - $cashBoxChanges[array_key_last($cashBoxChanges)]),
-            'minusSince' => $time_distance,
+            'currentDistance' => $distance,
+            'minusSince' => $timeDistance,
         ];
 
         $table = '<table>';
-        foreach ($result as $key => $parameter){
+        foreach ($result as $key => $parameter) {
             $t = sprintf('<tr><td>%s</td><td>%s</td></tr>', $key, $parameter);
             $table = $table . $t;
         }
@@ -148,9 +153,9 @@ final class Simulator
         $nr = array_keys($placements);
         $nr[] = count($nr);
 
-        if ($timeBased){
+        if ($timeBased) {
             $nr = [$placements[array_key_first($placements)]->getCreated()->format('d/m H:i')];
-            foreach ($placements as $placement){
+            foreach ($placements as $placement) {
                 $nr[] = $placement->getCreated()->format('d/m H:i');
             }
         }
