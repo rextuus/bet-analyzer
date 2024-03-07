@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="Simple strategy">
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Twig/Components/KeyValueListing.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/KeyValueListing.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/Components/Simulator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/Simulator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/Simulator.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Simulator.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tipico-api.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tipico-api.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -363,7 +356,7 @@
       <workItem from="1709647485512" duration="6118000" />
       <workItem from="1709666852913" duration="1188000" />
       <workItem from="1709715055771" duration="12149000" />
-      <workItem from="1709805841197" duration="8091000" />
+      <workItem from="1709805841197" duration="13421000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -610,22 +603,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00044" summary="Command">
-      <option name="closed" value="true" />
-      <created>1709232825981</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1709232825981</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Simulator">
-      <option name="closed" value="true" />
-      <created>1709293724709</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1709293724709</updated>
-    </task>
     <task id="LOCAL-00046" summary="Fix">
       <option name="closed" value="true" />
       <created>1709294008829</created>
@@ -722,7 +699,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709763862894</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Styling">
+      <option name="closed" value="true" />
+      <created>1709833625774</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1709833625774</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1709836242340</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1709836242340</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -747,14 +740,14 @@
     <MESSAGE value="New Command" />
     <MESSAGE value="Command" />
     <MESSAGE value="Simulator" />
-    <MESSAGE value="Fix" />
     <MESSAGE value="Simple against strategy" />
     <MESSAGE value="Optimized" />
     <MESSAGE value="Fix eval" />
     <MESSAGE value="Update" />
     <MESSAGE value="Styling" />
     <MESSAGE value="Simple strategy" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simple strategy" />
+    <MESSAGE value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

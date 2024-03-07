@@ -179,9 +179,9 @@ class SimulationStatisticService
         $cashBoxChanges = $this->getCashBoxChangeArray($placements);
 
         $lowest = 100.0;
-        $lowestNr = 0;
+        $lowestNr = 1;
         $highest = 100.0;
-        $highestNr = 0;
+        $highestNr = 1;
 
         foreach ($cashBoxChanges as $nr => $cashBoxChange) {
             if ($cashBoxChange < $lowest) {
