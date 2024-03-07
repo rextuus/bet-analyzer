@@ -10,8 +10,12 @@
         </td>
         <td>{{ simulator.cashBox }}</td>
         <td>
-            {{ render_chart(this.cashBoxChart) }}
+            {{ render_chart(this.cashBoxChart(true)) }}
+            <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">Detail</a>
         </td>
-        <td>{{ this.statistics|raw }}</td>
+        <td>
+            {{ render_chart(this.dailyDistributionChart()) }}
+        </td>
+        <td><{{ component('KeyValueListing', {'content' : this.statistics}) }}</td>
     </tr>
 </div>

@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="Simple strategy">
+      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Twig/Components/KeyValueListing.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/KeyValueListing.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Twig/Components/Simulator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/Simulator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/Simulator.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Simulator.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tipico-api.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tipico-api.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -356,7 +362,8 @@
       <workItem from="1709570804256" duration="12607000" />
       <workItem from="1709647485512" duration="6118000" />
       <workItem from="1709666852913" duration="1188000" />
-      <workItem from="1709715055771" duration="10767000" />
+      <workItem from="1709715055771" duration="12149000" />
+      <workItem from="1709805841197" duration="8091000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -603,14 +610,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00043" summary="Command">
-      <option name="closed" value="true" />
-      <created>1709231804894</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1709231804894</updated>
-    </task>
     <task id="LOCAL-00044" summary="Command">
       <option name="closed" value="true" />
       <created>1709232825981</created>
@@ -715,7 +714,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709761402169</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Simple strategy">
+      <option name="closed" value="true" />
+      <created>1709763862894</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1709763862894</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -745,9 +752,9 @@
     <MESSAGE value="Optimized" />
     <MESSAGE value="Fix eval" />
     <MESSAGE value="Update" />
-    <MESSAGE value="Simple strategy" />
     <MESSAGE value="Styling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Styling" />
+    <MESSAGE value="Simple strategy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simple strategy" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

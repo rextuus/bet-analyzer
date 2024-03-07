@@ -6,6 +6,7 @@ use App\Entity\Simulator;
 use App\Entity\TipicoPlacement;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
+use App\Service\Tipico\SimulationStatisticService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -21,7 +22,7 @@ class TipicoSimulationController extends AbstractController
 {
     public function __construct(
         private readonly SimulatorService $simulatorService,
-        private readonly ChartBuilderInterface $chartBuilder
+        private readonly SimulationStatisticService $simulationStatisticService
     )
     {
     }
@@ -60,7 +61,7 @@ class TipicoSimulationController extends AbstractController
     {
         $placements = $simulator->getTipicoPlacements();
 
-        $cashBoxValues = $this->getCashBoxChangeArray($placements->toArray());
+        $cashBoxValues = $this->simulationStatisticService->getCashBoxChangeArray($placements->toArray());
 
         return $this->render('tipico_simulation/placements.html.twig', [
             'placements' => $placements,
@@ -69,28 +70,13 @@ class TipicoSimulationController extends AbstractController
         ]);
     }
 
-    /**
-     * @param TipicoPlacement[] $placements
-     * @return float[]
-     */
-    private function getCashBoxChangeArray(array $placements): array
+    #[Route('/{simulator}/detail', name: 'app_tipico_simulation_detail')]
+    public function detail(Simulator $simulator): Response
     {
-        $betOutcomes = array_map(
-            function (TipicoPlacement $placement) {
-                $value = 0.0 - $placement->getInput();
-                if ($placement->isWon()) {
-                    $value = ($placement->getValue() * $placement->getInput()) - $placement->getInput();
-                }
-                return $value;
-            },
-            $placements
-        );
+        $chart = $this->simulationStatisticService->getCashBoxChart($simulator);
 
-        $cashBoxValues = [0 => 100.0];
-        foreach ($betOutcomes as $nrr => $betOutcome) {
-            $cashBoxValues[$nrr + 1] = $cashBoxValues[$nrr] + $betOutcome;
-        }
-
-        return $cashBoxValues;
+        return $this->render('tipico_simulation/detail.html.twig', [
+            'chart' => $chart,
+        ]);
     }
 }

@@ -1,0 +1,16 @@
+<div class="key-value-listing" {{ attributes }}>
+    <table>
+        {% set keys = this.keys %}
+        {% set values = this.values %}
+        {% for key in keys %}
+            <tr>
+                <td>
+                    {{ key }}
+                </td>
+                <td>
+                    {{ values[loop.index-1] }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

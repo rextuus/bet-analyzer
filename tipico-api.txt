@@ -9,3 +9,6 @@ username: BetAnalyzerFeedBot
 botname: BetAnalyzerFeed
 https://t.me/BetAnalyzerFeedBot
 chatId: 704862488
+
+All events upcoming not started
+https://sports.bwin.de/cds-api/bettingoffer/fixtures?x-bwin-accessid=NWQyNmIwMjUtZDQ3NC00NDQxLWI5YTktNjdkYjZjOTg1OWEz&lang=de&country=DE&userCountry=DE&state=Upcoming&take=500&offerMapping=Filtered&offerCategories=Gridable&sortBy=Tags&sportIds=4&statisticsModes=None
