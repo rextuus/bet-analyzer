@@ -5,7 +5,7 @@ namespace App\Service\Tipico;
 
 use App\Entity\Simulator;
 use App\Entity\TipicoPlacement;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use App\Twig\Data\KeyValueListingContainer;
 use Symfony\UX\Chartjs\Model\Chart;
 
 /**
@@ -15,59 +15,29 @@ use Symfony\UX\Chartjs\Model\Chart;
 class SimulationStatisticService
 {
     public function __construct(
-        private readonly ChartBuilderInterface $chartBuilder
+        private readonly SimulationChartService $chartService
     )
     {
     }
 
     public function getCashBoxChart(Simulator $simulator, bool $timeBased = true): Chart
     {
-        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
-
         $placements = $simulator->getTipicoPlacements()->toArray();
-        $nr = array_keys($placements);
-        $nr[] = count($nr);
+        return $this->chartService->getCashBoxChart(
+            $simulator,
+            $this->getCashBoxChangeArray($placements),
+            $timeBased
+        );
+    }
 
-        if ($timeBased) {
-            $created = $placements[array_key_first($placements)]->getCreated();
-            $nr = [$created->format('d/m H:i (l)')];
-            foreach ($placements as $placement) {
-                $created = $placement->getCreated();
-                $nr[] = $created->format('d/m H:i (l)');
-            }
-        }
+    public function getDailyDistributionChart(Simulator $simulator): Chart
+    {
+        return $this->chartService->getDailyDistributionChart($this->getWeekDayStatistics($simulator));
+    }
 
-        $cashBoxValues = $this->getCashBoxChangeArray($placements);
-
-        $chart->setData([
-            'labels' => $nr,
-            'datasets' => [
-                [
-//                    'pointRadius' => 0.5,
-                    'label' => '',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
-                    'data' => $cashBoxValues,
-                ],
-                [
-                    'pointRadius' => 0.0,
-                    'label' => '',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
-                    'data' => array_fill(0, count($nr), 100.0),
-                ],
-            ],
-        ]);
-
-        $chart->setOptions([
-            'scales' => [
-                'y' => [
-                    'suggestedMin' => 120.0,
-                    'suggestedMax' => 80.0,
-                ],
-            ],
-        ]);
-        return $chart;
+    public function getBetOutcomeChart(Simulator $simulator): Chart
+    {
+        return $this->chartService->getBetOutcomeChart($simulator);
     }
 
     /**
@@ -95,49 +65,6 @@ class SimulationStatisticService
         return $cashBoxValues;
     }
 
-    public function getDailyDistributionChart(Simulator $simulator): Chart
-    {
-        $chart = $this->chartBuilder->createChart(Chart::TYPE_BAR);
-
-        $values = $this->getWeekDayStatistics($simulator);
-        $labels = array_keys($values);
-
-        $wins = [];
-        $looses = [];
-        foreach ($values as $value){
-            $wins[] = $value['won'];
-            $looses[] = $value['loose'];
-        }
-
-        $chart->setData([
-            'labels' => $labels,
-            'datasets' => [
-                [
-                    'label' => 'Won',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
-                    'data' => $wins,
-                ],
-                [
-                    'label' => 'Loose',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
-                    'data' => $looses,
-                ],
-            ],
-        ]);
-
-        $chart->setOptions([
-            'scales' => [
-                'y' => [
-                    'suggestedMin' => 0,
-                    'suggestedMax' => 20,
-                ],
-            ],
-        ]);
-        return $chart;
-    }
-
     private function getWeekDayStatistics(Simulator $simulator): array
     {
         $placements = $simulator->getTipicoPlacements()->toArray();
@@ -159,12 +86,10 @@ class SimulationStatisticService
             $accessNr = $nr - 1;
 
             $key = $placements[$accessNr]->isWon() ? 'won' : 'loose';
-            if (array_key_exists($weekDays[$accessNr], $distributionWon)) {
-                $distributionWon[$weekDays[$accessNr]][$key] = $distributionWon[$weekDays[$accessNr]][$key] + 1;
-            } else {
+            if (!array_key_exists($weekDays[$accessNr], $distributionWon)) {
                 $distributionWon[$weekDays[$accessNr]] = ['won' => 0, 'loose' => 0];
-                $distributionWon[$weekDays[$accessNr]][$key] = $distributionWon[$weekDays[$accessNr]][$key] + 1;
             }
+            $distributionWon[$weekDays[$accessNr]][$key] = $distributionWon[$weekDays[$accessNr]][$key] + 1;
         }
 
         return $distributionWon;
@@ -173,9 +98,21 @@ class SimulationStatisticService
     public function getStatistics(Simulator $simulator): array
     {
         $placements = $simulator->getTipicoPlacements()->toArray();
-        if (count($placements) === 0) {
-            return '';
+
+        $positiveChanges = [];
+        $values = [];
+        $totalWon = 0;
+        $totalLoose = 0;
+        foreach ($placements as $placement) {
+            if ($placement->isWon()) {
+                $positiveChanges[] = ($placement->getInput() * $placement->getValue()) - $placement->getInput();
+                $totalWon++;
+            } else {
+                $totalLoose++;
+            }
+            $values[] = $placement->getValue();
         }
+
         $cashBoxChanges = $this->getCashBoxChangeArray($placements);
 
         $lowest = 100.0;
@@ -192,7 +129,6 @@ class SimulationStatisticService
                 $highest = $cashBoxChange;
                 $highestNr = $nr;
             }
-
         }
 
         $timeDistance = '-';
@@ -218,70 +154,61 @@ class SimulationStatisticService
             $distance = '-';
         }
 
-        $result = [
-            'lowest' => $lowest,
-            'highest' => $highest,
-            'currentDistance' => $distance,
-            'minusSince' => $timeDistance,
+        $dailyRatios = $this->getWeekDayStatisticContainer($simulator);
+
+        $wonPercentage = $this->calculatePercentage($totalWon, count($placements));
+        $loosePercentage = $this->calculatePercentage($totalLoose, count($placements));
+
+        $result = new KeyValueListingContainer();
+        $result->addEntry('bets', (string)count($placements))
+            ->addEntry('averageValue', (string)round($this->calculateAverage($values), 2))
+            ->addEntry('won', sprintf('%d (%.2f%%)', $totalWon, $wonPercentage))
+            ->addEntry('loose', sprintf('%d (%.2f%%)', $totalLoose, $loosePercentage))
+            ->addEntry('lowest', (string)round($lowest, 2))
+            ->addEntry('highest', (string)round($highest, 2))
+            ->addEntry('averageWin', (string)round($this->calculateAverage($positiveChanges), 2))
+            ->addEntry('currentDistance', (string)round($distance, 2))
+            ->addEntry('minusSince', (string)$timeDistance);
+
+        return [
+            'result' => $result,
+            'dailyRatios' => $dailyRatios
         ];
-
-        return $result;
-        $table = '<table>';
-        foreach ($result as $key => $parameter) {
-            $t = sprintf('<tr><td>%s</td><td>%s</td></tr>', $key, $parameter);
-            $table = $table . $t;
-        }
-        $table = $table . '</table>';
-
-        return $table;
     }
 
-    public function getBetOutcomeChart(Simulator $simulator): Chart
+    private function getWeekDayStatisticContainer(Simulator $simulator): KeyValueListingContainer
     {
-        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+        $weekdayStatistic = $this->getWeekDayStatistics($simulator);
+        $totalWon = 0;
+        $totalLoose = 0;
 
-        $placements = $simulator->getTipicoPlacements()->toArray();
-        $nr = array_keys($placements);
+        $dailyRatios = new KeyValueListingContainer();
+        foreach ($weekdayStatistic as $dayName => $day) {
+            $won = $day['won'];
+            $loose = $day['loose'];
+            $total = $won + $loose;
 
-        $betOutcomes = array_map(
-            function (TipicoPlacement $placement) {
-                $value = 0.0 - $placement->getInput();
-                if ($placement->isWon()) {
-                    $value = ($placement->getValue() * $placement->getInput()) - $placement->getInput();
-                }
-                return $value;
-            },
-            $placements
-        );
+            $totalWon = $totalWon + $won;
+            $totalLoose = $totalLoose + $loose;
 
-        $chart->setData([
-            'labels' => $nr,
-            'datasets' => [
-                [
-//                    'pointRadius' => 0.5,
-                    'label' => '',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
-                    'data' => $betOutcomes,
-                ],
-                [
-                    'pointRadius' => 0.0,
-                    'label' => '',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
-                    'data' => array_fill(0, count($nr), 0.0),
-                ],
-            ],
-        ]);
+            $dailyRatios->addEntry($dayName, sprintf("%d (%.2f%%)", $total, ($won / $total) * 100));
+        }
 
-        $chart->setOptions([
-            'scales' => [
-                'y' => [
-                    'suggestedMin' => -2,
-                    'suggestedMax' => 8,
-                ],
-            ],
-        ]);
-        return $chart;
+        return $dailyRatios;
+    }
+
+    private function calculatePercentage(float $value, float $total): float
+    {
+        return round($value / $total * 100, 2);
+    }
+
+    private function calculateAverage(array $values): float
+    {
+        $cleanValues = array_filter($values);
+        if (count($cleanValues)) {
+            return array_sum($cleanValues) / count($cleanValues);
+        }
+
+        return 0.0;
     }
 }

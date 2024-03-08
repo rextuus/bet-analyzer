@@ -10,12 +10,22 @@
         </td>
         <td>{{ simulator.cashBox }}</td>
         <td>
-            {{ render_chart(this.cashBoxChart(true)) }}
-            <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">Detail</a>
+            <div class="switchable-content">
+                <div class="switchable-content-element active">
+                    {{ render_chart(this.cashBoxChart(true)) }}
+                    <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">Detail</a>
+                </div>
+                <div class="switchable-content-element inactive">
+                    {{ render_chart(this.dailyDistributionChart()) }}
+                </div>
+            </div>
         </td>
         <td>
-            {{ render_chart(this.dailyDistributionChart()) }}
+            {% set statistic = this.statistics %}
+            <div class="switchable-content">
+                <div class="switchable-content-element active result-content">{{ component('KeyValueListing', {'container' : statistic['result']}) }}</div>
+                <div class="switchable-content-element inactive daily-ratios-content">{{ component('KeyValueListing', {'container' : statistic['dailyRatios']}) }}</div>
+            </div>
         </td>
-        <td>{{ component('KeyValueListing', {'content' : this.statistics}) }}</td>
     </tr>
 </div>

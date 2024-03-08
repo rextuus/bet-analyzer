@@ -84,3 +84,26 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+
+
+.switchable-content{
+
+    .active{
+        display: block;
+    }
+
+    .inactive{
+        display: none;
+
+    }
+}
+
+
+.key-value-listing{
+    border: 2px black solid;
+
+    .key-value-listing-row-even{
+        background-color: #e0e0e0;
+    }
+}

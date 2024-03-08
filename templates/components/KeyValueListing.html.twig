@@ -3,7 +3,8 @@
         {% set keys = this.keys %}
         {% set values = this.values %}
         {% for key in keys %}
-            <tr>
+            {% if loop.index % 2 == 0 %}
+            <tr class="key-value-listing-row-even">
                 <td>
                     {{ key }}
                 </td>
@@ -11,6 +12,16 @@
                     {{ values[loop.index-1] }}
                 </td>
             </tr>
+            {% else %}
+                <tr class="key-value-listing-row-odd">
+                    <td>
+                        {{ key }}
+                    </td>
+                    <td>
+                        {{ values[loop.index-1] }}
+                    </td>
+                </tr>
+            {% endif %}
         {% endfor %}
     </table>
 </div>

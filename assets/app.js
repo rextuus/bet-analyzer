@@ -8,3 +8,32 @@ import './bootstrap.js';
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
+
+// JavaScript to toggle visibility of content elements
+let containerElements = document.querySelectorAll('.switchable-content');
+
+containerElements.forEach(function(element) {
+
+    element.addEventListener("click", function() {
+        toggleContent(element);
+    });
+});
+
+function toggleContent(clickedElement) {
+    let contentElements = clickedElement.children;
+
+    Array.prototype.forEach.call(contentElements, function(el) {
+        el.classList.toggle('active');
+        el.classList.toggle('inactive');
+    });
+
+    // contentElements.forEach(function(element) {
+    //     if (element.classList.contains('active')) {
+    //         element.classList.toggle('active');
+    //         element.classList.toggle('inactive');
+    //     }else{
+    //         element.classList.toggle('active');
+    //         element.classList.toggle('inactive');
+    //     }
+    // });
+}
