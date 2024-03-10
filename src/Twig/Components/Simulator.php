@@ -53,4 +53,9 @@ final class Simulator
     {
         return $this->simulationStatisticService->getDailyDistributionChart($this->simulator);
     }
+
+    public function getValueToWinDistributionChart(): Chart
+    {
+        return $this->simulationStatisticService->getValueToWinDistributionChart($this->simulator);
+    }
 }

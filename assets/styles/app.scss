@@ -88,7 +88,13 @@ body {
 
 
 .switchable-content{
+    border: 2px black solid;
 
+    .switchable-content-header{
+        max-width: 25%;
+        min-height: 25px;
+        background-color: black;
+    }
     .active{
         display: block;
     }
@@ -101,7 +107,6 @@ body {
 
 
 .key-value-listing{
-    border: 2px black solid;
 
     .key-value-listing-row-even{
         background-color: #e0e0e0;

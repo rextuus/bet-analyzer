@@ -4,7 +4,10 @@ declare(strict_types=1);
 namespace App\Service\Tipico;
 
 use App\Entity\Simulator;
+use App\Entity\TipicoBet;
 use App\Entity\TipicoPlacement;
+use App\Service\Evaluation\BetOn;
+use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Twig\Data\KeyValueListingContainer;
 use Symfony\UX\Chartjs\Model\Chart;
 
@@ -14,6 +17,12 @@ use Symfony\UX\Chartjs\Model\Chart;
  */
 class SimulationStatisticService
 {
+    public const KEY_WON = 'won';
+    public const KEY_LOOSE = 'loose';
+    public const KEY_WON_PERCENTAGE = 'won_percentage';
+    public const KEY_LOOSE_PERCENTAGE = 'loose_percentage';
+    public const KEY_DISTRIBUTION_PERCENTAGE = 'distribution_percentage';
+
     public function __construct(
         private readonly SimulationChartService $chartService
     )
@@ -38,6 +47,13 @@ class SimulationStatisticService
     public function getBetOutcomeChart(Simulator $simulator): Chart
     {
         return $this->chartService->getBetOutcomeChart($simulator);
+    }
+
+    public function getValueToWinDistributionChart(Simulator $simulator): Chart
+    {
+        return $this->chartService->getValueToWinDistributionChart(
+            $this->getValueDistributionStatisticForSearchBetOn($simulator)
+        );
     }
 
     /**
@@ -85,9 +101,9 @@ class SimulationStatisticService
             }
             $accessNr = $nr - 1;
 
-            $key = $placements[$accessNr]->isWon() ? 'won' : 'loose';
+            $key = $placements[$accessNr]->isWon() ? self::KEY_WON : self::KEY_LOOSE;
             if (!array_key_exists($weekDays[$accessNr], $distributionWon)) {
-                $distributionWon[$weekDays[$accessNr]] = ['won' => 0, 'loose' => 0];
+                $distributionWon[$weekDays[$accessNr]] = [self::KEY_WON => 0, self::KEY_LOOSE => 0];
             }
             $distributionWon[$weekDays[$accessNr]][$key] = $distributionWon[$weekDays[$accessNr]][$key] + 1;
         }
@@ -151,7 +167,7 @@ class SimulationStatisticService
 
         $distance = -1 * ($highest - $cashBoxChanges[array_key_last($cashBoxChanges)]);
         if ($timeDistance === '-') {
-            $distance = '-';
+            $distance = 0.0;
         }
 
         $dailyRatios = $this->getWeekDayStatisticContainer($simulator);
@@ -170,10 +186,117 @@ class SimulationStatisticService
             ->addEntry('currentDistance', (string)round($distance, 2))
             ->addEntry('minusSince', (string)$timeDistance);
 
+        $valueDistribution = $this->convertToContainer(
+            $this->getValueDistributionStatisticForActuallyBetOn($simulator),
+            count($placements)
+        );
+        $valueDistributionByBetOn = $this->convertToContainer(
+            $this->getValueDistributionStatisticForSearchBetOn($simulator),
+            count($placements)
+        );
+
         return [
             'result' => $result,
-            'dailyRatios' => $dailyRatios
+            'dailyRatios' => $dailyRatios,
+            'valueDistribution' => $valueDistribution,
+            'valueDistributionByBetOn' => $valueDistributionByBetOn,
         ];
+    }
+
+    /**
+     * distribute bets by the betOn parameter of the simulator => against_12_13_draw will deliver the odd home values between 1.2 and 1.3
+     */
+    private function getValueDistributionStatisticForSearchBetOn(Simulator $simulator): array
+    {
+        $placements = $simulator->getTipicoPlacements()->toArray();
+        $parameter = json_decode($simulator->getStrategy()->getParameters(), true);
+        $betOn = BetOn::tryFrom($parameter[AbstractSimulationProcessor::PARAMETER_BET_ON]);
+
+        $distribution = [];
+        foreach ($placements as $placement) {
+            $fixture = $placement->getFixtures()->get(0);
+
+            $key = (string)round($this->getOddByBetOn($fixture, $betOn), 2);
+            $subKey = $placement->isWon() ? self::KEY_WON : self::KEY_LOOSE;
+            if (!array_key_exists($key, $distribution)) {
+                $distribution[$key] = [self::KEY_WON => 0, self::KEY_LOOSE => 0];
+            }
+            $distribution[$key][$subKey] = $distribution[$key][$subKey] + 1;
+        }
+
+        ksort($distribution);
+
+        foreach ($distribution as $betValue => $step) {
+            $total = $step[self::KEY_WON] + $step[self::KEY_LOOSE];
+            $wonPercentage = $this->calculatePercentage($step[self::KEY_WON], $total);
+            $loosePercentage = $this->calculatePercentage($step[self::KEY_LOOSE], $total);
+            $distributionPercentage = $this->calculatePercentage($total, $simulator->getTipicoPlacements()->count());
+
+            $step[self::KEY_WON_PERCENTAGE] = $wonPercentage;
+            $step[self::KEY_LOOSE_PERCENTAGE] = $loosePercentage;
+            $step[self::KEY_DISTRIBUTION_PERCENTAGE] = $distributionPercentage;
+            $distribution[$betValue]  = $step;
+        }
+
+        return $distribution;
+    }
+
+    private function getOddByBetOn(TipicoBet $bet, BetOn $betOn): float
+    {
+        match ($betOn) {
+            BetOn::HOME => $value = $bet->getOddHome(),
+            BetOn::DRAW => $value = $bet->getOddDraw(),
+            BetOn::AWAY => $value = $bet->getOddAway(),
+        };
+        return $value;
+    }
+
+    /**
+     * distribute bets by the actually odd we bet on => against_12_13_draw will deliver the odd draw values
+     */
+    private function getValueDistributionStatisticForActuallyBetOn(Simulator $simulator): array
+    {
+        $placements = $simulator->getTipicoPlacements()->toArray();
+
+        $distribution = [];
+        foreach ($placements as $placement) {
+            $key = (string)round($placement->getValue(), 2);
+            $subKey = $placement->isWon() ? self::KEY_WON : self::KEY_LOOSE;
+            if (!array_key_exists($key, $distribution)) {
+                $distribution[$key] = [self::KEY_WON => 0, self::KEY_LOOSE => 0];
+            }
+            $distribution[$key][$subKey] = $distribution[$key][$subKey] + 1;
+        }
+        ksort($distribution);
+
+        return $distribution;
+    }
+
+    private function convertToContainer(array $distribution, int $totalPlacementAmount): KeyValueListingContainer
+    {
+        $container = new KeyValueListingContainer();
+        foreach ($distribution as $betValue => $step) {
+            $total = $step[self::KEY_WON] + $step[self::KEY_LOOSE];
+            $wonPercentage = $this->calculatePercentage($step[self::KEY_WON], $total);
+            $distributionPercentage = $this->calculatePercentage($total, $totalPlacementAmount);
+
+            $value = sprintf(
+                '%d | %d (%.2f%%)',
+                $step[self::KEY_WON],
+                $step[self::KEY_LOOSE],
+                $wonPercentage
+            );
+
+            $key = sprintf(
+                '%.2f (%.2f%%)',
+                $betValue,
+                $distributionPercentage
+            );
+
+            $container->addEntry($key, $value);
+        }
+
+        return $container;
     }
 
     private function getWeekDayStatisticContainer(Simulator $simulator): KeyValueListingContainer

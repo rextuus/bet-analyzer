@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Twig/Data/KeyValueListingContainer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/Components/KeyValueListing.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/KeyValueListing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/KeyValueListing.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/KeyValueListing.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/Components/Simulator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/Simulator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/Simulator.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Simulator.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -366,7 +362,7 @@
       <workItem from="1709647485512" duration="6118000" />
       <workItem from="1709666852913" duration="1188000" />
       <workItem from="1709715055771" duration="12149000" />
-      <workItem from="1709805841197" duration="29184000" />
+      <workItem from="1709805841197" duration="43243000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -613,14 +609,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00047" summary="Fix">
-      <option name="closed" value="true" />
-      <created>1709398725320</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1709398725320</updated>
-    </task>
     <task id="LOCAL-00048" summary="Simple against strategy">
       <option name="closed" value="true" />
       <created>1709403112385</created>
@@ -725,14 +713,21 @@
       <option name="project" value="LOCAL" />
       <updated>1709842527311</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Improvments">
+      <option name="closed" value="true" />
+      <created>1709901466322</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1709901466322</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added SeasonStatistic" />
     <MESSAGE value="Removed unnecessary column" />
     <MESSAGE value="Added evaluation package" />
     <MESSAGE value="test command" />
@@ -757,7 +752,8 @@
     <MESSAGE value="Styling" />
     <MESSAGE value="Simple strategy" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Improvments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improvments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -110,6 +110,48 @@ class SimulationChartService
         return $chart;
     }
 
+    public function getValueToWinDistributionChart(array $valueToWinStatistics): Chart
+    {
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_BAR);
+
+        $labels = array_keys($valueToWinStatistics);
+
+        $wonPercentages = [];
+        $distributions = [];
+        foreach ($valueToWinStatistics as $value){
+            $wonPercentages[] = $value[SimulationStatisticService::KEY_WON_PERCENTAGE];
+            $distributions[] = $value[SimulationStatisticService::KEY_DISTRIBUTION_PERCENTAGE];
+        }
+
+        $chart->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Win rate',
+                    'backgroundColor' => 'rgb(71, 80, 62)',
+                    'borderColor' => 'rgb(71, 80, 62)',
+                    'data' => $wonPercentages,
+                ],
+                [
+                    'label' => 'Occurrence',
+                    'backgroundColor' => 'rgb(198, 0, 15)',
+                    'borderColor' => 'rgb(198, 0, 15)',
+                    'data' => $distributions,
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => 50,
+                ],
+            ],
+        ]);
+        return $chart;
+    }
+
     public function getBetOutcomeChart(Simulator $simulator): Chart
     {
         $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);

@@ -10,7 +10,7 @@ import './bootstrap.js';
 import './styles/app.scss';
 
 // JavaScript to toggle visibility of content elements
-let containerElements = document.querySelectorAll('.switchable-content');
+let containerElements = document.querySelectorAll('.switchable-content-header');
 
 containerElements.forEach(function(element) {
 
@@ -20,11 +20,38 @@ containerElements.forEach(function(element) {
 });
 
 function toggleContent(clickedElement) {
-    let contentElements = clickedElement.children;
+    let contentElements = clickedElement.parentElement.children;
 
-    Array.prototype.forEach.call(contentElements, function(el) {
-        el.classList.toggle('active');
-        el.classList.toggle('inactive');
+    let filteredElements = Array.prototype.filter.call(contentElements, function(el) {
+        return !el.classList.contains('switchable-content-header');
+    });
+
+    let currentActive = 0;
+    let nextActive = 1;
+
+    filteredElements.forEach(function(el, index) {
+        if (el.classList.contains('active')) {
+            currentActive = index;
+            nextActive = currentActive + 1;
+            if (nextActive === filteredElements.length) {
+                currentActive = filteredElements.length - 1;
+                nextActive = 0;
+            }
+        }
+    });
+    filteredElements.forEach(function(el, index) {
+        if (index === currentActive){
+            el.classList.remove('active');
+            el.classList.add('inactive');
+        }
+        else if (index === nextActive){
+            el.classList.remove('inactive');
+            el.classList.add('active');
+        }
+        else {
+            el.classList.remove('active');
+            el.classList.add('inactive');
+        }
     });
 
     // contentElements.forEach(function(element) {
