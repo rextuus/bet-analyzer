@@ -32,7 +32,6 @@ class ProcessSimulatorsCommand extends Command
     {
         foreach ($this->simulatorService->findAll() as $simulator) {
             $message = new ProcessSimulatorMessage($simulator->getId());
-            dump($message);
             $this->messageBus->dispatch($message);
         }
 

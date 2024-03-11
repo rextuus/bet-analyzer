@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    cash_box_min_limit: '%env(int:CASH_BOX_MIN_LIMIT)%'
+    telegram_enabled: '%env(bool:TELEGRAM_ENABLED)%'
 
 services:
     # default configuration for services in *this* file
@@ -19,6 +21,16 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    App\Service\Tipico\TipicoBetSimulationService:
+        $cashBoxLimit: '%cash_box_min_limit%'
+
+    App\Service\Tipico\TelegramMessageService:
+        $telegramEnabled: '%telegram_enabled%'
+
+    App\Service\Tipico\Message\ProcessSimulatorMessageHandler:
+        $cashBoxLimit: '%cash_box_min_limit%'
+
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

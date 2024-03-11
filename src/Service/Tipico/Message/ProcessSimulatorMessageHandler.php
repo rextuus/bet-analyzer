@@ -18,7 +18,8 @@ class ProcessSimulatorMessageHandler
     public function __construct(
         private readonly TipicoBetSimulationService $betSimulationService,
         private readonly SimulatorService $simulatorService,
-        private readonly MessageBusInterface $messageBus
+        private readonly MessageBusInterface $messageBus,
+        private readonly float $cashBoxLimit,
     )
     {
     }
@@ -36,7 +37,7 @@ class ProcessSimulatorMessageHandler
 
         $this->betSimulationService->simulate($simulator);
 
-        if ($reEnqueueMessage) {
+        if ($reEnqueueMessage && $simulator->getCashBox() > $this->cashBoxLimit) {
             $this->messageBus->dispatch($message);
         }
     }

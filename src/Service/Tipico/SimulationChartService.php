@@ -47,6 +47,7 @@ class SimulationChartService
                     'label' => 'CashBox',
                     'backgroundColor' => 'rgb(71, 80, 62)',
                     'borderColor' => 'rgb(71, 80, 62)',
+                    'Color' => '#ffffff',
                     'data' => $cashBoxValues,
                 ],
                 [
@@ -64,6 +65,14 @@ class SimulationChartService
                 'y' => [
                     'suggestedMin' => 120.0,
                     'suggestedMax' => 80.0,
+                    'ticks' => [
+                        'color' => '#ffffff'
+                    ]
+                ],
+                'x' => [
+                    'ticks' => [
+                        'color' => '#ffffff'
+                    ]
                 ],
             ],
         ]);

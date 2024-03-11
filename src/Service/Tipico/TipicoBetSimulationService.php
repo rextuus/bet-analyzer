@@ -23,6 +23,7 @@ class TipicoBetSimulationService
         private readonly TipicoBetService $tipicoBetService,
         private readonly SimulationStrategyProcessorProvider $processorProvider,
         private readonly TelegramMessageService $telegramMessageService,
+        private readonly float $cashBoxLimit,
     )
     {
     }
@@ -81,6 +82,10 @@ class TipicoBetSimulationService
 
     public function simulate(Simulator $simulator): void
     {
+        if ($simulator->getCashBox() <= $this->cashBoxLimit){
+            return;
+        }
+
         $processor = $this->processorProvider->getProcessorByIdent($simulator->getStrategy()->getIdentifier());
         if (!$processor) {
             return;

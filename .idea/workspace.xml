@@ -5,24 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Command/Tipico/InitDefaultSimulatorsCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/http_discovery.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/sentry.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/twig_component.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Command/Tipico/ProcessSimulatorsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/ProcessSimulatorsCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Message/ProcessSimulatorMessageHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/ProcessSimulatorMessageHandler.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/SimpleStrategy.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/SimpleStrategy.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/SimulationProcessorInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/SimulationProcessorInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/TelegramMessageService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/TelegramMessageService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/Simulator.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Simulator.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -375,7 +368,7 @@
       <workItem from="1709715055771" duration="12149000" />
       <workItem from="1709805841197" duration="44915000" />
       <workItem from="1710100471832" duration="1685000" />
-      <workItem from="1710187832570" duration="5602000" />
+      <workItem from="1710187832570" duration="10887000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -622,14 +615,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00049" summary="Optimized">
-      <option name="closed" value="true" />
-      <created>1709421919758</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1709421919758</updated>
-    </task>
     <task id="LOCAL-00050" summary="Fix eval">
       <option name="closed" value="true" />
       <created>1709428686506</created>
@@ -734,14 +719,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710097909299</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Default simulators">
+      <option name="closed" value="true" />
+      <created>1710193836999</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1710193836999</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Removed unnecessary column" />
     <MESSAGE value="Added evaluation package" />
     <MESSAGE value="test command" />
     <MESSAGE value="Fixed round get for matchday" />
@@ -766,7 +758,8 @@
     <MESSAGE value="Simple strategy" />
     <MESSAGE value="Improvments" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Default simulators" />
+    <option name="LAST_COMMIT_MESSAGE" value="Default simulators" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
