@@ -6,15 +6,9 @@ namespace App\Service\Tipico;
 use App\Entity\Simulator;
 use App\Entity\TipicoBet;
 use App\Service\Tipico\Api\TipicoApiGateway;
-use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
-use DateTime;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Notifier\Bridge\Telegram\TelegramOptions;
-use Symfony\Component\Notifier\ChatterInterface;
-use Symfony\Component\Notifier\Message\ChatMessage;
 
 
 /**
@@ -98,5 +92,15 @@ class TipicoBetSimulationService
     public function sendMessageToTelegramFeed(string $message): void
     {
         $this->telegramMessageService->sendMessageToTelegramFeed($message);
+    }
+
+    public function isHighCalculationAmount(Simulator $simulator): bool
+    {
+        $processor = $this->processorProvider->getProcessorByIdent($simulator->getStrategy()->getIdentifier());
+        if (!$processor) {
+            return false;
+        }
+
+        return $processor->isHighCalculationAmount($simulator);
     }
 }

@@ -110,6 +110,11 @@ class AbstractSimulationProcessor
         return $this->tipicoBetService->findInRange($min, $max, $targetOddColumn, $alreadyUsed);
     }
 
+    protected function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool
+    {
+        return $this->tipicoBetService->getFittingFixturesCount($min, $max, $targetOddColumn, $alreadyUsed);
+    }
+
     protected function storeSimulatorStrategyChanges(Simulator $simulator, float $compensationIn): void
     {
         $strategy = $simulator->getStrategy();
@@ -120,5 +125,17 @@ class AbstractSimulationProcessor
         $simulationStrategyData->setParameters(json_encode($parameters));
 
         $this->simulationStrategyService->update($strategy, $simulationStrategyData);
+    }
+
+    public function isHighCalculationAmount(Simulator $simulator): bool
+    {
+        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
+
+        return $this->getFittingFixturesCount(
+            (float)$parameters[self::PARAMETER_MIN],
+            (float)$parameters[self::PARAMETER_MAX],
+            $this->getOddTargetFromParameters($parameters),
+            $this->getUsedFixtureIds($simulator)
+        );
     }
 }

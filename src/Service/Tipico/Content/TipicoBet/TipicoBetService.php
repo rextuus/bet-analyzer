@@ -58,4 +58,9 @@ class TipicoBetService
     {
         return $this->repository->findInRange($min, $max, $targetOddColumn, $alreadyUsed);
     }
+
+    public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool
+    {
+        return $this->repository->getFittingFixturesCount($min, $max, $targetOddColumn, $alreadyUsed);
+    }
 }

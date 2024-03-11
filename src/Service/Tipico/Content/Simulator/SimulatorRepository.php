@@ -63,7 +63,7 @@ class SimulatorRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('s');
         if (array_key_exists('excludeNegative', $data) && $data['excludeNegative']){
-            $qb->andWhere($qb->expr()->gte('s.cashBox', 100.0));
+            $qb->andWhere($qb->expr()->gt('s.cashBox', 100.0));
         }
         if (array_key_exists('variant', $data)){
             $qb->leftJoin(SimulationStrategy::class, 'ss', 'WITH', 's.strategy = ss.id');
@@ -71,6 +71,20 @@ class SimulatorRepository extends ServiceEntityRepository
             $qb->andWhere($qb->expr()->eq('ss.identifier', ':strategy'));
             $qb->setParameter('strategy', $data['variant']);
         }
+
+        $qb->orderBy('s.cashBox', 'DESC');
+        $qb->setMaxResults(10);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return int[]
+     */
+    public function findAllById(): array
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s.id');
 
         return $qb->getQuery()->getResult();
     }

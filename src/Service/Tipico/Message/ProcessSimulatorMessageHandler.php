@@ -6,6 +6,7 @@ namespace App\Service\Tipico\Message;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\TipicoBetSimulationService;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -15,8 +16,9 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 class ProcessSimulatorMessageHandler
 {
     public function __construct(
-        private TipicoBetSimulationService $betSimulationService,
-        private SimulatorService $simulatorService
+        private readonly TipicoBetSimulationService $betSimulationService,
+        private readonly SimulatorService $simulatorService,
+        private readonly MessageBusInterface $messageBus
     )
     {
     }
@@ -27,7 +29,15 @@ class ProcessSimulatorMessageHandler
         if (count($simulators) !== 1) {
             return;
         }
+        $simulator = $simulators[0];
 
-        $this->betSimulationService->simulate($simulators[0]);
+        // check if multi messaging is necessary (more than 100 fixture to process)
+        $reEnqueueMessage = $this->betSimulationService->isHighCalculationAmount($simulator);
+
+        $this->betSimulationService->simulate($simulator);
+
+        if ($reEnqueueMessage) {
+            $this->messageBus->dispatch($message);
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Service\Tipico\Content\TipicoBet;
 use App\Entity\TipicoBet;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -80,9 +81,28 @@ class TipicoBetRepository extends ServiceEntityRepository
         $alreadyUsed = array_merge($alreadyUsed, [-1]);
 
         $qb = $this->createQueryBuilder('t');
-        $qb->where($qb->expr()->gte('t.'.$targetOddColumn, ':min'));
+        $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
+        $qb->setMaxResults(100);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool
+    {
+        $alreadyUsed = array_merge($alreadyUsed, [-1]);
+
+        $qb = $this->createQueryBuilder('t');
+        $qb->select('count(t.id)');
+        $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
+
+        return (bool) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function addSearchQueryParameters(QueryBuilder $qb, string $targetOddColumn, float $min, float $max, array $alreadyUsed): void
+    {
+        $qb->where($qb->expr()->gte('t.' . $targetOddColumn, ':min'));
         $qb->setParameter('min', $min);
-        $qb->andWhere($qb->expr()->lte('t.'.$targetOddColumn, ':max'));
+        $qb->andWhere($qb->expr()->lte('t.' . $targetOddColumn, ':max'));
         $qb->setParameter('max', $max);
         $qb->andWhere($qb->expr()->eq('t.finished', ':finished'));
         $qb->setParameter('finished', true);
@@ -91,8 +111,5 @@ class TipicoBetRepository extends ServiceEntityRepository
         $qb->setParameter('ids', $alreadyUsed);
 
         $qb->orderBy('t.startAtTimeStamp', 'ASC');
-//dump($qb->getParameters());
-//dd($qb->getDQL());
-        return $qb->getQuery()->getResult();
     }
 }

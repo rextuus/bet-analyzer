@@ -26,6 +26,7 @@
         </td>
         <td>
             {% set statistic = this.statistics %}
+            {% if statistic|length > 0 %}
             <div class="switchable-content">
                 <div class="switchable-content-header"></div>
                 <div class="switchable-content-element active result-content">{{ component('KeyValueListing', {'container' : statistic['result']}) }}</div>
@@ -33,6 +34,7 @@
                 <div class="switchable-content-element inactive daily-value-content">{{ component('KeyValueListing', {'container' : statistic['valueDistribution']}) }}</div>
                 <div class="switchable-content-element inactive daily-value-content">{{ component('KeyValueListing', {'container' : statistic['valueDistributionByBetOn']}) }}</div>
             </div>
+            {% endif %}
         </td>
     </tr>
 </div>

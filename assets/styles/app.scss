@@ -1,21 +1,26 @@
 body {
-    background-color: #ffffff;
+    background-color: #3c3f40;
 }
 .table-container{
-    margin: 15px;
+    //margin: 15px;
     .styled-table {
-        border-collapse: collapse;
-        margin: 25px 0;
-        font-size: 0.9em;
-        font-family: sans-serif;
-        min-width: 90%;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        //border-collapse: collapse;
+        //margin: 25px 0;
+        //font-size: 0.9em;
+        //font-family: sans-serif;
+        min-width: 100%;
+        //box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
 
     .styled-table thead tr {
-        background-color: #858585;
+        background-color: #2d2929;
         color: #ffffff;
         text-align: left;
+    }
+
+    .styled-table tr {
+        border: 1px #858585 solid;
+
     }
 
     .styled-table th,
@@ -107,8 +112,8 @@ body {
 
 
 .key-value-listing{
-
+    color: white;
     .key-value-listing-row-even{
-        background-color: #e0e0e0;
+        //background-color: #e0e0e0;
     }
 }

@@ -92,7 +92,7 @@ class SimpleStrategy extends AbstractSimulationProcessor implements SimulationPr
                 $simulator->getCashBox(),
             );
 
-            $this->telegramMessageService->sendMessageToTelegramFeed($message);
+//            $this->telegramMessageService->sendMessageToTelegramFeed($message);
         }
     }
 }

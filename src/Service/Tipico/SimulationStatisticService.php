@@ -115,6 +115,10 @@ class SimulationStatisticService
     {
         $placements = $simulator->getTipicoPlacements()->toArray();
 
+        if ($placements === []){
+            return [];
+        }
+
         $positiveChanges = [];
         $values = [];
         $totalWon = 0;

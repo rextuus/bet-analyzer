@@ -48,6 +48,14 @@ class SimulatorService
     }
 
     /**
+     * @return int[]
+     */
+    public function findAllSimulatorIds(): array
+    {
+        return $this->repository->findAllById();
+    }
+
+    /**
      * @param array<string, mixed> $data
      * @return Simulator[]
      */

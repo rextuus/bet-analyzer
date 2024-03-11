@@ -29,11 +29,13 @@ class SimulationChartService
         $nr[] = count($nr);
 
         if ($timeBased) {
-            $created = $placements[array_key_first($placements)]->getCreated();
-            $nr = [$created->format('d/m H:i (l)')];
-            foreach ($placements as $placement) {
-                $created = $placement->getCreated();
-                $nr[] = $created->format('d/m H:i (l)');
+            if(count($placements)){
+                $created = $placements[array_key_first($placements)]->getCreated();
+                $nr = [$created->format('d/m H:i (l)')];
+                foreach ($placements as $placement) {
+                    $created = $placement->getCreated();
+                    $nr[] = $created->format('d/m H:i (l)');
+                }
             }
         }
 
