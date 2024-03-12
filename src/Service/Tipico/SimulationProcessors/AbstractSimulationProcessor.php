@@ -105,9 +105,9 @@ class AbstractSimulationProcessor
     /**
      * @return TipicoBet[]
      */
-    protected function getFittingFixtures(float $min, float $max, string $targetOddColumn, array $alreadyUsed): array
+    protected function getFittingFixtures(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
     {
-        return $this->tipicoBetService->findInRange($min, $max, $targetOddColumn, $alreadyUsed);
+        return $this->tipicoBetService->findInRange($min, $max, $targetOddColumn, $alreadyUsed, $limit);
     }
 
     protected function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool

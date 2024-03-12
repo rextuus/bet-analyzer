@@ -1,0 +1,9 @@
+<div{{ attributes }}>
+    <div class="upcoming-fixtures">
+        {% for fixture in this.rows %}
+            <div class="upcoming-fixtures-entry">
+                {{ fixture|raw }}
+            </div>
+        {% endfor %}
+    </div>
+</div>

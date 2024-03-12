@@ -3,10 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Simulator;
+use App\Entity\TipicoBet;
 use App\Entity\TipicoPlacement;
+use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
+use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
+use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use App\Service\Tipico\SimulationStatisticService;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -22,17 +27,48 @@ class TipicoSimulationController extends AbstractController
 {
     public function __construct(
         private readonly SimulatorService $simulatorService,
-        private readonly SimulationStatisticService $simulationStatisticService
+        private readonly SimulationStatisticService $simulationStatisticService,
     )
     {
     }
 
     #[Route('/', name: 'app_tipico_simulation_dashboard')]
-    public function index(Request $request, SimulationStrategyProcessorProvider $processorProvider): Response
+    public function index(): Response
+    {
+        $nextPlacements = $this->simulationStatisticService->getDailyEvents();
+        $chartHome = $this->simulationStatisticService->getDailyEventChart();
+        $chartDraw = $this->simulationStatisticService->getDailyEventChart(BetOn::DRAW);
+        $chartAway = $this->simulationStatisticService->getDailyEventChart(BetOn::AWAY);
+
+        $current = new DateTime();
+        $total = count($nextPlacements);
+
+        $finished = array_filter(
+            $nextPlacements,
+            function (TipicoBet $tipicoBet) use ($current) {
+                return $tipicoBet->getStartAtTimeStamp()/1000 > $current->getTimestamp();
+            }
+        );
+        $finished = count($finished);
+
+        return $this->render('tipico_simulation/dashboard.html.twig', [
+            'nextPlacements' => $nextPlacements,
+            'betOn' => BetOn::HOME,
+            'total' => $total,
+            'finished' => $finished,
+            'open' => $total - $finished,
+            'chartHome' => $chartHome,
+            'chartDraw' => $chartDraw,
+            'chartAway' => $chartAway,
+        ]);
+    }
+
+    #[Route('/list', name: 'app_tipico_simulator_list')]
+    public function list(Request $request, SimulationStrategyProcessorProvider $processorProvider): Response
     {
         $idents = $processorProvider->getIdents();
         $choices = [];
-        foreach ($idents as $ident){
+        foreach ($idents as $ident) {
             $choices[$ident] = $ident;
         }
 
@@ -50,7 +86,7 @@ class TipicoSimulationController extends AbstractController
         }
         $simulators = $this->simulatorService->findByFilter($data);
 
-        return $this->render('tipico_simulation/dashboard.html.twig', [
+        return $this->render('tipico_simulation/list.html.twig', [
             'simulators' => $simulators,
             'filter' => $form,
         ]);
@@ -73,10 +109,37 @@ class TipicoSimulationController extends AbstractController
     #[Route('/{simulator}/detail', name: 'app_tipico_simulation_detail')]
     public function detail(Simulator $simulator): Response
     {
-        $chart = $this->simulationStatisticService->getCashBoxChart($simulator);
+        $cashBoxChart = $this->simulationStatisticService->getCashBoxChart($simulator);
+        $dailyDistributionChart = $this->simulationStatisticService->getDailyDistributionChart($simulator);
+        $valueToWinDistributionChart = $this->simulationStatisticService->getValueToWinDistributionChart($simulator);
+
+        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
+        $betOn = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_BET_ON]);
+        $nextPlacements = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator);
+
+
+        $statistics = $this->simulationStatisticService->getStatistics($simulator);
 
         return $this->render('tipico_simulation/detail.html.twig', [
+            'simulator' => $simulator,
+            'statistics' => $statistics,
+            'cashBoxChart' => $cashBoxChart,
+            'dailyDistributionChart' => $dailyDistributionChart,
+            'valueToWinDistributionChart' => $valueToWinDistributionChart,
+            'nextPlacements' => $nextPlacements,
+            'betOn' => $betOn,
+        ]);
+    }
+
+    #[Route('/{simulator}/chart/show', name: 'app_tipico_simulation_chart_show')]
+    public function showChart(Simulator $simulator): Response
+    {
+        $chart = $this->simulationStatisticService->getCashBoxChart($simulator);
+
+        return $this->render('tipico_simulation/chart_show.html.twig', [
             'chart' => $chart,
         ]);
     }
+
+
 }

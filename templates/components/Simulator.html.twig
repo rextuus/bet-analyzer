@@ -1,6 +1,8 @@
 <div class="simulator" {{ attributes }}>
     <tr>
-        <td>{{ simulator.id }}</td>
+        <td>
+            <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.id }}</a>
+        </td>
         <td>
             <div class="simulator-name">
                 <a href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a>
@@ -14,7 +16,7 @@
                 <div class="switchable-content-header"></div>
                 <div class="switchable-content-element active">
                     {{ render_chart(this.cashBoxChart(true)) }}
-                    <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">Detail</a>
+                    <a href="{{ path('app_tipico_simulation_chart_show', {simulator: simulator.id}) }}">Detail</a>
                 </div>
                 <div class="switchable-content-element inactive">
                     {{ render_chart(this.valueToWinDistributionChart()) }}

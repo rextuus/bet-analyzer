@@ -1,27 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tipico Simulators{% endblock %}
+{% block title %}Simulation Dashboard{% endblock %}
 
 {% block body %}
-
-    <div class="filter">
-        {{ form(filter) }}
-    </div>
-    <div class="table-container">
-        <table class="styled-table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Ident</th>
-                <th>Cashbox change</th>
-                <th>Statistics</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for simulator in simulators %}
-                {{ component('Simulator', {'simulator' : simulator}) }}
-            {% endfor %}
-            </tbody>
-        </table>
+    <div class="simulation-dashboard">
+        <div class="header">
+            {{ total }} Upcoming bets for {{ "now"|date("d.m.Y") }}
+        </div>
+        <div class="overview">
+             <span class="finished">Finished: <span class="finished-value">{{ finished }}</span></span>
+             <span class="open">To go: {{ open }}</span>
+        </div>
+        <div class="navi">
+            <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
+        </div>
+        <div class="switchable-content">
+            <div class="switchable-content-header">
+                Switch
+            </div>
+            <div class="switchable-content-element active">
+                Home distribution
+                {{ render_chart(chartHome) }}
+            </div>
+            <div class="switchable-content-element inactive">
+                Draw distribution
+                {{ render_chart(chartDraw) }}
+            </div>
+            <div class="switchable-content-element inactive">
+                Away distribution
+                {{ render_chart(chartAway) }}
+            </div>
+        </div>
+        <div class="simulation-dashboard-upcoming">
+            {{ component('UpcomingFixture', {'fixtures' : nextPlacements, 'betOn' : betOn}) }}
+        </div>
     </div>
 {% endblock %}

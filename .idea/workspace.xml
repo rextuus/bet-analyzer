@@ -5,17 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/config/packages/http_discovery.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/sentry.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/twig_component.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/dashbaord.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/simulator-detail.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Twig/Components/UpcomingFixture.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/UpcomingFixture.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/tipico_simulation/chart_show.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/tipico_simulation/list.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/Tipico/ProcessSimulatorsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/ProcessSimulatorsCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Message/ProcessSimulatorMessageHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/ProcessSimulatorMessageHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/TelegramMessageService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/TelegramMessageService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/TipicoBetSimulationService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/Simulator.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Simulator.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,55 +207,64 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Database Script.tipico.sql.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/wolfgang/Documents/programming/bet-analyzer/sql&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.086407766&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Database Script.bet_analyzer.sql.executor": "Run",
+    "Database Script.tipico.sql.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/wolfgang/Documents/programming/bet-analyzer/templates/tipico_simulation",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php",
+    "settings.editor.splitter.proportion": "0.086407766",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;RunConfigurationTargetLRU&quot;: [
-      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e&quot;,
-      &quot;f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\&quot;bet_analyzer\&quot;&quot;
+    "RunConfigurationTargetLRU": [
+      "f9001e92-ef92-4534-9318-2c4de0a8ae3e",
+      "f9001e92-ef92-4534-9318-2c4de0a8ae3e/schema/\"bet_analyzer\""
     ],
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;TEXT&quot;,
-      &quot;JSON&quot;,
-      &quot;HTML&quot;,
-      &quot;MySQL&quot;
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "TEXT",
+      "JSON",
+      "HTML",
+      "MySQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/sql" />
       <recent name="$PROJECT_DIR$/templates/tipico_simulation" />
+      <recent name="$PROJECT_DIR$/assets/styles" />
+      <recent name="$PROJECT_DIR$/sql" />
       <recent name="$PROJECT_DIR$/templates/bet_row" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/sql" />
+      <recent name="$PROJECT_DIR$/tipico_bet.sql" />
       <recent name="$PROJECT_DIR$/public/asset" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/../seasons" />
     </key>
   </component>
-  <component name="RunManager" selected="Database Script.tipico.sql">
+  <component name="RunManager" selected="Database Script.bet_analyzer.sql">
+    <configuration name="bet_analyzer.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/sql/bet_analyzer.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="summaries.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/sql/summaries.sql" />
       <script-mode>FILE</script-mode>
@@ -266,15 +281,6 @@
       <TestRunner class="BetRowCombinationStatisticServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/BetRowCombinationStatisticServiceTest.php" method="testChangeProductPrice" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="LeagueStatisticServiceTest.test" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <CommandLine>
-        <PhpTestInterpreterSettings>
-          <option name="interpreterName" value="PHP 8.2" />
-        </PhpTestInterpreterSettings>
-      </CommandLine>
-      <TestRunner class="LeagueStatisticServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/LeagueStatisticServiceTest.php" method="test" scope="Method" />
-      <method v="2" />
-    </configuration>
     <configuration name="LeagueStatisticServiceTest.testCalculateDistribution" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LeagueStatisticServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/LeagueStatisticServiceTest.php" method="testCalculateDistribution" scope="Method" />
       <method v="2" />
@@ -285,11 +291,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Database Script.bet_analyzer.sql" />
         <item itemvalue="Database Script.tipico.sql" />
         <item itemvalue="PHPUnit.BetRowCombinationStatisticServiceTest.testChangeProductPrice" />
         <item itemvalue="Database Script.summaries.sql" />
         <item itemvalue="PHPUnit.LeagueStatisticServiceTest.testCalculateDistribution" />
-        <item itemvalue="PHPUnit.LeagueStatisticServiceTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -368,7 +374,8 @@
       <workItem from="1709715055771" duration="12149000" />
       <workItem from="1709805841197" duration="44915000" />
       <workItem from="1710100471832" duration="1685000" />
-      <workItem from="1710187832570" duration="10887000" />
+      <workItem from="1710187832570" duration="12914000" />
+      <workItem from="1710239644748" duration="23158000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -615,14 +622,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00050" summary="Fix eval">
-      <option name="closed" value="true" />
-      <created>1709428686506</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1709428686506</updated>
-    </task>
     <task id="LOCAL-00051" summary="Fix eval">
       <option name="closed" value="true" />
       <created>1709429826245</created>
@@ -727,7 +726,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710193836999</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Default simulators">
+      <option name="closed" value="true" />
+      <created>1710200370459</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1710200370459</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

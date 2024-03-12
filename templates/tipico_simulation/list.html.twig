@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipico Simulators{% endblock %}
+
+{% block body %}
+
+    <div class="filter">
+        {{ form(filter) }}
+    </div>
+    <div class="table-container">
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ident</th>
+                <th>Cashbox change</th>
+                <th>Statistics</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for simulator in simulators %}
+                {{ component('Simulator', {'simulator' : simulator}) }}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

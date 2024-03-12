@@ -8,6 +8,8 @@ import './bootstrap.js';
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
+import './styles/dashbaord.scss';
+import './styles/simulator-detail.scss';
 
 // JavaScript to toggle visibility of content elements
 let containerElements = document.querySelectorAll('.switchable-content-header');

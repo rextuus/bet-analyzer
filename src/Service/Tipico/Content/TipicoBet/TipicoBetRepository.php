@@ -76,13 +76,13 @@ class TipicoBetRepository extends ServiceEntityRepository
     /**
      * @return TipicoBet[]
      */
-    public function findInRange(float $min, float $max, string $targetOddColumn, array $alreadyUsed): array
+    public function findInRange(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
     {
         $alreadyUsed = array_merge($alreadyUsed, [-1]);
 
         $qb = $this->createQueryBuilder('t');
         $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
-        $qb->setMaxResults(100);
+        $qb->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
     }
@@ -111,5 +111,30 @@ class TipicoBetRepository extends ServiceEntityRepository
         $qb->setParameter('ids', $alreadyUsed);
 
         $qb->orderBy('t.startAtTimeStamp', 'ASC');
+    }
+
+    /**
+     * @return TipicoBet[]
+     */
+    public function findUpcomingEventsByRange(float $min, float $max, string $targetOddColumn, int $limit = 100): array
+    {
+        $alreadyUsed = [-1];
+        $currentDate = new DateTime();
+        $currentDate->setTime(0, 0, 0);
+
+        $qb = $this->createQueryBuilder('t');
+        $qb->where($qb->expr()->gte('t.' . $targetOddColumn, ':min'));
+        $qb->setParameter('min', $min);
+        $qb->andWhere($qb->expr()->lte('t.' . $targetOddColumn, ':max'));
+        $qb->setParameter('max', $max);
+//        $qb->andWhere($qb->expr()->eq('t.finished', ':finished'));
+//        $qb->setParameter('finished', false);
+
+        $qb->andWhere($qb->expr()->gt('t.startAtTimeStamp', ':startAfter'));
+        $qb->setParameter('startAfter', $currentDate->getTimestamp()*1000);
+
+        $qb->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
     }
 }

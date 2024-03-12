@@ -54,13 +54,21 @@ class TipicoBetService
     /**
      * @return TipicoBet[]
      */
-    public function findInRange(float $min, float $max, string $targetOddColumn, array $alreadyUsed): array
+    public function findInRange(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
     {
-        return $this->repository->findInRange($min, $max, $targetOddColumn, $alreadyUsed);
+        return $this->repository->findInRange($min, $max, $targetOddColumn, $alreadyUsed, $limit);
     }
 
     public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool
     {
         return $this->repository->getFittingFixturesCount($min, $max, $targetOddColumn, $alreadyUsed);
+    }
+
+    /**
+     * @return TipicoBet[]
+     */
+    public function findUpcomingEventsByRange(float $min, float $max, string $targetOddColumn, int $limit = 5): array
+    {
+        return $this->repository->findUpcomingEventsByRange($min, $max, $targetOddColumn, $limit);
     }
 }

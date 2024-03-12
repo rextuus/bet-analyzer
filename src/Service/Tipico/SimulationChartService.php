@@ -211,4 +211,41 @@ class SimulationChartService
         ]);
         return $chart;
     }
+
+    public function getDailyEventChart(array $distribution): Chart
+    {
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_BAR);
+
+        $labels = array_keys($distribution);
+
+        $chart->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Occurrence',
+                    'backgroundColor' => '#2A3954FF',
+                    'borderColor' => '#2A3954FF',
+                    'data' => $distribution,
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => 5,
+                    'ticks' => [
+                        'color' => '#000000'
+                    ]
+                ],
+                'x' => [
+                    'ticks' => [
+                        'color' => '#000000'
+                    ]
+                ]
+            ],
+        ]);
+        return $chart;
+    }
 }

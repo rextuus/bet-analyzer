@@ -1,0 +1,96 @@
+@import "dashbaord.scss";
+
+$borderSize: 4px;
+
+.simulator-detail{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    .simulator-detail-widget{
+
+        color: black;
+        font-size: 1.5em;
+        margin-right: 20px;
+        margin-bottom: 20px;
+
+        .simulator-detail-widget-header{
+            border-top: $borderSize solid black;
+            border-left: $borderSize solid black;
+            border-right: $borderSize solid black;
+            background-color: #0c5460;
+            padding: 10px;
+        }
+        .simulator-detail-widget-content{
+            border-bottom: $borderSize solid black;
+            border-left: $borderSize solid black;
+            border-right: $borderSize solid black;
+            background-color: #5b5b5b;
+            padding: 10px;
+        }
+        .simulator-detail-widget-content-chart{
+            @extend .simulator-detail-widget-content;
+            min-width: 800px;
+        }
+    }
+
+    .upcoming-fixtures-detail{
+        .upcoming-fixtures {
+            .upcoming-fixtures-entry {
+                .content-container {
+                    display: flex;
+                    padding: 10px;
+                    margin: 20px;
+                    font-size: 1.1em;
+                    color: #0a0800;
+
+                    //odds
+                    .target, .non-target {
+                        padding: 5px;
+                        border-radius: 8px;
+                        background-color: #e8e8e8;
+                        color: #0a0800;
+                        margin-right: 2px;
+                        font-size: 1.2em;
+                    }
+
+                    // teams
+                    .teams {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .time {
+                        display: flex;
+                        flex-direction: column;
+
+                        .date {
+                            font-weight: bold;
+                            font-size: 1.3em;
+                        }
+                    }
+
+                    .result {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .content {
+                        margin-right: 25px;
+                    }
+
+                    .non-finished {
+                        display: none;
+                    }
+                }
+                .non-started{
+                    background-color: rgba(243, 196, 196, 0.65);
+                }
+                .started{
+                    background-color: rgba(175, 241, 167, 0.38);
+                }
+            }
+        }
+
+
+    }
+}
