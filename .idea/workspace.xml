@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/styles/dashbaord.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/simulator-detail.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Twig/Components/UpcomingFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/UpcomingFixture.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/tipico_simulation/chart_show.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/tipico_simulation/list.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/Simulator.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Simulator.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/dashbaord.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/dashbaord.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/simulator-detail.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/simulator-detail.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -375,7 +362,7 @@
       <workItem from="1709805841197" duration="44915000" />
       <workItem from="1710100471832" duration="1685000" />
       <workItem from="1710187832570" duration="12914000" />
-      <workItem from="1710239644748" duration="23158000" />
+      <workItem from="1710239644748" duration="26519000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -622,14 +609,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00051" summary="Fix eval">
-      <option name="closed" value="true" />
-      <created>1709429826245</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1709429826245</updated>
-    </task>
     <task id="LOCAL-00052" summary="Fix eval">
       <option name="closed" value="true" />
       <created>1709464589581</created>
@@ -734,14 +713,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710200370459</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Improvements">
+      <option name="closed" value="true" />
+      <created>1710276363593</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1710276363593</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added evaluation package" />
     <MESSAGE value="test command" />
     <MESSAGE value="Fixed round get for matchday" />
     <MESSAGE value="Added additional names for 3 way result odds" />
@@ -766,7 +752,8 @@
     <MESSAGE value="Improvments" />
     <MESSAGE value="Fix" />
     <MESSAGE value="Default simulators" />
-    <option name="LAST_COMMIT_MESSAGE" value="Default simulators" />
+    <MESSAGE value="Improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improvements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

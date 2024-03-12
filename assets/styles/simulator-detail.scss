@@ -1,12 +1,53 @@
 @import "dashbaord.scss";
 
 $borderSize: 4px;
+$headerColor: #2A3954FF;
+
+.simulator-detail-name{
+    font-size: 2.9em;
+    font-weight: bold;
+    margin: 20px;
+    padding: 10px;
+    background-color: $headerColor;
+    color: #0a0800;
+    border: #0a0800 solid 5px;
+
+}
+
+.simulator-detail-navi {
+    padding: 15px;
+    margin: 20px;
+    font-size: 1.8em;
+    font-weight: bold;
+    display: flex;
+    .link{
+        margin-right: 20px;
+        a{
+            text-decoration: none;
+            color: #0a0800;
+        }
+        border: 2px solid #0a0800;
+        background-color: $headerColor;
+        padding: 5px;
+    }
+}
 
 .simulator-detail{
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
     .simulator-detail-widget{
+        .simulator-detail-widget-col{
+            .simulator-detail-widget-col-e{
+                margin-bottom: 10px;
+            }
+        }
+
+        &.cashbox{
+            min-width: 500px;
+            font-size: 1.9em;
+            font-weight: bold;
+        }
 
         color: black;
         font-size: 1.5em;
@@ -17,8 +58,10 @@ $borderSize: 4px;
             border-top: $borderSize solid black;
             border-left: $borderSize solid black;
             border-right: $borderSize solid black;
-            background-color: #0c5460;
+            background-color: $headerColor;
             padding: 10px;
+            font-weight: bold;
+
         }
         .simulator-detail-widget-content{
             border-bottom: $borderSize solid black;

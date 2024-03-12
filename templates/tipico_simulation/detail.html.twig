@@ -3,14 +3,34 @@
 {% block title %}{{ simulator.identifier }}{% endblock %}
 
 {% block body %}
-    <h2>{{ simulator.identifier }}</h2>
+    <div class="simulator-detail-name">{{ simulator.identifier }}</div>
+    <div class="simulator-detail-navi">
+        <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
+        <div class="link"><a href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">Placements</a></div>
+    </div>
+
+
     <div class="simulator-detail">
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                CashBox
-            </div>
-            <div class="simulator-detail-widget-content">
-                {{ simulator.cashBox }}
+
+        <div class="simulator-detail-widget cashbox">
+            <div class="simulator-detail-widget-col">
+                <div class="simulator-detail-widget-col-e">
+                    <div class="simulator-detail-widget-header">
+                        CashBox
+                    </div>
+                    <div class="simulator-detail-widget-content">
+                        {{ simulator.cashBox }} €
+                    </div>
+                </div>
+
+                <div class="simulator-detail-widget-col-e">
+                    <div class="simulator-detail-widget-header">
+                        Performance
+                    </div>
+                    <div class="simulator-detail-widget-content">
+                        {{ component('KeyValueListing', {'container' : statistics['result']}) }}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -23,44 +43,6 @@
                     {{ component('UpcomingFixture', {'fixtures' : nextPlacements, 'betOn' : betOn}) }}
 
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="simulator-detail">
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                Performance
-            </div>
-            <div class="simulator-detail-widget-content">
-                {{ component('KeyValueListing', {'container' : statistics['result']}) }}
-            </div>
-        </div>
-
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                Daily Ratio
-            </div>
-            <div class="simulator-detail-widget-content">
-                {{ component('KeyValueListing', {'container' : statistics['dailyRatios']}) }}
-            </div>
-        </div>
-
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                Win Ratio by odds (target values)
-            </div>
-            <div class="simulator-detail-widget-content">
-                {{ component('KeyValueListing', {'container' : statistics['valueDistribution']}) }}
-            </div>
-        </div>
-
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                Win Ratio by odds (search values)
-            </div>
-            <div class="simulator-detail-widget-content">
-                {{ component('KeyValueListing', {'container' : statistics['valueDistributionByBetOn']}) }}
             </div>
         </div>
     </div>
@@ -93,4 +75,37 @@
             </div>
         </div>
     </div>
+
+    <div class="simulator-detail">
+
+        <div class="simulator-detail-widget">
+            <div class="simulator-detail-widget-header">
+                Daily Ratio
+            </div>
+            <div class="simulator-detail-widget-content">
+                {{ component('KeyValueListing', {'container' : statistics['dailyRatios']}) }}
+            </div>
+        </div>
+
+        <div class="simulator-detail-widget">
+            <div class="simulator-detail-widget-header">
+                Win Ratio by odds (search values)
+            </div>
+            <div class="simulator-detail-widget-content">
+                {{ component('KeyValueListing', {'container' : statistics['valueDistributionByBetOn']}) }}
+            </div>
+        </div>
+
+
+        <div class="simulator-detail-widget">
+            <div class="simulator-detail-widget-header">
+                Win Ratio by odds (target values)
+            </div>
+            <div class="simulator-detail-widget-content">
+                {{ component('KeyValueListing', {'container' : statistics['valueDistribution']}) }}
+            </div>
+        </div>
+
+    </div>
+
 {% endblock %}

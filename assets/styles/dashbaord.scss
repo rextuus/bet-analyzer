@@ -1,3 +1,4 @@
+$headerColor: #2A3954FF;
 .simulation-dashboard {
   .header {
     padding: 15px;
@@ -5,12 +6,15 @@
     margin-bottom: 0;
     font-size: 4.8em;
     font-weight: bold;
-    background-color: #2A3954FF;
+    background-color: $headerColor;
     color: #0a0800;
-
+    border: #0a0800 solid 5px;
   }
 
   .overview{
+    border: #0a0800 solid 5px;
+    border-top: none;
+
     font-size: 2.8em;
     font-weight: bold;
     padding: 15px;
@@ -18,7 +22,7 @@
     margin-top: 0;
     display: flex;
     flex-direction: column;
-    background-color: #2A3954FF;
+    background-color: $headerColor;
     color: #0a0800;
     max-width: fit-content;;
     .finished{
@@ -36,6 +40,17 @@
     margin: 20px;
     font-size: 1.8em;
     font-weight: bold;
+    .link{
+      max-width: fit-content;
+      margin-right: 20px;
+      a{
+        text-decoration: none;
+        color: #0a0800;
+      }
+      border: 2px solid #0a0800;
+      background-color: $headerColor;
+      padding: 5px;
+    }
   }
   .switchable-content{
     background-color: #ababab;
