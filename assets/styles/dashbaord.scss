@@ -38,6 +38,34 @@ $headerColor: #2A3954FF;
 
     }
   }
+  .cashbox-chart{
+    min-width: 400px;
+    background-color: $headerColor;
+    max-height: 250px;
+    border: 2px solid #0a0800;
+    border-top: none;
+
+    .cashbox-chart-header{
+      padding: 5px;
+      .total, .active, .inactive, .in-win{
+        margin-right: 5px;
+        padding: 4px;
+        border-radius: 4px;
+      }
+      .total{
+        background-color: #a6a6a6;
+      }
+      .active{
+        background-color: #a6a6a6;
+      }
+      .inactive{
+        background-color: #ff6868;
+      }
+      .in-win{
+        background-color: #415d35;
+      }
+    }
+  }
 
   .navi {
     padding: 15px;

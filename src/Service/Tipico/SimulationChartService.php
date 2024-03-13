@@ -248,4 +248,41 @@ class SimulationChartService
         ]);
         return $chart;
     }
+
+    public function getSimulatorCashBoxDistributionChart(array $distribution)
+    {
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_BAR);
+
+        $labels = array_keys($distribution);
+
+        $chart->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Occurrence',
+                    'backgroundColor' => '#A28E04D1',
+                    'borderColor' => '#A28E04D1',
+                    'data' => $distribution,
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => 5,
+                    'ticks' => [
+                        'color' => '#000000'
+                    ]
+                ],
+                'x' => [
+                    'ticks' => [
+                        'color' => '#000000'
+                    ]
+                ]
+            ],
+        ]);
+        return $chart;
+    }
 }

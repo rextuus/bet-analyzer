@@ -3,6 +3,7 @@
 namespace App\Twig\Components;
 
 use App\Service\Tipico\Content\Placement\Data\TopSimulatorStatisticData;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
@@ -23,6 +24,11 @@ final class TopSimulatorStatistic
         ];
 
     public TopSimulatorStatisticData $statisticData;
+    public bool $isCurrentVariant = false;
+
+    public function __construct(private readonly RouterInterface $router)
+    {
+    }
 
     public function getTotalCount(): int
     {
@@ -31,6 +37,10 @@ final class TopSimulatorStatistic
 
     public function getRange(): string
     {
+        if ($this->isCurrentVariant){
+            return 'Today';
+        }
+
         return sprintf(
             '%s - %s',
             $this->statisticData->getFrom()->format('d.m.y'),
@@ -53,12 +63,13 @@ final class TopSimulatorStatistic
         return sprintf(
             '<span class="top-simulator-statistic-entry">
                         <span class="week-statistic-entry-col %s">
-                            <span class="name">%s</span>
+                            <span class="name"><a href="%s">%s</a></span>
                             <span class="bets">%d bets</span>
                             <span class="change">%.2f €</span>
                         </span>
                     </span>',
             $rank,
+            $this->router->generate('app_tipico_simulation_detail', ['simulator' => $id]),
             $ident,
             $madeBets,
             $change,

@@ -10,6 +10,7 @@ use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\Data\LastWeekStatisticData;
 use App\Service\Tipico\Content\Placement\Data\TopSimulatorStatisticData;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
+use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Twig\Data\KeyValueListingContainer;
@@ -33,6 +34,7 @@ class SimulationStatisticService
         private readonly SimulationChartService $chartService,
         private readonly TipicoBetService $tipicoBetService,
         private readonly TipicoPlacementService $tipicoPlacementService,
+        private readonly SimulatorService $simulatorService,
     )
     {
     }
@@ -79,10 +81,28 @@ class SimulationStatisticService
         return $this->tipicoPlacementService->getTopSimulatorsOfCurrentDay();
     }
 
-    public function getActiveSimulators(): void
+    public function getActiveSimulators(): array
     {
-        $this->tipicoPlacementService->getSimulatorCashBoxDistribution();
-        // TODO may chart with currently cashBox value distribution
+        $statistic = $this->simulatorService->getSimulatorCashBoxDistribution();
+        $total = array_sum($statistic);
+        $active = $total - $statistic['inactive'];
+        $inWin = 0;
+        foreach ($statistic as $key => $value){
+            if (str_starts_with($key, '1')){
+                $inWin = $inWin + $value;
+            }
+        }
+        $statistic['active'] = $active;
+        $statistic['total'] = $total;
+        $statistic['inWin'] = $inWin;
+
+        return $statistic;
+    }
+
+    public function getSimulatorCashBoxDistributionChart(): Chart
+    {
+        $statistic = $this->simulatorService->getSimulatorCashBoxDistribution();
+        return $this->chartService->getSimulatorCashBoxDistributionChart($statistic);
     }
 
     /**

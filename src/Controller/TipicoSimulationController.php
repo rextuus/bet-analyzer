@@ -39,28 +39,35 @@ class TipicoSimulationController extends AbstractController
         $current = new DateTime();
         $total = count($nextPlacements);
 
-        $finished = array_filter(
+        $open = array_filter(
             $nextPlacements,
             function (TipicoBet $tipicoBet) use ($current) {
                 return $tipicoBet->getStartAtTimeStamp()/1000 > $current->getTimestamp();
             }
         );
-        $finished = count($finished);
+        $open = count($open);
 
         $lastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7);
         $currentDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfCurrentDay();
+        $cashBoxChart = $this->simulationStatisticService->getSimulatorCashBoxDistributionChart();
+        $distribution = $this->simulationStatisticService->getActiveSimulators();
 
         return $this->render('tipico_simulation/dashboard.html.twig', [
             'nextPlacements' => $nextPlacements,
             'betOn' => BetOn::HOME,
             'total' => $total,
-            'finished' => $finished,
-            'open' => $total - $finished,
+            'open' => $open,
+            'finished' => $total - $open,
             'chartHome' => $chartHome,
             'chartDraw' => $chartDraw,
             'chartAway' => $chartAway,
             'lastWeekStatistic' => $lastWeekStatistic,
             'currentDayStatistic' => $currentDayStatistic,
+            'cashBoxChart' => $cashBoxChart,
+            'totalSimulators' => $distribution['total'],
+            'inactiveSimulators' => $distribution['inactive'],
+            'activeSimulators' => $distribution['active'],
+            'inWinSimulators' => $distribution['inWin'],
         ]);
     }
 

@@ -63,4 +63,40 @@ class SimulatorService
     {
         return $this->repository->findByFilter($data);
     }
+
+    public function getSimulatorCashBoxDistribution(): array
+    {
+        $simulators = $this->repository->findAll();
+        $total = count($simulators);
+
+        $distribution = [];
+        foreach ($simulators as $simulator){
+            $value = floor($simulator->getCashBox());
+            $from = floor($value/5);
+            $key = $from;
+
+            if (!array_key_exists($key, $distribution)){
+                $distribution[$key] = 0;
+            }
+            $distribution[$key] = $distribution[$key] + 1;
+        }
+        ksort($distribution);
+
+        $result = ['inactive' => 0];
+        $active = 0;
+        foreach ($distribution as $key => $value){
+            $from = $key*5;
+            $key = sprintf('%.0f - %.0f', $from, ($key+1) * 5);
+
+
+            if ($from >= 70){
+                $result[$key] = $value;
+                $active = $active + $value;
+            }
+        }
+        $inactive = $total - $active;
+        $result['inactive'] = $inactive;
+
+        return $result;
+    }
 }

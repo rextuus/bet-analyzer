@@ -122,13 +122,13 @@ class TipicoBetRepository extends ServiceEntityRepository
         $currentDate = new DateTime();
         $currentDate->setTime(0, 0, 0);
 
-        $qb = $this->createQueryBuilder('t');
-        $qb->where($qb->expr()->gte('t.' . $targetOddColumn, ':min'));
+        $qb = $this->createQueryBuilder('b');
+        $qb->where($qb->expr()->gte('b.' . $targetOddColumn, ':min'));
         $qb->setParameter('min', $min);
-        $qb->andWhere($qb->expr()->lte('t.' . $targetOddColumn, ':max'));
+        $qb->andWhere($qb->expr()->lte('b.' . $targetOddColumn, ':max'));
         $qb->setParameter('max', $max);
 
-        $qb->andWhere($qb->expr()->gt('t.startAtTimeStamp', ':startAfter'));
+        $qb->andWhere($qb->expr()->gt('b.startAtTimeStamp', ':startAfter'));
         $qb->setParameter('startAfter', $currentDate->getTimestamp()*1000);
 
         $qb->setMaxResults($limit);

@@ -5,20 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Placement/Data/LastWeekStatisticData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Placement/Data/TopSimulatorStatisticData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Twig/Components/LastWeekStatistic.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Twig/Components/TopSimulatorStatistic.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/LastWeekStatistic.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/TopSimulatorStatistic.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/dashbaord.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/dashbaord.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Placement/TipicoPlacementRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Placement/TipicoPlacementRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Placement/TipicoPlacementService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Placement/TipicoPlacementService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/Components/TopSimulatorStatistic.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/TopSimulatorStatistic.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" afterDir="false" />
     </list>
@@ -375,7 +370,7 @@
       <workItem from="1710100471832" duration="1685000" />
       <workItem from="1710187832570" duration="12914000" />
       <workItem from="1710239644748" duration="28148000" />
-      <workItem from="1710325443079" duration="19481000" />
+      <workItem from="1710325443079" duration="28882000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -622,14 +617,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00053" summary="Simple strategy">
-      <option name="closed" value="true" />
-      <created>1709510393312</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1709510393312</updated>
-    </task>
     <task id="LOCAL-00054" summary="Update">
       <option name="closed" value="true" />
       <created>1709576802032</created>
@@ -734,14 +721,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710285561540</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="New stats">
+      <option name="closed" value="true" />
+      <created>1710351318140</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1710351318140</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="test command" />
     <MESSAGE value="Fixed round get for matchday" />
     <MESSAGE value="Added additional names for 3 way result odds" />
     <MESSAGE value="Fixed bet output" />
@@ -766,7 +760,8 @@
     <MESSAGE value="Fix" />
     <MESSAGE value="Default simulators" />
     <MESSAGE value="Improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improvements" />
+    <MESSAGE value="New stats" />
+    <option name="LAST_COMMIT_MESSAGE" value="New stats" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
