@@ -76,13 +76,17 @@ class TipicoPlacementService
         return $statistic;
     }
 
-    public function getTopSimulatorsOfLastDays(int $dayBefore): TopSimulatorStatisticData
+    public function getTopSimulatorsOfLastDays(int $dayBefore, ?int $untilDays = null): TopSimulatorStatisticData
     {
         $from = new DateTime('-'. $dayBefore .'day');
         $from->setTime(0, 0);
 
         $until = new DateTime();
         $until->setTime(0, 0);
+        if ($untilDays){
+            $until = new DateTime('-'. $untilDays .'day');
+            $until->setTime(0, 0);
+        }
 
         $topSimulators = $this->repository->getTopSimulatorsOfLastDays($from, $until);
 

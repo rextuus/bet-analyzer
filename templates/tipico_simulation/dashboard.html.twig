@@ -7,10 +7,16 @@
         <div class="header">
             {{ total }} Upcoming bets for {{ "now"|date("d.m.Y") }}
         </div>
+        <div class="navi">
+            <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
+        </div>
         <div class="statistic-panel">
             <div class="overview">
                 <span class="finished">Finished: <span class="finished-value">{{ finished }}</span></span>
                 <span class="open">To go: {{ open }}</span>
+            </div>
+            <div>
+                {{ component('TopSimulatorStatistic', {'statisticData' : beforeLastWeekStatistic}) }}
             </div>
             <div>
                 {{ component('TopSimulatorStatistic', {'statisticData' : lastWeekStatistic}) }}
@@ -18,6 +24,10 @@
             <div>
                 {{ component('TopSimulatorStatistic', {'statisticData' : currentDayStatistic, 'isCurrentVariant': true}) }}
             </div>
+
+        </div>
+
+        <div class="chart-board">
             <div class="cashbox-chart">
                 <div class="cashbox-chart-header">
                     <span class="total">Total: {{ totalSimulators }}</span>
@@ -27,25 +37,22 @@
                 </div>
                 {{ render_chart(cashBoxChart) }}
             </div>
-        </div>
-        <div class="navi">
-            <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
-        </div>
-        <div class="switchable-content">
-            <div class="switchable-content-header">
-                Switch
-            </div>
-            <div class="switchable-content-element active">
-                Home distribution
-                {{ render_chart(chartHome) }}
-            </div>
-            <div class="switchable-content-element inactive">
-                Draw distribution
-                {{ render_chart(chartDraw) }}
-            </div>
-            <div class="switchable-content-element inactive">
-                Away distribution
-                {{ render_chart(chartAway) }}
+            <div class="switchable-content">
+                <div class="switchable-content-header">
+                    Switch
+                </div>
+                <div class="switchable-content-element active">
+                    Home distribution
+                    {{ render_chart(chartHome) }}
+                </div>
+                <div class="switchable-content-element inactive">
+                    Draw distribution
+                    {{ render_chart(chartDraw) }}
+                </div>
+                <div class="switchable-content-element inactive">
+                    Away distribution
+                    {{ render_chart(chartAway) }}
+                </div>
             </div>
         </div>
         <div class="simulation-dashboard-upcoming">

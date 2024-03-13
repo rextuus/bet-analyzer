@@ -17,18 +17,20 @@ $headerColor: #2A3954FF;
 
   .overview{
     border: #0a0800 solid 5px;
-    border-top: none;
+    //border-top: none;
 
     font-size: 2.8em;
     font-weight: bold;
     padding: 15px;
     margin: 20px;
     margin-top: 0;
+
     display: flex;
     flex-direction: column;
     background-color: $headerColor;
     color: #0a0800;
-    max-width: fit-content;;
+    max-width: fit-content;
+    height: fit-content;
     .finished{
       .finished-value{
         text-decoration: line-through;
@@ -38,12 +40,19 @@ $headerColor: #2A3954FF;
 
     }
   }
+
+  .chart-board{
+    display: flex;
+    margin: 20px;
+  }
+
   .cashbox-chart{
-    min-width: 400px;
+    //min-width: 400px;
+    max-width: 600px;
     background-color: $headerColor;
-    max-height: 250px;
-    border: 2px solid #0a0800;
-    border-top: none;
+    //max-height: 250px;
+    border: 5px solid #0a0800;
+    padding: 5px;
 
     .cashbox-chart-header{
       padding: 5px;
@@ -88,7 +97,7 @@ $headerColor: #2A3954FF;
     background-color: #ababab;
     padding: 20px;
     margin: 20px;
-    max-width: 50%;
+    //max-width: 50%;
 
     .switchable-content-element{
 

@@ -50,6 +50,10 @@ final class TopSimulatorStatistic
 
     public function getRow(int $rowNr): string
     {
+        if (!array_key_exists($rowNr, $this->statisticData->getChangeVolumes())){
+            return '';
+        }
+
         $change = $this->statisticData->getChangeVolumes()[$rowNr];
         $madeBets = $this->statisticData->getMadeBets()[$rowNr];
         $ident = $this->statisticData->getSimulatorIdents()[$rowNr];

@@ -71,9 +71,9 @@ class SimulationStatisticService
         return $this->tipicoPlacementService->getLastWeekStatistic($simulator);
     }
 
-    public function getTopSimulatorsOfLastDays(int $daysBack): TopSimulatorStatisticData
+    public function getTopSimulatorsOfLastDays(int $daysBack, ?int $untilDays = null): TopSimulatorStatisticData
     {
-        return $this->tipicoPlacementService->getTopSimulatorsOfLastDays($daysBack);
+        return $this->tipicoPlacementService->getTopSimulatorsOfLastDays($daysBack, $untilDays);
     }
 
     public function getTopSimulatorsOfCurrentDay(): TopSimulatorStatisticData
