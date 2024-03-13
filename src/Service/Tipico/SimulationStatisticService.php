@@ -7,6 +7,9 @@ use App\Entity\Simulator;
 use App\Entity\TipicoBet;
 use App\Entity\TipicoPlacement;
 use App\Service\Evaluation\BetOn;
+use App\Service\Tipico\Content\Placement\Data\LastWeekStatisticData;
+use App\Service\Tipico\Content\Placement\Data\TopSimulatorStatisticData;
+use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Twig\Data\KeyValueListingContainer;
@@ -29,6 +32,7 @@ class SimulationStatisticService
     public function __construct(
         private readonly SimulationChartService $chartService,
         private readonly TipicoBetService $tipicoBetService,
+        private readonly TipicoPlacementService $tipicoPlacementService,
     )
     {
     }
@@ -58,6 +62,27 @@ class SimulationStatisticService
         return $this->chartService->getValueToWinDistributionChart(
             $this->getValueDistributionStatisticForSearchBetOn($simulator)
         );
+    }
+
+    public function getPlacementChangeComparedToDayBefore(Simulator $simulator): LastWeekStatisticData
+    {
+        return $this->tipicoPlacementService->getLastWeekStatistic($simulator);
+    }
+
+    public function getTopSimulatorsOfLastDays(int $daysBack): TopSimulatorStatisticData
+    {
+        return $this->tipicoPlacementService->getTopSimulatorsOfLastDays($daysBack);
+    }
+
+    public function getTopSimulatorsOfCurrentDay(): TopSimulatorStatisticData
+    {
+        return $this->tipicoPlacementService->getTopSimulatorsOfCurrentDay();
+    }
+
+    public function getActiveSimulators(): void
+    {
+        $this->tipicoPlacementService->getSimulatorCashBoxDistribution();
+        // TODO may chart with currently cashBox value distribution
     }
 
     /**

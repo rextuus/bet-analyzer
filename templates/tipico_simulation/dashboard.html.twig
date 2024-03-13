@@ -7,9 +7,17 @@
         <div class="header">
             {{ total }} Upcoming bets for {{ "now"|date("d.m.Y") }}
         </div>
-        <div class="overview">
-             <span class="finished">Finished: <span class="finished-value">{{ finished }}</span></span>
-             <span class="open">To go: {{ open }}</span>
+        <div class="statistic-panel">
+            <div class="overview">
+                <span class="finished">Finished: <span class="finished-value">{{ finished }}</span></span>
+                <span class="open">To go: {{ open }}</span>
+            </div>
+            <div>
+                {{ component('TopSimulatorStatistic', {'statisticData' : lastWeekStatistic}) }}
+            </div>
+            <div>
+                {{ component('TopSimulatorStatistic', {'statisticData' : currentDayStatistic}) }}
+            </div>
         </div>
         <div class="navi">
             <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>

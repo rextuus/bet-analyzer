@@ -1,0 +1,10 @@
+<div{{ attributes }}>
+    <div class="top-simulator-statistic">
+        <div class="top-simulator-statistic-header">{{ this.range }}</div>
+        <div class="top-simulator-statistic-container">
+            {% for i in 0..this.totalCount %}
+                {{ this.row(i)|raw }}
+            {% endfor %}
+        </div>
+    </div>
+</div>

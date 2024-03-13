@@ -1,0 +1,10 @@
+<div{{ attributes }}>
+    <div class="week-statistic">
+        <div class="week-change-total">Total: {{ this.totalChange }} €</div>
+        <div class="week-change-container">
+            {% for i in 0..this.totalCount %}
+                {{ this.row(i)|raw }}
+            {% endfor %}
+        </div>
+    </div>
+</div>

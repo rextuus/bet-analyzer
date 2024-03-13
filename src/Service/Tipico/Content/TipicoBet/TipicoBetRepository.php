@@ -127,8 +127,6 @@ class TipicoBetRepository extends ServiceEntityRepository
         $qb->setParameter('min', $min);
         $qb->andWhere($qb->expr()->lte('t.' . $targetOddColumn, ':max'));
         $qb->setParameter('max', $max);
-//        $qb->andWhere($qb->expr()->eq('t.finished', ':finished'));
-//        $qb->setParameter('finished', false);
 
         $qb->andWhere($qb->expr()->gt('t.startAtTimeStamp', ':startAfter'));
         $qb->setParameter('startAfter', $currentDate->getTimestamp()*1000);

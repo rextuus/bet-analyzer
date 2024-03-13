@@ -1,3 +1,8 @@
+$positive: #769467;
+$negative: #FF32324C;
+$neutral: #A28E04D1;
+$headerColor: #2A3954FF;
+
 body {
     background-color: #343434;
     color: #ffffff;
@@ -48,10 +53,10 @@ body {
 
 
         &.increase{
-            background-color: #769467;
+            background-color: $positive;
         }
         &.decrease{
-            background-color: rgba(255, 50, 50, 0.3);
+            background-color: $negative;
         }
     }
 
@@ -116,5 +121,165 @@ body {
     color: white;
     .key-value-listing-row-even{
         //background-color: #e0e0e0;
+    }
+}
+
+.week-statistic{
+    .week-change-total{
+        margin-bottom: 5px;
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+    .week-change-container{
+        max-width: fit-content;
+        display: flex;
+        font-size: 0.8em;
+        font-weight: normal;
+        .week-statistic-entry{
+            margin-right: 5px;
+
+            .week-statistic-entry-col{
+                display: flex;
+                flex-direction: column;
+
+                &.change-negative{
+                    background-color: $negative;
+                }
+                &.change-positive{
+                    background-color: $positive;
+                }
+                &.change-none{
+                    background-color: $neutral;
+                }
+
+                padding: 10px;
+                margin-right: 5px;
+                border-radius: 8px;
+
+                &.zero{
+                    font-size: 0.7em;
+                }
+                &.one{
+                    font-size: 0.8em;
+                }
+                &.two{
+                    font-size: 0.9em;
+                }
+                &.three{
+                    font-size: 1.0em;
+                }
+                &.four{
+                    font-size: 1.1em;
+                }
+                &.five{
+                    font-size: 1.2em;
+                }
+                &.six{
+                    font-size: 1.3em;
+                }
+                &.seven{
+                    font-size: 1.4em;
+                }
+                &.eight{
+                    font-size: 1.5em;
+                }
+
+                .weekday{
+                    text-decoration: underline;
+                }
+
+                .change{
+                    font-weight: bold;
+                }
+            }
+
+        }
+
+    }
+}
+
+.top-simulator-statistic{
+    background-color: $headerColor;
+    border: #0a0800 solid 5px;
+    border-top: none;
+    color: #0a0800;
+    padding: 15px;
+
+    .top-simulator-statistic-header{
+        margin-bottom: 5px;
+        font-size: 1.3em;
+        font-weight: bold;
+        color: #eeeeee;
+    }
+
+    .top-simulator-statistic-container{
+        max-width: fit-content;
+        font-size: 0.8em;
+        font-weight: normal;
+        .top-simulator-statistic-entry{
+            .week-statistic-entry-col{
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+                max-width: fit-content;
+
+                &.change-negative{
+                    background-color: $negative;
+                }
+                &.change-positive{
+                    background-color: $positive;
+                }
+                &.change-none{
+                    background-color: $neutral;
+                }
+
+                padding: 10px;
+                margin-right: 5px;
+                border-radius: 8px;
+
+                &.zero{
+                    font-size: 0.7em;
+                }
+                &.one{
+                    font-size: 0.8em;
+                    background-color: #DFF0D8;
+                }
+                &.two{
+                    font-size: 0.9em;
+                    background-color: #B2EAB2;
+                }
+                &.three{
+                    font-size: 1.0em;
+                    background-color: #81D681;
+                }
+                &.four{
+                    font-size: 1.1em;
+                    background-color: #5CB85C;
+                }
+                &.five{
+                    font-size: 1.2em;
+                    background-color: #3D8E3D;
+                }
+                &.six{
+                    font-size: 1.3em;
+                }
+                &.seven{
+                    font-size: 1.4em;
+                }
+                &.eight{
+                    font-size: 1.5em;
+                }
+
+                .weekday{
+                    text-decoration: underline;
+                }
+
+                .change{
+                    font-weight: bold;
+                }
+            }
+
+        }
+
     }
 }

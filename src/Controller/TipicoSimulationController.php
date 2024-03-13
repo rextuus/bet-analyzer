@@ -4,10 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Simulator;
 use App\Entity\TipicoBet;
-use App\Entity\TipicoPlacement;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
-use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use App\Service\Tipico\SimulationStatisticService;
@@ -19,8 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
 
 #[Route('/tipico/simulation')]
 class TipicoSimulationController extends AbstractController
@@ -51,6 +47,9 @@ class TipicoSimulationController extends AbstractController
         );
         $finished = count($finished);
 
+        $lastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7);
+        $currentDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfCurrentDay();
+
         return $this->render('tipico_simulation/dashboard.html.twig', [
             'nextPlacements' => $nextPlacements,
             'betOn' => BetOn::HOME,
@@ -60,6 +59,8 @@ class TipicoSimulationController extends AbstractController
             'chartHome' => $chartHome,
             'chartDraw' => $chartDraw,
             'chartAway' => $chartAway,
+            'lastWeekStatistic' => $lastWeekStatistic,
+            'currentDayStatistic' => $currentDayStatistic,
         ]);
     }
 
@@ -128,6 +129,7 @@ class TipicoSimulationController extends AbstractController
             'valueToWinDistributionChart' => $valueToWinDistributionChart,
             'nextPlacements' => $nextPlacements,
             'betOn' => $betOn,
+            'lastWeekStatistic' => $this->simulationStatisticService->getPlacementChangeComparedToDayBefore($simulator),
         ]);
     }
 
