@@ -7,8 +7,11 @@ use App\Entity\TipicoBet;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
+use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
+use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use App\Service\Tipico\SimulationStatisticService;
+use App\Twig\Data\StatisticRange;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -33,8 +36,6 @@ class TipicoSimulationController extends AbstractController
     {
         $nextPlacements = $this->simulationStatisticService->getDailyEvents();
         $chartHome = $this->simulationStatisticService->getDailyEventChart();
-        $chartDraw = $this->simulationStatisticService->getDailyEventChart(BetOn::DRAW);
-        $chartAway = $this->simulationStatisticService->getDailyEventChart(BetOn::AWAY);
 
         $current = new DateTime();
         $total = count($nextPlacements);
@@ -49,6 +50,7 @@ class TipicoSimulationController extends AbstractController
 
         $lastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7);
         $beforeLastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(14, 7);
+        $yesterdayStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(2, 1);
         $currentDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfCurrentDay();
         $cashBoxChart = $this->simulationStatisticService->getSimulatorCashBoxDistributionChart();
         $distribution = $this->simulationStatisticService->getActiveSimulators();
@@ -60,10 +62,9 @@ class TipicoSimulationController extends AbstractController
             'open' => $open,
             'finished' => $total - $open,
             'chartHome' => $chartHome,
-            'chartDraw' => $chartDraw,
-            'chartAway' => $chartAway,
             'lastWeekStatistic' => $lastWeekStatistic,
             'beforeLastWeekStatistic' => $beforeLastWeekStatistic,
+            'yesterdayStatistic' => $yesterdayStatistic,
             'currentDayStatistic' => $currentDayStatistic,
             'cashBoxChart' => $cashBoxChart,
             'totalSimulators' => $distribution['total'],
@@ -123,8 +124,16 @@ class TipicoSimulationController extends AbstractController
         $dailyDistributionChart = $this->simulationStatisticService->getDailyDistributionChart($simulator);
         $valueToWinDistributionChart = $this->simulationStatisticService->getValueToWinDistributionChart($simulator);
 
-        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
-        $betOn = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_BET_ON]);
+        $strategy = $simulator->getStrategy();
+        $parameters = json_decode($strategy->getParameters(), true);
+
+        $target = AbstractSimulationProcessor::PARAMETER_BET_ON;
+
+        if($strategy->getIdentifier() === AgainstStrategy::IDENT){
+            $target = AgainstStrategy::PARAMETER_AGAINST;
+        }
+
+        $betOn = BetOn::from($parameters[$target]);
         $nextPlacements = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator);
 
 

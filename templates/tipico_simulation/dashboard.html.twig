@@ -22,9 +22,11 @@
                 {{ component('TopSimulatorStatistic', {'statisticData' : lastWeekStatistic}) }}
             </div>
             <div>
-                {{ component('TopSimulatorStatistic', {'statisticData' : currentDayStatistic, 'isCurrentVariant': true}) }}
+                {{ component('TopSimulatorStatistic', {'statisticData' : yesterdayStatistic, 'headerText': 'Yesterday'}) }}
             </div>
-
+            <div>
+                {{ component('TopSimulatorStatistic', {'statisticData' : currentDayStatistic, 'headerText': 'Today'}) }}
+            </div>
         </div>
 
         <div class="chart-board">
@@ -37,23 +39,29 @@
                 </div>
                 {{ render_chart(cashBoxChart) }}
             </div>
-            <div class="switchable-content">
-                <div class="switchable-content-header">
-                    Switch
+            <div class="cashbox-chart">
+                <div class="cashbox-chart-header">
+                    Home-odd distribution
                 </div>
-                <div class="switchable-content-element active">
-                    Home distribution
-                    {{ render_chart(chartHome) }}
-                </div>
-                <div class="switchable-content-element inactive">
-                    Draw distribution
-                    {{ render_chart(chartDraw) }}
-                </div>
-                <div class="switchable-content-element inactive">
-                    Away distribution
-                    {{ render_chart(chartAway) }}
-                </div>
+                {{ render_chart(chartHome) }}
             </div>
+{#            <div class="switchable-content">#}
+{#                <div class="switchable-content-header">#}
+{#                    Switch#}
+{#                </div>#}
+{#                <div class="switchable-content-element active">#}
+{#                    Home distribution#}
+{#                    {{ render_chart(chartHome) }}#}
+{#                </div>#}
+{#                <div class="switchable-content-element inactive">#}
+{#                    Draw distribution#}
+{#                    {{ render_chart(chartDraw) }}#}
+{#                </div>#}
+{#                <div class="switchable-content-element inactive">#}
+{#                    Away distribution#}
+{#                    {{ render_chart(chartAway) }}#}
+{#                </div>#}
+{#            </div>#}
         </div>
         <div class="simulation-dashboard-upcoming">
             {{ component('UpcomingFixture', {'fixtures' : nextPlacements, 'betOn' : betOn}) }}

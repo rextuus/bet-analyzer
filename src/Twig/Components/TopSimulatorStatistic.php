@@ -3,6 +3,7 @@
 namespace App\Twig\Components;
 
 use App\Service\Tipico\Content\Placement\Data\TopSimulatorStatisticData;
+use App\Twig\Data\StatisticRange;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -24,7 +25,7 @@ final class TopSimulatorStatistic
         ];
 
     public TopSimulatorStatisticData $statisticData;
-    public bool $isCurrentVariant = false;
+    public string $headerText = 'range';
 
     public function __construct(private readonly RouterInterface $router)
     {
@@ -37,8 +38,8 @@ final class TopSimulatorStatistic
 
     public function getRange(): string
     {
-        if ($this->isCurrentVariant){
-            return 'Today';
+        if ($this->headerText !== 'range'){
+            return $this->headerText;
         }
 
         return sprintf(

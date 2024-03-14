@@ -7,6 +7,7 @@ import './bootstrap.js';
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+import './styles/const.scss';
 import './styles/app.scss';
 import './styles/dashbaord.scss';
 import './styles/simulator-detail.scss';

@@ -1,7 +1,7 @@
+@import "const.scss";
 @import "dashbaord.scss";
 
 $borderSize: 4px;
-$headerColor: #2A3954FF;
 
 .simulator-detail-name{
     font-size: 2.9em;
@@ -95,6 +95,9 @@ $headerColor: #2A3954FF;
                         margin-right: 2px;
                         font-size: 1.2em;
                     }
+                    .target{
+                        background-color: #969696;
+                    }
 
                     // teams
                     .teams {
@@ -125,11 +128,20 @@ $headerColor: #2A3954FF;
                         display: none;
                     }
                 }
+                .running{
+                    background-color: $neutral;
+                }
                 .non-started{
-                    background-color: rgba(243, 196, 196, 0.65);
+                    background-color: $notRunning;
                 }
                 .started{
-                    background-color: rgba(175, 241, 167, 0.38);
+                    background-color: $neutral;
+                }
+                .started.non-simulator-won{
+                    background-color: $negative;
+                }
+                .started.simulator-won{
+                    background-color: $positive;
                 }
             }
         }

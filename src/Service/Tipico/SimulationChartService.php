@@ -223,8 +223,8 @@ class SimulationChartService
             'datasets' => [
                 [
                     'label' => 'Occurrence',
-                    'backgroundColor' => '#2A3954FF',
-                    'borderColor' => '#2A3954FF',
+                    'backgroundColor' => '#A28E04D1',
+                    'borderColor' => '#A28E04D1',
                     'data' => $distribution,
                 ],
             ],
@@ -236,12 +236,12 @@ class SimulationChartService
                     'suggestedMin' => 0,
                     'suggestedMax' => 5,
                     'ticks' => [
-                        'color' => '#000000'
+                        'color' => '#ffffff'
                     ]
                 ],
                 'x' => [
                     'ticks' => [
-                        'color' => '#000000'
+                        'color' => '#ffffff'
                     ]
                 ]
             ],
@@ -273,12 +273,12 @@ class SimulationChartService
                     'suggestedMin' => 0,
                     'suggestedMax' => 5,
                     'ticks' => [
-                        'color' => '#000000'
+                        'color' => '#ffffff'
                     ]
                 ],
                 'x' => [
                     'ticks' => [
-                        'color' => '#000000'
+                        'color' => '#ffffff'
                     ]
                 ]
             ],

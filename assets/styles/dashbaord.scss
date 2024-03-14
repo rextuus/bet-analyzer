@@ -1,4 +1,4 @@
-$headerColor: #2A3954FF;
+@import "const";
 .simulation-dashboard {
   .header {
     padding: 15px;
@@ -19,7 +19,7 @@ $headerColor: #2A3954FF;
     border: #0a0800 solid 5px;
     //border-top: none;
 
-    font-size: 2.8em;
+    font-size: 1.7em;
     font-weight: bold;
     padding: 15px;
     margin: 20px;
@@ -29,7 +29,7 @@ $headerColor: #2A3954FF;
     flex-direction: column;
     background-color: $headerColor;
     color: #0a0800;
-    max-width: fit-content;
+    //max-width: fit-content;
     height: fit-content;
     .finished{
       .finished-value{
@@ -152,6 +152,9 @@ $headerColor: #2A3954FF;
           .non-finished {
             display: none;
           }
+        }
+        .running{
+          background-color: $neutral;
         }
         .non-started{
           background-color: rgba(243, 196, 196, 0.65);
