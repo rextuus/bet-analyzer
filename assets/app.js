@@ -67,3 +67,54 @@ function toggleContent(clickedElement) {
     //     }
     // });
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const progressBar = document.getElementById('progress-bar');
+    const timeLeftDisplay = document.getElementById('time-left');
+
+    if (progressBar && timeLeftDisplay){
+        // Adjust this value according to the specific minute you want to wait for
+        const targetMinute = 10; // Wait for the 10th minute of every hour
+
+        function updateProgressBar() {
+            const currentTime = new Date();
+            const currentMinute = currentTime.getMinutes();
+            const currentHour = currentTime.getHours();
+
+            let nextExecutionTime;
+            if (currentMinute >= targetMinute) {
+                nextExecutionTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), currentHour + 1, targetMinute, 0, 0);
+            } else {
+                nextExecutionTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), currentHour, targetMinute, 0, 0);
+            }
+
+            const timeUntilNextExecution = nextExecutionTime - currentTime;
+
+            const progressPercentage = ((3600000 - timeUntilNextExecution) / 3600000) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+
+            const minutes = Math.floor((timeUntilNextExecution % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeUntilNextExecution % (1000 * 60)) / 1000);
+            timeLeftDisplay.textContent = `Next bet updates: ${pad(minutes)}:${pad(seconds)}`;
+
+            if (timeUntilNextExecution <= 0) {
+                progressBar.classList.add('fill');
+                setTimeout(() => {
+                    progressBar.style.width = '0%';
+                    progressBar.classList.remove('fill');
+                }, 1000);
+            }
+        }
+
+        function pad(num) {
+            return (num < 10 ? '0' : '') + num;
+        }
+
+        // Initial call to update progress bar and time
+        updateProgressBar();
+
+        // Update progress bar and time every second
+        setInterval(updateProgressBar, 1000);
+    }
+});

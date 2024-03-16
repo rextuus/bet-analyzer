@@ -6,6 +6,14 @@
     <div class="simulation-dashboard">
         <div class="header">
             {{ total }} Upcoming bets for {{ "now"|date("d.m.Y") }}
+
+            <div class="progress-container">
+                <div class="time-left" id="time-left"></div>
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+
+
         </div>
         <div class="navi">
             <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>

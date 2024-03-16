@@ -50,7 +50,7 @@ class TipicoSimulationController extends AbstractController
 
         $lastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7);
         $beforeLastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(14, 7);
-        $yesterdayStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(2, 1);
+        $yesterdayStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(1);
         $currentDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfCurrentDay();
         $cashBoxChart = $this->simulationStatisticService->getSimulatorCashBoxDistributionChart();
         $distribution = $this->simulationStatisticService->getActiveSimulators();

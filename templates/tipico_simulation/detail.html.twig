@@ -5,6 +5,7 @@
 {% block body %}
     <div class="simulator-detail-name">{{ simulator.identifier }}</div>
     <div class="simulator-detail-navi">
+        <div class="link"><a href="{{ path('app_tipico_simulation_dashboard') }}">Dashboard</a></div>
         <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
         <div class="link"><a href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">Placements</a></div>
     </div>
@@ -20,6 +21,15 @@
                     </div>
                     <div class="simulator-detail-widget-content">
                         {{ simulator.cashBox }} €
+                    </div>
+                </div>
+
+                <div class="simulator-detail-widget-col-e">
+                    <div class="simulator-detail-widget-header">
+                        Possible bets today
+                    </div>
+                    <div class="simulator-detail-widget-content">
+                        {{ nextPlacements|length }}
                     </div>
                 </div>
 

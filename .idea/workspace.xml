@@ -4,20 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="Improvements">
-      <change afterPath="$PROJECT_DIR$/assets/styles/const.scss" afterDir="false" />
+    <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/const.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/const.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/dashbaord.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/dashbaord.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/simulator-detail.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/simulator-detail.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationChartService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/Components/TopSimulatorStatistic.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/TopSimulatorStatistic.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/Components/UpcomingFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/UpcomingFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/dashboard.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -373,7 +368,7 @@
       <workItem from="1710187832570" duration="12914000" />
       <workItem from="1710239644748" duration="28148000" />
       <workItem from="1710325443079" duration="33373000" />
-      <workItem from="1710411762716" duration="10029000" />
+      <workItem from="1710411762716" duration="15119000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -620,22 +615,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00056" summary="Styling">
-      <option name="closed" value="true" />
-      <created>1709761402169</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1709761402169</updated>
-    </task>
-    <task id="LOCAL-00057" summary="Simple strategy">
-      <option name="closed" value="true" />
-      <created>1709763862894</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1709763862894</updated>
-    </task>
     <task id="LOCAL-00058" summary="Styling">
       <option name="closed" value="true" />
       <created>1709833625774</created>
@@ -732,7 +711,23 @@
       <option name="project" value="LOCAL" />
       <updated>1710371624992</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Improvements">
+      <option name="closed" value="true" />
+      <created>1710442759884</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1710442759884</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Improvements">
+      <option name="closed" value="true" />
+      <created>1710445000235</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1710445000235</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -761,10 +756,10 @@
     <MESSAGE value="Simple strategy" />
     <MESSAGE value="Improvments" />
     <MESSAGE value="Default simulators" />
-    <MESSAGE value="Improvements" />
     <MESSAGE value="New stats" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improvements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -363,7 +363,7 @@ class SimulationStatisticService
     /**
      * @return TipicoBet[]
      */
-    public function getUpcomingEventsForSimulator(Simulator $simulator, int $limit = 10): array
+    public function getUpcomingEventsForSimulator(Simulator $simulator, int $limit = 50): array
     {
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
