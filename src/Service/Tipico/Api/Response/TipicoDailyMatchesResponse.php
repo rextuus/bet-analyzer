@@ -102,9 +102,8 @@ class TipicoDailyMatchesResponse
                     }
 
                 }
-                $oddDataSets[] = $oddData;
+                $this->oddMatches[] = $oddData;
             }
-            $this->oddMatches = $oddDataSets;
         }
 
 
