@@ -5,6 +5,7 @@ namespace App\Service\Tipico\Api\Response;
 
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
+use App\Service\Tipico\Content\TipicoOdd\Data\TipicoOverUnderOddData;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -25,6 +26,8 @@ class TipicoDailyMatchesResponse
     private const KEY_EVENT_START_TIME = 'eventStartTime';
 
     private const KEY_ODD_STANDARD = 'standard';
+    private const KEY_POINTS_MORE_LESS_THAN = 'points-more-less-than';
+    private const KEY_FIXED_PARAM_TEXT = 'fixedParamText';
     private const KEY_ODD_RESULTS = 'results';
     private const KEY_ODD_CAPTION = 'caption';
     private const KEY_QUOTE_FLOAT_VALUE = 'quoteFloatValue';
@@ -36,6 +39,11 @@ class TipicoDailyMatchesResponse
      * @var array<TipicoBetData> $matches
      */
     private array $matches = [];
+
+    /**
+     * @var array<TipicoOverUnderOddData> $oddMatches
+     */
+    private array $oddMatches = [];
 
     /**
      * @var array<string, mixed> $decodedResponseBody
@@ -69,6 +77,37 @@ class TipicoDailyMatchesResponse
 
     private function addOddInfo(array $odds, int $matchId, TipicoBetData $data): bool
     {
+
+        $oddDataSets = [];
+        if (array_key_exists((string)$matchId, $odds)) {
+            $odd = $odds[$matchId];
+            $overUnderOdds = $odd[self::KEY_POINTS_MORE_LESS_THAN];
+
+            foreach ($overUnderOdds as $overUnderOdd){
+                $oddData = new TipicoOverUnderOddData();
+                $oddData->setTipicoBetId($matchId);
+
+                $results = $overUnderOdd[self::KEY_ODD_RESULTS];
+                $target = (float) $overUnderOdd[self::KEY_FIXED_PARAM_TEXT];
+                $oddData->setTarget($target);
+
+                foreach ($results as $result){
+                    $caption = $result[self::KEY_ODD_CAPTION];
+                    $value = $result[self::KEY_QUOTE_FLOAT_VALUE];
+                    if($caption === '+'){
+                        $oddData->setOver($value);
+                    }
+                    if($caption === '-'){
+                        $oddData->setUnder($value);
+                    }
+
+                }
+                $oddDataSets[] = $oddData;
+            }
+            $this->oddMatches = $oddDataSets;
+        }
+
+
         if (array_key_exists((string)$matchId, $odds)) {
             $odd = $odds[$matchId];
             $results = $odd[self::KEY_ODD_STANDARD][0][self::KEY_ODD_RESULTS];
@@ -129,5 +168,10 @@ class TipicoDailyMatchesResponse
     public function getMatches(): array
     {
         return $this->matches;
+    }
+
+    public function getOddMatches(): array
+    {
+        return $this->oddMatches;
     }
 }
