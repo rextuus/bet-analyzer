@@ -32,6 +32,7 @@ class TipicoApiGateway
         $response = $client->request('GET');
 
         $data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+//        $data = json_decode(file_get_contents('tipico-test-response.json'), true);
         $response = new TipicoDailyMatchesResponse($data);
         $response->parseResponse();
 

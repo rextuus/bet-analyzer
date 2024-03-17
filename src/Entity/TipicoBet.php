@@ -62,10 +62,14 @@ class TipicoBet
     #[ORM\ManyToMany(targetEntity: TipicoPlacement::class, mappedBy: 'fixtures')]
     private Collection $tipicoPlacements;
 
+    #[ORM\OneToMany(mappedBy: 'bet', targetEntity: TipicoOverUnderOdd::class)]
+    private Collection $tipicoOverUnderOdds;
+
     public function __construct()
     {
         $this->simulators = new ArrayCollection();
         $this->tipicoPlacements = new ArrayCollection();
+        $this->tipicoOverUnderOdds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -277,6 +281,36 @@ class TipicoBet
     {
         if ($this->tipicoPlacements->removeElement($tipicoPlacement)) {
             $tipicoPlacement->removeFixture($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TipicoOverUnderOdd>
+     */
+    public function getTipicoOverUnderOdds(): Collection
+    {
+        return $this->tipicoOverUnderOdds;
+    }
+
+    public function addTipicoOverUnderOdd(TipicoOverUnderOdd $tipicoOverUnderOdd): static
+    {
+        if (!$this->tipicoOverUnderOdds->contains($tipicoOverUnderOdd)) {
+            $this->tipicoOverUnderOdds->add($tipicoOverUnderOdd);
+            $tipicoOverUnderOdd->setBet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTipicoOverUnderOdd(TipicoOverUnderOdd $tipicoOverUnderOdd): static
+    {
+        if ($this->tipicoOverUnderOdds->removeElement($tipicoOverUnderOdd)) {
+            // set the owning side to null (unless already changed)
+            if ($tipicoOverUnderOdd->getBet() === $this) {
+                $tipicoOverUnderOdd->setBet(null);
+            }
         }
 
         return $this;

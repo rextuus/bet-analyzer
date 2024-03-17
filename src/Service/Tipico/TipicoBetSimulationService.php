@@ -8,6 +8,7 @@ use App\Entity\TipicoBet;
 use App\Service\Tipico\Api\TipicoApiGateway;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
+use App\Service\Tipico\Content\TipicoOdd\TipicoOverUnderOddService;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 
 
@@ -21,6 +22,7 @@ class TipicoBetSimulationService
     public function __construct(
         private readonly TipicoApiGateway $tipicoApiGateway,
         private readonly TipicoBetService $tipicoBetService,
+        private readonly TipicoOverUnderOddService $tipicoOverUnderOddService,
         private readonly SimulationStrategyProcessorProvider $processorProvider,
         private readonly TelegramMessageService $telegramMessageService,
         private readonly float $cashBoxLimit,
@@ -33,13 +35,21 @@ class TipicoBetSimulationService
         $response = $this->tipicoApiGateway->getDailyMatchEvents();
 
         $stored = 0;
+        $oddDataSets = $response->getOddMatches();
+
         foreach ($response->getMatches() as $tipicoBetData) {
             if ($this->tipicoBetService->findByTipicoId($tipicoBetData->getTipicoId())) {
                 continue;
             }
 
-            $this->tipicoBetService->createByData($tipicoBetData);
+            $bet = $this->tipicoBetService->createByData($tipicoBetData);
             $stored++;
+        }
+
+        foreach ($oddDataSets as $oddDataSet){
+            $bet = $this->tipicoBetService->findByTipicoId($oddDataSet->getTipicoBetId());
+            $oddDataSet->setBet($bet);
+            $this->tipicoOverUnderOddService->createByData($oddDataSet);
         }
 
         return $stored;
