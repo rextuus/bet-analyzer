@@ -54,10 +54,10 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-//        $sim = $this->simulatorService->findBy(['id' => 1])[0];
-//        $this->betSimulationService->simulate($sim);
+        $sim = $this->simulatorService->findBy(['id' => 680])[0];
+        $this->betSimulationService->simulate($sim);
 
-        $this->messageBus->dispatch(new InitSimulatorProcessingMessage(SimulatorProcessBulk::OVER_UNDER_SIMULATORS));
+//        $this->messageBus->dispatch(new InitSimulatorProcessingMessage(SimulatorProcessBulk::OVER_UNDER_SIMULATORS));
         return Command::SUCCESS;
     }
 }

@@ -5,33 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Command/Tipico/AbstractSimulatorCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/Tipico/InitDefaultOverUnderSimulatorsCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/Tipico/InitOverUnderSimulatorCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/InitSimulatorProcessingHandler.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/InitSimulatorProcessingMessage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/SimulatorProcessBulk.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/OverUnderStrategy.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Command/TestCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/TestCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/Tipico/InitAgainstSimulatorCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/InitAgainstSimulatorCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/Tipico/InitCombinationSimulatorCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/InitCombinationSimulatorCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/Tipico/InitCompensationSimulatorCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/InitCompensationSimulatorCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/Tipico/InitDefaultSimulatorsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/InitDefaultSimulatorsCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/Tipico/InitSimpleSimulatorCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/InitSimpleSimulatorCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/Tipico/ProcessSimulatorsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/ProcessSimulatorsCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TipicoSimulationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Evaluation/BetOn.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Evaluation/BetOn.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/Simulator/SimulatorService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Content/TipicoBet/TipicoBetService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationProcessors/AbstractSimulationProcessor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/SimulationStatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/Components/UpcomingFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/UpcomingFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tipico_simulation/detail.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,6 +197,7 @@
     "Database Script.a.sql.executor": "Run",
     "Database Script.bet_analyzer.sql.executor": "Run",
     "Database Script.tipico.sql.executor": "Run",
+    "Database Script.ts.sql.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
@@ -269,7 +245,7 @@
       <recent name="$PROJECT_DIR$/../seasons" />
     </key>
   </component>
-  <component name="RunManager" selected="Database Script.a.sql">
+  <component name="RunManager" selected="Database Script.ts.sql">
     <configuration name="a.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/sql/a.sql" />
       <script-mode>FILE</script-mode>
@@ -282,14 +258,14 @@
       <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="summaries.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/sql/summaries.sql" />
+    <configuration name="tipico.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/sql/tipico.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="tipico.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/sql/tipico.sql" />
+    <configuration name="ts.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/sql/ts.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="f9001e92-ef92-4534-9318-2c4de0a8ae3e" namespace="schema/&quot;bet_analyzer&quot;" />
       <method v="2" />
@@ -304,11 +280,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Database Script.a.sql" />
+        <item itemvalue="Database Script.ts.sql" />
         <item itemvalue="Database Script.bet_analyzer.sql" />
+        <item itemvalue="Database Script.a.sql" />
         <item itemvalue="Database Script.tipico.sql" />
         <item itemvalue="PHPUnit.BetRowCombinationStatisticServiceTest.testChangeProductPrice" />
-        <item itemvalue="Database Script.summaries.sql" />
       </list>
     </recent_temporary>
   </component>
@@ -394,7 +370,7 @@
       <workItem from="1710706965348" duration="291000" />
       <workItem from="1710707361098" duration="9960000" />
       <workItem from="1710749500432" duration="13000" />
-      <workItem from="1710768456936" duration="18348000" />
+      <workItem from="1710768456936" duration="22341000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -641,14 +617,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00062" summary="Fix">
-      <option name="closed" value="true" />
-      <created>1710097909299</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1710097909299</updated>
-    </task>
     <task id="LOCAL-00063" summary="Default simulators">
       <option name="closed" value="true" />
       <created>1710193836999</created>
@@ -753,14 +721,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710716627655</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Simulator for over and under">
+      <option name="closed" value="true" />
+      <created>1710792439438</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1710792439438</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added additional names for 3 way result odds" />
     <MESSAGE value="Fixed bet output" />
     <MESSAGE value="Added decreasing window init variant" />
     <MESSAGE value="Init Statistic package" />
@@ -785,7 +760,8 @@
     <MESSAGE value="Fix" />
     <MESSAGE value="Improvements" />
     <MESSAGE value="Collect over under odds" />
-    <option name="LAST_COMMIT_MESSAGE" value="Collect over under odds" />
+    <MESSAGE value="Simulator for over and under" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simulator for over and under" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

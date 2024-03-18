@@ -37,9 +37,9 @@ class AbstractSimulationProcessor
 
     protected function getOddTargetFromParameters(array $parameters): string
     {
-        $targetOddColumn = 'oddDraw';
-        if ($parameters[self::PARAMETER_BET_ON] === '1') {
-            $targetOddColumn = 'oddHome';
+        $targetOddColumn = 'oddHome';
+        if ($parameters[self::PARAMETER_BET_ON] === 'X') {
+            $targetOddColumn = 'oddDraw';
         }
 
         if ($parameters[self::PARAMETER_BET_ON] === '2') {
