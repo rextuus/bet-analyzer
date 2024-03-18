@@ -5,10 +5,9 @@ namespace App\Command\Tipico;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
-use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
-use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
+use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,14 +15,14 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'InitSimpleSimulatorCommand',
+    name: 'InitOverUnderSimulatorCommand',
     description: 'Add a short description for your command',
 )]
-class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
+class InitOverUnderSimulatorCommand extends AbstractSimulatorCommand
 {
     public function __construct(
-        private readonly SimulationStrategyService $simulationStrategyService,
-        private readonly SimulatorService $simulatorService,
+        protected readonly SimulationStrategyService $simulationStrategyService,
+        protected readonly SimulatorService $simulatorService,
     )
     {
         parent::__construct($simulationStrategyService, $simulatorService);
@@ -35,6 +34,7 @@ class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
             ->addArgument('ident', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('min', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('max', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('targetValue', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('betOn', InputArgument::REQUIRED, 'Argument description')
         ;
     }
@@ -44,6 +44,7 @@ class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
         $identifier = $input->getArgument('ident');
         $min = $input->getArgument('min');
         $max = $input->getArgument('max');
+        $targetValue = $input->getArgument('targetValue');
         $betOn = $input->getArgument('betOn');
 
         if(!BetOn::tryFrom($betOn)){
@@ -54,10 +55,11 @@ class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
             AbstractSimulationProcessor::PARAMETER_MIN => $min,
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
             AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
+            OverUnderStrategy::PARAMETER_TARGET_VALUE => $targetValue,
         ];
 
         $simulationStrategyData = new SimulationStrategyData();
-        $simulationStrategyData->setIdentifier(SimpleStrategy::IDENT);
+        $simulationStrategyData->setIdentifier(OverUnderStrategy::IDENT);
         $simulationStrategyData->setParameters(json_encode($parameters));
 
         $this->storeSimulator($simulationStrategyData, $identifier);

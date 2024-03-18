@@ -17,6 +17,9 @@ use App\Service\Sportmonks\Api\SportsmonkService;
 use App\Service\Sportmonks\Content\League\SpmLeagueService;
 use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Statistic\SeasonBetRowMap;
+use App\Service\Tipico\Content\Simulator\SimulatorService;
+use App\Service\Tipico\Message\InitSimulatorProcessingMessage;
+use App\Service\Tipico\Message\SimulatorProcessBulk;
 use App\Service\Tipico\TipicoBetSimulationService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -36,6 +39,8 @@ class TestCommand extends Command
 
     public function __construct(
         private readonly TipicoBetSimulationService $betSimulationService,
+        private readonly SimulatorService $simulatorService,
+        private readonly MessageBusInterface $messageBus,
     ) {
         parent::__construct();
     }
@@ -49,8 +54,10 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+//        $sim = $this->simulatorService->findBy(['id' => 1])[0];
+//        $this->betSimulationService->simulate($sim);
 
-        $this->betSimulationService->storeDailyMatches();
+        $this->messageBus->dispatch(new InitSimulatorProcessingMessage(SimulatorProcessBulk::OVER_UNDER_SIMULATORS));
         return Command::SUCCESS;
     }
 }

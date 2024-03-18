@@ -18,6 +18,7 @@ final class UpcomingFixture
     public array $fixtures;
 
     public BetOn $betOn;
+    public ?float $overUnderTarget = null;
 
     public function getRows(): array
     {
@@ -52,6 +53,7 @@ final class UpcomingFixture
             if ($fixture->isFinished()){
                 $homeGoals = $fixture->getEndScoreHome();
                 $awayGoals = $fixture->getEndScoreAway();
+                $totalGoals = $homeGoals + $awayGoals;
                 $result = BetOn::DRAW;
                 if ($homeGoals > $awayGoals){
                     $result = BetOn::HOME;
@@ -61,6 +63,14 @@ final class UpcomingFixture
                 }
 
                 if($result === $this->betOn){
+                    $classSimulatorWon = 'simulator-won';
+                }
+
+                // over under
+                if ($this->betOn === BetOn::OVER && $totalGoals > $this->overUnderTarget){
+                    $classSimulatorWon = 'simulator-won';
+                }
+                if ($this->betOn === BetOn::UNDER && $totalGoals < $this->overUnderTarget){
                     $classSimulatorWon = 'simulator-won';
                 }
 

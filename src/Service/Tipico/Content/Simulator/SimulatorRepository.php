@@ -88,4 +88,19 @@ class SimulatorRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param string[] $strategyIdents
+     * @return array<array<string, int>
+     */
+    public function findByStrategies(array $strategyIdents): array
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s.id');
+        $qb->leftJoin(SimulationStrategy::class, 'ss', 'WITH', 's.strategy = ss.id');
+        $qb->andWhere($qb->expr()->in('ss.identifier', ':strategy'));
+        $qb->setParameter('strategy', $strategyIdents);
+
+        return $qb->getQuery()->getResult();
+    }
 }

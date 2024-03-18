@@ -8,6 +8,7 @@ use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
+use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use App\Service\Tipico\SimulationStatisticService;
@@ -132,10 +133,14 @@ class TipicoSimulationController extends AbstractController
         if($strategy->getIdentifier() === AgainstStrategy::IDENT){
             $target = AgainstStrategy::PARAMETER_AGAINST;
         }
-
         $betOn = BetOn::from($parameters[$target]);
-        $nextPlacements = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator);
 
+        $overUnderTarget = null;
+        if($strategy->getIdentifier() === OverUnderStrategy::IDENT){
+            $overUnderTarget = $parameters[OverUnderStrategy::PARAMETER_TARGET_VALUE];
+        }
+
+        $nextPlacements = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator);
 
         $statistics = $this->simulationStatisticService->getStatistics($simulator);
 
@@ -147,6 +152,7 @@ class TipicoSimulationController extends AbstractController
             'valueToWinDistributionChart' => $valueToWinDistributionChart,
             'nextPlacements' => $nextPlacements,
             'betOn' => $betOn,
+            'overUnderTarget' => $overUnderTarget,
             'lastWeekStatistic' => $this->simulationStatisticService->getPlacementChangeComparedToDayBefore($simulator),
         ]);
     }

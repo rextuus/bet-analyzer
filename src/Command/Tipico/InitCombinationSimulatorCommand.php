@@ -18,14 +18,14 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'InitCombinationSimulator',
     description: 'Add a short description for your command',
 )]
-class InitCombinationSimulatorCommand extends Command
+class InitCombinationSimulatorCommand extends AbstractSimulatorCommand
 {
     public function __construct(
         private readonly SimulationStrategyService $simulationStrategyService,
         private readonly SimulatorService $simulatorService,
     )
     {
-        parent::__construct();
+        parent::__construct($simulationStrategyService, $simulatorService);
     }
 
     protected function configure(): void
@@ -47,27 +47,17 @@ class InitCombinationSimulatorCommand extends Command
         $betOn = $input->getArgument('betOn');
         $combinationAmount = $input->getArgument('combinationAmount');
 
-        $simulationStrategyData = new SimulationStrategyData();
-        $simulationStrategyData->setIdentifier(CombineStrategy::IDENT);
-
         $parameters = [
-            CombineStrategy::PARAMETER_MIN => $min,
-            CombineStrategy::PARAMETER_MAX => $max,
+            AbstractSimulationProcessor::PARAMETER_MIN => $min,
+            AbstractSimulationProcessor::PARAMETER_MAX => $max,
             CombineStrategy::PARAMETER_COMBINATION_AMOUNT => $combinationAmount,
             AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
         ];
+        $simulationStrategyData = new SimulationStrategyData();
+        $simulationStrategyData->setIdentifier(CombineStrategy::IDENT);
         $simulationStrategyData->setParameters(json_encode($parameters));
 
-        $strategy = $this->simulationStrategyService->createByData($simulationStrategyData);
-
-        $simulatorData = new SimulatorData();
-        $simulatorData->setCashBox(100.0);
-        $simulatorData->setIdentifier($identifier);
-        $simulatorData->setStrategy($strategy);
-        $simulatorData->setFixtures([]);
-        $simulatorData->setPlacements([]);
-        $simulatorData->setCurrentIn(1.0);
-        $this->simulatorService->createByData($simulatorData);
+        $this->storeSimulator($simulationStrategyData, $identifier);
 
         return Command::SUCCESS;
     }

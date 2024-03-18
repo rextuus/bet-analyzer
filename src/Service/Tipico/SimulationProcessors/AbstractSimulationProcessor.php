@@ -110,6 +110,14 @@ class AbstractSimulationProcessor
         return $this->tipicoBetService->findInRange($min, $max, $targetOddColumn, $alreadyUsed, $limit);
     }
 
+    /**
+     * @return TipicoBet[]
+     */
+    protected function getFittingFixturesWithOverUnderOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
+    {
+        return $this->tipicoBetService->getFittingFixturesWithOverUnderOdds($min, $max, $targetOddColumn, $alreadyUsed, $limit);
+    }
+
     protected function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool
     {
         return $this->tipicoBetService->getFittingFixturesCount($min, $max, $targetOddColumn, $alreadyUsed);

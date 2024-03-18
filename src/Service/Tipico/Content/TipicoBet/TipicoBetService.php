@@ -59,6 +59,14 @@ class TipicoBetService
         return $this->repository->findInRange($min, $max, $targetOddColumn, $alreadyUsed, $limit);
     }
 
+    /**
+     * @return TipicoBet[]
+     */
+    public function getFittingFixturesWithOverUnderOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
+    {
+        return $this->repository->getFittingFixturesWithOverUnderOdds($min, $max, $targetOddColumn, $alreadyUsed, $limit);
+    }
+
     public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool
     {
         return $this->repository->getFittingFixturesCount($min, $max, $targetOddColumn, $alreadyUsed);

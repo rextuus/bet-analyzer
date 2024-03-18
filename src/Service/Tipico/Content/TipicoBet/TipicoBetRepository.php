@@ -3,6 +3,7 @@
 namespace App\Service\Tipico\Content\TipicoBet;
 
 use App\Entity\TipicoBet;
+use App\Entity\TipicoOverUnderOdd;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -81,6 +82,21 @@ class TipicoBetRepository extends ServiceEntityRepository
         $alreadyUsed = array_merge($alreadyUsed, [-1]);
 
         $qb = $this->createQueryBuilder('t');
+        $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
+        $qb->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return TipicoBet[]
+     */
+    public function getFittingFixturesWithOverUnderOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
+    {
+        $alreadyUsed = array_merge($alreadyUsed, [-1]);
+
+        $qb = $this->createQueryBuilder('t');
+        $qb->innerJoin(TipicoOverUnderOdd::class, 'o', 'WITH', 't.id = o.bet');
         $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
         $qb->setMaxResults($limit);
 

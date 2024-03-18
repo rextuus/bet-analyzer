@@ -13,6 +13,7 @@ use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
+use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Twig\Data\KeyValueListingContainer;
 use DateTime;
 use DateTimeInterface;
@@ -252,6 +253,11 @@ class SimulationStatisticService
         $parameter = json_decode($simulator->getStrategy()->getParameters(), true);
         $betOn = BetOn::tryFrom($parameter[AbstractSimulationProcessor::PARAMETER_BET_ON]);
 
+        $targetValue = null;
+        if ($betOn === BetOn::OVER || $betOn === BetOn::UNDER){
+            $targetValue = $parameter[OverUnderStrategy::PARAMETER_TARGET_VALUE];
+        }
+
         $distribution = [];
         foreach ($placements as $placement) {
             $fixture = $placement->getFixtures()->get(0);
@@ -287,6 +293,8 @@ class SimulationStatisticService
             BetOn::HOME => $value = $bet->getOddHome(),
             BetOn::DRAW => $value = $bet->getOddDraw(),
             BetOn::AWAY => $value = $bet->getOddAway(),
+            BetOn::UNDER => $value = $bet->getOddHome(),
+            BetOn::OVER => $value = $bet->getOddHome(),
         };
         return $value;
     }
@@ -367,9 +375,9 @@ class SimulationStatisticService
     {
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
-        $targetOddColumn = 'oddDraw';
-        if ($parameters[AbstractSimulationProcessor::PARAMETER_BET_ON] === '1') {
-            $targetOddColumn = 'oddHome';
+        $targetOddColumn = 'oddHome';
+        if ($parameters[AbstractSimulationProcessor::PARAMETER_BET_ON] === 'X') {
+            $targetOddColumn = 'oddDraw';
         }
 
         if ($parameters[AbstractSimulationProcessor::PARAMETER_BET_ON] === '2') {

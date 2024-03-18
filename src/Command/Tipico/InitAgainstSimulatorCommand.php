@@ -22,14 +22,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'InitAgainstSimulator',
     description: 'Add a short description for your command',
 )]
-class InitAgainstSimulatorCommand extends Command
+class InitAgainstSimulatorCommand extends AbstractSimulatorCommand
 {
     public function __construct(
         private readonly SimulationStrategyService $simulationStrategyService,
         private readonly SimulatorService $simulatorService,
     )
     {
-        parent::__construct();
+        parent::__construct($simulationStrategyService, $simulatorService);
     }
 
     protected function configure(): void
@@ -60,9 +60,6 @@ class InitAgainstSimulatorCommand extends Command
             throw new \Exception('Invlaid Beton');
         }
 
-        $simulationStrategyData = new SimulationStrategyData();
-        $simulationStrategyData->setIdentifier(AgainstStrategy::IDENT);
-
         $parameters = [
             AbstractSimulationProcessor::PARAMETER_MIN => $min,
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
@@ -70,18 +67,12 @@ class InitAgainstSimulatorCommand extends Command
             AgainstStrategy::PARAMETER_AGAINST_BOTH => $againstBoth,
             AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
         ];
+
+        $simulationStrategyData = new SimulationStrategyData();
+        $simulationStrategyData->setIdentifier(AgainstStrategy::IDENT);
         $simulationStrategyData->setParameters(json_encode($parameters));
 
-        $strategy = $this->simulationStrategyService->createByData($simulationStrategyData);
-
-        $simulatorData = new SimulatorData();
-        $simulatorData->setCashBox(100.0);
-        $simulatorData->setIdentifier($identifier);
-        $simulatorData->setStrategy($strategy);
-        $simulatorData->setFixtures([]);
-        $simulatorData->setPlacements([]);
-        $simulatorData->setCurrentIn(1.0);
-        $this->simulatorService->createByData($simulatorData);
+        $this->storeSimulator($simulationStrategyData, $identifier);
 
         return Command::SUCCESS;
     }

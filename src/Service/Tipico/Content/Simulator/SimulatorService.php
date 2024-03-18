@@ -99,4 +99,13 @@ class SimulatorService
 
         return $result;
     }
+
+    /**
+     * @param string[] $strategyIdents
+     * @return array<array<string, int>
+     */
+    public function findByStrategies(array $strategyIdents): array
+    {
+        return $this->repository->findByStrategies($strategyIdents);
+    }
 }

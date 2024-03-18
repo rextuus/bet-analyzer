@@ -28,6 +28,7 @@ framework:
             App\Service\Evaluation\Message\UpdateOddOutcomeMessage: async
             App\Service\Evaluation\Message\InitOddOutcomeMessage: async
             App\Service\Tipico\Message\ProcessSimulatorMessage: async
+            App\Service\Tipico\Message\InitSimulatorProcessingMessage: async
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async
