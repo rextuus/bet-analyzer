@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd;
 
 use App\Entity\TipicoBothTeamsScoreOdd;
+use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\Data\TipicoBothTeamsScoreOddData;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -11,14 +12,14 @@ use App\Entity\TipicoBothTeamsScoreOdd;
  */
 class TipicoBothTeamsScoreOddFactory
 {
-    public function createByData(\TipicoBothTeamsScoreOddData $data): TipicoBothTeamsScoreOdd
+    public function createByData(TipicoBothTeamsScoreOddData $data): TipicoBothTeamsScoreOdd
     {
         $tipicoBothTeamsScoreOdd = $this->createNewInstance();
         $this->mapData($data, $tipicoBothTeamsScoreOdd);
         return $tipicoBothTeamsScoreOdd;
     }
 
-    public function mapData(\TipicoBothTeamsScoreOddData $data, TipicoBothTeamsScoreOdd $tipicoBothTeamsScoreOdd): TipicoBothTeamsScoreOdd
+    public function mapData(TipicoBothTeamsScoreOddData $data, TipicoBothTeamsScoreOdd $tipicoBothTeamsScoreOdd): TipicoBothTeamsScoreOdd
     {
         $tipicoBothTeamsScoreOdd->setBet($data->getBet());
         $tipicoBothTeamsScoreOdd->setConditionFalseValue($data->getConditionFalseValue());
