@@ -54,7 +54,7 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $sim = $this->simulatorService->findBy(['id' => 680])[0];
+        $sim = $this->simulatorService->findBy(['id' => 80])[0];
         $this->betSimulationService->simulate($sim);
 
 //        $this->messageBus->dispatch(new InitSimulatorProcessingMessage(SimulatorProcessBulk::OVER_UNDER_SIMULATORS));

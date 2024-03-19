@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Tipico\SimulationProcessors;
 
 use App\Entity\Simulator;
+use App\Entity\TipicoBothTeamsScoreOdd;
 use App\Entity\TipicoOverUnderOdd;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
@@ -18,10 +19,9 @@ use DateTime;
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2024 DocCheck Community GmbH
  */
-class OverUnderStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
+class BothTeamsScoreStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
 {
-    public const IDENT = 'over_under';
-    public const PARAMETER_TARGET_VALUE = 'target_value';
+    public const IDENT = 'both_teams_score';
 
     public function __construct(
         protected readonly TipicoBetService $tipicoBetService,
@@ -39,47 +39,31 @@ class OverUnderStrategy extends AbstractSimulationProcessor implements Simulatio
     {
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
-        $fixtures = $this->getFittingFixturesWithOverUnderOdds(
+        $fixtures = $this->getFittingFixturesWithBothTeamsScoreOdds(
             (float)$parameters[self::PARAMETER_MIN],
             (float)$parameters[self::PARAMETER_MAX],
             $this->getOddTargetFromParameters($parameters),
             $this->getUsedFixtureIds($simulator)
         );
 
-        $targetValue = (float)$parameters[self::PARAMETER_TARGET_VALUE];
         $betOn = BetOn::from($parameters[self::PARAMETER_BET_ON]);
 
         $placementData = [];
         $fixturesActuallyUsed = [];
         foreach ($fixtures as $fixture) {
-            $odds = array_filter(
-                $fixture->getTipicoOverUnderOdds()->toArray(),
-                function (TipicoOverUnderOdd $odd) use ($targetValue) {
-                    return $odd->getTargetValue() === $targetValue;
-                }
-            );
-            /** @var TipicoOverUnderOdd $odd */
-            $odd = array_pop($odds);
-            if (!$odd) {
-                $fixturesActuallyUsed[] = $fixture;
+            $odd = $fixture->getTipicoBothTeamsScoreBet();
+            if (!$odd){
                 continue;
             }
 
-            $usedOdd = $odd->getOverValue();
-            $isWon = false;
-            $result = $fixture->getEndScoreHome() + $fixture->getEndScoreAway();
+            $usedOdd = $odd->getConditionTrueValue();
 
-            if ($result > $targetValue) {
-                $isWon = true;
+            $isWon = $fixture->getEndScoreHome() > 0 && $fixture->getEndScoreAway() > 0;
+            if ($betOn === BetOn::BOTH_TEAMS_SCORE_NOT){
+                $isWon = !$isWon;
+                $usedOdd = $odd->getConditionFalseValue();
             }
 
-            if ($betOn === BetOn::UNDER) {
-                $usedOdd = $odd->getUnderValue();
-                $isWon = false;
-                if ($result < $targetValue) {
-                    $isWon = true;
-                }
-            }
 
             $placementData[] = $this->tipicoBetSimulator->createPlacement(
                 [$fixture],
@@ -107,7 +91,7 @@ class OverUnderStrategy extends AbstractSimulationProcessor implements Simulatio
     {
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
-        return count($this->getFittingFixturesWithOverUnderOdds(
+        return count($this->getFittingFixturesWithBothTeamsScoreOdds(
                 (float)$parameters[self::PARAMETER_MIN],
                 (float)$parameters[self::PARAMETER_MAX],
                 $this->getOddTargetFromParameters($parameters),

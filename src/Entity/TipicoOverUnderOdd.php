@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Service\Tipico\Content\TipicoOdd\TipicoOverUnderOddRepository;
+use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\TipicoOverUnderOddRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TipicoOverUnderOddRepository::class)]

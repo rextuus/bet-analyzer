@@ -5,7 +5,8 @@ namespace App\Service\Tipico\Api\Response;
 
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
-use App\Service\Tipico\Content\TipicoOdd\Data\TipicoOverUnderOddData;
+use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\Data\TipicoOverUnderOddData;
+use TipicoBothTeamsScoreOddData;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -27,6 +28,9 @@ class TipicoDailyMatchesResponse
 
     private const KEY_ODD_STANDARD = 'standard';
     private const KEY_POINTS_MORE_LESS_THAN = 'points-more-less-than';
+    private const KEY_BOTH_TEAMS_SCORE = 'score-both';
+    private const KEY_BOTH_TEAMS_SCORE_CAPTION_YES = 'J';
+    private const KEY_BOTH_TEAMS_SCORE_CAPTION_NO = 'N';
     private const KEY_FIXED_PARAM_TEXT = 'fixedParamText';
     private const KEY_ODD_RESULTS = 'results';
     private const KEY_ODD_CAPTION = 'caption';
@@ -41,9 +45,14 @@ class TipicoDailyMatchesResponse
     private array $matches = [];
 
     /**
-     * @var array<TipicoOverUnderOddData> $oddMatches
+     * @var array<TipicoOverUnderOddData> $overUnderOdds
      */
-    private array $oddMatches = [];
+    private array $overUnderOdds = [];
+
+    /**
+     * @var array<TipicoBothTeamsScoreOddData> $overUnderOdds
+     */
+    private array $bothTeamsScoreOdds = [];
 
     /**
      * @var array<string, mixed> $decodedResponseBody
@@ -67,67 +76,110 @@ class TipicoDailyMatchesResponse
         foreach ($matchIds as $matchId) {
             $data = $this->getEmptyDataInstance();
             $basicInfoAdded = $this->addBasicInfo($events, (int)$matchId, $data);
-            $oddInfoAdded = $this->addOddInfo($odds, (int)$matchId, $data);
+            $standardOdds = $this->parseStandardOdds($odds, (int)$matchId, $data);
+            $overUnderOdds = $this->parseOverUnderOdds($odds, (int)$matchId);
+            $parseBothTeamsScoreOdds = $this->parseBothTeamsScoreOdds($odds, (int)$matchId);
 
-            if ($basicInfoAdded && $oddInfoAdded) {
+            if ($basicInfoAdded && $standardOdds) {
                 $this->matches[] = $data;
             }
         }
     }
 
-    private function addOddInfo(array $odds, int $matchId, TipicoBetData $data): bool
+    private function parseStandardOdds(array $odds, int $matchId, TipicoBetData $data): bool
     {
-
-        $oddDataSets = [];
         if (array_key_exists((string)$matchId, $odds)) {
             $odd = $odds[$matchId];
-            $overUnderOdds = $odd[self::KEY_POINTS_MORE_LESS_THAN];
+            if (array_key_exists(self::KEY_ODD_STANDARD, $odd)) {
+                $results = $odd[self::KEY_ODD_STANDARD][0][self::KEY_ODD_RESULTS];
 
-            foreach ($overUnderOdds as $overUnderOdd){
-                $oddData = new TipicoOverUnderOddData();
-                $oddData->setTipicoBetId($matchId);
-
-                $results = $overUnderOdd[self::KEY_ODD_RESULTS];
-                $target = (float) $overUnderOdd[self::KEY_FIXED_PARAM_TEXT];
-                $oddData->setTarget($target);
-
-                foreach ($results as $result){
-                    $caption = $result[self::KEY_ODD_CAPTION];
-                    $value = $result[self::KEY_QUOTE_FLOAT_VALUE];
-                    if($caption === '+'){
-                        $oddData->setOver($value);
+                $setOdds = 0;
+                foreach ($results as $result) {
+                    if ($result[self::KEY_ODD_CAPTION] === "1") {
+                        $data->setOddHome($result[self::KEY_QUOTE_FLOAT_VALUE]);
+                        $setOdds++;
                     }
-                    if($caption === '-'){
-                        $oddData->setUnder($value);
+                    if ($result[self::KEY_ODD_CAPTION] === "X") {
+                        $data->setOddDraw($result[self::KEY_QUOTE_FLOAT_VALUE]);
+                        $setOdds++;
                     }
-
+                    if ($result[self::KEY_ODD_CAPTION] === "2") {
+                        $data->setOddAway($result[self::KEY_QUOTE_FLOAT_VALUE]);
+                        $setOdds++;
+                    }
                 }
-                $this->oddMatches[] = $oddData;
+
+                return $setOdds === 3;
             }
         }
 
+        return false;
+    }
 
+    private function parseOverUnderOdds(array $odds, int $matchId): bool
+    {
         if (array_key_exists((string)$matchId, $odds)) {
             $odd = $odds[$matchId];
-            $results = $odd[self::KEY_ODD_STANDARD][0][self::KEY_ODD_RESULTS];
+            if (array_key_exists(self::KEY_POINTS_MORE_LESS_THAN, $odd)) {
+                $overUnderOdds = $odd[self::KEY_POINTS_MORE_LESS_THAN];
 
-            $setOdds = 0;
-            foreach ($results as $result) {
-                if ($result[self::KEY_ODD_CAPTION] === "1") {
-                    $data->setOddHome($result[self::KEY_QUOTE_FLOAT_VALUE]);
-                    $setOdds++;
-                }
-                if ($result[self::KEY_ODD_CAPTION] === "X") {
-                    $data->setOddDraw($result[self::KEY_QUOTE_FLOAT_VALUE]);
-                    $setOdds++;
-                }
-                if ($result[self::KEY_ODD_CAPTION] === "2") {
-                    $data->setOddAway($result[self::KEY_QUOTE_FLOAT_VALUE]);
-                    $setOdds++;
+                foreach ($overUnderOdds as $overUnderOdd) {
+                    $oddData = new TipicoOverUnderOddData();
+                    $oddData->setTipicoBetId($matchId);
+
+                    $results = $overUnderOdd[self::KEY_ODD_RESULTS];
+                    $target = (float)$overUnderOdd[self::KEY_FIXED_PARAM_TEXT];
+                    $oddData->setTarget($target);
+
+                    foreach ($results as $result) {
+                        $caption = $result[self::KEY_ODD_CAPTION];
+                        $value = $result[self::KEY_QUOTE_FLOAT_VALUE];
+                        if ($caption === '+') {
+                            $oddData->setOver($value);
+                        }
+                        if ($caption === '-') {
+                            $oddData->setUnder($value);
+                        }
+
+                    }
+                    $this->overUnderOdds[] = $oddData;
                 }
             }
+        }
 
-            return $setOdds === 3;
+        if (count($this->overUnderOdds) === 5) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function parseBothTeamsScoreOdds(array $odds, int $matchId): bool
+    {
+        if (array_key_exists((string)$matchId, $odds)) {
+            $odd = $odds[$matchId];
+            if (array_key_exists(self::KEY_BOTH_TEAMS_SCORE, $odd)) {
+                $bothTeamsScoreOdd = $odd[self::KEY_BOTH_TEAMS_SCORE][0];
+
+                $oddData = new TipicoBothTeamsScoreOddData();
+                $oddData->setTipicoBetId($matchId);
+
+                $results = $bothTeamsScoreOdd[self::KEY_ODD_RESULTS];
+                foreach ($results as $result){
+                    if ($result[self::KEY_ODD_CAPTION] === self::KEY_BOTH_TEAMS_SCORE_CAPTION_YES){
+                        $oddData->setConditionTrueValue($result[self::KEY_QUOTE_FLOAT_VALUE]);
+                    }
+                    if ($result[self::KEY_ODD_CAPTION] === self::KEY_BOTH_TEAMS_SCORE_CAPTION_NO){
+                        $oddData->setConditionFalseValue($result[self::KEY_QUOTE_FLOAT_VALUE]);
+                    }
+                }
+
+                $this->bothTeamsScoreOdds[] = $oddData;
+            }
+        }
+
+        if (count($this->bothTeamsScoreOdds) === 1) {
+            return true;
         }
 
         return false;
@@ -169,8 +221,13 @@ class TipicoDailyMatchesResponse
         return $this->matches;
     }
 
-    public function getOddMatches(): array
+    public function getOverUnderOdds(): array
     {
-        return $this->oddMatches;
+        return $this->overUnderOdds;
+    }
+
+    public function getBothTeamsScoreOdds(): array
+    {
+        return $this->bothTeamsScoreOdds;
     }
 }

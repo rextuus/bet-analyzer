@@ -65,6 +65,9 @@ class TipicoBet
     #[ORM\OneToMany(mappedBy: 'bet', targetEntity: TipicoOverUnderOdd::class)]
     private Collection $tipicoOverUnderOdds;
 
+    #[ORM\OneToOne(mappedBy: 'bet', cascade: ['persist', 'remove'])]
+    private ?TipicoBothTeamsScoreOdd $tipicoBothTeamsScoreBet = null;
+
     public function __construct()
     {
         $this->simulators = new ArrayCollection();
@@ -312,6 +315,23 @@ class TipicoBet
                 $tipicoOverUnderOdd->setBet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTipicoBothTeamsScoreBet(): ?TipicoBothTeamsScoreOdd
+    {
+        return $this->tipicoBothTeamsScoreBet;
+    }
+
+    public function setTipicoBothTeamsScoreBet(TipicoBothTeamsScoreOdd $tipicoBothTeamsScoreBet): static
+    {
+        // set the owning side of the relation if necessary
+        if ($tipicoBothTeamsScoreBet->getBet() !== $this) {
+            $tipicoBothTeamsScoreBet->setBet($this);
+        }
+
+        $this->tipicoBothTeamsScoreBet = $tipicoBothTeamsScoreBet;
 
         return $this;
     }

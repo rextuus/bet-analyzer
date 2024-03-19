@@ -5,6 +5,7 @@ namespace App\Twig\Components;
 use App\Entity\TipicoBet;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\SimulationStatisticService;
+use App\Twig\Data\UpcomingFixtureOdd;
 use DateInterval;
 use DateTime;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
@@ -42,10 +43,6 @@ final class UpcomingFixture
                 }
             }
 
-            $homeClass = $this->betOn === BetOn::HOME ? 'target' : 'non-target';
-            $drawClass = $this->betOn === BetOn::DRAW ? 'target' : 'non-target';
-            $awayClass = $this->betOn === BetOn::AWAY ? 'target' : 'non-target';
-
             $homeGoals = 0;
             $awayGoals = 0;
             $classFinished = 'non-finished';
@@ -74,11 +71,24 @@ final class UpcomingFixture
                     $classSimulatorWon = 'simulator-won';
                 }
 
+                // both score
+                $bothScored = $homeGoals > 0 && $awayGoals > 0;
+                if ($this->betOn === BetOn::BOTH_TEAMS_SCORE && $bothScored){
+                    $classSimulatorWon = 'simulator-won';
+                }
+                if ($this->betOn === BetOn::BOTH_TEAMS_SCORE_NOT && !$bothScored){
+                    $classSimulatorWon = 'simulator-won';
+                }
+
                 $classFinished = 'finished';
             }
 
             $url = '<a href="https://www.google.com/search?q='.$fixture->getHomeTeamName().' - '.$fixture->getAwayTeamName().' '.$start->format('d.m.y H:i').' result" target="_blank">Google</a>';
             $tipicoUrl = '<a href=https://sports.tipico.de/de/heute/default/event/'.$fixture->getTipicoId().' result" target="_blank">Tipico</a>';
+
+            $leftOdd = $this->getLeftOddInfo($fixture);
+            $middleOdd = $this->getMiddleOddInfo($fixture);
+            $rightOdd = $this->getRightOddInfo($fixture);
 
             $mapped[] = sprintf(
                 '<span class="content-container %s %s">
@@ -96,7 +106,7 @@ final class UpcomingFixture
                         </span>
                         <span class="content odds">
                             <span class="%s">%.2f</span> 
-                            <span class="%s">%.2f</span> 
+                            <span class="%s">%s</span> 
                             <span class="%s">%.2f</span>
                         </span> 
                         <span class="content url">
@@ -113,17 +123,93 @@ final class UpcomingFixture
                 $classFinished,
                 $homeGoals,
                 $awayGoals,
-                $homeClass,
-                $fixture->getOddHome(),
-                $drawClass,
-                $fixture->getOddDraw(),
-                $awayClass,
-                $fixture->getOddAway(),
+                $leftOdd->getCssClass(),
+                $leftOdd->getOddValue(),
+                $middleOdd->getCssClass(),
+                $middleOdd->getOddValue(),
+                $rightOdd->getCssClass(),
+                $rightOdd->getOddValue(),
                 $url,
                 $tipicoUrl
             );
         }
 
         return $mapped;
+    }
+
+    private function getLeftOddInfo(TipicoBet $fixture): UpcomingFixtureOdd
+    {
+        $oddInfo = new UpcomingFixtureOdd();
+        match($this->betOn){
+            BetOn::HOME, BetOn::DRAW, BetOn::AWAY => $value = $fixture->getOddHome(),
+            BetOn::OVER, BetOn::UNDER => $value = $this->getOverOdd($fixture),
+            BetOn::BOTH_TEAMS_SCORE, BetOn::BOTH_TEAMS_SCORE_NOT => $value = $fixture->getTipicoBothTeamsScoreBet()->getConditionTrueValue(),
+        };
+        $oddInfo->setOddValue($value);
+
+        match($this->betOn){
+            BetOn::HOME, BetOn::OVER, BetOn::BOTH_TEAMS_SCORE => $cssClass = 'target',
+            BetOn::DRAW, BetOn::AWAY, BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE_NOT => $cssClass = 'non-target',
+        };
+        $oddInfo->setCssClass($cssClass);
+
+        return $oddInfo;
+    }
+
+    private function getRightOddInfo(TipicoBet $fixture): UpcomingFixtureOdd
+    {
+        $oddInfo = new UpcomingFixtureOdd();
+        match($this->betOn){
+            BetOn::HOME, BetOn::DRAW, BetOn::AWAY => $value = $fixture->getOddAway(),
+            BetOn::OVER, BetOn::UNDER => $value = $this->getUnderOdd($fixture),
+            BetOn::BOTH_TEAMS_SCORE, BetOn::BOTH_TEAMS_SCORE_NOT => $value = $fixture->getTipicoBothTeamsScoreBet()->getConditionFalseValue(),
+        };
+        $oddInfo->setOddValue($value);
+
+        match($this->betOn){
+            BetOn::AWAY, BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE_NOT => $cssClass = 'target',
+            BetOn::HOME, BetOn::DRAW, BetOn::OVER, BetOn::BOTH_TEAMS_SCORE => $cssClass = 'non-target',
+        };
+        $oddInfo->setCssClass($cssClass);
+
+        return $oddInfo;
+    }
+
+    private function getMiddleOddInfo(TipicoBet $fixture): UpcomingFixtureOdd
+    {
+        $oddInfo = new UpcomingFixtureOdd();
+        match($this->betOn){
+            BetOn::DRAW, BetOn::HOME, BetOn::AWAY, => $value = $fixture->getOddDraw(),
+            BetOn::OVER, BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE, BetOn::BOTH_TEAMS_SCORE_NOT => $value = 0.0,
+        };
+        $oddInfo->setOddValue($value);
+
+        match($this->betOn){
+            BetOn::DRAW, => $cssClass = 'target',
+            BetOn::HOME, BetOn::AWAY, BetOn::OVER, BetOn::BOTH_TEAMS_SCORE,  BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE_NOT => $cssClass = 'non-target',
+        };
+        $oddInfo->setCssClass($cssClass);
+
+        return $oddInfo;
+    }
+
+    private function getOverOdd(TipicoBet $fixture): float
+    {
+        foreach ($fixture->getTipicoOverUnderOdds() as $overUnderOdd){
+            if ($overUnderOdd->getTargetValue() === $this->overUnderTarget){
+                return $overUnderOdd->getOverValue();
+            }
+        }
+        return 0.0;
+    }
+
+    private function getUnderOdd(TipicoBet $fixture): float
+    {
+        foreach ($fixture->getTipicoOverUnderOdds() as $overUnderOdd){
+            if ($overUnderOdd->getTargetValue() === $this->overUnderTarget){
+                return $overUnderOdd->getUnderValue();
+            }
+        }
+        return 0.0;
     }
 }

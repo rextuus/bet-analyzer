@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Tipico\Content\TipicoOdd;
+namespace App\Service\Tipico\Content\TipicoOdd\OverUnderOdd;
 
 use App\Entity\TipicoOverUnderOdd;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

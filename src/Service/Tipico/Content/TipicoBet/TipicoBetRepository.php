@@ -3,6 +3,7 @@
 namespace App\Service\Tipico\Content\TipicoBet;
 
 use App\Entity\TipicoBet;
+use App\Entity\TipicoBothTeamsScoreOdd;
 use App\Entity\TipicoOverUnderOdd;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -103,7 +104,22 @@ class TipicoBetRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool
+    /**
+     * @return TipicoBet[]
+     */
+    public function getFittingFixturesWithBothTeamsScoreOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
+    {
+        $alreadyUsed = array_merge($alreadyUsed, [-1]);
+
+        $qb = $this->createQueryBuilder('t');
+        $qb->innerJoin(TipicoBothTeamsScoreOdd::class, 'o', 'WITH', 't.id = o.bet');
+        $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
+        $qb->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): int
     {
         $alreadyUsed = array_merge($alreadyUsed, [-1]);
 
@@ -111,7 +127,7 @@ class TipicoBetRepository extends ServiceEntityRepository
         $qb->select('count(t.id)');
         $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
 
-        return (bool) $qb->getQuery()->getSingleScalarResult();
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
     public function addSearchQueryParameters(QueryBuilder $qb, string $targetOddColumn, float $min, float $max, array $alreadyUsed): void

@@ -1,10 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Tipico\Content\TipicoOdd\Data;
+namespace App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\Data;
 
 use App\Entity\TipicoBet;
-use App\Service\Tipico\Content\TipicoOdd\TipicoOddVariant;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>

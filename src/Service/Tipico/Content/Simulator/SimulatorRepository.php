@@ -4,6 +4,8 @@ namespace App\Service\Tipico\Content\Simulator;
 
 use App\Entity\SimulationStrategy;
 use App\Entity\Simulator;
+use App\Entity\TipicoBet;
+use App\Entity\TipicoPlacement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -100,6 +102,18 @@ class SimulatorRepository extends ServiceEntityRepository
         $qb->leftJoin(SimulationStrategy::class, 'ss', 'WITH', 's.strategy = ss.id');
         $qb->andWhere($qb->expr()->in('ss.identifier', ':strategy'));
         $qb->setParameter('strategy', $strategyIdents);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return Simulator[]
+     */
+    public function findWithPlacements(): array
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->join('s.tipicoPlacements', 'p')
+        ->distinct();
 
         return $qb->getQuery()->getResult();
     }

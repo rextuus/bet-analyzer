@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Tipico\Content\TipicoOdd;
+namespace App\Service\Tipico\Content\TipicoOdd\OverUnderOdd;
 
 use App\Entity\TipicoOverUnderOdd;
-use App\Service\Tipico\Content\TipicoOdd\Data\TipicoOverUnderOddData;
+use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\Data\TipicoOverUnderOddData;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>

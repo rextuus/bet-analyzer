@@ -66,7 +66,8 @@ class SimulatorService
 
     public function getSimulatorCashBoxDistribution(): array
     {
-        $simulators = $this->repository->findAll();
+        $simulators = $this->repository->findWithPlacements();
+
         $total = count($simulators);
 
         $distribution = [];

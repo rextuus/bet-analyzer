@@ -67,7 +67,15 @@ class TipicoBetService
         return $this->repository->getFittingFixturesWithOverUnderOdds($min, $max, $targetOddColumn, $alreadyUsed, $limit);
     }
 
-    public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool
+    /**
+     * @return TipicoBet[]
+     */
+    public function getFittingFixturesWithBothTeamsScoreOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
+    {
+        return $this->repository->getFittingFixturesWithBothTeamsScoreOdds($min, $max, $targetOddColumn, $alreadyUsed, $limit);
+    }
+
+    public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): int
     {
         return $this->repository->getFittingFixturesCount($min, $max, $targetOddColumn, $alreadyUsed);
     }

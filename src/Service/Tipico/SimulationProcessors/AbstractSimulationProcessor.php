@@ -6,6 +6,7 @@ namespace App\Service\Tipico\SimulationProcessors;
 use App\Entity\SimulationStrategy;
 use App\Entity\Simulator;
 use App\Entity\TipicoBet;
+use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
@@ -37,12 +38,13 @@ class AbstractSimulationProcessor
 
     protected function getOddTargetFromParameters(array $parameters): string
     {
+        // user home as default. Over/under and both score simulators use always this BetOn...
         $targetOddColumn = 'oddHome';
-        if ($parameters[self::PARAMETER_BET_ON] === 'X') {
+        if ($parameters[self::PARAMETER_BET_ON] === BetOn::DRAW) {
             $targetOddColumn = 'oddDraw';
         }
 
-        if ($parameters[self::PARAMETER_BET_ON] === '2') {
+        if ($parameters[self::PARAMETER_BET_ON] === BetOn::AWAY) {
             $targetOddColumn = 'oddAway';
         }
 
@@ -118,7 +120,15 @@ class AbstractSimulationProcessor
         return $this->tipicoBetService->getFittingFixturesWithOverUnderOdds($min, $max, $targetOddColumn, $alreadyUsed, $limit);
     }
 
-    protected function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): bool
+    /**
+     * @return TipicoBet[]
+     */
+    protected function getFittingFixturesWithBothTeamsScoreOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
+    {
+        return $this->tipicoBetService->getFittingFixturesWithBothTeamsScoreOdds($min, $max, $targetOddColumn, $alreadyUsed, $limit);
+    }
+
+    protected function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): int
     {
         return $this->tipicoBetService->getFittingFixturesCount($min, $max, $targetOddColumn, $alreadyUsed);
     }
@@ -144,6 +154,6 @@ class AbstractSimulationProcessor
             (float)$parameters[self::PARAMETER_MAX],
             $this->getOddTargetFromParameters($parameters),
             $this->getUsedFixtureIds($simulator)
-        );
+        ) > 100;
     }
 }

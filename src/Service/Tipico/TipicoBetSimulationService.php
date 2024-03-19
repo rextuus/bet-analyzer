@@ -8,7 +8,8 @@ use App\Entity\TipicoBet;
 use App\Service\Tipico\Api\TipicoApiGateway;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
-use App\Service\Tipico\Content\TipicoOdd\TipicoOverUnderOddService;
+use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\TipicoBothTeamsScoreOddService;
+use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\TipicoOverUnderOddService;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 
 
@@ -23,6 +24,7 @@ class TipicoBetSimulationService
         private readonly TipicoApiGateway $tipicoApiGateway,
         private readonly TipicoBetService $tipicoBetService,
         private readonly TipicoOverUnderOddService $tipicoOverUnderOddService,
+        private readonly TipicoBothTeamsScoreOddService $tipicoBothTeamsScoreOddService,
         private readonly SimulationStrategyProcessorProvider $processorProvider,
         private readonly TelegramMessageService $telegramMessageService,
         private readonly float $cashBoxLimit,
@@ -34,25 +36,37 @@ class TipicoBetSimulationService
     {
         $response = $this->tipicoApiGateway->getDailyMatchEvents();
 
-        $stored = 0;
-        $oddDataSets = $response->getOddMatches();
-
+        // standard bets
+        $newCreatedBets = [];
         foreach ($response->getMatches() as $tipicoBetData) {
             if ($this->tipicoBetService->findByTipicoId($tipicoBetData->getTipicoId())) {
                 continue;
             }
 
-            $bet = $this->tipicoBetService->createByData($tipicoBetData);
-            $stored++;
+            $newCreatedBets[$tipicoBetData->getTipicoId()] = $this->tipicoBetService->createByData($tipicoBetData);
         }
 
-        foreach ($oddDataSets as $oddDataSet){
-            $bet = $this->tipicoBetService->findByTipicoId($oddDataSet->getTipicoBetId());
+        // over under odds
+        foreach ($response->getOverUnderOdds() as $oddDataSet){
+            if (!array_key_exists($oddDataSet->getTipicoBetId(), $newCreatedBets)){
+                continue;
+            }
+            $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
             $oddDataSet->setBet($bet);
             $this->tipicoOverUnderOddService->createByData($oddDataSet);
         }
 
-        return $stored;
+        // both teams score odds
+        foreach ($response->getBothTeamsScoreOdds() as $oddDataSet){
+            if (!array_key_exists($oddDataSet->getTipicoBetId(), $newCreatedBets)){
+                continue;
+            }
+            $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
+            $oddDataSet->setBet($bet);
+            $this->tipicoBothTeamsScoreOddService->createByData($oddDataSet);
+        }
+
+        return count($newCreatedBets);
     }
 
     public function checkMatchOutcome(TipicoBet $match): bool
