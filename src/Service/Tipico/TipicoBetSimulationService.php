@@ -51,6 +51,10 @@ class TipicoBetSimulationService
             if (!array_key_exists($oddDataSet->getTipicoBetId(), $newCreatedBets)){
                 continue;
             }
+            if ($this->tipicoOverUnderOddService->findByTipicoId($oddDataSet->getTipicoBetId())) {
+                continue;
+            }
+
             $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
             $oddDataSet->setBet($bet);
             $this->tipicoOverUnderOddService->createByData($oddDataSet);
@@ -59,6 +63,9 @@ class TipicoBetSimulationService
         // both teams score odds
         foreach ($response->getBothTeamsScoreOdds() as $oddDataSet){
             if (!array_key_exists($oddDataSet->getTipicoBetId(), $newCreatedBets)){
+                continue;
+            }
+            if ($this->tipicoBothTeamsScoreOddService->findByTipicoId($oddDataSet->getTipicoBetId())) {
                 continue;
             }
             $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];

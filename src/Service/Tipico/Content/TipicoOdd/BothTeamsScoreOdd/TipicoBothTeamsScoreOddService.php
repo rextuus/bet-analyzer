@@ -37,4 +37,9 @@ class TipicoBothTeamsScoreOddService
     {
         return $this->repository->findBy($conditions);
     }
+
+    public function findByTipicoId(int $getTipicoBetId)
+    {
+        return $this->repository->findBy(['bet' => $getTipicoBetId]);
+    }
 }
