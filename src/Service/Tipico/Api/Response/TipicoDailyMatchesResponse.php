@@ -5,8 +5,8 @@ namespace App\Service\Tipico\Api\Response;
 
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
+use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\Data\TipicoBothTeamsScoreOddData;
 use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\Data\TipicoOverUnderOddData;
-use TipicoBothTeamsScoreOddData;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
