@@ -5,6 +5,7 @@ namespace App\Service\Tipico\Message;
 
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
+use App\Service\Tipico\SimulationProcessors\BothTeamsScoreStrategy;
 use App\Service\Tipico\SimulationProcessors\CombineStrategy;
 use App\Service\Tipico\SimulationProcessors\CompensateLossStrategy;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
@@ -31,6 +32,9 @@ class InitSimulatorProcessingHandler
         }
         if ($message->getBulk() === SimulatorProcessBulk::OVER_UNDER_SIMULATORS){
             $strategies = [OverUnderStrategy::IDENT];
+        }
+        if ($message->getBulk() === SimulatorProcessBulk::BOTH_TEAMS_SCORE_SIMULATORS){
+            $strategies = [BothTeamsScoreStrategy::IDENT];
         }
 
         $simulators = $this->simulatorService->findByStrategies($strategies);

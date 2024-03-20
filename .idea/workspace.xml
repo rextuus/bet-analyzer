@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0041d2-fe48-49d7-9be8-d59cb3d4dcfd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Api/Response/TipicoDailyMatchesResponse.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Api/Response/TipicoDailyMatchesResponse.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/Tipico/InitDefaultOverUnderSimulatorsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/Tipico/InitDefaultOverUnderSimulatorsCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Message/InitSimulatorProcessingHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/InitSimulatorProcessingHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Tipico/Message/SimulatorProcessBulk.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Tipico/Message/SimulatorProcessBulk.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -371,7 +374,9 @@
       <workItem from="1710707361098" duration="9960000" />
       <workItem from="1710749500432" duration="13000" />
       <workItem from="1710768456936" duration="22341000" />
-      <workItem from="1710858672365" duration="6858000" />
+      <workItem from="1710858672365" duration="8067000" />
+      <workItem from="1710922144830" duration="3000" />
+      <workItem from="1710940023204" duration="972000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1694389582865</created>
@@ -618,30 +623,6 @@
       <option name="project" value="LOCAL" />
       <updated>1697580836463</updated>
     </task>
-    <task id="LOCAL-00064" summary="Default simulators">
-      <option name="closed" value="true" />
-      <created>1710200370459</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1710200370459</updated>
-    </task>
-    <task id="LOCAL-00065" summary="Improvements">
-      <option name="closed" value="true" />
-      <created>1710276363593</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1710276363593</updated>
-    </task>
-    <task id="LOCAL-00066" summary="Improvements">
-      <option name="closed" value="true" />
-      <created>1710285561540</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1710285561540</updated>
-    </task>
     <task id="LOCAL-00067" summary="New stats">
       <option name="closed" value="true" />
       <created>1710351318140</created>
@@ -730,14 +711,37 @@
       <option name="project" value="LOCAL" />
       <updated>1710868116764</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Fix Error">
+      <option name="closed" value="true" />
+      <created>1710891354677</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1710891354677</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Fix Error">
+      <option name="closed" value="true" />
+      <created>1710891587411</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1710891587411</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Fix Error">
+      <option name="closed" value="true" />
+      <created>1710891818546</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1710891818546</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added decreasing window init variant" />
     <MESSAGE value="Init Statistic package" />
     <MESSAGE value="Added filter for league page" />
     <MESSAGE value="Added bet row combinations" />
@@ -762,7 +766,8 @@
     <MESSAGE value="Collect over under odds" />
     <MESSAGE value="Simulator for over and under" />
     <MESSAGE value="Added both team score odds" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added both team score odds" />
+    <MESSAGE value="Fix Error" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

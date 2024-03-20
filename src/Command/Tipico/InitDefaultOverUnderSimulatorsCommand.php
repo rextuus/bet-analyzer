@@ -59,7 +59,7 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
     {
         $onIdent = $betOn->name;
 
-        $range = $this->generateFloatRange(1.0, 4.9, 0.1);
+        $range = $this->generateFloatRange(1.0, 9.9, 0.1);
         foreach ($range as $item){
             $ident = sprintf(
                 'ag_%s_search_%s_%s_%s_target_%s_%s',
