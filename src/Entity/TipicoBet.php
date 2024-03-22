@@ -68,6 +68,9 @@ class TipicoBet
     #[ORM\OneToOne(mappedBy: 'bet', cascade: ['persist', 'remove'])]
     private ?TipicoBothTeamsScoreOdd $tipicoBothTeamsScoreBet = null;
 
+    #[ORM\OneToOne(mappedBy: 'bet', cascade: ['persist', 'remove'])]
+    private ?TipicoHeadToHeadOdd $tipicoHeadToHeadScore = null;
+
     public function __construct()
     {
         $this->simulators = new ArrayCollection();
@@ -332,6 +335,23 @@ class TipicoBet
         }
 
         $this->tipicoBothTeamsScoreBet = $tipicoBothTeamsScoreBet;
+
+        return $this;
+    }
+
+    public function getTipicoHeadToHeadScore(): ?TipicoHeadToHeadOdd
+    {
+        return $this->tipicoHeadToHeadScore;
+    }
+
+    public function setTipicoHeadToHeadScore(TipicoHeadToHeadOdd $tipicoHeadToHeadScore): static
+    {
+        // set the owning side of the relation if necessary
+        if ($tipicoHeadToHeadScore->getBet() !== $this) {
+            $tipicoHeadToHeadScore->setBet($this);
+        }
+
+        $this->tipicoHeadToHeadScore = $tipicoHeadToHeadScore;
 
         return $this;
     }

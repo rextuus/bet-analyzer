@@ -144,12 +144,14 @@ final class UpcomingFixture
             BetOn::HOME, BetOn::DRAW, BetOn::AWAY => $value = $fixture->getOddHome(),
             BetOn::OVER, BetOn::UNDER => $value = $this->getOverOdd($fixture),
             BetOn::BOTH_TEAMS_SCORE, BetOn::BOTH_TEAMS_SCORE_NOT => $value = $fixture->getTipicoBothTeamsScoreBet()->getConditionTrueValue(),
+            default => $value = -100,
         };
         $oddInfo->setOddValue($value);
 
         match($this->betOn){
             BetOn::HOME, BetOn::OVER, BetOn::BOTH_TEAMS_SCORE => $cssClass = 'target',
             BetOn::DRAW, BetOn::AWAY, BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE_NOT => $cssClass = 'non-target',
+            default => $cssClass = 'target-notdefined',
         };
         $oddInfo->setCssClass($cssClass);
 

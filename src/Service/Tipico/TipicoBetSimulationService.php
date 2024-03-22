@@ -9,6 +9,7 @@ use App\Service\Tipico\Api\TipicoApiGateway;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\TipicoBothTeamsScoreOddService;
+use App\Service\Tipico\Content\TipicoOdd\HeadToHeadOdd\TipicoHeadToHeadOddService;
 use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\TipicoOverUnderOddService;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 
@@ -25,6 +26,7 @@ class TipicoBetSimulationService
         private readonly TipicoBetService $tipicoBetService,
         private readonly TipicoOverUnderOddService $tipicoOverUnderOddService,
         private readonly TipicoBothTeamsScoreOddService $tipicoBothTeamsScoreOddService,
+        private readonly TipicoHeadToHeadOddService $tipicoHeadToHeadOddService,
         private readonly SimulationStrategyProcessorProvider $processorProvider,
         private readonly TelegramMessageService $telegramMessageService,
         private readonly float $cashBoxLimit,
@@ -71,6 +73,19 @@ class TipicoBetSimulationService
             $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
             $oddDataSet->setBet($bet);
             $this->tipicoBothTeamsScoreOddService->createByData($oddDataSet);
+        }
+
+        // head to head odds
+        foreach ($response->getHeadToHeadOdds() as $oddDataSet){
+            if (!array_key_exists($oddDataSet->getTipicoBetId(), $newCreatedBets)){
+                continue;
+            }
+            if ($this->tipicoHeadToHeadOddService->findByTipicoId($oddDataSet->getTipicoBetId())) {
+                continue;
+            }
+            $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
+            $oddDataSet->setBet($bet);
+            $this->tipicoHeadToHeadOddService->createByData($oddDataSet);
         }
 
         return count($newCreatedBets);
