@@ -21,6 +21,9 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'InitDefaultSimulators',
     description: 'Add a short description for your command',
 )]
+/**
+ * @deprecated
+ */
 class InitDefaultSimulatorsCommand extends AbstractSimulatorCommand
 {
     public function __construct(
@@ -108,7 +111,7 @@ class InitDefaultSimulatorsCommand extends AbstractSimulatorCommand
         $parameters = [
             AbstractSimulationProcessor::PARAMETER_MIN => $min,
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
-            AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn->value,
+            AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $betOn->value,
         ];
 
         if($strategyIdent === AgainstStrategy::IDENT){
@@ -116,7 +119,7 @@ class InitDefaultSimulatorsCommand extends AbstractSimulatorCommand
                 AbstractSimulationProcessor::PARAMETER_MIN => $min,
                 AbstractSimulationProcessor::PARAMETER_MAX => $max,
                 AgainstStrategy::PARAMETER_AGAINST => $against,
-                AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
+                AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $betOn,
                 AgainstStrategy::PARAMETER_AGAINST_BOTH => 0,
             ];
         }

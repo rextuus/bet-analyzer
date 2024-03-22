@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\SimulationProcessors;
 
-use App\Entity\SimulationStrategy;
 use App\Entity\Simulator;
 use App\Entity\TipicoBet;
 use App\Service\Evaluation\BetOn;
@@ -14,8 +13,6 @@ use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
-use App\Service\Tipico\TelegramMessageService;
-use App\Service\Tipico\TipicoBetSimulator;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -23,7 +20,8 @@ use App\Service\Tipico\TipicoBetSimulator;
  */
 class AbstractSimulationProcessor
 {
-    public const PARAMETER_BET_ON = 'betOn';
+    public const PARAMETER_SEARCH_BET_ON = 'searchBetOn';
+    public const PARAMETER_TARGET_BET_ON = 'targetBetOn';
     public const PARAMETER_MIN = 'min';
     public const PARAMETER_MAX = 'max';
 
@@ -36,15 +34,16 @@ class AbstractSimulationProcessor
     {
     }
 
-    protected function getOddTargetFromParameters(array $parameters): string
+    public function getOddTargetFromParameters(array $parameters): string
     {
+        $targetBetOn = BetOn::from($parameters[self::PARAMETER_SEARCH_BET_ON]);
         // user home as default. Over/under and both score simulators use always this BetOn...
         $targetOddColumn = 'oddHome';
-        if ($parameters[self::PARAMETER_BET_ON] === BetOn::DRAW) {
+
+        if ($targetBetOn === BetOn::DRAW) {
             $targetOddColumn = 'oddDraw';
         }
-
-        if ($parameters[self::PARAMETER_BET_ON] === BetOn::AWAY) {
+        if ($targetBetOn === BetOn::AWAY) {
             $targetOddColumn = 'oddAway';
         }
 

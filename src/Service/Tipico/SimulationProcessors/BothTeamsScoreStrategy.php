@@ -46,7 +46,7 @@ class BothTeamsScoreStrategy extends AbstractSimulationProcessor implements Simu
             $this->getUsedFixtureIds($simulator)
         );
 
-        $betOn = BetOn::from($parameters[self::PARAMETER_BET_ON]);
+        $targetBeton = BetOn::from($parameters[self::PARAMETER_TARGET_BET_ON]);
 
         $placementData = [];
         $fixturesActuallyUsed = [];
@@ -59,7 +59,7 @@ class BothTeamsScoreStrategy extends AbstractSimulationProcessor implements Simu
             $usedOdd = $odd->getConditionTrueValue();
 
             $isWon = $fixture->getEndScoreHome() > 0 && $fixture->getEndScoreAway() > 0;
-            if ($betOn === BetOn::BOTH_TEAMS_SCORE_NOT){
+            if ($targetBeton === BetOn::BOTH_TEAMS_SCORE_NOT){
                 $isWon = !$isWon;
                 $usedOdd = $odd->getConditionFalseValue();
             }

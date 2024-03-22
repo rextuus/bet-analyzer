@@ -12,6 +12,7 @@ use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
 use App\Service\Tipico\SimulationProcessors\BothTeamsScoreStrategy;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -36,47 +37,53 @@ class InitDefaultBothTeamsScoreSimulatorsCommand extends AbstractSimulatorComman
     protected function configure(): void
     {
         $this
-            ->addArgument('betOn', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('searchBetOn', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('targetBetOn', InputArgument::REQUIRED, 'Argument description')
         ;
     }
 
+    /**
+     * @throws Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $betOn = $input->getArgument('betOn');
+        $searchBetOn = $input->getArgument('searchBetOn');
+        $targetBetOn = $input->getArgument('targetBetOn');
 
-        if(!BetOn::tryFrom($betOn)){
-            throw new \Exception('Invlaid Beton');
-        }
-        $beton = BetOn::from($betOn);
-        if (!($beton === BetOn::BOTH_TEAMS_SCORE || $beton === BetOn::BOTH_TEAMS_SCORE_NOT)){
-            throw new \Exception('Invlaid Beton');
+        if(!BetOn::tryFrom($searchBetOn) || !BetOn::tryFrom($targetBetOn)){
+            throw new Exception('Invalid Beton');
         }
 
-        $this->initBothTeamsScoreSimulators($beton);
+        $searchBetOn = BetOn::from($searchBetOn);
+        $targetBetOn = BetOn::from($targetBetOn);
+        if($targetBetOn !== BetOn::BOTH_TEAMS_SCORE && $targetBetOn !== BetOn::BOTH_TEAMS_SCORE_NOT){
+            throw new Exception('Invalid Beton [both_teams_score|both_teams_score_not]');
+        }
+
+        $rangeSteps = $this->generateFloatRange(1.0, 5.9, 0.1);
+        foreach ($rangeSteps as $range){
+            $ident = sprintf(
+                'ag_%s_search_%s_%s_%s_target_%s',
+                'ag_three_way',
+                $searchBetOn->name,
+                str_replace('.', '', (string) $range[0] * 10),
+                str_replace('.', '', (string) $range[1] * 10),
+                $targetBetOn->name,
+            );
+
+            $this->initOverUnderSimulator($ident, $range[0], $range[1], $searchBetOn, $targetBetOn);
+        }
 
         return Command::SUCCESS;
     }
 
-    private function initBothTeamsScoreSimulators(BetOn $betOn): void
-    {
-        $onIdent = $betOn->name;
-
-        $range = $this->generateFloatRange(1.0, 9.9, 0.1);
-        foreach ($range as $item){
-            $ident = sprintf(
-                'ag_%s_search_%s_%s_%s_target_%s',
-                BothTeamsScoreStrategy::IDENT,
-                BetOn::HOME->name,
-                str_replace('.', '', (string) $item[0] * 10),
-                str_replace('.', '', (string) $item[1] * 10),
-                $onIdent,
-            );
-
-            $this->initOverUnderSimulator($ident, $item[0], $item[1], $betOn);
-        }
-    }
-
-    private function initOverUnderSimulator(string $identifier, float $min, float $max, BetOn $betOn): void
+    private function initOverUnderSimulator(
+        string $identifier,
+        float $min,
+        float $max,
+        BetOn $searchBetOn,
+        BetOn $targetBetOn
+    ): void
     {
         $sim = $this->simulatorService->findBy(['identifier' => $identifier]);
         if ($sim){
@@ -86,7 +93,8 @@ class InitDefaultBothTeamsScoreSimulatorsCommand extends AbstractSimulatorComman
         $parameters = [
             AbstractSimulationProcessor::PARAMETER_MIN => $min,
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
-            AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
+            AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $searchBetOn,
+            AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON => $targetBetOn,
         ];
 
         $simulationStrategyData = new SimulationStrategyData();
@@ -94,14 +102,5 @@ class InitDefaultBothTeamsScoreSimulatorsCommand extends AbstractSimulatorComman
         $simulationStrategyData->setParameters(json_encode($parameters));
 
         $this->storeSimulator($simulationStrategyData, $identifier);
-    }
-
-    public function generateFloatRange($start, $end, $step): array
-    {
-        $range = [];
-        for ($i = $start; $i <= $end; $i += $step) {
-            $range[] = [round($i, 2), round($i + $step, 2)];
-        }
-        return $range;
     }
 }

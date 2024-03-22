@@ -51,7 +51,7 @@ class InitCombinationSimulatorCommand extends AbstractSimulatorCommand
             AbstractSimulationProcessor::PARAMETER_MIN => $min,
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
             CombineStrategy::PARAMETER_COMBINATION_AMOUNT => $combinationAmount,
-            AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
+            AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $betOn,
         ];
         $simulationStrategyData = new SimulationStrategyData();
         $simulationStrategyData->setIdentifier(CombineStrategy::IDENT);

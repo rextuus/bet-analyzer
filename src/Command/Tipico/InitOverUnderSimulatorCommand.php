@@ -54,7 +54,7 @@ class InitOverUnderSimulatorCommand extends AbstractSimulatorCommand
         $parameters = [
             AbstractSimulationProcessor::PARAMETER_MIN => $min,
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
-            AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
+            AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $betOn,
             OverUnderStrategy::PARAMETER_TARGET_VALUE => $targetValue,
         ];
 

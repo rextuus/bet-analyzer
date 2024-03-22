@@ -42,7 +42,7 @@ class SimpleStrategy extends AbstractSimulationProcessor implements SimulationPr
     public function calculate(Simulator $simulator): void
     {
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
-        $beton = Beton::from($parameters[self::PARAMETER_BET_ON]);
+        $targetOdd = Beton::from($parameters[self::PARAMETER_TARGET_BET_ON]);
 
         $fixtures = $this->getFittingFixtures(
             (float)$parameters[self::PARAMETER_MIN],
@@ -55,15 +55,15 @@ class SimpleStrategy extends AbstractSimulationProcessor implements SimulationPr
         $fixturesActuallyUsed = [];
         foreach ($fixtures as $fixture) {
             $isWon = false;
-            if ($fixture->getResult() === $beton){
+            if ($fixture->getResult() === $targetOdd){
                 $isWon = true;
             }
 
             $value = $fixture->getOddHome();
-            if ($beton === BetOn::DRAW){
+            if ($targetOdd === BetOn::DRAW){
                 $value = $fixture->getOddDraw();
             }
-            if ($beton === BetOn::AWAY){
+            if ($targetOdd === BetOn::AWAY){
                 $value = $fixture->getOddAway();
             }
 

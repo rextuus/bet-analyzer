@@ -251,7 +251,7 @@ class SimulationStatisticService
     {
         $placements = $simulator->getTipicoPlacements()->toArray();
         $parameter = json_decode($simulator->getStrategy()->getParameters(), true);
-        $betOn = BetOn::tryFrom($parameter[AbstractSimulationProcessor::PARAMETER_BET_ON]);
+        $betOn = BetOn::tryFrom($parameter[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
 
         $targetValue = null;
         if ($betOn === BetOn::OVER || $betOn === BetOn::UNDER){
@@ -378,11 +378,11 @@ class SimulationStatisticService
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
         $targetOddColumn = 'oddHome';
-        if ($parameters[AbstractSimulationProcessor::PARAMETER_BET_ON] === 'X') {
+        if ($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON] === 'X') {
             $targetOddColumn = 'oddDraw';
         }
 
-        if ($parameters[AbstractSimulationProcessor::PARAMETER_BET_ON] === '2') {
+        if ($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON] === '2') {
             $targetOddColumn = 'oddAway';
         }
 

@@ -57,7 +57,7 @@ class InitCompensationSimulatorCommand extends AbstractSimulatorCommand
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
             CompensateLossStrategy::PARAMETER_DEFAULT_IN => $defaultIn,
             CompensateLossStrategy::PARAMETER_COMPENSATION => $compensation,
-            AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
+            AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $betOn,
         ];
 
         $simulationStrategyData = new SimulationStrategyData();

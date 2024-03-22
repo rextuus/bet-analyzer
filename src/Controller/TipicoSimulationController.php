@@ -126,7 +126,7 @@ class TipicoSimulationController extends AbstractController
         $strategy = $simulator->getStrategy();
         $parameters = json_decode($strategy->getParameters(), true);
 
-        $target = AbstractSimulationProcessor::PARAMETER_BET_ON;
+        $target = AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON;
 
         if($strategy->getIdentifier() === AgainstStrategy::IDENT){
             $target = AgainstStrategy::PARAMETER_AGAINST;

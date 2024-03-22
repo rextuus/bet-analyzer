@@ -17,13 +17,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
     name: 'InitSimpleSimulatorCommand',
-    description: 'Add a short description for your command',
+    description: 'InitSimpleSimulatorCommand',
 )]
 class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
 {
     public function __construct(
-        private readonly SimulationStrategyService $simulationStrategyService,
-        private readonly SimulatorService $simulatorService,
+        protected readonly SimulationStrategyService $simulationStrategyService,
+        protected readonly SimulatorService $simulatorService,
     )
     {
         parent::__construct($simulationStrategyService, $simulatorService);
@@ -35,7 +35,8 @@ class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
             ->addArgument('ident', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('min', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('max', InputArgument::REQUIRED, 'Argument description')
-            ->addArgument('betOn', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('searchBetOn', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('targetBetOn', InputArgument::REQUIRED, 'Argument description')
         ;
     }
 
@@ -44,16 +45,18 @@ class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
         $identifier = $input->getArgument('ident');
         $min = $input->getArgument('min');
         $max = $input->getArgument('max');
-        $betOn = $input->getArgument('betOn');
+        $searchBetOn = $input->getArgument('searchBetOn');
+        $targetBetOn = $input->getArgument('targetBetOn');
 
-        if(!BetOn::tryFrom($betOn)){
-            throw new \Exception('Invlaid Beton');
+        if(!BetOn::tryFrom($searchBetOn)){
+            throw new \Exception('Invalid Beton');
         }
 
         $parameters = [
             AbstractSimulationProcessor::PARAMETER_MIN => $min,
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
-            AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
+            AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $searchBetOn,
+            AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON => $targetBetOn,
         ];
 
         $simulationStrategyData = new SimulationStrategyData();

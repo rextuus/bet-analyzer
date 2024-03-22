@@ -16,6 +16,7 @@ use App\Service\Tipico\TipicoBetSimulator;
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2024 DocCheck Community GmbH
+ * @deprecated
  */
 class CombineStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
 {
@@ -36,6 +37,7 @@ class CombineStrategy extends AbstractSimulationProcessor implements SimulationP
 
     public function calculate(Simulator $simulator): void
     {
+        return;
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
         $fixtures = $this->getFittingFixtures(
@@ -59,7 +61,7 @@ class CombineStrategy extends AbstractSimulationProcessor implements SimulationP
                 $used++;
 
                 if ($used % $parameters[self::PARAMETER_COMBINATION_AMOUNT] === 0){
-                    $dataObjects[] = $this->tipicoBetSimulator->combineFixtures($simulator, $fixturesToCombine, BetOn::from($parameters[self::PARAMETER_BET_ON]));
+                    $dataObjects[] = $this->tipicoBetSimulator->combineFixtures($simulator, $fixturesToCombine, BetOn::from($parameters[self::PARAMETER_SEARCH_BET_ON]));
                     $fixturesActuallyUsed = array_merge($fixturesActuallyUsed, $fixturesToCombine);
                     $fixturesToCombine = [];
                 }

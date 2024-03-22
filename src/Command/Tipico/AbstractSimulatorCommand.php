@@ -28,7 +28,7 @@ class AbstractSimulatorCommand extends Command
         parent::__construct();
     }
 
-    public function storeSimulator(SimulationStrategyData $data, string $identifier): void
+    protected function storeSimulator(SimulationStrategyData $data, string $identifier): void
     {
         $strategy = $this->simulationStrategyService->createByData($data);
 
@@ -40,5 +40,24 @@ class AbstractSimulatorCommand extends Command
         $simulatorData->setPlacements([]);
         $simulatorData->setCurrentIn(1.0);
         $this->simulatorService->createByData($simulatorData);
+    }
+
+    protected function simulatorAlreadyExists(string $identifier): bool
+    {
+        $sim = $this->simulatorService->findBy(['identifier' => $identifier]);
+        if ($sim){
+            return true;
+        }
+        return false;
+    }
+
+    protected function generateFloatRange($start, $end, $step): array
+    {
+        $range = [];
+        for ($i = $start; $i <= $end; $i += $step) {
+            $range[] = [round($i, 2), round($i + $step, 2)];
+        }
+
+        return $range;
     }
 }

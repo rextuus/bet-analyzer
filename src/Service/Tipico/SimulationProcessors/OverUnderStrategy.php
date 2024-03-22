@@ -47,7 +47,7 @@ class OverUnderStrategy extends AbstractSimulationProcessor implements Simulatio
         );
 
         $targetValue = (float)$parameters[self::PARAMETER_TARGET_VALUE];
-        $betOn = BetOn::from($parameters[self::PARAMETER_BET_ON]);
+        $targetBetOn = BetOn::from($parameters[self::PARAMETER_TARGET_BET_ON]);
 
         $placementData = [];
         $fixturesActuallyUsed = [];
@@ -73,7 +73,7 @@ class OverUnderStrategy extends AbstractSimulationProcessor implements Simulatio
                 $isWon = true;
             }
 
-            if ($betOn === BetOn::UNDER) {
+            if ($targetBetOn === BetOn::UNDER) {
                 $usedOdd = $odd->getUnderValue();
                 $isWon = false;
                 if ($result < $targetValue) {

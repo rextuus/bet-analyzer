@@ -17,6 +17,7 @@ use DateTime;
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2024 DocCheck Community GmbH
+ * @deprecated
  */
 class AgainstStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
 {
@@ -44,6 +45,7 @@ class AgainstStrategy extends AbstractSimulationProcessor implements SimulationP
 
     public function calculate(Simulator $simulator): void
     {
+        return;
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
         $fixtures = $this->getFittingFixtures(
@@ -59,7 +61,7 @@ class AgainstStrategy extends AbstractSimulationProcessor implements SimulationP
         $placementData = [];
         $fixturesActuallyUsed = [];
         foreach ($fixtures as $nr => $fixture) {
-            $searchBetOn = BetOn::from($parameters[self::PARAMETER_BET_ON]);
+            $searchBetOn = BetOn::from($parameters[self::PARAMETER_SEARCH_BET_ON]);
             $againstBetOnParam = BetOn::from($against);
 
             $againstBetOns = [$againstBetOnParam];

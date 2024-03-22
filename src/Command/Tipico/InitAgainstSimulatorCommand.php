@@ -65,7 +65,7 @@ class InitAgainstSimulatorCommand extends AbstractSimulatorCommand
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
             AgainstStrategy::PARAMETER_AGAINST => $against,
             AgainstStrategy::PARAMETER_AGAINST_BOTH => $againstBoth,
-            AbstractSimulationProcessor::PARAMETER_BET_ON => $betOn,
+            AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $betOn,
         ];
 
         $simulationStrategyData = new SimulationStrategyData();

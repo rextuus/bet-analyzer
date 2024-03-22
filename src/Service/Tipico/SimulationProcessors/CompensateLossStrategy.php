@@ -15,6 +15,7 @@ use DateTime;
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2024 DocCheck Community GmbH
+ * @deprecated
  */
 class CompensateLossStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
 {
@@ -35,6 +36,7 @@ class CompensateLossStrategy extends AbstractSimulationProcessor implements Simu
 
     public function calculate(Simulator $simulator): void
     {
+        return;
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
         $fixtures = $this->getFittingFixtures(
@@ -51,7 +53,7 @@ class CompensateLossStrategy extends AbstractSimulationProcessor implements Simu
         $fixturesActuallyUsed = [];
 
         foreach ($fixtures as $nr => $fixture) {
-            $value = $this->tipicoBetSimulator->getOddValueByBeton($fixture, BetOn::from($parameters[self::PARAMETER_BET_ON]));
+            $value = $this->tipicoBetSimulator->getOddValueByBeton($fixture, BetOn::from($parameters[self::PARAMETER_SEARCH_BET_ON]));
 
             $compensation = 0.0;
             if ($compensationIn > 0.0){
@@ -59,7 +61,7 @@ class CompensateLossStrategy extends AbstractSimulationProcessor implements Simu
             }
             $currentIn = $defaultIn + $compensation;
 
-            $betIsWon = $fixture->getResult() === BetOn::from($parameters[self::PARAMETER_BET_ON]);
+            $betIsWon = $fixture->getResult() === BetOn::from($parameters[self::PARAMETER_SEARCH_BET_ON]);
 
             $placementData[] = $this->tipicoBetSimulator->createPlacement(
               [$fixture],
