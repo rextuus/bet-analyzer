@@ -20,7 +20,7 @@ final class UpcomingFixture
      */
     public array $fixtures;
 
-    public \App\Entity\Simulator $simulator;
+    public ?\App\Entity\Simulator $simulator;
 
     public BetOn $targetBetOn;
     public BetOn $searchBetOn;
@@ -154,7 +154,7 @@ final class UpcomingFixture
     public function getOverUnderOdds(TipicoBet $fixture): string
     {
         $odds = $fixture->getTipicoOverUnderOdds()->toArray();
-        if (count($odds) === 0) {
+        if (count($odds) !== 6) {
             return '-';
         }
 
