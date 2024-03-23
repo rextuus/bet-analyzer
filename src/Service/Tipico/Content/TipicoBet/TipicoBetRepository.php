@@ -28,35 +28,10 @@ class TipicoBetRepository extends ServiceEntityRepository
     public function save(TipicoBet $tipicoBet, bool $flush = true): void
     {
         $this->_em->persist($tipicoBet);
-        if($flush){
+        if ($flush) {
             $this->_em->flush();
         }
     }
-
-//    /**
-//     * @return TipicoBet[] Returns an array of TipicoBet objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?TipicoBet
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 
     /**
      * @return TipicoBet[]
@@ -74,6 +49,31 @@ class TipicoBetRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @return TipicoBet[]
+     */
+    public function findUpcomingEventsByRange(float $min, float $max, string $targetOddColumn, int $limit = 100): array
+    {
+        $alreadyUsed = [-1];
+        $currentDate = new DateTime();
+        $currentDate->setTime(0, 0, 0);
+
+        $qb = $this->createQueryBuilder('b');
+        $qb->where($qb->expr()->gte('b.' . $targetOddColumn, ':min'));
+        $qb->setParameter('min', $min);
+        $qb->andWhere($qb->expr()->lte('b.' . $targetOddColumn, ':max'));
+        $qb->setParameter('max', $max);
+
+        $qb->andWhere($qb->expr()->gt('b.startAtTimeStamp', ':startAfter'));
+        $qb->setParameter('startAfter', $currentDate->getTimestamp() * 1000);
+
+        $qb->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    // simulation process
 
     /**
      * @return TipicoBet[]
@@ -127,14 +127,20 @@ class TipicoBetRepository extends ServiceEntityRepository
         $qb->select('count(t.id)');
         $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
 
-        return (int) $qb->getQuery()->getSingleScalarResult();
+        return (int)$qb->getQuery()->getSingleScalarResult();
     }
 
-    public function addSearchQueryParameters(QueryBuilder $qb, string $targetOddColumn, float $min, float $max, array $alreadyUsed): void
+    public function addSearchQueryParameters(
+        QueryBuilder $qb,
+        string $searchOddColumn,
+        float $min,
+        float $max,
+        array $alreadyUsed
+    ): void
     {
-        $qb->where($qb->expr()->gte('t.' . $targetOddColumn, ':min'));
+        $qb->where($qb->expr()->gte('t.' . $searchOddColumn, ':min'));
         $qb->setParameter('min', $min);
-        $qb->andWhere($qb->expr()->lte('t.' . $targetOddColumn, ':max'));
+        $qb->andWhere($qb->expr()->lte('t.' . $searchOddColumn, ':max'));
         $qb->setParameter('max', $max);
         $qb->andWhere($qb->expr()->eq('t.finished', ':finished'));
         $qb->setParameter('finished', true);
@@ -145,25 +151,56 @@ class TipicoBetRepository extends ServiceEntityRepository
         $qb->orderBy('t.startAtTimeStamp', 'ASC');
     }
 
-    /**
-     * @return TipicoBet[]
-     */
-    public function findUpcomingEventsByRange(float $min, float $max, string $targetOddColumn, int $limit = 100): array
+
+    public function getFixtureByFilter(TipicoBetFilter $filter): array|int
     {
-        $alreadyUsed = [-1];
-        $currentDate = new DateTime();
-        $currentDate->setTime(0, 0, 0);
+        $qb = $this->createQueryBuilder(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET);
 
-        $qb = $this->createQueryBuilder('b');
-        $qb->where($qb->expr()->gte('b.' . $targetOddColumn, ':min'));
-        $qb->setParameter('min', $min);
-        $qb->andWhere($qb->expr()->lte('b.' . $targetOddColumn, ':max'));
-        $qb->setParameter('max', $max);
+        if ($filter->isIncludeBothTeamsScore()) {
+            $condition = sprintf(
+                '%s.id = %s.bet',
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_BET,
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_BOTH_SCORE
+            );
+            $qb->innerJoin(
+                TipicoBothTeamsScoreOdd::class,
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_BOTH_SCORE,
+                'WITH',
+                $condition
+            );
+        }
+        if ($filter->isIncludeOverUnder()) {
+            $condition = sprintf(
+                '%s.id = %s.bet',
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_BET,
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_OVER_UNDER
+            );
+            $qb->innerJoin(TipicoOverUnderOdd::class,
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_OVER_UNDER,
+                'WITH',
+                $condition
+            );
+        }
 
-        $qb->andWhere($qb->expr()->gt('b.startAtTimeStamp', ':startAfter'));
-        $qb->setParameter('startAfter', $currentDate->getTimestamp()*1000);
+        $searchExpression = sprintf('%s.%s', $filter->getSearchTableAlias(), $filter->getSearchOddColumn());
 
-        $qb->setMaxResults($limit);
+        $qb->where($qb->expr()->gte($searchExpression, ':min'));
+        $qb->setParameter('min', $filter->getMin());
+        $qb->andWhere($qb->expr()->lte($searchExpression, ':max'));
+        $qb->setParameter('max', $filter->getMax());
+        $qb->andWhere($qb->expr()->eq(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET.'.finished', ':finished'));
+        $qb->setParameter('finished', true);
+
+        $qb->andWhere($qb->expr()->notIn(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.id', ':ids'));
+        $qb->setParameter('ids', $filter->getAlreadyUsedFixtureIds());
+
+        $qb->setMaxResults($filter->getLimit());
+        $qb->orderBy(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.startAtTimeStamp', $filter->getOrder());
+
+        if ($filter->isCountRequest()) {
+            $qb->select('count(' . TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.id)');
+            return (int)$qb->getQuery()->getSingleScalarResult();
+        }
 
         return $qb->getQuery()->getResult();
     }

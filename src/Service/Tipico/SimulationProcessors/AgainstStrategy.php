@@ -15,8 +15,6 @@ use App\Service\Tipico\TipicoBetSimulator;
 use DateTime;
 
 /**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
  * @deprecated
  */
 class AgainstStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
@@ -32,7 +30,7 @@ class AgainstStrategy extends AbstractSimulationProcessor implements SimulationP
         protected readonly SimulatorService $simulatorService,
         protected readonly SimulationStrategyService $simulationStrategyService,
         protected readonly TelegramMessageService $telegramMessageService,
-        private readonly TipicoBetSimulator $tipicoBetSimulator,
+        protected readonly TipicoBetSimulator $tipicoBetSimulator,
     )
     {
         parent::__construct($placementService, $simulatorService, $simulationStrategyService, $tipicoBetService);
@@ -43,17 +41,12 @@ class AgainstStrategy extends AbstractSimulationProcessor implements SimulationP
         return self::IDENT;
     }
 
-    public function calculate(Simulator $simulator): void
+    public function calculate(Simulator $simulator): PlacementContainer
     {
-        return;
+        return new PlacementContainer();
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
-        $fixtures = $this->getFittingFixtures(
-            (float)$parameters[self::PARAMETER_MIN],
-            (float)$parameters[self::PARAMETER_MAX],
-            $this->getOddTargetFromParameters($parameters),
-            $this->getUsedFixtureIds($simulator)
-        );
+        $fixtures = $this->getFixtureForSimulatorBySearchAndTarget($simulator);
 
         $againstBoth = (bool) $parameters[self::PARAMETER_AGAINST_BOTH];
         $against = $parameters[self::PARAMETER_AGAINST];
@@ -98,17 +91,5 @@ class AgainstStrategy extends AbstractSimulationProcessor implements SimulationP
         // store changes
         $container = $this->storePlacementsToDatabase($placementData);
         $this->storeSimulatorChangesToDatabase($simulator, $fixturesActuallyUsed, $container);
-
-        if (count($placementData) > 0){
-            $message = sprintf(
-                '"%s" simulator placed %d bets and made a sales volume of %.2f. Current cash box: %.2f',
-                $simulator->getIdentifier(),
-                count($container->getPlacements()),
-                $container->getCashBoxChange(),
-                $simulator->getCashBox(),
-            );
-
-            $this->telegramMessageService->sendMessageToTelegramFeed($message);
-        }
     }
 }

@@ -34,17 +34,12 @@ class CompensateLossStrategy extends AbstractSimulationProcessor implements Simu
         parent::__construct($placementService, $simulatorService, $simulationStrategyService, $tipicoBetService);
     }
 
-    public function calculate(Simulator $simulator): void
+    public function calculate(Simulator $simulator): PlacementContainer
     {
-        return;
+        return new PlacementContainer();
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
-        $fixtures = $this->getFittingFixtures(
-            (float)$parameters[self::PARAMETER_MIN],
-            (float)$parameters[self::PARAMETER_MAX],
-            $this->getOddTargetFromParameters($parameters),
-            $this->getUsedFixtureIds($simulator)
-        );
+        $fixtures = $this->getFixtureForSimulatorBySearchAndTarget($simulator);
 
         $defaultIn = $parameters[self::PARAMETER_DEFAULT_IN];
         $compensationIn = $parameters[self::PARAMETER_COMPENSATION];

@@ -9,15 +9,10 @@ use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
-use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\TelegramMessageService;
 use App\Service\Tipico\TipicoBetSimulator;
 use DateTime;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
 class SimpleStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
 {
     public const IDENT = 'simple';
@@ -39,17 +34,12 @@ class SimpleStrategy extends AbstractSimulationProcessor implements SimulationPr
         return self::IDENT;
     }
 
-    public function calculate(Simulator $simulator): void
+    public function calculate(Simulator $simulator): PlacementContainer
     {
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
         $targetOdd = Beton::from($parameters[self::PARAMETER_TARGET_BET_ON]);
 
-        $fixtures = $this->getFittingFixtures(
-            (float)$parameters[self::PARAMETER_MIN],
-            (float)$parameters[self::PARAMETER_MAX],
-            $this->getOddTargetFromParameters($parameters),
-            $this->getUsedFixtureIds($simulator)
-        );
+        $fixtures = $this->getFixtureForSimulatorBySearchAndTarget($simulator);
 
         $placementData = [];
         $fixturesActuallyUsed = [];
@@ -83,16 +73,6 @@ class SimpleStrategy extends AbstractSimulationProcessor implements SimulationPr
         $container = $this->storePlacementsToDatabase($placementData);
         $this->storeSimulatorChangesToDatabase($simulator, $fixturesActuallyUsed, $container);
 
-        if (count($placementData) > 0){
-            $message = sprintf(
-                '"%s" simulator placed %d bets and made a sales volume of %.2f. Current cash box: %.2f',
-                $simulator->getIdentifier(),
-                count($container->getPlacements()),
-                $container->getCashBoxChange(),
-                $simulator->getCashBox(),
-            );
-
-//            $this->telegramMessageService->sendMessageToTelegramFeed($message);
-        }
+        return $container;
     }
 }

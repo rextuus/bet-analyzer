@@ -12,6 +12,7 @@ use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\TipicoBothTeamsScoreO
 use App\Service\Tipico\Content\TipicoOdd\HeadToHeadOdd\TipicoHeadToHeadOddService;
 use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\TipicoOverUnderOddService;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
 /**
@@ -29,6 +30,7 @@ class TipicoBetSimulationService
         private readonly TipicoHeadToHeadOddService $tipicoHeadToHeadOddService,
         private readonly SimulationStrategyProcessorProvider $processorProvider,
         private readonly TelegramMessageService $telegramMessageService,
+        private readonly UrlGeneratorInterface $urlGenerator,
         private readonly float $cashBoxLimit,
     )
     {
@@ -137,7 +139,23 @@ class TipicoBetSimulationService
             return;
         }
 
-        $processor->calculate($simulator);
+        $result = $processor->calculate($simulator);
+
+        if (
+            count($result->getPlacements()) > 0 &&
+            ($result->getCashBoxChange() > 2.0 || $result->getCashBoxChange() < -2.0)
+        ){
+            $message = sprintf(
+                '"%s" simulator placed %d bets and made a sales volume of %.2f. Current cash box: %.2f: https://bet-analyzer.wh-company.de%s',
+                $simulator->getIdentifier(),
+                count($result->getPlacements()),
+                $result->getCashBoxChange(),
+                $simulator->getCashBox(),
+                $this->urlGenerator->generate('app_tipico_simulation_detail', ['simulator' => $simulator->getId()]),
+            );
+
+            $this->telegramMessageService->sendMessageToTelegramFeed($message);
+        }
     }
 
     public function sendMessageToTelegramFeed(string $message): void

@@ -10,9 +10,28 @@
             </div>
         </td>
         <td class="{{ this.awayClass }}">{{ placement.fixtures[0].awayTeamName }}</td>
-        <td class="{{ this.homeClass }}">{{ placement.fixtures[0].oddHome }}</td>
-        <td class="{{ this.drawClass }}">{{ placement.fixtures[0].oddDraw }}</td>
-        <td class="{{ this.awayClass }}">{{ placement.fixtures[0].oddAway }}</td>
+        <td>
+            <table>
+                <tr>
+                    <td>3-Way</td>
+                    <td class="{{ this.homeClass }}">{{ placement.fixtures[0].oddHome }}</td>
+                    <td class="{{ this.drawClass }}">{{ placement.fixtures[0].oddDraw }}</td>
+                    <td class="{{ this.awayClass }}">{{ placement.fixtures[0].oddAway }}</td>
+                </tr>
+                <tr>
+                    <td>Over/Under</td>
+                    <td></td>
+                    <td class="{{ this.homeClass }}">{{ this.OverOdd }}</td>
+                    <td class="{{ this.awayClass }}">{{ this.UnderOdd }}</td>
+                </tr>
+                <tr>
+                    <td>Both Score</td>
+                    <td></td>
+                    <td class="{{ this.homeClass }}">{{ this.BothTeamsScoreOdd }}</td>
+                    <td class="{{ this.awayClass }}">{{ this.BothTeamsScoreNotOdd }}</td>
+                </tr>
+            </table>
+        </td>
         <td>{{ placement.fixtures[0].result.value }}</td>
         <td>
             <div class="transaction {{ this.rowClass }}">

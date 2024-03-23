@@ -13,7 +13,11 @@ use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
  */
 class SimulatorService
 {
-    public function __construct(private readonly SimulatorRepository $repository, private readonly SimulatorFactory $factory)
+    public function __construct(
+        private readonly SimulatorRepository $repository,
+        private readonly SimulatorFactory $factory,
+        private readonly float $cashBoxLimit,
+    )
     {
     }
 
@@ -90,7 +94,7 @@ class SimulatorService
             $key = sprintf('%.0f - %.0f', $from, ($key+1) * 5);
 
 
-            if ($from >= 70){
+            if ($from >= $this->cashBoxLimit){
                 $result[$key] = $value;
                 $active = $active + $value;
             }

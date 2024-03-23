@@ -6,13 +6,12 @@ namespace App\Service\Tipico\Content\TipicoBet;
 use App\Entity\TipicoBet;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
 class TipicoBetService
 {
-    public function __construct(private readonly TipicoBetRepository $repository, private readonly TipicoBetFactory $factory)
+    public function __construct(
+        private readonly TipicoBetRepository $repository,
+        private readonly TipicoBetFactory $factory
+    )
     {
     }
 
@@ -54,37 +53,20 @@ class TipicoBetService
     /**
      * @return TipicoBet[]
      */
-    public function findInRange(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
-    {
-        return $this->repository->findInRange($min, $max, $targetOddColumn, $alreadyUsed, $limit);
-    }
-
-    /**
-     * @return TipicoBet[]
-     */
-    public function getFittingFixturesWithOverUnderOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
-    {
-        return $this->repository->getFittingFixturesWithOverUnderOdds($min, $max, $targetOddColumn, $alreadyUsed, $limit);
-    }
-
-    /**
-     * @return TipicoBet[]
-     */
-    public function getFittingFixturesWithBothTeamsScoreOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
-    {
-        return $this->repository->getFittingFixturesWithBothTeamsScoreOdds($min, $max, $targetOddColumn, $alreadyUsed, $limit);
-    }
-
-    public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): int
-    {
-        return $this->repository->getFittingFixturesCount($min, $max, $targetOddColumn, $alreadyUsed);
-    }
-
-    /**
-     * @return TipicoBet[]
-     */
-    public function findUpcomingEventsByRange(float $min, float $max, string $targetOddColumn, int $limit = 5): array
-    {
+    public function findUpcomingEventsByRange(
+        float $min,
+        float $max,
+        string $targetOddColumn,
+        int $limit = 5
+    ): array {
         return $this->repository->findUpcomingEventsByRange($min, $max, $targetOddColumn, $limit);
+    }
+
+    /**
+     * @return TipicoBet[]|int
+     */
+    public function getFixtureByFilter(TipicoBetFilter $filter): array|int
+    {
+        return $this->repository->getFixtureByFilter($filter);
     }
 }

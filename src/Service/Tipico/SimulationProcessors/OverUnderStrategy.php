@@ -35,16 +35,11 @@ class OverUnderStrategy extends AbstractSimulationProcessor implements Simulatio
         parent::__construct($placementService, $simulatorService, $simulationStrategyService, $tipicoBetService);
     }
 
-    public function calculate(Simulator $simulator): void
+    public function calculate(Simulator $simulator): PlacementContainer
     {
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
-        $fixtures = $this->getFittingFixturesWithOverUnderOdds(
-            (float)$parameters[self::PARAMETER_MIN],
-            (float)$parameters[self::PARAMETER_MAX],
-            $this->getOddTargetFromParameters($parameters),
-            $this->getUsedFixtureIds($simulator)
-        );
+        $fixtures = $this->getFixtureForSimulatorBySearchAndTarget($simulator);
 
         $targetValue = (float)$parameters[self::PARAMETER_TARGET_VALUE];
         $targetBetOn = BetOn::from($parameters[self::PARAMETER_TARGET_BET_ON]);
@@ -96,22 +91,12 @@ class OverUnderStrategy extends AbstractSimulationProcessor implements Simulatio
         // store changes
         $container = $this->storePlacementsToDatabase($placementData);
         $this->storeSimulatorChangesToDatabase($simulator, $fixturesActuallyUsed, $container);
+
+        return $container;
     }
 
     public function getIdentifier(): string
     {
         return self::IDENT;
-    }
-
-    public function isHighCalculationAmount(Simulator $simulator): bool
-    {
-        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
-
-        return count($this->getFittingFixturesWithOverUnderOdds(
-                (float)$parameters[self::PARAMETER_MIN],
-                (float)$parameters[self::PARAMETER_MAX],
-                $this->getOddTargetFromParameters($parameters),
-                $this->getUsedFixtureIds($simulator)
-            )) > 100;
     }
 }

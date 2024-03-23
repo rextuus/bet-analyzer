@@ -31,6 +31,8 @@ services:
     App\Service\Tipico\Message\ProcessSimulatorMessageHandler:
         $cashBoxLimit: '%cash_box_min_limit%'
 
+    App\Service\Tipico\Content\Simulator\SimulatorService:
+        $cashBoxLimit: '%cash_box_min_limit%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -88,4 +88,46 @@ final class Placement
         }
         return 'asset/chess.svg';
     }
+
+    public function getOverOdd(): string
+    {
+        $ident = $this->placement->getSimulator()->getIdentifier();
+        $parts = explode('_', $ident);
+        $use = $parts[array_key_last($parts)];
+        $overUnderOdds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds();
+        if($overUnderOdds->count()){
+            return $overUnderOdds->get($use)->getOverValue();
+        }
+        return '-';
+    }
+
+    public function getUnderOdd(): string
+    {
+        $ident = $this->placement->getSimulator()->getIdentifier();
+        $parts = explode('_', $ident);
+        $use = $parts[array_key_last($parts)];
+        $overUnderOdds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds();
+        if($overUnderOdds->count()){
+            return $overUnderOdds->get($use)->getUnderValue();
+        }
+        return '-';
+    }
+
+    public function getBothTeamsScoreOdd(): string
+    {
+        $bothTeamsScoreOdd = $this->placement->getFixtures()->get(0)->getTipicoBothTeamsScoreBet();
+        if($bothTeamsScoreOdd){
+            return $bothTeamsScoreOdd->getConditionTrueValue();
+        }
+        return '-';
+    }
+
+    public function getBothTeamsScoreNotOdd(): string
+    {
+        $bothTeamsScoreOdd = $this->placement->getFixtures()->get(0)->getTipicoBothTeamsScoreBet();
+        if($bothTeamsScoreOdd){
+            return $bothTeamsScoreOdd->getConditionFalseValue();
+        }
+        return '-';
+    }
 }
