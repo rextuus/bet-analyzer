@@ -99,6 +99,48 @@ $borderSize: 4px;
                         background-color: #969696;
                     }
 
+                    .odds{
+                        .additional-content{
+                            display: none;
+                            .over-under-odds{
+                                display: flex;
+                                flex-direction: column;
+                                .over-under-odds-row{
+                                    display: flex;
+                                    margin-top: 3px;
+                                    margin-bottom: 3px;
+                                    .over-under-odds-row-header, .over-under-odds-row-value{
+                                        margin-right: 5px;
+                                        padding: 5px;
+                                        border-radius: 8px;
+                                        background-color: #e8e8e8;
+                                        color: #0a0800;
+                                        margin-right: 2px;
+                                        font-size: 1.2em;
+                                    }
+                                    .over-under-odds-row-header{
+                                        background-color: #a49e9e;
+                                        margin-right: 10px;
+                                    }
+                                    .search-target{
+                                        background-color: #33396c;
+                                    }
+                                }
+                            }
+                        }
+                        .collapsed.additional-content {
+                            display: block;
+                        }
+
+                        .toggle-btn {
+                            cursor: pointer;
+                            color: #b4b4d5;
+                            border: none;
+                            background: none;
+                            outline: none;
+                        }
+                    }
+
                     // teams
                     .teams {
                         display: flex;

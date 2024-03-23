@@ -74,84 +74,6 @@ class TipicoBetRepository extends ServiceEntityRepository
     }
 
     // simulation process
-
-    /**
-     * @return TipicoBet[]
-     */
-    public function findInRange(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
-    {
-        $alreadyUsed = array_merge($alreadyUsed, [-1]);
-
-        $qb = $this->createQueryBuilder('t');
-        $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
-        $qb->setMaxResults($limit);
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * @return TipicoBet[]
-     */
-    public function getFittingFixturesWithOverUnderOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
-    {
-        $alreadyUsed = array_merge($alreadyUsed, [-1]);
-
-        $qb = $this->createQueryBuilder('t');
-        $qb->innerJoin(TipicoOverUnderOdd::class, 'o', 'WITH', 't.id = o.bet');
-        $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
-        $qb->setMaxResults($limit);
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * @return TipicoBet[]
-     */
-    public function getFittingFixturesWithBothTeamsScoreOdds(float $min, float $max, string $targetOddColumn, array $alreadyUsed, int $limit = 100): array
-    {
-        $alreadyUsed = array_merge($alreadyUsed, [-1]);
-
-        $qb = $this->createQueryBuilder('t');
-        $qb->innerJoin(TipicoBothTeamsScoreOdd::class, 'o', 'WITH', 't.id = o.bet');
-        $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
-        $qb->setMaxResults($limit);
-
-        return $qb->getQuery()->getResult();
-    }
-
-    public function getFittingFixturesCount(float $min, float $max, string $targetOddColumn, array $alreadyUsed): int
-    {
-        $alreadyUsed = array_merge($alreadyUsed, [-1]);
-
-        $qb = $this->createQueryBuilder('t');
-        $qb->select('count(t.id)');
-        $this->addSearchQueryParameters($qb, $targetOddColumn, $min, $max, $alreadyUsed);
-
-        return (int)$qb->getQuery()->getSingleScalarResult();
-    }
-
-    public function addSearchQueryParameters(
-        QueryBuilder $qb,
-        string $searchOddColumn,
-        float $min,
-        float $max,
-        array $alreadyUsed
-    ): void
-    {
-        $qb->where($qb->expr()->gte('t.' . $searchOddColumn, ':min'));
-        $qb->setParameter('min', $min);
-        $qb->andWhere($qb->expr()->lte('t.' . $searchOddColumn, ':max'));
-        $qb->setParameter('max', $max);
-        $qb->andWhere($qb->expr()->eq('t.finished', ':finished'));
-        $qb->setParameter('finished', true);
-
-        $qb->andWhere($qb->expr()->notIn('t.id', ':ids'));
-        $qb->setParameter('ids', $alreadyUsed);
-
-        $qb->orderBy('t.startAtTimeStamp', 'ASC');
-    }
-
-
     public function getFixtureByFilter(TipicoBetFilter $filter): array|int
     {
         $qb = $this->createQueryBuilder(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET);
@@ -190,30 +112,28 @@ class TipicoBetRepository extends ServiceEntityRepository
         $qb->setParameter('min', $filter->getMin());
         $qb->andWhere($qb->expr()->lte($searchExpression, ':max'));
         $qb->setParameter('max', $filter->getMax());
-        $qb->andWhere($qb->expr()->eq(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET.'.finished', ':finished'));
-        $qb->setParameter('finished', true);
-
-        $qb->andWhere($qb->expr()->notIn(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.id', ':ids'));
-        $qb->setParameter('ids', $filter->getAlreadyUsedFixtureIds());
 
         $qb->setMaxResults($filter->getLimit());
         $qb->orderBy(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.startAtTimeStamp', $filter->getOrder());
+
+        if ($filter->isHasTimeFrame()) {
+            $currentDate = new DateTime();
+            $currentDate->setTime(0, 0, 0);
+
+            $qb->andWhere($qb->expr()->gt(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.startAtTimeStamp', ':startAfter'));
+            $qb->setParameter('startAfter', $currentDate->getTimestamp() * 1000);
+        } else {
+            $qb->andWhere($qb->expr()->notIn(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.id', ':ids'));
+            $qb->setParameter('ids', $filter->getAlreadyUsedFixtureIds());
+            $qb->andWhere($qb->expr()->eq(TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.finished', ':finished'));
+            $qb->setParameter('finished', true);
+        }
 
         if ($filter->isCountRequest()) {
             $qb->select('count(' . TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.id)');
             return (int)$qb->getQuery()->getSingleScalarResult();
         }
-//dump($qb->getQuery()->getDQL());
-//dump($qb->getQuery()->getParameters());
-//
-//if (count($qb->getQuery()->getResult())){
-//    /** @var TipicoBet $res */
-//    $res = $qb->getQuery()->getResult()[0];
-//    foreach ($res->getTipicoOverUnderOdds() as $a){
-//        dump($a->getTargetValue().' '.$a->getOverValue().' '.$a->getUnderValue().' ');
-//    }
-//    dd();
-//}
+
         return $qb->getQuery()->getResult();
     }
 }

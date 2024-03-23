@@ -61,8 +61,7 @@
                     </div>
                     <div class="simulator-detail-widget-content">
                         <div class="upcoming-fixtures-detail">
-                            {{ component('UpcomingFixture', {'fixtures' : nextPlacements, 'betOn' : betOn, 'overUnderTarget': overUnderTarget }) }}
-
+                            {{ component('UpcomingFixture', {'simulator' : simulator, 'fixtures' : nextPlacements, 'targetBetOn' : targetBetOn, 'searchBetOn': searchBetOn, 'overUnderTarget': overUnderTarget }) }}
                         </div>
                     </div>
                 </div>

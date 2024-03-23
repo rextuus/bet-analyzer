@@ -118,3 +118,19 @@ document.addEventListener('DOMContentLoaded', function() {
         setInterval(updateProgressBar, 1000);
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const oddsContainers = document.querySelectorAll('.content.odds');
+
+    oddsContainers.forEach(container => {
+        const toggleBtn = container.querySelector('.toggle-btn');
+        const additionalContent = container.querySelector('.additional-content'); // Selecting the additional content
+        toggleBtn.addEventListener('click', function () {
+            toggleAdditionalContent(additionalContent); // Passing additional content to the toggle function
+        });
+    });
+
+    function toggleAdditionalContent(additionalContent) {
+        additionalContent.classList.toggle('collapsed');
+    }
+});

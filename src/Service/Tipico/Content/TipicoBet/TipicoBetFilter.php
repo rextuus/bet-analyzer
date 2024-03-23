@@ -30,6 +30,8 @@ class TipicoBetFilter
     private string $order = 'ASC';
     private bool $countRequest = false;
     private float $targetValue;
+
+    private bool $hasTimeFrame = false;
     public function isIncludeBothTeamsScore(): bool
     {
         return $this->includeBothTeamsScore;
@@ -159,6 +161,17 @@ class TipicoBetFilter
     public function setTargetValue(float $targetValue): TipicoBetFilter
     {
         $this->targetValue = $targetValue;
+        return $this;
+    }
+
+    public function isHasTimeFrame(): bool
+    {
+        return $this->hasTimeFrame;
+    }
+
+    public function setHasTimeFrame(bool $hasTimeFrame): TipicoBetFilter
+    {
+        $this->hasTimeFrame = $hasTimeFrame;
         return $this;
     }
 }

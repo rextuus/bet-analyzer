@@ -72,97 +72,17 @@ class AbstractSimulationProcessor
         $this->simulatorService->update($simulator, $simulatorData);
     }
 
-    /**
-     * @return int[]
-     */
-    protected function getUsedFixtureIds(Simulator $simulator): array
-    {
-        return array_map(
-            function (TipicoBet $tipicoBet) {
-                return $tipicoBet->getId();
-            },
-            $simulator->getFixtures()->toArray()
-        );
-    }
-
     public function isHighCalculationAmount(Simulator $simulator): bool
     {
-        $result = $this->getFixtureForSimulatorBySearchAndTarget($simulator, true);
-        if (is_numeric($result) && $result > 100) {
-            return true;
-        }
-
-        return false;
+        return $this->tipicoBetService->getFixtureForSimulatorByFilterCount($simulator) > 100;
     }
 
     /**
-     * @return TipicoBet[]|int
+     * @return TipicoBet[]
      */
-    public function getFixtureForSimulatorBySearchAndTarget(Simulator $simulator, $isCount = false): array|int
+    public function getFixtureForSimulatorBySearchAndTarget(Simulator $simulator): array
     {
-        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
-
-        $searchBeton = BetOn::from($parameters[self::PARAMETER_SEARCH_BET_ON]);
-        $targetBeton = BetOn::from($parameters[self::PARAMETER_TARGET_BET_ON]);
-        $min = (float)$parameters[self::PARAMETER_MIN];
-        $max = (float)$parameters[self::PARAMETER_MAX];
-        $usedFixtures = $this->getUsedFixtureIds($simulator);
-        if ($usedFixtures === []) {
-            $usedFixtures[] = -1;
-        }
-
-        $filter = new TipicoBetFilter();
-        $filter->setMin($min);
-        $filter->setMax($max);
-        $filter->setAlreadyUsedFixtureIds($usedFixtures);
-
-        match ($searchBeton) {
-            BetOn::HOME, BetOn::DRAW, BetOn::AWAY =>
-            $searchTableAlias = TipicoBetFilter::TABLE_ALIAS_TIPICO_BET,
-            BetOn::OVER, BetOn::UNDER =>
-            $searchTableAlias = TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_OVER_UNDER,
-            BetOn::BOTH_TEAMS_SCORE, BetOn::BOTH_TEAMS_SCORE_NOT =>
-            $searchTableAlias = TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_BOTH_SCORE,
-            BetOn::H2H_HOME, BetOn::H2H_AWAY =>
-            $searchTableAlias = TipicoBetFilter::TABLE_ALIAS_TIPICO_HEAD_TO_HEAD,
-        };
-
-        match ($searchBeton) {
-            BetOn::HOME => $searchOddColumn = 'oddHome',
-            BetOn::DRAW => $searchOddColumn = 'oddDraw',
-            BetOn::AWAY => $searchOddColumn = 'oddAway',
-            BetOn::OVER => $searchOddColumn = 'overValue',
-            BetOn::UNDER => $searchOddColumn = 'underValue',
-            BetOn::BOTH_TEAMS_SCORE => $searchOddColumn = 'conditionTrueValue',
-            BetOn::BOTH_TEAMS_SCORE_NOT => $searchOddColumn = 'conditionFalseValue',
-            BetOn::H2H_HOME => $searchOddColumn = 'homeTeamValue',
-            BetOn::H2H_AWAY => $searchOddColumn = 'awayTeamValue',
-        };
-
-        $filter->setSearchTableAlias($searchTableAlias);
-        $filter->setSearchOddColumn($searchOddColumn);
-        $filter->setCountRequest($isCount);
-
-        if (
-            $searchBeton === BetOn::OVER ||
-            $searchBeton === BetOn::UNDER ||
-            $targetBeton === BetOn::OVER ||
-            $targetBeton === BetOn::UNDER)
-        {
-            $filter->setIncludeOverUnder(true);
-            $filter->setTargetValue((float) $parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET]);
-        }
-
-        if (
-            $searchBeton === BetOn::BOTH_TEAMS_SCORE ||
-            $searchBeton === BetOn::BOTH_TEAMS_SCORE_NOT ||
-            $targetBeton === BetOn::BOTH_TEAMS_SCORE ||
-            $targetBeton === BetOn::BOTH_TEAMS_SCORE_NOT)
-        {
-            $filter->setIncludeBothTeamsScore(true);
-        }
-//dump($filter);
-        return $this->tipicoBetService->getFixtureByFilter($filter);
+        return $this->tipicoBetService->getFixtureForSimulatorByFilter($simulator);
     }
 
     /**

@@ -3,7 +3,9 @@
 namespace App\Twig\Components;
 
 use App\Entity\TipicoBet;
+use App\Entity\TipicoOverUnderOdd;
 use App\Service\Evaluation\BetOn;
+use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationStatisticService;
 use App\Twig\Data\UpcomingFixtureOdd;
 use DateInterval;
@@ -18,7 +20,10 @@ final class UpcomingFixture
      */
     public array $fixtures;
 
-    public BetOn $betOn;
+    public \App\Entity\Simulator $simulator;
+
+    public BetOn $targetBetOn;
+    public BetOn $searchBetOn;
     public ?float $overUnderTarget = null;
 
     public function getRows(): array
@@ -35,10 +40,10 @@ final class UpcomingFixture
             $expectedEnd->add($interval);
 
             $startedClass = 'non-started';
-            if ($current > $start){
+            if ($current > $start) {
                 $startedClass = 'started';
 
-                if ($expectedEnd > $current){
+                if ($expectedEnd > $current) {
                     $startedClass = 'running';
                 }
             }
@@ -47,44 +52,44 @@ final class UpcomingFixture
             $awayGoals = 0;
             $classFinished = 'non-finished';
             $classSimulatorWon = 'non-simulator-won';
-            if ($fixture->isFinished()){
+            if ($fixture->isFinished()) {
                 $homeGoals = $fixture->getEndScoreHome();
                 $awayGoals = $fixture->getEndScoreAway();
                 $totalGoals = $homeGoals + $awayGoals;
                 $result = BetOn::DRAW;
-                if ($homeGoals > $awayGoals){
+                if ($homeGoals > $awayGoals) {
                     $result = BetOn::HOME;
                 }
-                if ($awayGoals > $homeGoals){
+                if ($awayGoals > $homeGoals) {
                     $result = BetOn::AWAY;
                 }
 
-                if($result === $this->betOn){
+                if ($result === $this->targetBetOn) {
                     $classSimulatorWon = 'simulator-won';
                 }
 
                 // over under
-                if ($this->betOn === BetOn::OVER && $totalGoals > $this->overUnderTarget){
+                if ($this->targetBetOn === BetOn::OVER && $totalGoals > $this->overUnderTarget) {
                     $classSimulatorWon = 'simulator-won';
                 }
-                if ($this->betOn === BetOn::UNDER && $totalGoals < $this->overUnderTarget){
+                if ($this->targetBetOn === BetOn::UNDER && $totalGoals < $this->overUnderTarget) {
                     $classSimulatorWon = 'simulator-won';
                 }
 
                 // both score
                 $bothScored = $homeGoals > 0 && $awayGoals > 0;
-                if ($this->betOn === BetOn::BOTH_TEAMS_SCORE && $bothScored){
+                if ($this->targetBetOn === BetOn::BOTH_TEAMS_SCORE && $bothScored) {
                     $classSimulatorWon = 'simulator-won';
                 }
-                if ($this->betOn === BetOn::BOTH_TEAMS_SCORE_NOT && !$bothScored){
+                if ($this->targetBetOn === BetOn::BOTH_TEAMS_SCORE_NOT && !$bothScored) {
                     $classSimulatorWon = 'simulator-won';
                 }
 
                 $classFinished = 'finished';
             }
 
-            $url = '<a href="https://www.google.com/search?q='.$fixture->getHomeTeamName().' - '.$fixture->getAwayTeamName().' '.$start->format('d.m.y H:i').' result" target="_blank">Google</a>';
-            $tipicoUrl = '<a href=https://sports.tipico.de/de/heute/default/event/'.$fixture->getTipicoId().' result" target="_blank">Tipico</a>';
+            $url = '<a href="https://www.google.com/search?q=' . $fixture->getHomeTeamName() . ' - ' . $fixture->getAwayTeamName() . ' ' . $start->format('d.m.y H:i') . ' result" target="_blank">Google</a>';
+            $tipicoUrl = '<a href=https://sports.tipico.de/de/heute/default/event/' . $fixture->getTipicoId() . ' result" target="_blank">Tipico</a>';
 
             $leftOdd = $this->getLeftOddInfo($fixture);
             $middleOdd = $this->getMiddleOddInfo($fixture);
@@ -105,9 +110,17 @@ final class UpcomingFixture
                             <span class="result-home">%d</span>
                         </span>
                         <span class="content odds">
-                            <span class="%s">%.2f</span> 
-                            <span class="%s">%s</span> 
-                            <span class="%s">%.2f</span>
+                            <span class="initial-content">
+                                <span class="%s">%.2f</span> 
+                                <span class="%s">%s</span> 
+                                <span class="%s">%.2f</span>
+                            </span> 
+                            <span class="additional-content">
+                            <span class="initial-content">
+                               %s
+                            </span> 
+                            </span>
+                            <button class="toggle-btn">All</button>
                         </span> 
                         <span class="content url">
                             <span>%s</span>
@@ -129,6 +142,7 @@ final class UpcomingFixture
                 $middleOdd->getOddValue(),
                 $rightOdd->getCssClass(),
                 $rightOdd->getOddValue(),
+                $this->getOverUnderOdds($fixture),
                 $url,
                 $tipicoUrl
             );
@@ -137,10 +151,90 @@ final class UpcomingFixture
         return $mapped;
     }
 
+    public function getOverUnderOdds(TipicoBet $fixture): string
+    {
+        $odds = $fixture->getTipicoOverUnderOdds()->toArray();
+        if (count($odds) === 0) {
+            return '-';
+        }
+
+        usort(
+            $odds,
+            function (TipicoOverUnderOdd $odd1, TipicoOverUnderOdd $odd2) {
+                return $odd1->getTargetValue() > $odd2->getTargetValue();
+            }
+        );
+
+        $target = null;
+        if ($this->searchBetOn === BetOn::UNDER || $this->searchBetOn === BetOn::OVER){
+            $parameters = json_decode($this->simulator->getStrategy()->getParameters(), true);
+            $target = $parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET];
+        }
+
+        $rows = [];
+        foreach ($odds as $index => $odd) {
+            $targetClassOver = '';
+            $targetClassUnder = '';
+            if ((float) $target === $odd->getTargetValue()){
+                if($this->searchBetOn === BetOn::OVER){
+                    $targetClassOver = 'search-target';
+                }
+                if($this->searchBetOn === BetOn::UNDER){
+                    $targetClassUnder = 'search-target';
+                }
+            }
+
+            $rows[] = sprintf(
+                '
+                    <span class="over-under-odds-row-header">%.1f</span> 
+                    <span class="over-under-odds-row-value %s">%s</span>     
+                    <span class="over-under-odds-row-value %s">%s</span>
+                        ',
+                $odd->getTargetValue(),
+                $targetClassOver,
+                $odd->getOverValue(),
+                $targetClassUnder,
+                $odd->getUnderValue(),
+            );
+        }
+
+        return sprintf(
+            ' 
+                    <span class="over-under-odds">
+                        Over/Under
+                        <span class="over-under-odds-row">
+                            %s  
+                        </span> 
+                         <span class="over-under-odds-row">
+                            %s    
+                        </span> 
+                        <span class="over-under-odds-row">
+                            %s    
+                        </span> 
+                        <span class="over-under-odds-row">
+                            %s  
+                        </span> 
+                         <span class="over-under-odds-row">
+                            %s    
+                        </span> 
+                        <span class="over-under-odds-row">
+                            %s    
+                        </span> 
+                    </span>
+                    ',
+            $rows[0],
+            $rows[1],
+            $rows[2],
+            $rows[3],
+            $rows[4],
+            $rows[5],
+        );
+    }
+
     private function getLeftOddInfo(TipicoBet $fixture): UpcomingFixtureOdd
     {
         $oddInfo = new UpcomingFixtureOdd();
-        match($this->betOn){
+        match ($this->targetBetOn) {
             BetOn::HOME, BetOn::DRAW, BetOn::AWAY => $value = $fixture->getOddHome(),
             BetOn::OVER, BetOn::UNDER => $value = $this->getOverOdd($fixture),
             BetOn::BOTH_TEAMS_SCORE, BetOn::BOTH_TEAMS_SCORE_NOT => $value = $fixture->getTipicoBothTeamsScoreBet()->getConditionTrueValue(),
@@ -148,7 +242,7 @@ final class UpcomingFixture
         };
         $oddInfo->setOddValue($value);
 
-        match($this->betOn){
+        match ($this->targetBetOn) {
             BetOn::HOME, BetOn::OVER, BetOn::BOTH_TEAMS_SCORE => $cssClass = 'target',
             BetOn::DRAW, BetOn::AWAY, BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE_NOT => $cssClass = 'non-target',
             default => $cssClass = 'target-notdefined',
@@ -161,14 +255,14 @@ final class UpcomingFixture
     private function getRightOddInfo(TipicoBet $fixture): UpcomingFixtureOdd
     {
         $oddInfo = new UpcomingFixtureOdd();
-        match($this->betOn){
+        match ($this->targetBetOn) {
             BetOn::HOME, BetOn::DRAW, BetOn::AWAY => $value = $fixture->getOddAway(),
             BetOn::OVER, BetOn::UNDER => $value = $this->getUnderOdd($fixture),
             BetOn::BOTH_TEAMS_SCORE, BetOn::BOTH_TEAMS_SCORE_NOT => $value = $fixture->getTipicoBothTeamsScoreBet()->getConditionFalseValue(),
         };
         $oddInfo->setOddValue($value);
 
-        match($this->betOn){
+        match ($this->targetBetOn) {
             BetOn::AWAY, BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE_NOT => $cssClass = 'target',
             BetOn::HOME, BetOn::DRAW, BetOn::OVER, BetOn::BOTH_TEAMS_SCORE => $cssClass = 'non-target',
         };
@@ -180,15 +274,15 @@ final class UpcomingFixture
     private function getMiddleOddInfo(TipicoBet $fixture): UpcomingFixtureOdd
     {
         $oddInfo = new UpcomingFixtureOdd();
-        match($this->betOn){
+        match ($this->targetBetOn) {
             BetOn::DRAW, BetOn::HOME, BetOn::AWAY, => $value = $fixture->getOddDraw(),
             BetOn::OVER, BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE, BetOn::BOTH_TEAMS_SCORE_NOT => $value = 0.0,
         };
         $oddInfo->setOddValue($value);
 
-        match($this->betOn){
+        match ($this->targetBetOn) {
             BetOn::DRAW, => $cssClass = 'target',
-            BetOn::HOME, BetOn::AWAY, BetOn::OVER, BetOn::BOTH_TEAMS_SCORE,  BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE_NOT => $cssClass = 'non-target',
+            BetOn::HOME, BetOn::AWAY, BetOn::OVER, BetOn::BOTH_TEAMS_SCORE, BetOn::UNDER, BetOn::BOTH_TEAMS_SCORE_NOT => $cssClass = 'non-target',
         };
         $oddInfo->setCssClass($cssClass);
 
@@ -197,8 +291,8 @@ final class UpcomingFixture
 
     private function getOverOdd(TipicoBet $fixture): float
     {
-        foreach ($fixture->getTipicoOverUnderOdds() as $overUnderOdd){
-            if ($overUnderOdd->getTargetValue() === $this->overUnderTarget){
+        foreach ($fixture->getTipicoOverUnderOdds() as $overUnderOdd) {
+            if ($overUnderOdd->getTargetValue() === $this->overUnderTarget) {
                 return $overUnderOdd->getOverValue();
             }
         }
@@ -207,8 +301,8 @@ final class UpcomingFixture
 
     private function getUnderOdd(TipicoBet $fixture): float
     {
-        foreach ($fixture->getTipicoOverUnderOdds() as $overUnderOdd){
-            if ($overUnderOdd->getTargetValue() === $this->overUnderTarget){
+        foreach ($fixture->getTipicoOverUnderOdds() as $overUnderOdd) {
+            if ($overUnderOdd->getTargetValue() === $this->overUnderTarget) {
                 return $overUnderOdd->getUnderValue();
             }
         }

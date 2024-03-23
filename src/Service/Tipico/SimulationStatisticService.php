@@ -375,6 +375,9 @@ class SimulationStatisticService
      */
     public function getUpcomingEventsForSimulator(Simulator $simulator, int $limit = 50): array
     {
+        return $this->tipicoBetService->getFixtureForUpcomingFixturesByFilterCount($simulator);
+
+
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
 
         $targetOddColumn = 'oddHome';

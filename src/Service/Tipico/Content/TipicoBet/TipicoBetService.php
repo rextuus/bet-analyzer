@@ -3,8 +3,12 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\TipicoBet;
 
+use App\Entity\Simulator;
 use App\Entity\TipicoBet;
+use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
+use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
+use Exception;
 
 class TipicoBetService
 {
@@ -63,10 +67,127 @@ class TipicoBetService
     }
 
     /**
-     * @return TipicoBet[]|int
+     * @return TipicoBet[]
+     * @throws Exception
      */
-    public function getFixtureByFilter(TipicoBetFilter $filter): array|int
+    public function getFixtureForUpcomingFixturesByFilterCount(Simulator $simulator): array
     {
-        return $this->repository->getFixtureByFilter($filter);
+        $filter = $this->createBaseFilterForSimulator($simulator);
+        $filter->setHasTimeFrame(true);
+
+        $result = $this->repository->getFixtureByFilter($filter);
+        if (!is_array($result)){
+            throw new Exception('Expected array');
+        }
+
+        return $result;
+    }
+
+    public function getFixtureForSimulatorByFilterCount(Simulator $simulator): int
+    {
+        $filter = $this->createBaseFilterForSimulator($simulator);
+        $filter->setCountRequest(true);
+
+        $result = $this->repository->getFixtureByFilter($filter);
+        if (!is_numeric($result)){
+            throw new Exception('Expected int');
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return TipicoBet[]
+     * @throws Exception
+     */
+    public function getFixtureForSimulatorByFilter(Simulator $simulator): array
+    {
+        $filter = $this->createBaseFilterForSimulator($simulator);
+
+        $result = $this->repository->getFixtureByFilter($filter);
+        if (!is_array($result)){
+            throw new Exception('Expected array');
+        }
+
+        return $result;
+    }
+
+    private function createBaseFilterForSimulator(Simulator $simulator): TipicoBetFilter
+    {
+        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
+
+        $searchBeton = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
+        $targetBeton = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON]);
+        $min = (float)$parameters[AbstractSimulationProcessor::PARAMETER_MIN];
+        $max = (float)$parameters[AbstractSimulationProcessor::PARAMETER_MAX];
+        $usedFixtures = $this->getUsedFixtureIds($simulator);
+        if ($usedFixtures === []) {
+            $usedFixtures[] = -1;
+        }
+
+        $filter = new TipicoBetFilter();
+        $filter->setMin($min);
+        $filter->setMax($max);
+        $filter->setAlreadyUsedFixtureIds($usedFixtures);
+
+        match ($searchBeton) {
+            BetOn::HOME, BetOn::DRAW, BetOn::AWAY =>
+            $searchTableAlias = TipicoBetFilter::TABLE_ALIAS_TIPICO_BET,
+            BetOn::OVER, BetOn::UNDER =>
+            $searchTableAlias = TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_OVER_UNDER,
+            BetOn::BOTH_TEAMS_SCORE, BetOn::BOTH_TEAMS_SCORE_NOT =>
+            $searchTableAlias = TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_BOTH_SCORE,
+            BetOn::H2H_HOME, BetOn::H2H_AWAY =>
+            $searchTableAlias = TipicoBetFilter::TABLE_ALIAS_TIPICO_HEAD_TO_HEAD,
+        };
+
+        match ($searchBeton) {
+            BetOn::HOME => $searchOddColumn = 'oddHome',
+            BetOn::DRAW => $searchOddColumn = 'oddDraw',
+            BetOn::AWAY => $searchOddColumn = 'oddAway',
+            BetOn::OVER => $searchOddColumn = 'overValue',
+            BetOn::UNDER => $searchOddColumn = 'underValue',
+            BetOn::BOTH_TEAMS_SCORE => $searchOddColumn = 'conditionTrueValue',
+            BetOn::BOTH_TEAMS_SCORE_NOT => $searchOddColumn = 'conditionFalseValue',
+            BetOn::H2H_HOME => $searchOddColumn = 'homeTeamValue',
+            BetOn::H2H_AWAY => $searchOddColumn = 'awayTeamValue',
+        };
+
+        $filter->setSearchTableAlias($searchTableAlias);
+        $filter->setSearchOddColumn($searchOddColumn);
+
+        if (
+            $searchBeton === BetOn::OVER ||
+            $searchBeton === BetOn::UNDER ||
+            $targetBeton === BetOn::OVER ||
+            $targetBeton === BetOn::UNDER)
+        {
+            $filter->setIncludeOverUnder(true);
+            $filter->setTargetValue((float) $parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET]);
+        }
+
+        if (
+            $searchBeton === BetOn::BOTH_TEAMS_SCORE ||
+            $searchBeton === BetOn::BOTH_TEAMS_SCORE_NOT ||
+            $targetBeton === BetOn::BOTH_TEAMS_SCORE ||
+            $targetBeton === BetOn::BOTH_TEAMS_SCORE_NOT)
+        {
+            $filter->setIncludeBothTeamsScore(true);
+        }
+
+        return $filter;
+    }
+
+    /**
+     * @return int[]
+     */
+    protected function getUsedFixtureIds(Simulator $simulator): array
+    {
+        return array_map(
+            function (TipicoBet $tipicoBet) {
+                return $tipicoBet->getId();
+            },
+            $simulator->getFixtures()->toArray()
+        );
     }
 }

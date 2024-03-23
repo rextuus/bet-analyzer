@@ -131,7 +131,8 @@ class TipicoSimulationController extends AbstractController
         if($strategy->getIdentifier() === AgainstStrategy::IDENT){
             $target = AgainstStrategy::PARAMETER_AGAINST;
         }
-        $betOn = BetOn::from($parameters[$target]);
+        $targetBetOn = BetOn::from($parameters[$target]);
+        $searchBetOn = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
 
         $overUnderTarget = null;
         if($strategy->getIdentifier() === OverUnderStrategy::IDENT){
@@ -149,7 +150,8 @@ class TipicoSimulationController extends AbstractController
             'dailyDistributionChart' => $dailyDistributionChart,
             'valueToWinDistributionChart' => $valueToWinDistributionChart,
             'nextPlacements' => $nextPlacements,
-            'betOn' => $betOn,
+            'targetBetOn' => $targetBetOn,
+            'searchBetOn' => $searchBetOn,
             'overUnderTarget' => $overUnderTarget,
             'lastWeekStatistic' => $this->simulationStatisticService->getPlacementChangeComparedToDayBefore($simulator),
         ]);
