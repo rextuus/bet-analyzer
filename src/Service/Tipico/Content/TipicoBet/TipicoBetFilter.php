@@ -29,6 +29,7 @@ class TipicoBetFilter
     private int $limit = 100;
     private string $order = 'ASC';
     private bool $countRequest = false;
+    private float $targetValue;
     public function isIncludeBothTeamsScore(): bool
     {
         return $this->includeBothTeamsScore;
@@ -147,6 +148,17 @@ class TipicoBetFilter
     public function setCountRequest(bool $countRequest): TipicoBetFilter
     {
         $this->countRequest = $countRequest;
+        return $this;
+    }
+
+    public function getTargetValue(): float
+    {
+        return $this->targetValue;
+    }
+
+    public function setTargetValue(float $targetValue): TipicoBetFilter
+    {
+        $this->targetValue = $targetValue;
         return $this;
     }
 }

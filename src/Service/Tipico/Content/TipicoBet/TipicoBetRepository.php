@@ -171,9 +171,11 @@ class TipicoBetRepository extends ServiceEntityRepository
         }
         if ($filter->isIncludeOverUnder()) {
             $condition = sprintf(
-                '%s.id = %s.bet',
+                '%s.id = %s.bet and %s.targetValue = %s',
                 TipicoBetFilter::TABLE_ALIAS_TIPICO_BET,
-                TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_OVER_UNDER
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_OVER_UNDER,
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_OVER_UNDER,
+                $filter->getTargetValue(),
             );
             $qb->innerJoin(TipicoOverUnderOdd::class,
                 TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_OVER_UNDER,
@@ -201,7 +203,17 @@ class TipicoBetRepository extends ServiceEntityRepository
             $qb->select('count(' . TipicoBetFilter::TABLE_ALIAS_TIPICO_BET . '.id)');
             return (int)$qb->getQuery()->getSingleScalarResult();
         }
-
+//dump($qb->getQuery()->getDQL());
+//dump($qb->getQuery()->getParameters());
+//
+//if (count($qb->getQuery()->getResult())){
+//    /** @var TipicoBet $res */
+//    $res = $qb->getQuery()->getResult()[0];
+//    foreach ($res->getTipicoOverUnderOdds() as $a){
+//        dump($a->getTargetValue().' '.$a->getOverValue().' '.$a->getUnderValue().' ');
+//    }
+//    dd();
+//}
         return $qb->getQuery()->getResult();
     }
 }

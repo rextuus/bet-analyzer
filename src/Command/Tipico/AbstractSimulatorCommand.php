@@ -3,12 +3,16 @@ declare(strict_types=1);
 
 namespace App\Command\Tipico;
 
+use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
+use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -20,12 +24,52 @@ use Symfony\Component\Console\Command\Command;
 )]
 class AbstractSimulatorCommand extends Command
 {
+    protected ?string $searchBetOnTargetValue = null;
+
     public function __construct(
         private readonly SimulationStrategyService $simulationStrategyService,
         private readonly SimulatorService $simulatorService,
     )
     {
         parent::__construct();
+    }
+
+    protected function validateDefaultParameters(InputInterface $input): bool
+    {
+        $searchBetOn = $input->getArgument('searchBetOn');
+        $targetBetOn = $input->getArgument('targetBetOn');
+
+        if (!BetOn::tryFrom($searchBetOn) || !BetOn::tryFrom($targetBetOn)) {
+            throw new Exception('Invalid Beton');
+        }
+        $searchBetOn = BetOn::from($input->getArgument('searchBetOn'));
+        $targetBetOn = BetOn::from($input->getArgument('targetBetOn'));
+
+        // over/under search need an extra param for the target value
+        $targets = [0.5, 1.5, 2.5, 3.5, 4.5, 5.5];
+        if ($searchBetOn === BetOn::OVER || $searchBetOn === BetOn::UNDER) {
+            $target = $input->getArgument('searchBetOnTargetValue');
+            if (!$target || !in_array($target, $targets)){
+                throw new Exception('OVER/UNDER search need a target');
+            }
+            $this->searchBetOnTargetValue = $target;
+        }
+
+        return true;
+    }
+
+    protected function addOptionalParameters(array $parameters): array
+    {
+        $parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET] = $this->searchBetOnTargetValue;
+        return $parameters;
+    }
+
+    protected function getPotentialSearchTargetName(): string
+    {
+        if ($this->searchBetOnTargetValue === null){
+            return '';
+        }
+        return '_['.(string)round((float)$this->searchBetOnTargetValue).']';
     }
 
     protected function storeSimulator(SimulationStrategyData $data, string $identifier): void
@@ -45,7 +89,7 @@ class AbstractSimulatorCommand extends Command
     protected function simulatorAlreadyExists(string $identifier): bool
     {
         $sim = $this->simulatorService->findBy(['identifier' => $identifier]);
-        if ($sim){
+        if ($sim) {
             return true;
         }
         return false;

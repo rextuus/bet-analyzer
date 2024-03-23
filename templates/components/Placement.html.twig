@@ -19,18 +19,15 @@
                     <td class="{{ this.awayClass }}">{{ placement.fixtures[0].oddAway }}</td>
                 </tr>
                 <tr>
-                    <td>Over/Under</td>
-                    <td></td>
-                    <td class="{{ this.homeClass }}">{{ this.OverOdd }}</td>
-                    <td class="{{ this.awayClass }}">{{ this.UnderOdd }}</td>
-                </tr>
-                <tr>
                     <td>Both Score</td>
                     <td></td>
                     <td class="{{ this.homeClass }}">{{ this.BothTeamsScoreOdd }}</td>
                     <td class="{{ this.awayClass }}">{{ this.BothTeamsScoreNotOdd }}</td>
                 </tr>
             </table>
+        </td>
+        <td>
+            {{ this.OverUnderOddsTable|raw }}
         </td>
         <td>{{ placement.fixtures[0].result.value }}</td>
         <td>

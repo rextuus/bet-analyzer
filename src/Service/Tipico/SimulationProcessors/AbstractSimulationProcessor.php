@@ -18,6 +18,7 @@ use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 class AbstractSimulationProcessor
 {
     public const PARAMETER_SEARCH_BET_ON = 'searchBetOn';
+    public const PARAMETER_SEARCH_BET_ON_TARGET = 'searchBetOnTarget';
     public const PARAMETER_TARGET_BET_ON = 'targetBetOn';
     public const PARAMETER_MIN = 'min';
     public const PARAMETER_MAX = 'max';
@@ -149,6 +150,7 @@ class AbstractSimulationProcessor
             $targetBeton === BetOn::UNDER)
         {
             $filter->setIncludeOverUnder(true);
+            $filter->setTargetValue((float) $parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET]);
         }
 
         if (
@@ -159,7 +161,7 @@ class AbstractSimulationProcessor
         {
             $filter->setIncludeBothTeamsScore(true);
         }
-
+//dump($filter);
         return $this->tipicoBetService->getFixtureByFilter($filter);
     }
 

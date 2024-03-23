@@ -33,7 +33,9 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
     {
         $this
             ->addArgument('searchBetOn', InputArgument::REQUIRED, 'Argument description')
-            ->addArgument('targetBetOn', InputArgument::REQUIRED, 'Argument description');
+            ->addArgument('targetBetOn', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('searchBetOnTargetValue', InputArgument::OPTIONAL, 'Argument description')
+        ;
     }
 
     /**
@@ -41,15 +43,10 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $searchBetOn = $input->getArgument('searchBetOn');
-        $targetBetOn = $input->getArgument('targetBetOn');
+        $this->validateDefaultParameters($input);
+        $searchBetOn = BetOn::from($input->getArgument('searchBetOn'));
+        $targetBetOn = BetOn::from($input->getArgument('targetBetOn'));
 
-        if (!BetOn::tryFrom($searchBetOn) || !BetOn::tryFrom($targetBetOn)) {
-            throw new Exception('Invalid Beton');
-        }
-
-        $searchBetOn = BetOn::from($searchBetOn);
-        $targetBetOn = BetOn::from($targetBetOn);
         if ($targetBetOn !== BetOn::OVER && $targetBetOn !== BetOn::UNDER){
             throw new Exception('Invalid Beton [over|under]');
         }
@@ -58,6 +55,8 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
         foreach ($targetValues as $targetValue) {
             $range = $this->generateFloatRange(1.0, 5.9, 0.1);
 
+            $potentialSearchTargetName = $this->getPotentialSearchTargetName();
+
             $targetName = (string)floor($targetValue);
             if ($targetBetOn === BetOn::UNDER){
                 $targetName = (string)round($targetValue);
@@ -65,9 +64,10 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
 
             foreach ($range as $item) {
                 $ident = sprintf(
-                    'ag_%s_search_%s_%s_%s_target_%s_%s',
+                    'ag_%s_search_%s%s_%s_%s_target_%s_[%s]',
                     OverUnderStrategy::IDENT,
                     $searchBetOn->name,
+                    $potentialSearchTargetName,
                     str_replace('.', '', (string)$item[0] * 10),
                     str_replace('.', '', (string)$item[1] * 10),
                     $targetBetOn->name,
@@ -101,6 +101,8 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
             AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON => $targetBetOn,
             OverUnderStrategy::PARAMETER_TARGET_VALUE => $targetValue,
         ];
+
+        $parameters = $this->addOptionalParameters($parameters);
 
         $simulationStrategyData = new SimulationStrategyData();
         $simulationStrategyData->setIdentifier(OverUnderStrategy::IDENT);

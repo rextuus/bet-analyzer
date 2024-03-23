@@ -2,6 +2,7 @@
 
 namespace App\Twig\Components;
 
+use App\Entity\TipicoOverUnderOdd;
 use App\Entity\TipicoPlacement;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -129,5 +130,41 @@ final class Placement
             return $bothTeamsScoreOdd->getConditionFalseValue();
         }
         return '-';
+    }
+
+    public function getOverUnderOddsTable(): string
+    {
+        $odds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds()->toArray();
+        if (count($odds) === 0){
+            return '-';
+        }
+
+        usort(
+            $odds,
+            function (TipicoOverUnderOdd $odd1, TipicoOverUnderOdd $odd2) {
+                return $odd1->getTargetValue() > $odd2->getTargetValue();
+            }
+        );
+
+        $rows = [];
+        foreach ($odds as $index => $odd){
+            $rows[] = sprintf(
+                '<tr><td>%.1f</td><td>%s</td><td>%s</td></tr>',
+                $odd->getTargetValue(),
+                $odd->getOverValue(),
+                $odd->getUnderValue(),
+            );
+        }
+
+        return sprintf(
+            '<table>%s%s%s%s%s%s%s</table>',
+            '<tr><td></td><td>Over</td><td>Under</td></tr>',
+            $rows[0],
+            $rows[1],
+            $rows[2],
+            $rows[3],
+            $rows[4],
+            $rows[5],
+        );
     }
 }
