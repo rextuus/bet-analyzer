@@ -94,9 +94,9 @@ final class Placement
         $ident = $this->placement->getSimulator()->getIdentifier();
         $parts = explode('_', $ident);
         $use = $parts[array_key_last($parts)];
-        $overUnderOdds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds();
-        if($overUnderOdds->count()){
-            return $overUnderOdds->get($use)->getOverValue();
+        $overUnderOdds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds()->toArray();
+        if(count($overUnderOdds) && array_key_exists($use, $overUnderOdds)){
+            return $overUnderOdds[$use]->getOverValue();
         }
         return '-';
     }
@@ -106,9 +106,9 @@ final class Placement
         $ident = $this->placement->getSimulator()->getIdentifier();
         $parts = explode('_', $ident);
         $use = $parts[array_key_last($parts)];
-        $overUnderOdds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds();
-        if($overUnderOdds->count()){
-            return $overUnderOdds->get($use)->getUnderValue();
+        $overUnderOdds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds()->toArray();
+        if(count($overUnderOdds) && array_key_exists($use, $overUnderOdds)){
+            return $overUnderOdds[$use]->getUnderValue();
         }
         return '-';
     }
