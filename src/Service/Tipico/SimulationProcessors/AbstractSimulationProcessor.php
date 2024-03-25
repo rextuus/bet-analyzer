@@ -12,7 +12,6 @@ use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
-use App\Service\Tipico\Content\TipicoBet\TipicoBetFilter;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 
 class AbstractSimulationProcessor

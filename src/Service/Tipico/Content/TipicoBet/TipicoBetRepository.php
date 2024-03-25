@@ -4,10 +4,10 @@ namespace App\Service\Tipico\Content\TipicoBet;
 
 use App\Entity\TipicoBet;
 use App\Entity\TipicoBothTeamsScoreOdd;
+use App\Entity\TipicoHeadToHeadOdd;
 use App\Entity\TipicoOverUnderOdd;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -101,6 +101,19 @@ class TipicoBetRepository extends ServiceEntityRepository
             );
             $qb->innerJoin(TipicoOverUnderOdd::class,
                 TipicoBetFilter::TABLE_ALIAS_TIPICO_ODD_OVER_UNDER,
+                'WITH',
+                $condition
+            );
+        }
+        if ($filter->isIncludeHeadToHead()) {
+            $condition = sprintf(
+                '%s.id = %s.bet',
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_BET,
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_HEAD_TO_HEAD
+            );
+            $qb->innerJoin(
+                TipicoHeadToHeadOdd::class,
+                TipicoBetFilter::TABLE_ALIAS_TIPICO_HEAD_TO_HEAD,
                 'WITH',
                 $condition
             );

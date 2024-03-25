@@ -156,6 +156,13 @@ final class Placement
             );
         }
 
+        if (count($rows) !== 6){
+            for ($rowNr = 0; $rowNr < 6; $rowNr++) {
+                if (!array_key_exists($rowNr, $rows)){
+                    $rows[$rowNr] = '<tr><td></td><td>-</td><td>-</td></tr>';
+                }
+            }
+        }
         return sprintf(
             '<table>%s%s%s%s%s%s%s</table>',
             '<tr><td></td><td>Over</td><td>Under</td></tr>',

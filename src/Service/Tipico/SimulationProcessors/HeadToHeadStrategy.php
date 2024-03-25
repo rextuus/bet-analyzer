@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Tipico\SimulationProcessors;
 
 use App\Entity\Simulator;
+use App\Entity\TipicoBet;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
@@ -13,13 +14,9 @@ use App\Service\Tipico\TelegramMessageService;
 use App\Service\Tipico\TipicoBetSimulator;
 use DateTime;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
-class BothTeamsScoreStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
+class HeadToHeadStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
 {
-    public const IDENT = 'both_teams_score';
+    public const IDENT = 'head_to_head';
 
     public function __construct(
         protected readonly TipicoBetService $tipicoBetService,
@@ -33,36 +30,50 @@ class BothTeamsScoreStrategy extends AbstractSimulationProcessor implements Simu
         parent::__construct($placementService, $simulatorService, $simulationStrategyService, $tipicoBetService);
     }
 
+    public function getIdentifier(): string
+    {
+        return self::IDENT;
+    }
+
     public function calculate(Simulator $simulator): PlacementContainer
     {
         $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
+        $targetBetOn = Beton::from($parameters[self::PARAMETER_TARGET_BET_ON]);
 
         $fixtures = $this->getFixtureForSimulatorBySearchAndTarget($simulator);
-
-        $targetBeton = BetOn::from($parameters[self::PARAMETER_TARGET_BET_ON]);
 
         $placementData = [];
         $fixturesActuallyUsed = [];
         foreach ($fixtures as $fixture) {
-            $odd = $fixture->getTipicoBothTeamsScoreBet();
-            if (!$odd){
-                continue;
+            $isWon = false;
+
+            if ($targetBetOn === BetOn::H2H_HOME) {
+                $value = $fixture->getTipicoHeadToHeadScore()->getHomeTeamValue();
+
+                if ($fixture->getResult() === BetOn::HOME) {
+                    $isWon = true;
+                }
             }
 
-            $usedOdd = $odd->getConditionTrueValue();
+            if ($targetBetOn === BetOn::H2H_AWAY) {
+                $value = $fixture->getTipicoHeadToHeadScore()->getAwayTeamValue();
 
-            $isWon = $fixture->getEndScoreHome() > 0 && $fixture->getEndScoreAway() > 0;
-            if ($targetBeton === BetOn::BOTH_TEAMS_SCORE_NOT){
-                $isWon = !$isWon;
-                $usedOdd = $odd->getConditionFalseValue();
+                if ($fixture->getResult() === BetOn::AWAY) {
+                    $isWon = true;
+                }
             }
 
+            // case draw => get money back by setting win == input
+            if ($fixture->getResult() === BetOn::DRAW) {
+                $value = 1.0;
+                $isWon = true;
+            }
 
             $placementData[] = $this->tipicoBetSimulator->createPlacement(
                 [$fixture],
                 1.0,
-                $usedOdd,
-                (new DateTime())->setTimestamp($fixture->getStartAtTimeStamp() / 1000),
+                $value,
+                (new DateTime())->setTimestamp($fixture->getStartAtTimeStamp()/1000),
                 $isWon,
                 $simulator
             );
@@ -75,10 +86,5 @@ class BothTeamsScoreStrategy extends AbstractSimulationProcessor implements Simu
         $this->storeSimulatorChangesToDatabase($simulator, $fixturesActuallyUsed, $container);
 
         return $container;
-    }
-
-    public function getIdentifier(): string
-    {
-        return self::IDENT;
     }
 }

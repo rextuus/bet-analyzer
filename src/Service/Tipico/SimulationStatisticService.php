@@ -297,6 +297,8 @@ class SimulationStatisticService
             BetOn::OVER => $value = $bet->getOddHome(),
             BetOn::BOTH_TEAMS_SCORE => $value = $bet->getOddHome(),
             BetOn::BOTH_TEAMS_SCORE_NOT => $value = $bet->getOddHome(),
+            BetOn::H2H_HOME => $value = $bet->getOddHome(),
+            BetOn::H2H_AWAY => $value = $bet->getOddAway(),
         };
         return $value;
     }

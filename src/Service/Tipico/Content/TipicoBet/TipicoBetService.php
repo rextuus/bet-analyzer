@@ -163,7 +163,10 @@ class TipicoBetService
             $targetBeton === BetOn::UNDER)
         {
             $filter->setIncludeOverUnder(true);
-            $filter->setTargetValue((float) $parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET]);
+
+            if ($searchBeton === BetOn::OVER || $searchBeton === BetOn::UNDER){
+                $filter->setTargetValue((float) $parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET]);
+            }
         }
 
         if (
@@ -173,6 +176,15 @@ class TipicoBetService
             $targetBeton === BetOn::BOTH_TEAMS_SCORE_NOT)
         {
             $filter->setIncludeBothTeamsScore(true);
+        }
+
+        if (
+            $searchBeton === BetOn::H2H_HOME ||
+            $searchBeton === BetOn::H2H_AWAY ||
+            $targetBeton === BetOn::H2H_HOME ||
+            $targetBeton === BetOn::H2H_AWAY)
+        {
+            $filter->setIncludeHeadToHead(true);
         }
 
         return $filter;

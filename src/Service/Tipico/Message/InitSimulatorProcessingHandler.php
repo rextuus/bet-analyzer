@@ -8,6 +8,7 @@ use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
 use App\Service\Tipico\SimulationProcessors\BothTeamsScoreStrategy;
 use App\Service\Tipico\SimulationProcessors\CombineStrategy;
 use App\Service\Tipico\SimulationProcessors\CompensateLossStrategy;
+use App\Service\Tipico\SimulationProcessors\HeadToHeadStrategy;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -35,6 +36,9 @@ class InitSimulatorProcessingHandler
         }
         if ($message->getBulk() === SimulatorProcessBulk::BOTH_TEAMS_SCORE_SIMULATORS){
             $strategies = [BothTeamsScoreStrategy::IDENT];
+        }
+        if ($message->getBulk() === SimulatorProcessBulk::HEAD_TO_HEAD_SIMULATORS){
+            $strategies = [HeadToHeadStrategy::IDENT];
         }
 
         $simulators = $this->simulatorService->findByStrategies($strategies);

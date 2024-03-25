@@ -2,8 +2,8 @@
 
 namespace App\Service\Tipico\SimulationProcessors;
 
-use App\Entity\SimulationStrategy;
 use App\Entity\Simulator;
+use App\Entity\TipicoBet;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag('simulation.processor')]

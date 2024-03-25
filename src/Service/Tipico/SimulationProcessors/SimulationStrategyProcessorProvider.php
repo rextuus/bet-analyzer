@@ -33,6 +33,14 @@ class SimulationStrategyProcessorProvider
     }
 
     /**
+     * @return SimulationProcessorInterface[]
+     */
+    public function getAllProcessors(): array
+    {
+        return iterator_to_array($this->processors);
+    }
+
+    /**
      * @return string[]
      */
     public function getIdents():array

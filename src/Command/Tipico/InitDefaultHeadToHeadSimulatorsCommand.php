@@ -5,26 +5,21 @@ namespace App\Command\Tipico;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
-use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
-use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
-use App\Service\Tipico\SimulationProcessors\BothTeamsScoreStrategy;
-use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
-use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
+use App\Service\Tipico\SimulationProcessors\HeadToHeadStrategy;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'InitDefaultBothTeamsScoreSimulatorsCommand',
+    name: 'InitDefaultHeadToHeadSimulatorsCommand',
     description: 'Add a short description for your command',
 )]
-class InitDefaultBothTeamsScoreSimulatorsCommand extends AbstractSimulatorCommand
+class InitDefaultHeadToHeadSimulatorsCommand extends AbstractSimulatorCommand
 {
     public function __construct(
         protected readonly SimulationStrategyService $simulationStrategyService,
@@ -51,8 +46,8 @@ class InitDefaultBothTeamsScoreSimulatorsCommand extends AbstractSimulatorComman
         $searchBetOn = BetOn::from($input->getArgument('searchBetOn'));
         $targetBetOn = BetOn::from($input->getArgument('targetBetOn'));
 
-        if($targetBetOn !== BetOn::BOTH_TEAMS_SCORE && $targetBetOn !== BetOn::BOTH_TEAMS_SCORE_NOT){
-            throw new Exception('Invalid Beton [both_teams_score|both_teams_score_not]');
+        if($targetBetOn !== BetOn::H2H_HOME && $targetBetOn !== BetOn::H2H_AWAY){
+            throw new Exception('Invalid Beton [head_to_head_home|head_to_head_away]');
         }
 
         $rangeSteps = $this->generateFloatRange(1.0, 5.9, 0.1);
@@ -61,7 +56,7 @@ class InitDefaultBothTeamsScoreSimulatorsCommand extends AbstractSimulatorComman
 
             $ident = sprintf(
                 'ag_%s_search_%s%s_%s_%s_target_%s',
-                BothTeamsScoreStrategy::IDENT,
+                HeadToHeadStrategy::IDENT,
                 $searchBetOn->name,
                 $potentialSearchTargetName,
                 str_replace('.', '', (string) $range[0] * 10),
@@ -98,7 +93,7 @@ class InitDefaultBothTeamsScoreSimulatorsCommand extends AbstractSimulatorComman
         $parameters = $this->addOptionalParameters($parameters);
 
         $simulationStrategyData = new SimulationStrategyData();
-        $simulationStrategyData->setIdentifier(BothTeamsScoreStrategy::IDENT);
+        $simulationStrategyData->setIdentifier(HeadToHeadStrategy::IDENT);
         $simulationStrategyData->setParameters(json_encode($parameters));
 
         $this->storeSimulator($simulationStrategyData, $identifier);
