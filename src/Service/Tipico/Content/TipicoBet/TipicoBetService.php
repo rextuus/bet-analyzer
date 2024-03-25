@@ -8,6 +8,7 @@ use App\Entity\TipicoBet;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
+use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use Exception;
 
 class TipicoBetService
@@ -166,6 +167,9 @@ class TipicoBetService
 
             if ($searchBeton === BetOn::OVER || $searchBeton === BetOn::UNDER){
                 $filter->setTargetValue((float) $parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET]);
+            }
+            if ($targetBeton === BetOn::OVER || $targetBeton === BetOn::UNDER){
+                $filter->setTargetValue((float) $parameters[OverUnderStrategy::PARAMETER_TARGET_VALUE]);
             }
         }
 
