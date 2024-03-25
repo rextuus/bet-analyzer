@@ -245,6 +245,7 @@ final class UpcomingFixture
         );
 
         $rows = [];
+        $counter = 0;
         foreach ($odds as $index => $odd) {
             $rows[] = sprintf(
                 '
@@ -253,11 +254,12 @@ final class UpcomingFixture
                     <span class="over-under-odds-row-value %s">%.2f</span>
                         ',
                 $odd->getTargetValue(),
-                $cssClasses[OddVariant::OVER_UNDER->name][$index],
+                $cssClasses[OddVariant::OVER_UNDER->name][$counter],
                 $odd->getOverValue(),
-                $cssClasses[OddVariant::OVER_UNDER->name][$index+1],
+                $cssClasses[OddVariant::OVER_UNDER->name][$counter + 1],
                 $odd->getUnderValue(),
             );
+            $counter = $counter + 2;
         }
 
         return sprintf(
@@ -301,10 +303,14 @@ final class UpcomingFixture
     {
         $strategy = $this->simulator->getStrategy();
         $parameters = json_decode($strategy->getParameters(), true);
-        $overUnderSearchTarget = (float)$parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET];
 
         $searchBetOn = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
         $targetBeton = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON]);
+
+        $overUnderSearchTarget = 0.0;
+        if ($searchBetOn === BetOn::OVER || $searchBetOn === BetOn::UNDER){
+            $overUnderSearchTarget = (float)$parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON_TARGET];
+        }
 
         $overUnderTargetTarget = 0.0;
         if ($targetBeton === BetOn::OVER || $targetBeton === BetOn::UNDER) {
@@ -333,7 +339,6 @@ final class UpcomingFixture
                 if (is_array($searchCssClass)) {
                     foreach ($searchCssClass as $targetCssClassIndex => $targetCssClass) {
                         $result[] = $targetCssClass . ' ' . $targetVariant[$searchCssClassIndex][$targetCssClassIndex];
-
                     }
                 } else {
                     $result[] = $searchCssClass . ' ' . $targetVariant[$searchCssClassIndex];
