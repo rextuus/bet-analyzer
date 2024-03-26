@@ -2,24 +2,8 @@
 
 namespace App\Command;
 
-use App\Entity\BetRowSummary;
-use App\Entity\SimpleBetRow;
-use App\Entity\SpmSeason;
-use App\Form\InitSimpleBetRowsForSeasonData;
-use App\Service\Evaluation\BetRowCalculator;
-use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowRepository;
-use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowService;
-use App\Service\Evaluation\Content\BetRowOddFilter\BetRowOddFilterService;
-use App\Service\Evaluation\Message\TriggerBetRowsForSeasonMessage;
-use App\Service\Evaluation\OddAccumulationVariant;
-use App\Service\Sportmonks\Api\SportsmonkApiGateway;
-use App\Service\Sportmonks\Api\SportsmonkService;
-use App\Service\Sportmonks\Content\League\SpmLeagueService;
-use App\Service\Sportmonks\Content\Season\SpmSeasonService;
-use App\Service\Statistic\SeasonBetRowMap;
+use App\Service\Betano\Api\BetanoApiGateway;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
-use App\Service\Tipico\Message\InitSimulatorProcessingMessage;
-use App\Service\Tipico\Message\SimulatorProcessBulk;
 use App\Service\Tipico\TipicoBetSimulationService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -41,6 +25,7 @@ class TestCommand extends Command
         private readonly TipicoBetSimulationService $betSimulationService,
         private readonly SimulatorService $simulatorService,
         private readonly MessageBusInterface $messageBus,
+        private readonly BetanoApiGateway $apiGateway
     ) {
         parent::__construct();
     }
@@ -54,8 +39,11 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $sim = $this->simulatorService->findBy(['id' => 80])[0];
-        $this->betSimulationService->simulate($sim);
+        $response = $this->apiGateway->getNextDailyMatchEvents();
+        dd($response);
+
+//        $sim = $this->simulatorService->findBy(['id' => 80])[0];
+//        $this->betSimulationService->simulate($sim);
 
 //        $this->messageBus->dispatch(new InitSimulatorProcessingMessage(SimulatorProcessBulk::OVER_UNDER_SIMULATORS));
         return Command::SUCCESS;

@@ -7,14 +7,9 @@ use App\Entity\TipicoOverUnderOdd;
 use App\Service\Evaluation\BetOn;
 use App\Service\Evaluation\OddVariant;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
-use App\Service\Tipico\SimulationProcessors\BothTeamsScoreStrategy;
-use App\Service\Tipico\SimulationProcessors\HeadToHeadStrategy;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
-use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
-use App\Service\Tipico\SimulationProcessors\SimulationProcessorInterface;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use App\Service\Tipico\SimulationStatisticService;
-use App\Twig\Data\UpcomingFixtureOdd;
 use DateInterval;
 use DateTime;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
@@ -240,7 +235,13 @@ final class UpcomingFixture
         usort(
             $odds,
             function (TipicoOverUnderOdd $odd1, TipicoOverUnderOdd $odd2) {
-                return $odd1->getTargetValue() > $odd2->getTargetValue();
+                if ($odd1->getTargetValue() > $odd2->getTargetValue()){
+                    return 1;
+                }
+                if ($odd1->getTargetValue() < $odd2->getTargetValue()){
+                    return -1;
+                }
+                return 0;
             }
         );
 
