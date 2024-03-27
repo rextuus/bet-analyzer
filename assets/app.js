@@ -134,3 +134,33 @@ document.addEventListener('DOMContentLoaded', function () {
         additionalContent.classList.toggle('collapsed');
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var externalLinks = document.querySelectorAll('.external-link');
+
+    externalLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            let copyText = this.getAttribute('data-copy-text');
+
+            navigator.clipboard.writeText(copyText)
+                .then(() => {
+                    console.log('Text copied to clipboard successfully');
+                })
+                .catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
+
+            let url = this.getAttribute('href');
+
+            // // Open link in new tab
+            // let newTab = window.open(url, '_blank');
+            // newTab.focus();
+
+        });
+    });
+});
+
+
+

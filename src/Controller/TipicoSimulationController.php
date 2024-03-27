@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Simulator;
 use App\Entity\TipicoBet;
 use App\Service\Evaluation\BetOn;
+use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
+use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterType;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
@@ -89,12 +91,15 @@ class TipicoSimulationController extends AbstractController
             ->add('filter', SubmitType::class)
             ->getForm();
 
+        $filter = new SimulatorFilterData();
+        $form = $this->createForm(SimulatorFilterType::class, $filter);
+
         $data = ['excludeNegative' => true];
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $filter = $form->getData();
         }
-        $simulators = $this->simulatorService->findByFilter($data);
+        $simulators = $this->simulatorService->findByFilter($filter);
 
         return $this->render('tipico_simulation/list.html.twig', [
             'simulators' => $simulators,

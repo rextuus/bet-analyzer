@@ -12,29 +12,16 @@
         </td>
         <td>{{ simulator.cashBox }}</td>
         <td>
-            <div class="switchable-content">
-                <div class="switchable-content-header"></div>
-                <div class="switchable-content-element active">
-                    {{ render_chart(this.cashBoxChart(true)) }}
-                    <a href="{{ path('app_tipico_simulation_chart_show', {simulator: simulator.id}) }}">Detail</a>
-                </div>
-                <div class="switchable-content-element inactive">
-                    {{ render_chart(this.valueToWinDistributionChart()) }}
-                </div>
-                <div class="switchable-content-element inactive">
-                    {{ render_chart(this.dailyDistributionChart()) }}
-                </div>
+            <div class="row">
+                {{ render_chart(this.cashBoxChart(true)) }}
+                <a href="{{ path('app_tipico_simulation_chart_show', {simulator: simulator.id}) }}">Detail</a>
             </div>
         </td>
         <td>
             {% set statistic = this.statistics %}
             {% if statistic|length > 0 %}
-            <div class="switchable-content">
-                <div class="switchable-content-header"></div>
+            <div class="row">
                 <div class="switchable-content-element active result-content">{{ component('KeyValueListing', {'container' : statistic['result']}) }}</div>
-                <div class="switchable-content-element inactive daily-ratios-content">{{ component('KeyValueListing', {'container' : statistic['dailyRatios']}) }}</div>
-                <div class="switchable-content-element inactive daily-value-content">{{ component('KeyValueListing', {'container' : statistic['valueDistribution']}) }}</div>
-                <div class="switchable-content-element inactive daily-value-content">{{ component('KeyValueListing', {'container' : statistic['valueDistributionByBetOn']}) }}</div>
             </div>
             {% endif %}
         </td>

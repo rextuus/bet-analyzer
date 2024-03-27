@@ -6,6 +6,7 @@ namespace App\Service\Tipico\Content\Simulator;
 use App\Entity\Simulator;
 use App\Entity\TipicoPlacement;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
+use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -60,12 +61,11 @@ class SimulatorService
     }
 
     /**
-     * @param array<string, mixed> $data
      * @return Simulator[]
      */
-    public function findByFilter(array $data): array
+    public function findByFilter(SimulatorFilterData $filter): array
     {
-        return $this->repository->findByFilter($data);
+        return $this->repository->findByFilter($filter);
     }
 
     public function getSimulatorCashBoxDistribution(): array

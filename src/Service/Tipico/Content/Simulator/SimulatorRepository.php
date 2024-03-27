@@ -4,8 +4,8 @@ namespace App\Service\Tipico\Content\Simulator;
 
 use App\Entity\SimulationStrategy;
 use App\Entity\Simulator;
-use App\Entity\TipicoBet;
 use App\Entity\TipicoPlacement;
+use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -24,31 +24,6 @@ class SimulatorRepository extends ServiceEntityRepository
         parent::__construct($registry, Simulator::class);
     }
 
-    //    /**
-    //     * @return Simulator[] Returns an array of Simulator objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Simulator
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-
     public function save(Simulator $simulator, bool $flush = true): void
     {
         $this->_em->persist($simulator);
@@ -58,24 +33,45 @@ class SimulatorRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param array<string, mixed> $data
      * @return Simulator[]
      */
-    public function findByFilter(array $data): array
+    public function findByFilter(SimulatorFilterData $filter): array
     {
         $qb = $this->createQueryBuilder('s');
-        if (array_key_exists('excludeNegative', $data) && $data['excludeNegative']){
+
+        $qb->leftJoin(TipicoPlacement::class, 'p', 'WITH', 's.id = p.simulator');
+        if ($filter->isExcludeNegative()){
             $qb->andWhere($qb->expr()->gt('s.cashBox', 100.0));
         }
-        if (array_key_exists('variant', $data)){
+        if ($filter->getVariant()){
             $qb->leftJoin(SimulationStrategy::class, 'ss', 'WITH', 's.strategy = ss.id');
 
             $qb->andWhere($qb->expr()->eq('ss.identifier', ':strategy'));
-            $qb->setParameter('strategy', $data['variant']);
+            $qb->setParameter('strategy', $filter->getVariant());
         }
 
+        if ($filter->getMinCashBox()) {
+            $qb->andWhere($qb->expr()->gte('s.cashBox', ':min'));
+            $qb->setParameter('min', $filter->getMinCashBox());
+        }
+
+        if ($filter->getMaxCashBox()) {
+            $qb->andWhere($qb->expr()->lte('s.cashBox', ':max'));
+            $qb->setParameter('max', $filter->getMaxCashBox());
+        }
+
+        if ($filter->getMinBets()) {
+            $qb->andHaving($qb->expr()->gte('COUNT(p.id)', ':minBets'));
+            $qb->setParameter('minBets', $filter->getMinBets());
+        }
+        if ($filter->getMaxBets()) {
+            $qb->andHaving($qb->expr()->lte('COUNT(p.id)', ':maxBets'));
+            $qb->setParameter('maxBets', $filter->getMaxBets());
+        }
+
+        $qb->groupBy('s');
         $qb->orderBy('s.cashBox', 'DESC');
-        $qb->setMaxResults(10);
+        $qb->setMaxResults(20);
 
         return $qb->getQuery()->getResult();
     }
