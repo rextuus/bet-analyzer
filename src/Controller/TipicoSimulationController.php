@@ -8,6 +8,8 @@ use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterType;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
+use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
+use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListType;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;

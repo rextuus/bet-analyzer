@@ -11,6 +11,7 @@ import './styles/const.scss';
 import './styles/app.scss';
 import './styles/dashbaord.scss';
 import './styles/simulator-detail.scss';
+import './styles/favorites.scss';
 
 // JavaScript to toggle visibility of content elements
 let containerElements = document.querySelectorAll('.switchable-content-header');

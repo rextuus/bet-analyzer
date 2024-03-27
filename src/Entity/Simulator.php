@@ -34,10 +34,14 @@ class Simulator
     #[ORM\Column]
     private ?float $currentIn = 0.0;
 
+    #[ORM\ManyToMany(targetEntity: SimulatorFavoriteList::class, mappedBy: 'simulators')]
+    private Collection $simulatorFavoriteLists;
+
     public function __construct()
     {
         $this->fixtures = new ArrayCollection();
         $this->tipicoPlacements = new ArrayCollection();
+        $this->simulatorFavoriteLists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +147,33 @@ class Simulator
     public function setCurrentIn(float $currentIn): static
     {
         $this->currentIn = $currentIn;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SimulatorFavoriteList>
+     */
+    public function getSimulatorFavoriteLists(): Collection
+    {
+        return $this->simulatorFavoriteLists;
+    }
+
+    public function addSimulatorFavoriteList(SimulatorFavoriteList $simulatorFavoriteList): static
+    {
+        if (!$this->simulatorFavoriteLists->contains($simulatorFavoriteList)) {
+            $this->simulatorFavoriteLists->add($simulatorFavoriteList);
+            $simulatorFavoriteList->addSimulator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSimulatorFavoriteList(SimulatorFavoriteList $simulatorFavoriteList): static
+    {
+        if ($this->simulatorFavoriteLists->removeElement($simulatorFavoriteList)) {
+            $simulatorFavoriteList->removeSimulator($this);
+        }
 
         return $this;
     }

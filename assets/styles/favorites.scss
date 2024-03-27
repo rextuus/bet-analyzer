@@ -1,0 +1,14 @@
+@import "const";
+
+.favorite-listing {
+  display: flex;
+  flex-direction: column;
+  .favorite {
+    display: flex;
+    background-color: #33396c;
+    .ident, .cashbox, .created, .bets, .simulators {
+      padding: 10px;
+      margin-right: 10px;
+    }
+  }
+}
