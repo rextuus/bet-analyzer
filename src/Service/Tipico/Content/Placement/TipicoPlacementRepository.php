@@ -3,6 +3,7 @@
 namespace App\Service\Tipico\Content\Placement;
 
 use App\Entity\Simulator;
+use App\Entity\SimulatorFavoriteList;
 use App\Entity\SpmSeason;
 use App\Entity\TipicoPlacement;
 use DateTime;
@@ -23,31 +24,6 @@ class TipicoPlacementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, TipicoPlacement::class);
     }
-
-    //    /**
-    //     * @return TipicoPlacement[] Returns an array of TipicoPlacement objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?TipicoPlacement
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 
     public function save(TipicoPlacement $tipicoPlacement, bool $flush = true): void
     {
@@ -88,5 +64,31 @@ class TipicoPlacementRepository extends ServiceEntityRepository
         $qb->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findBySimulatorsAndDateTime(SimulatorFavoriteList $simulatorFavoriteList, DateTime $from, DateTime $until)
+    {
+        $ids = [];
+        foreach ($simulatorFavoriteList->getSimulators() as $simulator){
+            $ids[] = $simulator->getId();
+        }
+
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('s.id, s.identifier, sum(p.value * p.input * p.won) - count(p.id) as changeVolume, count(p.id) as madeBets');
+
+        $qb->innerJoin(Simulator::class, 's', 'WITH', 'p.simulator = s.id');
+
+        $qb->andWhere($qb->expr()->in('s.id', ':ids'));
+        $qb->setParameter('ids', $ids);
+
+        $qb->andWhere($qb->expr()->gt('p.created', ':from'));
+        $qb->setParameter('from', $from);
+        $qb->andWhere($qb->expr()->lt('p.created', ':until'));
+        $qb->setParameter('until', $until);
+
+        $qb->groupBy('p.simulator');
+        $qb->orderBy('changeVolume', 'ASC');
+
+        return ($qb->getQuery()->getResult());
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\SimulationStrategy;
 use App\Entity\Simulator;
 use App\Entity\TipicoPlacement;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -111,6 +112,24 @@ class SimulatorRepository extends ServiceEntityRepository
         $qb->join('s.tipicoPlacements', 'p')
         ->distinct();
 
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findBySimulatorsWithPlacements(array $simulatorIds, DateTime $from, DateTime $until): array
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s, p');
+        $qb->join('s.tipicoPlacements', 'p');
+        $qb->where($qb->expr()->in('s.id', ':ids'));
+        $qb->setParameter('ids', $simulatorIds);
+
+        $qb->andWhere($qb->expr()->gte('p.created', ':from'));
+        $qb->setParameter('from', $from);
+
+        $qb->andWhere($qb->expr()->lte('p.created', ':until'));
+        $qb->setParameter('until', $until);
+
+        dd($qb->getQuery()->getResult());
         return $qb->getQuery()->getResult();
     }
 }

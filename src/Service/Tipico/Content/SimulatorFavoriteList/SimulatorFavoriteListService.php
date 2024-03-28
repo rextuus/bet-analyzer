@@ -50,6 +50,15 @@ class SimulatorFavoriteListService
     /**
      * @return SimulatorFavoriteList[]
      */
+    public function findAllWithPlacements(): array
+    {
+        return $this->repository->findAllWithPlacements();
+    }
+
+
+    /**
+     * @return SimulatorFavoriteList[]
+     */
     public function getAll(): array
     {
         return $this->repository->findAll();

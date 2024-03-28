@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Tipico\Content\Placement;
 
 use App\Entity\Simulator;
+use App\Entity\SimulatorFavoriteList;
 use App\Entity\TipicoPlacement;
 use App\Service\Tipico\Content\Placement\Data\LastWeekStatisticData;
 use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
@@ -118,5 +119,10 @@ class TipicoPlacementService
         }
         $statistic->calculateRanks();
         return $statistic;
+    }
+
+    public function findBySimulatorsAndDateTime(SimulatorFavoriteList $simulatorFavoriteList, DateTime $from, DateTime $until)
+    {
+        return $this->repository->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
     }
 }

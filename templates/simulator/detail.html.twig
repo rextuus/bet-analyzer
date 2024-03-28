@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SimulatorController!{% endblock %}
+
+{% block body %}
+    <div class="favorite-listing">
+        {{ total }}
+        {% for simulator in simulators %}
+            <div class="favorite">
+                <div class="ident">
+                    <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a>
+                </div>
+                <div class="created">
+                    {{ simulator.changeVolume }}
+                </div>
+                <div class="bets">
+                    {{ simulator.madeBets }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

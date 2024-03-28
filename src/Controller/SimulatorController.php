@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Simulator;
 use App\Entity\SimulatorFavoriteList;
+use App\Service\Tipico\Content\Placement\TipicoPlacementService;
+use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListType;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\CreateSimulatorFavoriteListType;
@@ -20,7 +22,7 @@ class SimulatorController extends AbstractController
 {
 
 
-    public function __construct(private SimulatorFavoriteListService $favoriteListService)
+    public function __construct(private SimulatorFavoriteListService $favoriteListService, private TipicoPlacementService $placementService)
     {
     }
 
@@ -28,8 +30,31 @@ class SimulatorController extends AbstractController
     public function index(Request $request): Response
     {
         $favoriteLists = $this->favoriteListService->getAll();
+
         return $this->render('simulator/list.html.twig', [
             'lists' => $favoriteLists,
+        ]);
+    }
+
+    #[Route('/detail/{simulatorFavoriteList}', name: 'app_simulator_detail')]
+    public function detail(SimulatorFavoriteList $simulatorFavoriteList): Response
+    {
+        $from = new DateTime();
+        $from->setTime(0, 0);
+
+        $until = new DateTime('+ 1day');
+        $until->setTime(0, 0);
+
+        $simulators = $this->placementService->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
+        $total = 0.0;
+        foreach ($simulators as $simulator){
+            $total = $total + $simulator['changeVolume'];
+        }
+
+        //dd($simulators);
+        return $this->render('simulator/detail.html.twig', [
+            'simulators' => $simulators,
+            'total' => $total,
         ]);
     }
 

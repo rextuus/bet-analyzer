@@ -4,9 +4,11 @@ declare(strict_types=1);
 namespace App\Service\Tipico\Content\Simulator;
 
 use App\Entity\Simulator;
+use App\Entity\SimulatorFavoriteList;
 use App\Entity\TipicoPlacement;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
+use DateTime;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -112,5 +114,15 @@ class SimulatorService
     public function findByStrategies(array $strategyIdents): array
     {
         return $this->repository->findByStrategies($strategyIdents);
+    }
+
+    public function findBySimulatorsWithPlacements(SimulatorFavoriteList $simulatorFavoriteList, DateTime $from, DateTime $until)
+    {
+        $ids = [];
+        foreach ($simulatorFavoriteList->getSimulators() as $simulator){
+            $ids[] = $simulator->getId();
+        }
+
+        return $this->repository->findBySimulatorsWithPlacements($ids, $from, $until);
     }
 }

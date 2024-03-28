@@ -68,4 +68,16 @@ class SimulatorFavoriteListRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findAllWithPlacements()
+    {
+        $qb = $this->createQueryBuilder('l');
+
+        $qb->leftJoin('l.simulators', 's');
+        $qb->leftJoin('s.tipicoPlacements', 'p');
+        $qb->groupBy('l');
+
+        dd($qb->getQuery()->getResult());
+        return $qb->getQuery()->getResult();
+    }
 }
