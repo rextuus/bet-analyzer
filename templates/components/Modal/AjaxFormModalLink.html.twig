@@ -1,0 +1,8 @@
+<div class="d-inline" {{ stimulus_controller('modal-form', {formUrl: this.formUrl}) }}>
+    <a href="{{ this.formUrl }}" title="{{ this.modalTitle }}"
+        {% if this.classes %}class="{{ this.classes }}" {% endif %}
+        data-action="modal-form#openModal">
+        {% block content %}{% endblock %}
+    </a>
+    {{ include('layout/_modal.html.twig', {stimulusControllerPrefix: 'modal-form', modalTitle: this.modalTitle, modalSubmitButtonText: this.submitText|trans()}) }}
+</div>

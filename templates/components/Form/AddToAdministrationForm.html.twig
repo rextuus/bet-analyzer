@@ -1,0 +1,8 @@
+<div {{ attributes }}>
+    {% if not form.vars.valid %}
+        <div class="alert alert-danger d-block">{{ 'form.common.error'|trans() }}</div>
+    {% endif %}
+    {{ form_start(form, {'action': this.formAction} ) }}
+
+    {{ form_end(form) }}
+</div>

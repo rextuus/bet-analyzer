@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdministrationController!{% endblock %}
+
+{% block body %}
+{#    {{ include('administration/live_component.administration.add.form.html.twig',#}
+{#        { 'initialFormData': data, 'form': form, 'simulator': simulator, 'formAction': formAction}) }}#}
+    {{ component('Form:AddToAdministrationForm', { initialFormData: data, form: form, simulator: simulator, formAction: formAction}) }}
+
+{% endblock %}

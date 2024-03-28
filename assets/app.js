@@ -1,4 +1,3 @@
-import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -12,6 +11,13 @@ import './styles/app.scss';
 import './styles/dashbaord.scss';
 import './styles/simulator-detail.scss';
 import './styles/favorites.scss';
+
+import { startStimulusApp } from '@symfony/stimulus-bridge';
+export const app = startStimulusApp(require.context(
+    '@symfony/stimulus-bridge/lazy-controller-loader!./controllers/app',
+    true,
+    /\.(j|t)sx?$/
+));
 
 // JavaScript to toggle visibility of content elements
 let containerElements = document.querySelectorAll('.switchable-content-header');

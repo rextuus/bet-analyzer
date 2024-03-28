@@ -11,6 +11,13 @@
         <div class="link"><a href="{{ path('app_simulator_add', {simulator: simulator.id}) }}">Add to favorites</a></div>
     </div>
 
+    <twig:Modal:AjaxFormModalLink
+            modalTitle="Hallo"
+            classes="btn btn-outline-secondary"
+            formUrl="{{ url('app_administration_add', {'simulator' : simulator.id}) }}">
+            Add
+    </twig:Modal:AjaxFormModalLink>
+
 
     <div class="simulator-detail">
 

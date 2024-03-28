@@ -1,0 +1,5 @@
+{#<div class="d-inline" {{ stimulus_controller('modal-confirm', {url: this.linkUrl, isAjax: this.isAjax}) }}>#}
+{#    <a href="{{ this.linkUrl }}" {% if this.classes %}class="{{ this.classes }}" title="{{ this.modalTitle }}"#}
+{#       {% endif %}data-action="modal-confirm#openModal" title="{{this.modalTitle }}">{% block content %}{% endblock %}</a>#}
+{#    {{ include('layout/_modal.html.twig', {stimulusControllerPrefix: 'modal-confirm', modalTitle: this.modalTitle, modalContent: this.modalContent, modalSubmitButtonText: 'Submit'}) }}#}
+{#</div>#}

@@ -12,27 +12,35 @@ use App\Entity\SimulatorFavoriteList;
  */
 class AddSimulatorToListData
 {
-    private Simulator $simulator;
+    private ?Simulator $simulator = null;
 
-    private SimulatorFavoriteList $simulatorFavoriteList;
+    private ?SimulatorFavoriteList $simulatorFavoriteList = null;
 
-    public function getSimulator(): Simulator
+//    /**
+//     * @param Simulator|null $simulator
+//     */
+//    public function __construct(?Simulator $simulator)
+//    {
+//        $this->simulator = $simulator;
+//    }
+
+    public function getSimulator(): ?Simulator
     {
         return $this->simulator;
     }
 
-    public function setSimulator(Simulator $simulator): AddSimulatorToListData
+    public function setSimulator(?Simulator $simulator): AddSimulatorToListData
     {
         $this->simulator = $simulator;
         return $this;
     }
 
-    public function getSimulatorFavoriteList(): SimulatorFavoriteList
+    public function getSimulatorFavoriteList(): ?SimulatorFavoriteList
     {
         return $this->simulatorFavoriteList;
     }
 
-    public function setSimulatorFavoriteList(SimulatorFavoriteList $simulatorFavoriteList): AddSimulatorToListData
+    public function setSimulatorFavoriteList(?SimulatorFavoriteList $simulatorFavoriteList): AddSimulatorToListData
     {
         $this->simulatorFavoriteList = $simulatorFavoriteList;
         return $this;
