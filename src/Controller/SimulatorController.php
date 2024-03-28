@@ -93,7 +93,6 @@ class SimulatorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var AddSimulatorToListData $data */
             $data = $form->getData();
-            dd($data);
             $favoriteList = $data->getSimulatorFavoriteList();
             $updateData = (new SimulatorFavoriteListData)->initFromEntity($favoriteList);
             $updateData->setSimulators([$data->getSimulator()]);
