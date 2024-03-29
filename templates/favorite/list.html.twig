@@ -7,7 +7,7 @@
         {% for list in lists %}
             <div class="favorite">
                 <div class="ident">
-                    {{ list.identifier }}
+                    <a href="{{ path('app_favorite_detail', {simulatorFavoriteList: list.id}) }}">{{ list.identifier }}</a>
                 </div>
                 <div class="created">
                     {{ list.created|date('d-m-Y') }}

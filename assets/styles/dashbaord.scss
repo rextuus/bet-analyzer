@@ -47,6 +47,8 @@
 
   .statistic-panel{
     display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
   }
 
   .overview{
@@ -111,6 +113,7 @@
   }
 
   .navi {
+    display: flex;
     padding: 15px;
     margin: 20px;
     font-size: 1.8em;

@@ -8,7 +8,7 @@
         <div class="link"><a href="{{ path('app_tipico_simulation_dashboard') }}">Dashboard</a></div>
         <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
         <div class="link"><a href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">Placements</a></div>
-        <div class="link"><a href="{{ path('app_simulator_add', {simulator: simulator.id}) }}">Add to favorites</a></div>
+        <div class="link"><a href="{{ path('app_favorite_add', {simulator: simulator.id}) }}">Add to favorites</a></div>
     </div>
 
     <twig:Modal:AjaxFormModalLink

@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Simulator;
 use App\Entity\SimulatorFavoriteList;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
-use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListType;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\CreateSimulatorFavoriteListType;
@@ -17,24 +16,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/simulator')]
-class SimulatorController extends AbstractController
+#[Route('/favorites')]
+class FavoriteController extends AbstractController
 {
     public function __construct(private SimulatorFavoriteListService $favoriteListService, private TipicoPlacementService $placementService)
     {
     }
 
-    #[Route('/list', name: 'app_simulator_list')]
+    #[Route('/list', name: 'app_favorite_list')]
     public function index(Request $request): Response
     {
         $favoriteLists = $this->favoriteListService->getAll();
 
-        return $this->render('simulator/list.html.twig', [
+        return $this->render('favorite/list.html.twig', [
             'lists' => $favoriteLists,
         ]);
     }
 
-    #[Route('/detail/{simulatorFavoriteList}', name: 'app_simulator_detail')]
+    #[Route('/detail/{simulatorFavoriteList}', name: 'app_favorite_detail')]
     public function detail(SimulatorFavoriteList $simulatorFavoriteList): Response
     {
         $from = new DateTime();
@@ -50,13 +49,13 @@ class SimulatorController extends AbstractController
         }
 
         //dd($simulators);
-        return $this->render('simulator/detail.html.twig', [
+        return $this->render('favorite/detail.html.twig', [
             'simulators' => $simulators,
             'total' => $total,
         ]);
     }
 
-    #[Route('/create', name: 'app_simulator_create')]
+    #[Route('/create', name: 'app_favorite_create')]
     public function create(Request $request): Response
     {
         $simulatorFavoriteListData = new SimulatorFavoriteListData();
@@ -70,15 +69,15 @@ class SimulatorController extends AbstractController
 
             $this->favoriteListService->createByData($data);
 
-            return $this->redirectToRoute('app_simulator_list', []);
+            return $this->redirectToRoute('app_favorite_list', []);
         }
 
-        return $this->render('simulator/create.html.twig', [
+        return $this->render('favorite/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/add/{simulator}', name: 'app_simulator_add')]
+    #[Route('/add/{simulator}', name: 'app_favorite_add')]
     public function add(Request $request, Simulator $simulator): Response
     {
         $simulatorFavoriteListData = new AddSimulatorToListData();
@@ -98,7 +97,7 @@ class SimulatorController extends AbstractController
             return $this->redirectToRoute('app_tipico_simulation_detail', ['simulator' => $data->getSimulator()->getId()]);
         }
 
-        return $this->render('simulator/add.html.twig', [
+        return $this->render('favorite/add.html.twig', [
             'form' => $form->createView(),
         ]);
     }
