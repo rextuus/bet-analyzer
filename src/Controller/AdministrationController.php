@@ -29,6 +29,7 @@ class AdministrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $form->getData();
 
+            dd("Admin Controller");
             return $this->redirectToRoute(
                 'app_tipico_simulation_detail',
                 ['simulator' => $simulator->getId()]
