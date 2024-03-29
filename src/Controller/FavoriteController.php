@@ -81,14 +81,19 @@ class FavoriteController extends AbstractController
 
         $simulators = $this->placementService->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
         $total = 0.0;
+        $possiblePlacements = [];
         foreach ($simulators as $simulator){
             $total = $total + $simulator['changeVolume'];
+
+            $simulator = $this->simulatorService->findBy(['id' => $simulator['id']])[0];
+            $possiblePlacements[] = count($this->simulationStatisticService->getUpcomingEventsForSimulator($simulator));
         }
 
         //dd($simulators);
         return $this->render('favorite/detail.html.twig', [
             'simulators' => $simulators,
             'total' => $total,
+            'possiblePlacements' => $possiblePlacements,
         ]);
     }
 

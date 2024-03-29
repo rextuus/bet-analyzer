@@ -3,21 +3,24 @@
 {% block title %}Hello SimulatorController!{% endblock %}
 
 {% block body %}
-    <div class="favorite-listing">
+    <div class="favorite-detail">
         {{ total }}
         {% for simulator in simulators %}
             <div class="favorite">
-                <div class="ident">
-                    <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a>
+                <div class="row">
+                    <div class="ident">
+                        <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a>
+                    </div>
                 </div>
-                <div class="created">
-                    {{ simulator.changeVolume }}
-                </div>
-                <div class="bets">
-                    {{ simulator.madeBets }}
+                <div class="row">
+                    <div class="changeVolume">
+                        {{ simulator.changeVolume }}
+                    </div>
+                    <div class="bets">
+                        {{ simulator.madeBets }}/{{ possiblePlacements[loop.index - 1] }}
+                    </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-
 {% endblock %}

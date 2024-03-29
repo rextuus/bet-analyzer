@@ -43,11 +43,13 @@ class TipicoBetSimulationService
         // standard bets
         $newCreatedBets = [];
         foreach ($response->getMatches() as $tipicoBetData) {
-            if ($this->tipicoBetService->findByTipicoId($tipicoBetData->getTipicoId())) {
-                continue;
-            }
+            $bet = $this->tipicoBetService->findByTipicoId($tipicoBetData->getTipicoId());
 
-            $newCreatedBets[$tipicoBetData->getTipicoId()] = $this->tipicoBetService->createByData($tipicoBetData);
+            if ($bet){
+                $newCreatedBets[$bet->getTipicoId()] = $bet;
+            }else{
+                $newCreatedBets[$tipicoBetData->getTipicoId()] = $this->tipicoBetService->createByData($tipicoBetData);
+            }
         }
 
         // over under odds
