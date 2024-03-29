@@ -20,8 +20,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/simulator')]
 class SimulatorController extends AbstractController
 {
-
-
     public function __construct(private SimulatorFavoriteListService $favoriteListService, private TipicoPlacementService $placementService)
     {
     }
@@ -89,7 +87,6 @@ class SimulatorController extends AbstractController
         $form = $this->createForm(AddSimulatorToListType::class, $simulatorFavoriteListData, ['simulator' => $simulator,]);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()) dd($form->getData());
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var AddSimulatorToListData $data */
             $data = $form->getData();
