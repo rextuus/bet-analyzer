@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Simulator;
 use App\Entity\SimulatorFavoriteList;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
+use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListType;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\CreateSimulatorFavoriteListType;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\SimulatorFavoriteListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\SimulatorFavoriteListService;
+use App\Service\Tipico\SimulationStatisticService;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +21,12 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/favorites')]
 class FavoriteController extends AbstractController
 {
-    public function __construct(private SimulatorFavoriteListService $favoriteListService, private TipicoPlacementService $placementService)
+    public function __construct(
+        private SimulatorFavoriteListService $favoriteListService,
+        private TipicoPlacementService $placementService,
+        private SimulationStatisticService $simulationStatisticService,
+        private SimulatorService $simulatorService,
+    )
     {
     }
 
@@ -28,8 +35,38 @@ class FavoriteController extends AbstractController
     {
         $favoriteLists = $this->favoriteListService->getAll();
 
+        $balanceToday = [];
+        $betsToday = [];
+        $nextPlacements = [];
+        foreach ($favoriteLists as $favoriteList){
+            $from = new DateTime();
+            $from->setTime(0, 0);
+
+            $until = new DateTime('+ 1day');
+            $until->setTime(0, 0);
+
+            $simulators = $this->placementService->findBySimulatorsAndDateTime($favoriteList, $from, $until);
+            $total = 0.0;
+            $bets = 0;
+            $possiblePlacements = 0;
+            foreach ($simulators as $simulator){
+                $total = $total + $simulator['changeVolume'];
+                $bets = $bets + $simulator['madeBets'];
+
+                $simulator = $this->simulatorService->findBy(['id' => $simulator['id']])[0];
+                $possiblePlacements = $possiblePlacements + count($this->simulationStatisticService->getUpcomingEventsForSimulator($simulator));
+            }
+            $balanceToday[] = $total;
+            $betsToday[] = $bets;
+            $nextPlacements[] = $possiblePlacements;
+
+        }
+
         return $this->render('favorite/list.html.twig', [
             'lists' => $favoriteLists,
+            'balanceToday' => $balanceToday,
+            'betsToday' => $betsToday,
+            'nextPlacements' => $nextPlacements,
         ]);
     }
 

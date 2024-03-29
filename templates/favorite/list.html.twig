@@ -13,10 +13,10 @@
                     {{ list.created|date('d-m-Y') }}
                 </div>
                 <div class="bets">
-                    {{ list.bets }}
+                    {{ nextPlacements[loop.index - 1] }}/{{ betsToday[loop.index - 1] }}
                 </div>
                 <div class="cashbox">
-                    {{ list.totalCashBox }}€
+                    {{ balanceToday[loop.index - 1] }}€
                 </div>
                 <div class="simulators">
                     {% for simulator in list.simulators %}
