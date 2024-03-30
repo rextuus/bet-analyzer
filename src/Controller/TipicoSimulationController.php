@@ -143,7 +143,7 @@ class TipicoSimulationController extends AbstractController
             $overUnderTarget = $parameters[OverUnderStrategy::PARAMETER_TARGET_VALUE];
         }
 
-        $nextPlacements = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator);
+        $nextPlacements = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator, 200);
 
         $statistics = $this->simulationStatisticService->getStatistics($simulator);
 

@@ -375,7 +375,7 @@ class SimulationStatisticService
     /**
      * @return TipicoBet[]
      */
-    public function getUpcomingEventsForSimulator(Simulator $simulator, int $limit = 50): array
+    public function getUpcomingEventsForSimulator(Simulator $simulator, int $limit = 200): array
     {
         return $this->tipicoBetService->getFixtureForUpcomingFixturesByFilterCount($simulator);
 
