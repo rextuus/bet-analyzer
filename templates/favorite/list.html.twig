@@ -6,22 +6,30 @@
     <div class="favorite-listing">
         {% for list in lists %}
             <div class="favorite">
-                <div class="ident">
-                    <a href="{{ path('app_favorite_detail', {simulatorFavoriteList: list.id}) }}">{{ list.identifier }}</a>
+                <div class="row">
+                    <div class="cashbox">
+                        {{ balanceToday[loop.index - 1] }}€
+                    </div>
                 </div>
-                <div class="created">
-                    {{ list.created|date('d-m-Y') }}
+                <div class="row">
+                    <div class="ident">
+                        <a href="{{ path('app_favorite_detail', {simulatorFavoriteList: list.id}) }}">{{ list.identifier }}</a>
+                    </div>
+                    <div class="created">
+                        {{ list.created|date('d-m-Y') }}
+                    </div>
+                    <div class="bets">
+                        {{ betsToday[loop.index - 1] }}/{{ nextPlacements[loop.index - 1] }}
+                    </div>
                 </div>
-                <div class="bets">
-                    {{ nextPlacements[loop.index - 1] }}/{{ betsToday[loop.index - 1] }}
-                </div>
-                <div class="cashbox">
-                    {{ balanceToday[loop.index - 1] }}€
-                </div>
-                <div class="simulators">
-                    {% for simulator in list.simulators %}
-                        <div class="link"><a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a></div>
-                    {% endfor %}
+                <div class="row">
+                    <div class="simulators">
+                        {% for simulator in list.simulators %}
+                            <div class="link"><a
+                                        href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         {% endfor %}

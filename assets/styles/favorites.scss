@@ -6,11 +6,33 @@
 
   .favorite {
     display: flex;
-    background-color: #33396c;
+    flex-direction: column;
 
-    .ident, .cashbox, .created, .bets, .simulators {
-      padding: 10px;
-      margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 2px solid black;
+
+    background-color: #33396c;
+    max-width: fit-content;
+
+    padding: 15px;
+    .row {
+      display: flex;
+
+      .cashbox{
+        font-size: 1.8em;
+        font-weight: bold;
+      }
+
+      .changeVolume, .bets {
+        padding: 10px;
+        margin-right: 10px;
+      }
+
+      .ident {
+        font-size: 1.5em;
+      }
     }
   }
 }
