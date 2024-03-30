@@ -14,6 +14,11 @@ use App\Service\Tipico\Content\SimulatorFavoriteList\SimulatorFavoriteListServic
 use App\Service\Tipico\SimulationStatisticService;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -33,6 +38,30 @@ class FavoriteController extends AbstractController
     #[Route('/list', name: 'app_favorite_list')]
     public function index(Request $request): Response
     {
+        $from = new DateTime();
+        $from->setTime(0, 0);
+
+        $until = new DateTime('+ 1day');
+        $until->setTime(0, 0);
+
+        $data = ['from' => $from];
+        $form = $this->createFormBuilder($data)
+            ->add('from', DateType::class, ['required' => false])
+//            ->add('until', DateType::class, ['required' => false])
+            ->add('filter', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $from = $data['from'];
+            $from->setTime(0, 0);
+
+            $until = clone $from; // Clone the $from DateTime object to avoid modifying it directly
+            $until->modify('+1 day');
+            $until->setTime(0, 0);
+        }
+
         $favoriteLists = $this->favoriteListService->getAll();
 
         $balanceToday = [];
@@ -40,12 +69,6 @@ class FavoriteController extends AbstractController
         $nextPlacements = [];
         $listClass = [];
         foreach ($favoriteLists as $favoriteList){
-            $from = new DateTime();
-            $from->setTime(0, 0);
-
-            $until = new DateTime('+ 1day');
-            $until->setTime(0, 0);
-
             $simulators = $this->placementService->findBySimulatorsAndDateTime($favoriteList, $from, $until);
             $total = 0.0;
             $bets = 0;
@@ -69,6 +92,7 @@ class FavoriteController extends AbstractController
         }
 
         return $this->render('favorite/list.html.twig', [
+            'form' => $form->createView(),
             'lists' => $favoriteLists,
             'balanceToday' => $balanceToday,
             'betsToday' => $betsToday,
