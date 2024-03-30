@@ -4,9 +4,10 @@
 
 {% block body %}
     <div class="favorite-detail">
-        {{ total }}
+        <div class="name">{{ name }}</div>
+        <div class="total {{ totalClass }}">{{ total }}€</div>
         {% for simulator in simulators %}
-            <div class="favorite">
+            <div class="favorite {{ simulatorClass[loop.index - 1] }}">
                 <div class="row">
                     <div class="ident">
                         <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a>
@@ -14,7 +15,7 @@
                 </div>
                 <div class="row">
                     <div class="changeVolume">
-                        {{ simulator.changeVolume }}
+                        {{ simulator.changeVolume }}€
                     </div>
                     <div class="bets">
                         {{ simulator.madeBets }}/{{ possiblePlacements[loop.index - 1] }}

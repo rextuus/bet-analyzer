@@ -38,6 +38,7 @@ class FavoriteController extends AbstractController
         $balanceToday = [];
         $betsToday = [];
         $nextPlacements = [];
+        $listClass = [];
         foreach ($favoriteLists as $favoriteList){
             $from = new DateTime();
             $from->setTime(0, 0);
@@ -60,12 +61,18 @@ class FavoriteController extends AbstractController
             $betsToday[] = $bets;
             $nextPlacements[] = $possiblePlacements;
 
+            $class = 'positive';
+            if ($total < 0.0){
+                $class = 'negative';
+            }
+            $listClass[] = $class;
         }
 
         return $this->render('favorite/list.html.twig', [
             'lists' => $favoriteLists,
             'balanceToday' => $balanceToday,
             'betsToday' => $betsToday,
+            'listClass' => $listClass,
             'nextPlacements' => $nextPlacements,
         ]);
     }
@@ -82,18 +89,33 @@ class FavoriteController extends AbstractController
         $simulators = $this->placementService->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
         $total = 0.0;
         $possiblePlacements = [];
+        $simulatorClass = [];
         foreach ($simulators as $simulator){
             $total = $total + $simulator['changeVolume'];
 
+            $class = 'positive';
+            if ($simulator['changeVolume'] < 0.0){
+                $class = 'negative';
+            }
+            $simulatorClass[] = $class;
+
             $simulator = $this->simulatorService->findBy(['id' => $simulator['id']])[0];
             $possiblePlacements[] = count($this->simulationStatisticService->getUpcomingEventsForSimulator($simulator));
+        }
+
+        $totalClass = 'positive';
+        if ($total < 0.0){
+            $totalClass = 'negative' ;
         }
 
         //dd($simulators);
         return $this->render('favorite/detail.html.twig', [
             'simulators' => $simulators,
             'total' => $total,
+            'name' => $simulatorFavoriteList->getIdentifier(),
+            'totalClass' => $totalClass,
             'possiblePlacements' => $possiblePlacements,
+            'simulatorClass' => $simulatorClass,
         ]);
     }
 
