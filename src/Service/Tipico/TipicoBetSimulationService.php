@@ -5,6 +5,8 @@ namespace App\Service\Tipico;
 
 use App\Entity\Simulator;
 use App\Entity\TipicoBet;
+use App\Service\Betano\Api\Response\DailyMatchEventResponse;
+use App\Service\Tipico\Api\Response\TipicoDailyMatchesResponse;
 use App\Service\Tipico\Api\TipicoApiGateway;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
@@ -36,10 +38,8 @@ class TipicoBetSimulationService
     {
     }
 
-    public function storeDailyMatches(): int
+    public function processDailyMatchesResponse(TipicoDailyMatchesResponse $response): int
     {
-        $response = $this->tipicoApiGateway->getDailyMatchEvents();
-
         // standard bets
         $newCreatedBets = [];
         foreach ($response->getMatches() as $tipicoBetData) {
@@ -51,19 +51,22 @@ class TipicoBetSimulationService
                 $newCreatedBets[$tipicoBetData->getTipicoId()] = $this->tipicoBetService->createByData($tipicoBetData);
             }
         }
-
         // over under odds
+        $newCreated = 0;
         foreach ($response->getOverUnderOdds() as $oddDataSet){
             if (!array_key_exists($oddDataSet->getTipicoBetId(), $newCreatedBets)){
                 continue;
             }
-            if ($this->tipicoOverUnderOddService->findByTipicoId($oddDataSet->getTipicoBetId())) {
+            $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
+            $exists = $this->tipicoOverUnderOddService->findByTipicoId($bet->getId(), $oddDataSet->getTarget());
+            if (count($exists) > 0) {
                 continue;
             }
 
             $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
             $oddDataSet->setBet($bet);
             $this->tipicoOverUnderOddService->createByData($oddDataSet);
+            $newCreated++;
         }
 
         // both teams score odds
@@ -71,7 +74,10 @@ class TipicoBetSimulationService
             if (!array_key_exists($oddDataSet->getTipicoBetId(), $newCreatedBets)){
                 continue;
             }
-            if ($this->tipicoBothTeamsScoreOddService->findByTipicoId($oddDataSet->getTipicoBetId())) {
+            $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
+            $exists = $this->tipicoBothTeamsScoreOddService->findByTipicoId($bet->getId());
+
+            if (count($exists) > 0) {
                 continue;
             }
             $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
@@ -84,7 +90,10 @@ class TipicoBetSimulationService
             if (!array_key_exists($oddDataSet->getTipicoBetId(), $newCreatedBets)){
                 continue;
             }
-            if ($this->tipicoHeadToHeadOddService->findByTipicoId($oddDataSet->getTipicoBetId())) {
+
+            $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
+            $exists = $this->tipicoHeadToHeadOddService->findByTipicoId($bet->getId());
+            if (count($exists) > 0) {
                 continue;
             }
             $bet = $newCreatedBets[$oddDataSet->getTipicoBetId()];
@@ -93,6 +102,22 @@ class TipicoBetSimulationService
         }
 
         return count($newCreatedBets);
+    }
+
+    public function storeDailyMatches(): int
+    {
+        $response = $this->tipicoApiGateway->getDailyMatchEvents();
+
+        return $this->processDailyMatchesResponse($response);
+    }
+
+    public function storeDailyMatchesFromBackup(string $fileLocation): int
+    {
+        $data = json_decode(file_get_contents($fileLocation), true);
+        $response = new TipicoDailyMatchesResponse($data);
+        $response->parseResponse();
+
+        return $this->processDailyMatchesResponse($response);
     }
 
     public function checkMatchOutcome(TipicoBet $match): bool

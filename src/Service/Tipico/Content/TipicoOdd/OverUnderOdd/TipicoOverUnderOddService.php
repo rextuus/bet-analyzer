@@ -38,8 +38,8 @@ class TipicoOverUnderOddService
         return $this->repository->findBy($conditions);
     }
 
-    public function findByTipicoId(int $getTipicoId)
+    public function findByTipicoId(int $getTipicoId, float $target)
     {
-        return $this->repository->findBy(['bet' => $getTipicoId]);
+        return $this->repository->findBy(['bet' => $getTipicoId, 'targetValue' => $target]);
     }
 }
