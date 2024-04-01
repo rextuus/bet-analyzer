@@ -18,7 +18,6 @@ class TipicoApiGateway
   const DAILY_MATCH_API_URI = 'https://sports.tipico.de/json/program/hourEvents/today';
   const EVENT_INFO_API_URI = 'https://sports.tipico.de/json/services/event/598504610';
 
-
     public function __construct(
         private readonly GuzzleClientFactory $clientFactory,
         private readonly LoggerInterface $logger
@@ -37,6 +36,15 @@ class TipicoApiGateway
         $response->parseResponse();
 
         return $response;
+    }
+
+    public function getDailyMatchEventsRaw(): string
+    {
+        $client = $this->clientFactory->createClient([], self::DAILY_MATCH_API_URI);
+
+        $response = $client->request('GET');
+
+        return $response->getBody()->getContents();
     }
 
     public function getEventInfo(string $tipicoMatchId): ?TipicoMatchResultResponse

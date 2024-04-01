@@ -26,7 +26,7 @@ class TipicoBetFilter
 
     private array $alreadyUsedFixtureIds = [-1];
 
-    private int $limit = 100;
+    private int $limit = 200;
     private string $order = 'ASC';
     private bool $countRequest = false;
     private float $targetValue;
