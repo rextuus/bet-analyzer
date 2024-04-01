@@ -10,6 +10,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 #[AsCommand(
     name: 'StoreTipicoBackupFileCommand',
@@ -17,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class StoreTipicoBackupFileCommand extends Command
 {
-    public function __construct(private TipicoApiGateway $tipicoApiGateway)
+    public function __construct(private KernelInterface $kernel, private TipicoApiGateway $tipicoApiGateway)
     {
         parent::__construct();
     }
@@ -25,17 +27,22 @@ class StoreTipicoBackupFileCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $backupDir = 'backups';
+        $backupDir = $this->kernel->getProjectDir() . '/public/backups';
+
         $backupFile = $backupDir . '/' . date('Y-m-d') . '.json';
 
         // Download JSON content
         $rawResponse = $this->tipicoApiGateway->getDailyMatchEventsRaw();
 
-        // Save JSON content to file
-        if (!file_exists($backupDir)) {
-            mkdir($backupDir, 0777, true);
-        }
-        file_put_contents($backupFile, $rawResponse);
 
+        $filesystem = new Filesystem();
+
+        if (!$filesystem->exists($backupDir)){
+            $filesystem->mkdir($backupDir);
+        }
+
+        $filesystem->touch($backupFile);
+        $filesystem->appendToFile($backupFile, $rawResponse);
         return Command::SUCCESS;
     }
 }
