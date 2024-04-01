@@ -17,7 +17,8 @@
         </div>
         <div class="navi">
             <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
-            <div class="link"><a href="{{ path('app_favorite_list') }}">To Favorite List</a></div>
+            <div class="link"><a href="{{ path('app_favorite_list', {from: from, until: until}) }}">To Favorite List</a></div>
+            <div class="link"><a href="{{ path('app_tipico_weekday') }}">To Weekday</a></div>
         </div>
         <div class="overview">
             <span class="finished">Finished: <span class="finished-value">{{ finished }}</span></span>

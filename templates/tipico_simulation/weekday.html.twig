@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipico Simulators{% endblock %}
+
+{% block body %}
+
+    <div class="filter">
+{#        {{ form(filter) }}#}
+    </div>
+    <div class="table-container">
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ident</th>
+                <th>Cashbox change</th>
+                <th>Bets</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for simulator in topWeekDaySimulators %}
+                <tr>
+                    <td><a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.id }}</a></td>
+                    <td><a href="{{ path('app_tipico_weekday_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a></td>
+                    <td>{{ simulator['changeVolume'] }}</td>
+                    <td>{{ simulator['madeBets'] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -285,4 +285,72 @@ class SimulationChartService
         ]);
         return $chart;
     }
+
+    /**
+     * @param TipicoPlacement[] $placements
+     */
+    public function getWeekdayChart(array $placements): Chart
+    {
+        $nr = array_keys($placements);
+        $nr[] = count($nr);
+
+        $cashBoxValues = [];
+
+        $value = 0.0;
+        if(count($placements)){
+            $created = $placements[array_key_first($placements)]->getCreated();
+            $nr = [$created->format('d/m H:i (l)')];
+            foreach ($placements as $placement) {
+                $created = $placement->getCreated();
+                $nr[] = $created->format('d/m H:i (l)');
+                $cashBoxValues[] = $value;
+                $value = $value - $placement->getInput();
+                if ($placement->isWon()){
+                    $value = $value + $placement->getValue() ;
+                }
+            }
+        }
+
+
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+
+        $chart->setData([
+            'labels' => $nr,
+            'datasets' => [
+                [
+                    'pointRadius' => 1.5,
+                    'label' => 'CashBox',
+                    'backgroundColor' => 'rgb(71, 80, 62)',
+                    'borderColor' => 'rgb(71, 80, 62)',
+                    'Color' => '#ffffff',
+                    'data' => $cashBoxValues,
+                ],
+                [
+                    'pointRadius' => 0.0,
+                    'label' => 'Start',
+                    'backgroundColor' => 'rgb(198, 0, 15)',
+                    'borderColor' => 'rgb(198, 0, 15)',
+                    'data' => array_fill(0, count($nr), 0.0),
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0.0,
+                    'suggestedMax' => 10.0,
+                    'ticks' => [
+                        'color' => '#ffffff'
+                    ]
+                ],
+                'x' => [
+                    'ticks' => [
+                        'color' => '#ffffff'
+                    ]
+                ],
+            ],
+        ]);
+        return $chart;
+    }
 }

@@ -476,4 +476,40 @@ class SimulationStatisticService
 
         return $distribution;
     }
+
+    public function findTopSimulatorsByWeekday(): array
+    {
+        $simulatorId = $this->simulatorService->findAllSimulatorIds();
+
+        return $this->tipicoPlacementService->findTopSimulatorsByWeekday($simulatorId);
+    }
+
+    /**
+     * @return WeekdayStatistic[]
+     */
+    public function getWeekdayStatisticForSimulator(Simulator $simulator): array
+    {
+        $placements = $this->tipicoPlacementService->getWeekdayStatisticForSimulator($simulator);
+
+        $orderedPlacements = [];
+        foreach ($placements as $placement){
+            $key = $placement->getCreated()->format('d-m-Y');
+            if (!array_key_exists($key, $orderedPlacements)){
+                $orderedPlacements[$key] = [];
+            }
+            $orderedPlacements[$key][] = $placement;
+        }
+
+        $statistics = [];
+        foreach ($orderedPlacements as $set){
+            $statistic = new WeekdayStatistic();
+
+            $chart = $this->chartService->getWeekdayChart($set);
+            $statistic->setChart($chart);
+
+            $statistics[] = $statistic;
+        }
+
+        return $statistics;
+    }
 }

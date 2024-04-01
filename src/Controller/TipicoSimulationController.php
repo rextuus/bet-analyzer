@@ -59,6 +59,14 @@ class TipicoSimulationController extends AbstractController
         $cashBoxChart = $this->simulationStatisticService->getSimulatorCashBoxDistributionChart();
         $distribution = $this->simulationStatisticService->getActiveSimulators();
 
+
+        $from = new DateTime();
+        $from->modify("-1 weeks");
+        $from->setTime(0, 0);
+        $until = clone $from;
+        $until->modify('+ 1day');
+        $until->setTime(0, 0);
+
         return $this->render('tipico_simulation/dashboard.html.twig', [
             'nextPlacements' => $nextPlacements,
             'betOn' => BetOn::HOME,
@@ -76,6 +84,8 @@ class TipicoSimulationController extends AbstractController
             'inactiveSimulators' => $distribution['inactive'],
             'activeSimulators' => $distribution['active'],
             'inWinSimulators' => $distribution['inWin'],
+            'from' => $from->getTimestamp(),
+            'until' => $until->getTimestamp(),
         ]);
     }
 
@@ -171,5 +181,25 @@ class TipicoSimulationController extends AbstractController
         ]);
     }
 
+    #[Route('/weekday', name: 'app_tipico_weekday')]
+    public function weekDay(): Response
+    {
+        $topWeekDaySimulators = $this->simulationStatisticService->findTopSimulatorsByWeekday();
 
+        return $this->render('tipico_simulation/weekday.html.twig', [
+            'topWeekDaySimulators' => $topWeekDaySimulators,
+        ]);
+    }
+
+    #[Route('/weekday/{simulator}/detail', name: 'app_tipico_weekday_detail')]
+    public function weekDayDetail(Simulator $simulator): Response
+    {
+        $statistics = $this->simulationStatisticService->getWeekdayStatisticForSimulator($simulator);
+
+
+        return $this->render('tipico_simulation/weekday_detail.html.twig', [
+            'statistics' => $statistics,
+            'simulator' => $simulator,
+        ]);
+    }
 }

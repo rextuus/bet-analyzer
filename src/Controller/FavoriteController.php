@@ -38,11 +38,24 @@ class FavoriteController extends AbstractController
     #[Route('/list', name: 'app_favorite_list')]
     public function index(Request $request): Response
     {
+        $currentDate = new DateTime();
+        $currentDate->setTime(0, 0);
+
+        $fromQuery = $request->query->get('from');
+        $untilQuery = $request->query->get('until');
+
         $from = new DateTime();
         $from->setTime(0, 0);
 
         $until = new DateTime('+ 1day');
         $until->setTime(0, 0);
+
+        if ($fromQuery){
+            $from->setTimestamp($fromQuery);
+        }
+        if ($untilQuery){
+            $until->setTimestamp($untilQuery);
+        }
 
         $data = ['from' => $from];
         $form = $this->createFormBuilder($data)
@@ -79,6 +92,9 @@ class FavoriteController extends AbstractController
 
                 $simulator = $this->simulatorService->findBy(['id' => $simulator['id']])[0];
                 $possiblePlacements = $possiblePlacements + count($this->simulationStatisticService->getUpcomingEventsForSimulator($simulator));
+                if ($from < $currentDate){
+                    $possiblePlacements = $bets;
+                }
             }
             $balanceToday[] = $total;
             $betsToday[] = $bets;
@@ -97,18 +113,51 @@ class FavoriteController extends AbstractController
             'balanceToday' => $balanceToday,
             'betsToday' => $betsToday,
             'listClass' => $listClass,
+            'from' => $from->getTimestamp(),
+            'until' => $until->getTimestamp(),
             'nextPlacements' => $nextPlacements,
         ]);
     }
 
     #[Route('/detail/{simulatorFavoriteList}', name: 'app_favorite_detail')]
-    public function detail(SimulatorFavoriteList $simulatorFavoriteList): Response
+    public function detail(Request $request, SimulatorFavoriteList $simulatorFavoriteList): Response
     {
+        $currentDate = new DateTime();
+        $currentDate->setTime(0, 0);
+
+        $fromQuery = $request->query->get('from');
+        $untilQuery = $request->query->get('until');
+
         $from = new DateTime();
         $from->setTime(0, 0);
 
         $until = new DateTime('+ 1day');
         $until->setTime(0, 0);
+
+        if ($fromQuery){
+            $from->setTimestamp($fromQuery);
+        }
+        if ($untilQuery){
+            $until->setTimestamp($untilQuery);
+        }
+
+        $data = ['from' => $from];
+        $form = $this->createFormBuilder($data)
+            ->add('from', DateType::class, ['required' => false])
+//            ->add('until', DateType::class, ['required' => false])
+            ->add('filter', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $from = $data['from'];
+            $from->setTime(0, 0);
+
+            $until = clone $from; // Clone the $from DateTime object to avoid modifying it directly
+            $until->modify('+1 day');
+            $until->setTime(0, 0);
+        }
 
         $simulators = $this->placementService->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
         $total = 0.0;
@@ -123,8 +172,13 @@ class FavoriteController extends AbstractController
             }
             $simulatorClass[] = $class;
 
+            $madeBets = $simulator['madeBets'];
             $simulator = $this->simulatorService->findBy(['id' => $simulator['id']])[0];
-            $possiblePlacements[] = count($this->simulationStatisticService->getUpcomingEventsForSimulator($simulator));
+            if ($from > $currentDate){
+                $madeBets = count($this->simulationStatisticService->getUpcomingEventsForSimulator($simulator));
+            }
+            $possiblePlacements[] = $madeBets;
+
         }
 
         $totalClass = 'positive';
@@ -134,6 +188,7 @@ class FavoriteController extends AbstractController
 
         //dd($simulators);
         return $this->render('favorite/detail.html.twig', [
+            'form' => $form->createView(),
             'simulators' => $simulators,
             'total' => $total,
             'name' => $simulatorFavoriteList->getIdentifier(),

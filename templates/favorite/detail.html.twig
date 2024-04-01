@@ -3,6 +3,9 @@
 {% block title %}Hello SimulatorController!{% endblock %}
 
 {% block body %}
+    <div class="form">
+        {{ form(form) }}
+    </div>
     <div class="favorite-detail">
         <div class="name">{{ name }}</div>
         <div class="total {{ totalClass }}">{{ total }}€</div>

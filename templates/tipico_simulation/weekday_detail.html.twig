@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ simulator.identifier }}{% endblock %}
+
+{% block body %}
+    {{ simulator.identifier }}
+    <div class="filter">
+{#        {{ form(filter) }}#}
+    </div>
+    <div class="table-container">
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ident</th>
+                <th>Cashbox change</th>
+                <th>Statistics</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for statistic in statistics %}
+                <tr>
+                    <td>{{ render_chart(statistic.chart) }}</td>
+{#                    <td>{{ simulator['identifier'] }}</td>#}
+{#                    <td>{{ simulator['changeVolume'] }}</td>#}
+{#                    <td>{{ simulator['madeBets'] }}</td>#}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

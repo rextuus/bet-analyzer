@@ -125,4 +125,17 @@ class TipicoPlacementService
     {
         return $this->repository->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
     }
+
+    public function findTopSimulatorsByWeekday(array $ids)
+    {
+        return $this->repository->findTopSimulatorsByWeekday($ids);
+    }
+
+    /**
+     * @return TipicoPlacement[]
+     */
+    public function getWeekdayStatisticForSimulator(Simulator $simulator): array
+    {
+        return $this->repository->getWeekdayStatisticForSimulator($simulator);
+    }
 }
