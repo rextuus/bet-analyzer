@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\TipicoBothTeamsScoreOddRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TipicoBothTeamsScoreOddRepository::class)]
 class TipicoBothTeamsScoreOdd
@@ -11,6 +12,7 @@ class TipicoBothTeamsScoreOdd
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?int $id = null;
 
     #[ORM\OneToOne(inversedBy: 'tipicoBothTeamsScoreBet', cascade: ['persist', 'remove'])]
@@ -18,9 +20,11 @@ class TipicoBothTeamsScoreOdd
     private ?TipicoBet $bet = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $conditionTrueValue = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $conditionFalseValue = null;
 
     public function getId(): ?int

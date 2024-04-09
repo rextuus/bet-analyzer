@@ -33,7 +33,7 @@ class CollectDailyMatchesCommand extends Command
 
         $stored = $this->betSimulationService->storeDailyMatches();
 
-        $message = sprintf('Added %d new matches for %s', $stored, (new DateTime())->format('d.m.Y'));
+        $message = sprintf('Added [%s] new matches for %s', $stored, (new DateTime())->format('d.m.Y'));
         $this->betSimulationService->sendMessageToTelegramFeed($message);
 
         return Command::SUCCESS;

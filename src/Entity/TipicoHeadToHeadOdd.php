@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Service\Tipico\Content\TipicoOdd\HeadToHeadOdd\TipicoHeadToHeadOddRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TipicoHeadToHeadOddRepository::class)]
 class TipicoHeadToHeadOdd
@@ -11,6 +12,7 @@ class TipicoHeadToHeadOdd
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?int $id = null;
 
     #[ORM\OneToOne(inversedBy: 'tipicoHeadToHeadScore', cascade: ['persist', 'remove'])]
@@ -18,9 +20,11 @@ class TipicoHeadToHeadOdd
     private ?TipicoBet $bet = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $homeTeamValue = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $awayTeamValue = null;
 
     public function getId(): ?int

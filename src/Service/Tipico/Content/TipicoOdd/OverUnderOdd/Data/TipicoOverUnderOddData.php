@@ -72,4 +72,13 @@ class TipicoOverUnderOddData
         return $this;
     }
 
+    public function initFromApiResponse(array $data, int $betId): TipicoOverUnderOddData
+    {
+        $this->setOver($data['overValue']);
+        $this->setUnder($data['underValue']);
+        $this->setTarget($data['targetValue']);
+        $this->setTipicoBetId($betId);
+
+        return $this;
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\TipicoOverUnderOddRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TipicoOverUnderOddRepository::class)]
 class TipicoOverUnderOdd
@@ -11,19 +12,24 @@ class TipicoOverUnderOdd
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'tipicoOverUnderOdds')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['tipico_head_to_head_odd'])]
     private ?TipicoBet $bet = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $overValue = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $underValue = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $targetValue = null;
 
     public function getId(): ?int

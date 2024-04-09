@@ -268,4 +268,28 @@ class TipicoDailyMatchesResponse
     {
         return $this->headToHeadOdds;
     }
+
+    public function setMatches(array $matches): TipicoDailyMatchesResponse
+    {
+        $this->matches = $matches;
+        return $this;
+    }
+
+    public function setOverUnderOdds(array $overUnderOdds): TipicoDailyMatchesResponse
+    {
+        $this->overUnderOdds = $overUnderOdds;
+        return $this;
+    }
+
+    public function setBothTeamsScoreOdds(array $bothTeamsScoreOdds): TipicoDailyMatchesResponse
+    {
+        $this->bothTeamsScoreOdds = $bothTeamsScoreOdds;
+        return $this;
+    }
+
+    public function setHeadToHeadOdds(array $headToHeadOdds): TipicoDailyMatchesResponse
+    {
+        $this->headToHeadOdds = $headToHeadOdds;
+        return $this;
+    }
 }

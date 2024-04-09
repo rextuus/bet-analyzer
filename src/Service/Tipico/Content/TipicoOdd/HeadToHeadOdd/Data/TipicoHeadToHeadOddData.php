@@ -59,4 +59,13 @@ class TipicoHeadToHeadOddData
         $this->awayTeamValue = $awayTeamValue;
         return $this;
     }
+
+    public function initFromApiResponse(array $data, int $tipicoId): TipicoHeadToHeadOddData
+    {
+        $this->setTipicoBetId($tipicoId);
+        $this->setHomeTeamValue($data['homeTeamValue']);
+        $this->setAwayTeamValue($data['awayTeamValue']);
+
+        return $this;
+    }
 }

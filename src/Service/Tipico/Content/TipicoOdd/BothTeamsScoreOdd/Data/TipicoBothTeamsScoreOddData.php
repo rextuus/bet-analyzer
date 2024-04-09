@@ -59,4 +59,13 @@ class TipicoBothTeamsScoreOddData
         return $this;
     }
 
+    public function initFromApiResponse(array $data, int $tipicoId): TipicoBothTeamsScoreOddData
+    {
+        $this->setTipicoBetId($tipicoId);
+        $this->setConditionTrueValue($data['conditionTrueValue']);
+        $this->setConditionFalseValue($data['conditionFalseValue']);
+
+        return $this;
+    }
+
 }

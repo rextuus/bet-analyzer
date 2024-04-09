@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TipicoBetRepository::class)]
 class TipicoBet
@@ -15,45 +16,59 @@ class TipicoBet
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?int $tipicoId = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?int $tipicoHomeTeamId = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?int $tipicoAwayTeamId = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['tipico_bet'])]
     private ?string $homeTeamName = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['tipico_bet'])]
     private ?string $awayTeamName = null;
 
     #[ORM\Column(type: Types::BIGINT)]
+    #[Groups(['tipico_bet'])]
     private ?int $startAtTimeStamp = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $oddHome = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $oddDraw = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?float $oddAway = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?int $endScoreHome = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?int $endScoreAway = null;
 
     #[ORM\Column]
+    #[Groups(['tipico_bet'])]
     private ?bool $finished = null;
 
     #[ORM\Column(type: "string", enumType: BetOn::class)]
+    #[Groups(['tipico_bet'])]
     private BetOn $result;
 
     #[ORM\ManyToMany(targetEntity: Simulator::class, mappedBy: 'fixtures')]
@@ -63,12 +78,15 @@ class TipicoBet
     private Collection $tipicoPlacements;
 
     #[ORM\OneToMany(mappedBy: 'bet', targetEntity: TipicoOverUnderOdd::class)]
+    #[Groups(['tipico_bet'])]
     private Collection $tipicoOverUnderOdds;
 
     #[ORM\OneToOne(mappedBy: 'bet', cascade: ['persist', 'remove'])]
+    #[Groups(['tipico_bet'])]
     private ?TipicoBothTeamsScoreOdd $tipicoBothTeamsScoreBet = null;
 
     #[ORM\OneToOne(mappedBy: 'bet', cascade: ['persist', 'remove'])]
+    #[Groups(['tipico_bet'])]
     private ?TipicoHeadToHeadOdd $tipicoHeadToHeadScore = null;
 
     public function __construct()

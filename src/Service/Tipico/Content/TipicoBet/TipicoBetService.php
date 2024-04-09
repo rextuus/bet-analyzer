@@ -206,4 +206,12 @@ class TipicoBetService
             $simulator->getFixtures()->toArray()
         );
     }
+
+    /**
+     * @return TipicoBet[]
+     */
+    public function findInRange(?int $from = null, ?int $until = null): array
+    {
+        return $this->repository->findInRange($from, $until);
+    }
 }

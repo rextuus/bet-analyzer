@@ -149,4 +149,24 @@ class TipicoBetRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @return TipicoBet[]
+     */
+    public function findInRange(?int $from, ?int $until): array
+    {
+        $qb = $this->createQueryBuilder('f');
+        if ($from){
+            $qb->andWhere($qb->expr()->gte('f.startAtTimeStamp', ':from'));
+            $qb->setParameter('from', $from);
+        }
+        if ($until){
+            $qb->andWhere($qb->expr()->lte('f.startAtTimeStamp', ':until'));
+            $qb->setParameter('until', $until);
+        }
+
+        $qb->setMaxResults(500);
+
+        return $qb->getQuery()->getResult();
+    }
 }

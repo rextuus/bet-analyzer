@@ -198,4 +198,23 @@ class TipicoBetData
 
         return $this;
     }
+
+    public function initFromApiResponse(array $apiResponse): TipicoBetData
+    {
+        $this->setTipicoId($apiResponse['tipicoId']);
+        $this->setTipicoHomeTeamId($apiResponse['tipicoHomeTeamId']);
+        $this->setTipicoAwayTeamId($apiResponse['tipicoAwayTeamId']);
+        $this->setHomeTeamName($apiResponse['homeTeamName']);
+        $this->setAwayTeamName($apiResponse['awayTeamName']);
+        $this->setStartAtTimeStamp($apiResponse['startAtTimeStamp']);
+        $this->setOddHome($apiResponse['oddHome']);
+        $this->setOddDraw($apiResponse['oddDraw']);
+        $this->setOddAway($apiResponse['oddAway']);
+        $this->setEndScoreHome($apiResponse['endScoreHome']);
+        $this->setEndScoreAway($apiResponse['endScoreAway']);
+        $this->setFinished($apiResponse['finished']);
+        $this->setResult(BetOn::from($apiResponse['result']));
+
+        return $this;
+    }
 }

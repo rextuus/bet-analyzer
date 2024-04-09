@@ -1,0 +1,101 @@
+<?php
+
+namespace App\Command\Tipico;
+
+use App\Entity\TipicoBet;
+use App\Service\Tipico\Api\Response\TipicoDailyMatchesResponse;
+use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
+use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\Data\TipicoBothTeamsScoreOddData;
+use App\Service\Tipico\Content\TipicoOdd\HeadToHeadOdd\Data\TipicoHeadToHeadOddData;
+use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\Data\TipicoOverUnderOddData;
+use App\Service\Tipico\TipicoBetSimulationService;
+use DateTime;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\Serializer\SerializerInterface;
+
+#[AsCommand(
+    name: 'SyncBetFromBackupServer',
+    description: 'Add a short description for your command',
+)]
+class SyncBetFromBackupServerCommand extends Command
+{
+    public function __construct(SerializerInterface $serializer, private TipicoBetSimulationService $betSimulationService)
+    {
+        parent::__construct();
+        $this->serializer = $serializer;
+    }
+
+    protected function configure()
+    {
+        $this->setDescription('Sync Tipico bets from remote server.');
+        $this->addArgument('from', InputArgument::REQUIRED, 'from');
+        $this->addArgument('until', InputArgument::REQUIRED, 'until');
+        $this->addOption('dry', 'd');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $from = $input->getArgument('from');
+        $until = $input->getArgument('until');
+
+        $fromDate = (new DateTime($from));
+        $fromDate->setTime(0,0, 0);
+        $untilDate = (new DateTime($until));
+        $untilDate->setTime(23, 59, 59);
+
+        $fromDateTimeStamp = $fromDate->getTimestamp() * 1000;
+        $untilDateTimeStamp = $untilDate->getTimestamp() * 1000;
+
+        $output->writeln(sprintf('Sync bet from %s to %s', $fromDate->format('d/m/y H:i:s'), $untilDate->format('d/m/y H:i:s')));
+
+        // Call the API endpoint to fetch Tipico bets
+        $httpClient = HttpClient::create();
+        $server = 'localhost:8000';
+        $response = $httpClient->request('GET', "http://$server/api/bets?from=$fromDateTimeStamp&until=$untilDateTimeStamp");
+
+        $dry = $input->getOption('dry');
+
+        if ($dry){
+            $output->writeln($response->getContent());
+            return Command::SUCCESS;
+        }
+
+        // Deserialize the JSON response into TipicoBet entities
+        $tipicoBetsData = $response->toArray();
+        $tipicoBets = [];
+        $overUnderOdds = [];
+        $bothTeamsScoreOdds = [];
+        $headToHeadOdds = [];
+
+        foreach ($tipicoBetsData as $betData) {
+            $rawResponse = $this->serializer->deserialize(json_encode($betData), TipicoBet::class, 'json');
+            $tipicoBets[] = (new TipicoBetData())->initFromApiResponse($rawResponse);
+            if (array_key_exists('tipicoOverUnderOdds', $rawResponse)) {
+                foreach ($rawResponse['tipicoOverUnderOdds'] as $overUnderOdd) {
+                    $overUnderOdds[] = (new TipicoOverUnderOddData())->initFromApiResponse($overUnderOdd, $betData['tipicoId']);
+                }
+            }
+            if (array_key_exists('tipicoBothTeamsScoreBet', $rawResponse) && $rawResponse['tipicoBothTeamsScoreBet'] !== null) {
+                $bothTeamsScoreOdds[] = (new TipicoBothTeamsScoreOddData())->initFromApiResponse($rawResponse['tipicoBothTeamsScoreBet'], $betData['tipicoId']);
+            }
+            if (array_key_exists('tipicoHeadToHeadScore', $rawResponse) && $rawResponse['tipicoHeadToHeadScore'] !== null) {
+                $headToHeadOdds[] = (new TipicoHeadToHeadOddData())->initFromApiResponse($rawResponse['tipicoHeadToHeadScore'], $betData['tipicoId']);
+            }
+        }
+        $container = new TipicoDailyMatchesResponse(json_decode($response->getContent(), true));
+        $container->setMatches($tipicoBets);
+        $container->setOverUnderOdds($overUnderOdds);
+        $container->setBothTeamsScoreOdds($bothTeamsScoreOdds);
+        $container->setHeadToHeadOdds($headToHeadOdds);
+
+        $created = $this->betSimulationService->processDailyMatchesResponse($container);
+        $output->writeln($created);
+
+        return Command::SUCCESS;
+    }
+}
