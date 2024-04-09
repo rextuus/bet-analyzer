@@ -24,28 +24,33 @@ use Symfony\Component\Serializer\SerializerInterface;
 )]
 class SyncBetFromBackupServerCommand extends Command
 {
-    public function __construct(SerializerInterface $serializer, private TipicoBetSimulationService $betSimulationService)
+    public function __construct(
+        private readonly SerializerInterface $serializer,
+        private readonly TipicoBetSimulationService $betSimulationService
+    )
     {
         parent::__construct();
-        $this->serializer = $serializer;
     }
 
     protected function configure()
     {
         $this->setDescription('Sync Tipico bets from remote server.');
         $this->addArgument('from', InputArgument::REQUIRED, 'from');
-        $this->addArgument('until', InputArgument::REQUIRED, 'until');
         $this->addOption('dry', 'd');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $from = $input->getArgument('from');
-        $until = $input->getArgument('until');
+        if (!preg_match('~^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$~', $from)){
+            $output->writeln('Need date in format dd.mm.YYY');
+            return Command::FAILURE;
+        }
 
         $fromDate = (new DateTime($from));
-        $fromDate->setTime(0,0, 0);
-        $untilDate = (new DateTime($until));
+        $untilDate = clone $fromDate;
+
+        $fromDate->setTime(0,0);
         $untilDate->setTime(23, 59, 59);
 
         $fromDateTimeStamp = $fromDate->getTimestamp() * 1000;
@@ -55,15 +60,10 @@ class SyncBetFromBackupServerCommand extends Command
 
         // Call the API endpoint to fetch Tipico bets
         $httpClient = HttpClient::create();
-        $server = 'localhost:8000';
+        $server = '35.246.218.255/bet-analyzer/public/index.php';
         $response = $httpClient->request('GET', "http://$server/api/bets?from=$fromDateTimeStamp&until=$untilDateTimeStamp");
 
         $dry = $input->getOption('dry');
-
-        if ($dry){
-            $output->writeln($response->getContent());
-            return Command::SUCCESS;
-        }
 
         // Deserialize the JSON response into TipicoBet entities
         $tipicoBetsData = $response->toArray();
@@ -92,6 +92,11 @@ class SyncBetFromBackupServerCommand extends Command
         $container->setOverUnderOdds($overUnderOdds);
         $container->setBothTeamsScoreOdds($bothTeamsScoreOdds);
         $container->setHeadToHeadOdds($headToHeadOdds);
+
+        if ($dry){
+            dump($container);
+            return Command::SUCCESS;
+        }
 
         $created = $this->betSimulationService->processDailyMatchesResponse($container);
         $output->writeln($created);
