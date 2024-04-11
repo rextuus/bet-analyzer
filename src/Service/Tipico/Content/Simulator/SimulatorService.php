@@ -111,9 +111,9 @@ class SimulatorService
      * @param string[] $strategyIdents
      * @return array<array<string, int>
      */
-    public function findByStrategies(array $strategyIdents): array
+    public function findByStrategies(array $strategyIdents, array $additional): array
     {
-        return $this->repository->findByStrategies($strategyIdents);
+        return $this->repository->findByStrategies($strategyIdents, $additional);
     }
 
     public function findBySimulatorsWithPlacements(SimulatorFavoriteList $simulatorFavoriteList, DateTime $from, DateTime $until)

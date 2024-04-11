@@ -92,13 +92,17 @@ class SimulatorRepository extends ServiceEntityRepository
      * @param string[] $strategyIdents
      * @return array<array<string, int>
      */
-    public function findByStrategies(array $strategyIdents): array
+    public function findByStrategies(array $strategyIdents, array $additional): array
     {
         $qb = $this->createQueryBuilder('s');
         $qb->select('s.id');
         $qb->leftJoin(SimulationStrategy::class, 'ss', 'WITH', 's.strategy = ss.id');
         $qb->andWhere($qb->expr()->in('ss.identifier', ':strategy'));
         $qb->setParameter('strategy', $strategyIdents);
+        if (count($additional) > 0){
+            $qb->andWhere($qb->expr()->in('ss.additionalProcessingIdent', ':additional'));
+            $qb->setParameter('additional', $additional);
+        }
 
         return $qb->getQuery()->getResult();
     }

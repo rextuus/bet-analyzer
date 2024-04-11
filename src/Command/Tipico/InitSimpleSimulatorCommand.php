@@ -38,6 +38,7 @@ class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
             ->addArgument('searchBetOn', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('targetBetOn', InputArgument::REQUIRED, 'Argument description')
         ;
+        parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -58,12 +59,15 @@ class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
             AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $searchBetOn,
             AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON => $targetBetOn,
         ];
+        $parameters = $this->addAdditionalParameters($parameters, $input);
 
         $simulationStrategyData = new SimulationStrategyData();
         $simulationStrategyData->setIdentifier(SimpleStrategy::IDENT);
         $simulationStrategyData->setParameters(json_encode($parameters));
 
-        $this->storeSimulator($simulationStrategyData, $identifier);
+        $potentialNegativeBorderName = $this->getPotentialNegativeSeriesName($input);
+
+        $this->storeSimulator($simulationStrategyData, $identifier.$potentialNegativeBorderName);
 
         return Command::SUCCESS;
     }

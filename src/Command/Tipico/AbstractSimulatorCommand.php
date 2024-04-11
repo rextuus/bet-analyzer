@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Command\Tipico;
 
 use App\Service\Evaluation\BetOn;
+use App\Service\Tipico\Content\SimulationStrategy\AdditionalProcessingIdent;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
@@ -12,6 +13,7 @@ use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
@@ -32,6 +34,13 @@ class AbstractSimulatorCommand extends Command
     )
     {
         parent::__construct();
+    }
+
+    protected function configure(): void
+    {
+        $this
+            ->addArgument('negativeSeriesBorder', InputArgument::OPTIONAL, '')
+        ;
     }
 
     protected function validateDefaultParameters(InputInterface $input): bool
@@ -64,12 +73,44 @@ class AbstractSimulatorCommand extends Command
         return $parameters;
     }
 
+    protected function addAdditionalParameters(array $parameters, InputInterface $input): array
+    {
+        $negativeSeriesBorder = $input->getArgument('negativeSeriesBorder');
+        if ($negativeSeriesBorder){
+            $parameters[AbstractSimulationProcessor::PARAMETER_CURRENT_NEGATIVE_SERIES] = 0;
+            $parameters[AbstractSimulationProcessor::PARAMETER_NEGATIVE_SERIES_BREAK_POINT] = $negativeSeriesBorder;
+        }
+        return $parameters;
+    }
+
     protected function getPotentialSearchTargetName(): string
     {
         if ($this->searchBetOnTargetValue === null){
             return '';
         }
         return '_['.(string)round((float)$this->searchBetOnTargetValue).']';
+    }
+
+    protected function getPotentialNegativeSeriesName(InputInterface $input): string
+    {
+        $negativeSeriesBorder = $input->getArgument('negativeSeriesBorder');
+
+        if ($negativeSeriesBorder){
+            return '_nsb_'.$negativeSeriesBorder;
+        }
+
+        return '';
+    }
+
+    protected function getPotentialProcessingIdent(InputInterface $input): ?AdditionalProcessingIdent
+    {
+        $negativeSeriesBorder = $input->getArgument('negativeSeriesBorder');
+
+        if ($negativeSeriesBorder){
+            return AdditionalProcessingIdent::STOP_NEGATIVE_SERIES;
+        }
+
+        return null;
     }
 
     protected function storeSimulator(SimulationStrategyData $data, string $identifier): void

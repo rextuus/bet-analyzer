@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Tipico\SimulationProcessors;
+namespace App\Service\Tipico\Simulation\Data;
 
 use App\Entity\TipicoPlacement;
 

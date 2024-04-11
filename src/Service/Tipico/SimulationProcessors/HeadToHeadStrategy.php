@@ -4,14 +4,13 @@ declare(strict_types=1);
 namespace App\Service\Tipico\SimulationProcessors;
 
 use App\Entity\Simulator;
-use App\Entity\TipicoBet;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
-use App\Service\Tipico\TelegramMessageService;
-use App\Service\Tipico\TipicoBetSimulator;
+use App\Service\Tipico\Simulation\AdditionalProcessors\NegativeSeriesProcessor;
+use App\Service\Tipico\Simulation\Data\ProcessResult;
 use DateTime;
 
 class HeadToHeadStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
@@ -19,15 +18,20 @@ class HeadToHeadStrategy extends AbstractSimulationProcessor implements Simulati
     public const IDENT = 'head_to_head';
 
     public function __construct(
-        protected readonly TipicoBetService $tipicoBetService,
         protected readonly TipicoPlacementService $placementService,
         protected readonly SimulatorService $simulatorService,
         protected readonly SimulationStrategyService $simulationStrategyService,
-        protected readonly TelegramMessageService $telegramMessageService,
-        private readonly TipicoBetSimulator $tipicoBetSimulator,
+        protected readonly TipicoBetService $tipicoBetService,
+        protected readonly NegativeSeriesProcessor $negativeSeriesProcessor,
     )
     {
-        parent::__construct($placementService, $simulatorService, $simulationStrategyService, $tipicoBetService);
+        parent::__construct(
+            $placementService,
+            $simulatorService,
+            $simulationStrategyService,
+            $tipicoBetService,
+            $negativeSeriesProcessor
+        );
     }
 
     public function getIdentifier(): string
@@ -35,17 +39,15 @@ class HeadToHeadStrategy extends AbstractSimulationProcessor implements Simulati
         return self::IDENT;
     }
 
-    public function calculate(Simulator $simulator): PlacementContainer
+    public function calculate(Simulator $simulator, array $fixtures, array $parameters): ProcessResult
     {
-        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
         $targetBetOn = Beton::from($parameters[self::PARAMETER_TARGET_BET_ON]);
-
-        $fixtures = $this->getFixtureForSimulatorBySearchAndTarget($simulator);
 
         $placementData = [];
         $fixturesActuallyUsed = [];
         foreach ($fixtures as $fixture) {
             $isWon = false;
+            $value = 1.0;
 
             if ($targetBetOn === BetOn::H2H_HOME) {
                 $value = $fixture->getTipicoHeadToHeadScore()->getHomeTeamValue();
@@ -69,7 +71,7 @@ class HeadToHeadStrategy extends AbstractSimulationProcessor implements Simulati
                 $isWon = true;
             }
 
-            $placementData[] = $this->tipicoBetSimulator->createPlacement(
+            $placementData[] = $this->createPlacement(
                 [$fixture],
                 1.0,
                 $value,
@@ -81,10 +83,10 @@ class HeadToHeadStrategy extends AbstractSimulationProcessor implements Simulati
             $fixturesActuallyUsed[] = $fixture;
         }
 
-        // store changes
-        $container = $this->storePlacementsToDatabase($placementData);
-        $this->storeSimulatorChangesToDatabase($simulator, $fixturesActuallyUsed, $container);
+        $result = new ProcessResult();
+        $result->setPlacementData($placementData);
+        $result->setFixturesActuallyUsed($fixturesActuallyUsed);
 
-        return $container;
+        return $result;
     }
 }

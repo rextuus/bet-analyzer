@@ -5,7 +5,6 @@ namespace App\Service\Tipico\SimulationProcessors;
 
 use App\Entity\Simulator;
 use App\Entity\TipicoBet;
-use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
@@ -13,22 +12,79 @@ use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
+use App\Service\Tipico\Simulation\AdditionalProcessors\NegativeSeriesProcessor;
+use App\Service\Tipico\Simulation\Data\AdditionalProcessResult;
+use App\Service\Tipico\Simulation\Data\PlacementContainer;
+use App\Service\Tipico\Simulation\Data\ProcessResult;
+use DateTime;
 
-class AbstractSimulationProcessor
+abstract class AbstractSimulationProcessor
 {
     public const PARAMETER_SEARCH_BET_ON = 'searchBetOn';
     public const PARAMETER_SEARCH_BET_ON_TARGET = 'searchBetOnTarget';
     public const PARAMETER_TARGET_BET_ON = 'targetBetOn';
     public const PARAMETER_MIN = 'min';
     public const PARAMETER_MAX = 'max';
+    public const PARAMETER_NEGATIVE_SERIES_BREAK_POINT = 'negativeSeriesBreakPoint';
+    public const PARAMETER_CURRENT_NEGATIVE_SERIES = 'currentNegativeSeries';
 
     public function __construct(
         private readonly TipicoPlacementService $placementService,
         private readonly SimulatorService $simulatorService,
         private readonly SimulationStrategyService $simulationStrategyService,
         private readonly TipicoBetService $tipicoBetService,
+        private readonly NegativeSeriesProcessor $negativeSeriesProcessor,
     )
     {
+    }
+
+    public function process(Simulator $simulator): PlacementContainer
+    {
+        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
+        $fixtures = $this->tipicoBetService->getFixtureForSimulatorByFilter($simulator);
+
+        $processResult = $this->calculate($simulator, $fixtures, $parameters);
+
+        // placementData can be changed here if we want to cancel bets in negative series for example
+        $additionalProcessResult = $this->processAdditionalSimulationStrategyParameters($processResult, $parameters);
+        $placementData = $additionalProcessResult->getPlacementData();
+
+        // store changes
+        $container = $this->storePlacementsToDatabase($placementData);
+        $this->storeSimulatorChangesToDatabase($simulator, $processResult->getFixturesActuallyUsed(), $container);
+
+        if ($additionalProcessResult->isProcessedNegativeSeries()){
+            $strategy = $simulator->getStrategy();
+            $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
+            $parameters[self::PARAMETER_CURRENT_NEGATIVE_SERIES] = $additionalProcessResult->getCurrentNegativeSeries();
+
+            $simulationStrategyData = (new SimulationStrategyData())->initFromEntity($strategy);
+            $simulationStrategyData->setParameters(json_encode($parameters));
+
+            $this->simulationStrategyService->update($strategy, $simulationStrategyData);
+        }
+
+        return $container;
+    }
+
+    /**
+     * @param array<string, mixed> $parameters
+     */
+    public function processAdditionalSimulationStrategyParameters(ProcessResult $processResult, array $parameters): AdditionalProcessResult
+    {
+        $result = new AdditionalProcessResult();
+        $result->setPlacementData($processResult->getPlacementData());
+
+        if (array_key_exists(self::PARAMETER_NEGATIVE_SERIES_BREAK_POINT, $parameters)) {
+            $result = $this->negativeSeriesProcessor->processNegativeSeriesBreakParameter(
+                $processResult->getPlacementData(),
+                (int) $parameters[self::PARAMETER_NEGATIVE_SERIES_BREAK_POINT],
+                (int) $parameters[self::PARAMETER_CURRENT_NEGATIVE_SERIES],
+            );
+            $result->setProcessedNegativeSeries(true);
+        }
+
+        return $result;
     }
 
     /**
@@ -71,31 +127,31 @@ class AbstractSimulationProcessor
         $this->simulatorService->update($simulator, $simulatorData);
     }
 
-    public function isHighCalculationAmount(Simulator $simulator): bool
+    /**
+     * @param TipicoBet[] $fixtures
+     */
+    public function createPlacement(
+        array $fixtures,
+        float $input,
+        float $value,
+        DateTime $created,
+        bool $isWon,
+        Simulator $simulator,
+    ): TipicoPlacementData
     {
-        return $this->tipicoBetService->getFixtureForSimulatorByFilterCount($simulator) > 100;
+        $data = new TipicoPlacementData();
+        $data->setFixtures($fixtures);
+        $data->setInput($input);
+        $data->setValue($value);
+        $data->setCreated($created);
+        $data->setWon($isWon);
+        $data->setSimulator($simulator);
+
+        return $data;
     }
 
-    /**
-     * @return TipicoBet[]
-     */
-    public function getFixtureForSimulatorBySearchAndTarget(Simulator $simulator): array
+    public function calculate(Simulator $simulator, array $fixtures, array $parameters): ProcessResult
     {
-        return $this->tipicoBetService->getFixtureForSimulatorByFilter($simulator);
-    }
-
-    /**
-     * @deprecated
-     */
-    protected function storeSimulatorStrategyChanges(Simulator $simulator, float $compensationIn): void
-    {
-        $strategy = $simulator->getStrategy();
-        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
-        $parameters[CompensateLossStrategy::PARAMETER_COMPENSATION] = $compensationIn;
-
-        $simulationStrategyData = (new SimulationStrategyData())->initFromEntity($strategy);
-        $simulationStrategyData->setParameters(json_encode($parameters));
-
-        $this->simulationStrategyService->update($strategy, $simulationStrategyData);
+        return new ProcessResult();
     }
 }

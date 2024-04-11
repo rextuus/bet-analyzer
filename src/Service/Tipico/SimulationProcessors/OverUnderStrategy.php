@@ -10,8 +10,8 @@ use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
-use App\Service\Tipico\TelegramMessageService;
-use App\Service\Tipico\TipicoBetSimulator;
+use App\Service\Tipico\Simulation\AdditionalProcessors\NegativeSeriesProcessor;
+use App\Service\Tipico\Simulation\Data\ProcessResult;
 use DateTime;
 
 /**
@@ -24,23 +24,24 @@ class OverUnderStrategy extends AbstractSimulationProcessor implements Simulatio
     public const PARAMETER_TARGET_VALUE = 'target_value';
 
     public function __construct(
-        protected readonly TipicoBetService $tipicoBetService,
         protected readonly TipicoPlacementService $placementService,
         protected readonly SimulatorService $simulatorService,
         protected readonly SimulationStrategyService $simulationStrategyService,
-        protected readonly TelegramMessageService $telegramMessageService,
-        private readonly TipicoBetSimulator $tipicoBetSimulator,
+        protected readonly TipicoBetService $tipicoBetService,
+        protected readonly NegativeSeriesProcessor $negativeSeriesProcessor,
     )
     {
-        parent::__construct($placementService, $simulatorService, $simulationStrategyService, $tipicoBetService);
+        parent::__construct(
+            $placementService,
+            $simulatorService,
+            $simulationStrategyService,
+            $tipicoBetService,
+            $negativeSeriesProcessor
+        );
     }
 
-    public function calculate(Simulator $simulator): PlacementContainer
+    public function calculate(Simulator $simulator, array $fixtures, array $parameters): ProcessResult
     {
-        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
-
-        $fixtures = $this->getFixtureForSimulatorBySearchAndTarget($simulator);
-
         $targetValue = (float)$parameters[self::PARAMETER_TARGET_VALUE];
         $targetBetOn = BetOn::from($parameters[self::PARAMETER_TARGET_BET_ON]);
 
@@ -76,7 +77,7 @@ class OverUnderStrategy extends AbstractSimulationProcessor implements Simulatio
                 }
             }
 
-            $placementData[] = $this->tipicoBetSimulator->createPlacement(
+            $placementData[] = $this->createPlacement(
                 [$fixture],
                 1.0,
                 $usedOdd,
@@ -88,11 +89,11 @@ class OverUnderStrategy extends AbstractSimulationProcessor implements Simulatio
             $fixturesActuallyUsed[] = $fixture;
         }
 
-        // store changes
-        $container = $this->storePlacementsToDatabase($placementData);
-        $this->storeSimulatorChangesToDatabase($simulator, $fixturesActuallyUsed, $container);
+        $result = new ProcessResult();
+        $result->setPlacementData($placementData);
+        $result->setFixturesActuallyUsed($fixturesActuallyUsed);
 
-        return $container;
+        return $result;
     }
 
     public function getIdentifier(): string

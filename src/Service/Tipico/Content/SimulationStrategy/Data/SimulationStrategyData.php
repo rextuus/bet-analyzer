@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Tipico\Content\SimulationStrategy\Data;
 
 use App\Entity\SimulationStrategy;
+use App\Service\Tipico\Content\SimulationStrategy\AdditionalProcessingIdent;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -13,6 +14,7 @@ class SimulationStrategyData
 {
     private string $identifier;
     private mixed $parameters;
+    private ?AdditionalProcessingIdent $processingIdent;
 
     public function getIdentifier(): string
     {
@@ -36,10 +38,22 @@ class SimulationStrategyData
         return $this;
     }
 
+    public function getProcessingIdent(): ?AdditionalProcessingIdent
+    {
+        return $this->processingIdent;
+    }
+
+    public function setProcessingIdent(?AdditionalProcessingIdent $processingIdent): SimulationStrategyData
+    {
+        $this->processingIdent = $processingIdent;
+        return $this;
+    }
+
     public function initFromEntity(SimulationStrategy $strategy): SimulationStrategyData
     {
         $this->setIdentifier($strategy->getIdentifier());
         $this->setParameters($strategy->getParameters());
+        $this->setProcessingIdent($strategy->getAdditionalProcessingIdent());
 
         return $this;
     }

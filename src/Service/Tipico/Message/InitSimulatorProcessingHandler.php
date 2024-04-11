@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Message;
 
+use App\Service\Tipico\Content\SimulationStrategy\AdditionalProcessingIdent;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
-use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
 use App\Service\Tipico\SimulationProcessors\BothTeamsScoreStrategy;
-use App\Service\Tipico\SimulationProcessors\CombineStrategy;
-use App\Service\Tipico\SimulationProcessors\CompensateLossStrategy;
 use App\Service\Tipico\SimulationProcessors\HeadToHeadStrategy;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
@@ -28,8 +26,9 @@ class InitSimulatorProcessingHandler
     public function __invoke(InitSimulatorProcessingMessage $message): void
     {
         $strategies = [];
+        $additional = [];
         if ($message->getBulk() === SimulatorProcessBulk::THREE_WAY_SIMULATORS){
-            $strategies = [SimpleStrategy::IDENT, CombineStrategy::IDENT, CompensateLossStrategy::IDENT, AgainstStrategy::IDENT];
+            $strategies = [SimpleStrategy::IDENT];
         }
         if ($message->getBulk() === SimulatorProcessBulk::OVER_UNDER_SIMULATORS){
             $strategies = [OverUnderStrategy::IDENT];
@@ -40,8 +39,12 @@ class InitSimulatorProcessingHandler
         if ($message->getBulk() === SimulatorProcessBulk::HEAD_TO_HEAD_SIMULATORS){
             $strategies = [HeadToHeadStrategy::IDENT];
         }
+        if ($message->getBulk() === SimulatorProcessBulk::THREE_WAY_SIMULATORS_NGB){
+            $strategies = [SimpleStrategy::IDENT];
+            $additional = [AdditionalProcessingIdent::STOP_NEGATIVE_SERIES];
+        }
 
-        $simulators = $this->simulatorService->findByStrategies($strategies);
+        $simulators = $this->simulatorService->findByStrategies($strategies, $additional);
 
         foreach ($simulators as $simulator){
             $processMessage = new ProcessSimulatorMessage($simulator['id']);

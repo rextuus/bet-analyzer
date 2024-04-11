@@ -23,7 +23,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class TipicoBetSimulationService
 {
-
     public function __construct(
         private readonly TipicoApiGateway $tipicoApiGateway,
         private readonly TipicoBetService $tipicoBetService,
@@ -178,7 +177,7 @@ class TipicoBetSimulationService
             return;
         }
 
-        $result = $processor->calculate($simulator);
+        $result = $processor->process($simulator);
 
         if (
             count($result->getPlacements()) > 0 &&
@@ -209,6 +208,6 @@ class TipicoBetSimulationService
             return false;
         }
 
-        return $processor->isHighCalculationAmount($simulator);
+        return $this->tipicoBetService->getFixtureForSimulatorByFilterCount($simulator) > 100;
     }
 }

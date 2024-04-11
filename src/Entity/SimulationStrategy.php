@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Service\Tipico\Content\SimulationStrategy\AdditionalProcessingIdent;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,6 +18,9 @@ class SimulationStrategy
 
     #[ORM\Column(type: 'json', nullable: false)]
     private mixed $parameters;
+
+    #[ORM\Column(type: "string", enumType: AdditionalProcessingIdent::class)]
+    private ?AdditionalProcessingIdent $additionalProcessingIdent = null;
 
     public function getId(): ?int
     {
@@ -44,6 +47,17 @@ class SimulationStrategy
     public function setParameters(mixed $parameters): SimulationStrategy
     {
         $this->parameters = $parameters;
+        return $this;
+    }
+
+    public function getAdditionalProcessingIdent(): ?AdditionalProcessingIdent
+    {
+        return $this->additionalProcessingIdent;
+    }
+
+    public function setAdditionalProcessingIdent(?AdditionalProcessingIdent $additionalProcessingIdent): SimulationStrategy
+    {
+        $this->additionalProcessingIdent = $additionalProcessingIdent;
         return $this;
     }
 }

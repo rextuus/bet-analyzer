@@ -3,19 +3,17 @@
 namespace App\Command\Tipico;
 
 use App\Service\Evaluation\BetOn;
+use App\Service\Tipico\Content\SimulationStrategy\AdditionalProcessingIdent;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
-use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
-use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
 use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
@@ -24,6 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class InitDefaultSimpleSimulatorsCommand extends AbstractSimulatorCommand
 {
+    private InputInterface $input;
     public function __construct(
         protected readonly SimulationStrategyService $simulationStrategyService,
         protected readonly SimulatorService $simulatorService,
@@ -38,6 +37,7 @@ class InitDefaultSimpleSimulatorsCommand extends AbstractSimulatorCommand
             ->addArgument('searchBetOn', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('targetBetOn', InputArgument::REQUIRED, 'Argument description')
         ;
+        parent::configure();
     }
 
     /**
@@ -45,6 +45,8 @@ class InitDefaultSimpleSimulatorsCommand extends AbstractSimulatorCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->input = $input;
+
         $searchBetOn = $input->getArgument('searchBetOn');
         $targetBetOn = $input->getArgument('targetBetOn');
 
@@ -57,13 +59,16 @@ class InitDefaultSimpleSimulatorsCommand extends AbstractSimulatorCommand
 
         $rangeSteps = $this->generateFloatRange(1.0, 5.9, 0.1);
         foreach ($rangeSteps as $range){
+            $potentialNegativeBorderName = $this->getPotentialNegativeSeriesName($input);
+
             $ident = sprintf(
-                'ag_%s_search_%s_%s_%s_target_%s',
+                'ag_%s_search_%s_%s_%s_target_%s%s',
                 'ag_three_way',
                 $searchBetOn->name,
                 str_replace('.', '', (string) $range[0] * 10),
                 str_replace('.', '', (string) $range[1] * 10),
                 $targetBetOn->name,
+                $potentialNegativeBorderName,
             );
 
             $this->initSimpleSimulator($ident, $range[0], $range[1], $searchBetOn, $targetBetOn);
@@ -86,9 +91,11 @@ class InitDefaultSimpleSimulatorsCommand extends AbstractSimulatorCommand
             AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $searchBetOn,
             AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON => $targetBetOn,
         ];
+        $parameters = $this->addAdditionalParameters($parameters, $this->input);
 
         $simulationStrategyData = new SimulationStrategyData();
         $simulationStrategyData->setIdentifier(SimpleStrategy::IDENT);
+        $simulationStrategyData->setProcessingIdent($this->getPotentialProcessingIdent($this->input));
         $simulationStrategyData->setParameters(json_encode($parameters));
 
         $this->storeSimulator($simulationStrategyData, $identifier);

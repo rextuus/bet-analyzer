@@ -8,4 +8,5 @@ enum SimulatorProcessBulk : string
     case OVER_UNDER_SIMULATORS = 'over_under_simulators';
     case BOTH_TEAMS_SCORE_SIMULATORS = 'both_teams_score_simulators';
     case HEAD_TO_HEAD_SIMULATORS = 'head_to_head_simulators';
+    case THREE_WAY_SIMULATORS_NGB = 'three_way_simulators_ngb';
 }

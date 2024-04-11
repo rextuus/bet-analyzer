@@ -23,6 +23,7 @@ class SimulationStrategyFactory
     {
         $simulationStrategy->setParameters($data->getParameters());
         $simulationStrategy->setIdentifier($data->getIdentifier());
+        $simulationStrategy->setAdditionalProcessingIdent($data->getProcessingIdent());
 
         return $simulationStrategy;
     }
