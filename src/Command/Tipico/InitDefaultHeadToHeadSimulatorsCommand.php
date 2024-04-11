@@ -21,6 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class InitDefaultHeadToHeadSimulatorsCommand extends AbstractSimulatorCommand
 {
+    private InputInterface $input;
     public function __construct(
         protected readonly SimulationStrategyService $simulationStrategyService,
         protected readonly SimulatorService $simulatorService,
@@ -35,6 +36,7 @@ class InitDefaultHeadToHeadSimulatorsCommand extends AbstractSimulatorCommand
             ->addArgument('searchBetOn', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('targetBetOn', InputArgument::REQUIRED, 'Argument description')
         ;
+        parent::configure();
     }
 
     /**
@@ -42,6 +44,8 @@ class InitDefaultHeadToHeadSimulatorsCommand extends AbstractSimulatorCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->input = $input;
+
         $this->validateDefaultParameters($input);
         $searchBetOn = BetOn::from($input->getArgument('searchBetOn'));
         $targetBetOn = BetOn::from($input->getArgument('targetBetOn'));
@@ -53,15 +57,17 @@ class InitDefaultHeadToHeadSimulatorsCommand extends AbstractSimulatorCommand
         $rangeSteps = $this->generateFloatRange(1.0, 5.9, 0.1);
         foreach ($rangeSteps as $range){
             $potentialSearchTargetName = $this->getPotentialSearchTargetName();
+            $potentialNegativeBorderName = $this->getPotentialNegativeSeriesName($input);
 
             $ident = sprintf(
-                'ag_%s_search_%s%s_%s_%s_target_%s',
+                'ag_%s_search_%s%s_%s_%s_target_%s%s',
                 HeadToHeadStrategy::IDENT,
                 $searchBetOn->name,
                 $potentialSearchTargetName,
                 str_replace('.', '', (string) $range[0] * 10),
                 str_replace('.', '', (string) $range[1] * 10),
                 $targetBetOn->name,
+                $potentialNegativeBorderName
             );
 
             $this->initBothTeamsScoreSimulator($ident, $range[0], $range[1], $searchBetOn, $targetBetOn);
@@ -89,11 +95,13 @@ class InitDefaultHeadToHeadSimulatorsCommand extends AbstractSimulatorCommand
             AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $searchBetOn,
             AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON => $targetBetOn,
         ];
+        $parameters = $this->addAdditionalParameters($parameters, $this->input);
 
         $parameters = $this->addOptionalParameters($parameters);
 
         $simulationStrategyData = new SimulationStrategyData();
         $simulationStrategyData->setIdentifier(HeadToHeadStrategy::IDENT);
+        $simulationStrategyData->setProcessingIdent($this->getPotentialProcessingIdent($this->input));
         $simulationStrategyData->setParameters(json_encode($parameters));
 
         $this->storeSimulator($simulationStrategyData, $identifier);

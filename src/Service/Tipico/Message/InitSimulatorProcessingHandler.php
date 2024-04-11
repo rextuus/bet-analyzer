@@ -39,8 +39,21 @@ class InitSimulatorProcessingHandler
         if ($message->getBulk() === SimulatorProcessBulk::HEAD_TO_HEAD_SIMULATORS){
             $strategies = [HeadToHeadStrategy::IDENT];
         }
-        if ($message->getBulk() === SimulatorProcessBulk::THREE_WAY_SIMULATORS_NGB){
+
+        if ($message->getBulk() === SimulatorProcessBulk::THREE_WAY_SIMULATORS_NSB){
             $strategies = [SimpleStrategy::IDENT];
+            $additional = [AdditionalProcessingIdent::STOP_NEGATIVE_SERIES];
+        }
+        if ($message->getBulk() === SimulatorProcessBulk::BOTH_TEAMS_SCORE_SIMULATORS_NSB){
+            $strategies = [BothTeamsScoreStrategy::IDENT];
+            $additional = [AdditionalProcessingIdent::STOP_NEGATIVE_SERIES];
+        }
+        if ($message->getBulk() === SimulatorProcessBulk::HEAD_TO_HEAD_SIMULATORS_NSB){
+            $strategies = [HeadToHeadStrategy::IDENT];
+            $additional = [AdditionalProcessingIdent::STOP_NEGATIVE_SERIES];
+        }
+        if ($message->getBulk() === SimulatorProcessBulk::OVER_UNDER_SIMULATORS_NSB){
+            $strategies = [OverUnderStrategy::IDENT];
             $additional = [AdditionalProcessingIdent::STOP_NEGATIVE_SERIES];
         }
 

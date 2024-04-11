@@ -21,6 +21,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
 {
+    private InputInterface $input;
+
     public function __construct(
         protected readonly SimulationStrategyService $simulationStrategyService,
         protected readonly SimulatorService $simulatorService,
@@ -36,6 +38,8 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
             ->addArgument('targetBetOn', InputArgument::REQUIRED, 'Argument description')
             ->addArgument('searchBetOnTargetValue', InputArgument::OPTIONAL, 'Argument description')
         ;
+        parent::configure();
+
     }
 
     /**
@@ -43,6 +47,8 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->input = $input;
+
         $this->validateDefaultParameters($input);
         $searchBetOn = BetOn::from($input->getArgument('searchBetOn'));
         $targetBetOn = BetOn::from($input->getArgument('targetBetOn'));
@@ -63,8 +69,10 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
             }
 
             foreach ($range as $item) {
+                $potentialNegativeBorderName = $this->getPotentialNegativeSeriesName($input);
+
                 $ident = sprintf(
-                    'ag_%s_search_%s%s_%s_%s_target_%s_[%s]',
+                    'ag_%s_search_%s%s_%s_%s_target_%s_[%s]%s',
                     OverUnderStrategy::IDENT,
                     $searchBetOn->name,
                     $potentialSearchTargetName,
@@ -72,6 +80,7 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
                     str_replace('.', '', (string)$item[1] * 10),
                     $targetBetOn->name,
                     str_replace('.', '', $targetName),
+                    $potentialNegativeBorderName
                 );
 
                 $this->initOverUnderSimulators($ident, $item[0], $item[1], $searchBetOn, $targetBetOn, $targetValue);
@@ -101,11 +110,13 @@ class InitDefaultOverUnderSimulatorsCommand extends AbstractSimulatorCommand
             AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON => $targetBetOn,
             OverUnderStrategy::PARAMETER_TARGET_VALUE => $targetValue,
         ];
+        $parameters = $this->addAdditionalParameters($parameters, $this->input);
 
         $parameters = $this->addOptionalParameters($parameters);
 
         $simulationStrategyData = new SimulationStrategyData();
         $simulationStrategyData->setIdentifier(OverUnderStrategy::IDENT);
+        $simulationStrategyData->setProcessingIdent($this->getPotentialProcessingIdent($this->input));
         $simulationStrategyData->setParameters(json_encode($parameters));
 
         $this->storeSimulator($simulationStrategyData, $identifier);
