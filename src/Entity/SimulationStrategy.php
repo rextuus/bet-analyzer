@@ -19,7 +19,7 @@ class SimulationStrategy
     #[ORM\Column(type: 'json', nullable: false)]
     private mixed $parameters;
 
-    #[ORM\Column(type: "string", enumType: AdditionalProcessingIdent::class)]
+    #[ORM\Column(type: "string", nullable: true, enumType: AdditionalProcessingIdent::class)]
     private ?AdditionalProcessingIdent $additionalProcessingIdent = null;
 
     public function getId(): ?int
