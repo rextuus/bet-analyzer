@@ -157,6 +157,8 @@ class TipicoSimulationController extends AbstractController
 
         $statistics = $this->simulationStatisticService->getStatistics($simulator);
 
+        $nonPlacedBets = $this->simulationStatisticService->getNonPlacedBets($simulator);
+
         return $this->render('tipico_simulation/detail.html.twig', [
             'simulator' => $simulator,
             'statistics' => $statistics,
@@ -166,6 +168,7 @@ class TipicoSimulationController extends AbstractController
             'nextPlacements' => $nextPlacements,
             'targetBetOn' => $targetBetOn,
             'searchBetOn' => $searchBetOn,
+            'nonPlacedBets' => count($nonPlacedBets),
             'overUnderTarget' => $overUnderTarget,
             'lastWeekStatistic' => $this->simulationStatisticService->getPlacementChangeComparedToDayBefore($simulator),
         ]);
@@ -201,5 +204,11 @@ class TipicoSimulationController extends AbstractController
             'statistics' => $statistics,
             'simulator' => $simulator,
         ]);
+    }
+
+    #[Route('/weekday/{simulator}/detail', name: 'app_tipico_daily_matches')]
+    public function dailyMatches(Simulator $simulator): Response
+    {
+
     }
 }

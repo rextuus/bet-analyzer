@@ -17,6 +17,7 @@ use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Twig\Data\KeyValueListingContainer;
 use DateTime;
 use DateTimeInterface;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\UX\Chartjs\Model\Chart;
 
 /**
@@ -511,5 +512,38 @@ class SimulationStatisticService
         }
 
         return $statistics;
+    }
+
+    /**
+     * @return TipicoBet[]
+     */
+    public function getNonPlacedBets(Simulator $simulator): array
+    {
+        $placements = $simulator->getTipicoPlacements();
+        $fixtures = $simulator->getFixtures();
+
+        $usedFixtureIds = array_map(
+            function (TipicoPlacement $placement) {
+                return $placement->getFixtures()->get(0)->getId();
+            },
+            $placements->toArray()
+        );
+
+        $possibleFixtures = array_map(
+            function (TipicoBet $fixture) {
+                return $fixture->getId();
+            },
+            $fixtures->toArray()
+        );
+
+        $nonPlaced = array_diff($possibleFixtures, $usedFixtureIds);
+        $nonPlacedBets = array_filter(
+            $fixtures->toArray(),
+            function (TipicoBet $fixture) use ($nonPlaced){
+                return (in_array($fixture->getId(), $nonPlaced));
+            }
+        );
+
+        return $nonPlacedBets;
     }
 }

@@ -110,7 +110,7 @@ class AbstractSimulatorCommand extends Command
             return AdditionalProcessingIdent::STOP_NEGATIVE_SERIES;
         }
 
-        return null;
+        return AdditionalProcessingIdent::EMPTY;
     }
 
     protected function storeSimulator(SimulationStrategyData $data, string $identifier): void

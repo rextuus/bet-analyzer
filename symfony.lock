@@ -38,6 +38,9 @@
             "migrations/.gitignore"
         ]
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.3.0"
+    },
     "liip/test-fixtures-bundle": {
         "version": "2.6.0"
     },

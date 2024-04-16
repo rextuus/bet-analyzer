@@ -74,7 +74,7 @@ class TipicoBet
     #[ORM\ManyToMany(targetEntity: Simulator::class, mappedBy: 'fixtures')]
     private Collection $simulators;
 
-    #[ORM\ManyToMany(targetEntity: TipicoPlacement::class, mappedBy: 'fixtures')]
+    #[ORM\ManyToMany(targetEntity: TipicoPlacement::class, mappedBy: 'fixtures', fetch: 'EXTRA_LAZY')]
     private Collection $tipicoPlacements;
 
     #[ORM\OneToMany(mappedBy: 'bet', targetEntity: TipicoOverUnderOdd::class)]

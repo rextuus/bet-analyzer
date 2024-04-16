@@ -21,6 +21,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
 {
+    private InputInterface $input;
+
     public function __construct(
         protected readonly SimulationStrategyService $simulationStrategyService,
         protected readonly SimulatorService $simulatorService,
@@ -43,6 +45,8 @@ class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->input = $input;
+
         $identifier = $input->getArgument('ident');
         $min = $input->getArgument('min');
         $max = $input->getArgument('max');
@@ -63,6 +67,7 @@ class InitSimpleSimulatorCommand extends AbstractSimulatorCommand
 
         $simulationStrategyData = new SimulationStrategyData();
         $simulationStrategyData->setIdentifier(SimpleStrategy::IDENT);
+        $simulationStrategyData->setProcessingIdent($this->getPotentialProcessingIdent($this->input));
         $simulationStrategyData->setParameters(json_encode($parameters));
 
         $potentialNegativeBorderName = $this->getPotentialNegativeSeriesName($input);
