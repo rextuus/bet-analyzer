@@ -174,6 +174,45 @@ class TipicoSimulationController extends AbstractController
         ]);
     }
 
+    #[Route('/{simulator}/instruction', name: 'app_tipico_simulation_instruction')]
+    public function instruction(Simulator $simulator): Response
+    {
+        $cashBoxChart = $this->simulationStatisticService->getCashBoxChart($simulator);
+        $dailyDistributionChart = $this->simulationStatisticService->getDailyDistributionChart($simulator);
+        $valueToWinDistributionChart = $this->simulationStatisticService->getValueToWinDistributionChart($simulator);
+
+        $strategy = $simulator->getStrategy();
+        $parameters = json_decode($strategy->getParameters(), true);
+
+        $targetBetOn = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON]);
+        $searchBetOn = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
+
+        $overUnderTarget = null;
+        if($strategy->getIdentifier() === OverUnderStrategy::IDENT){
+            $overUnderTarget = $parameters[OverUnderStrategy::PARAMETER_TARGET_VALUE];
+        }
+
+        $nextPlacements = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator, 200);
+
+        $statistics = $this->simulationStatisticService->getStatistics($simulator);
+
+        $nonPlacedBets = $this->simulationStatisticService->getNonPlacedBets($simulator);
+
+        return $this->render('tipico_simulation/instruction.html.twig', [
+            'simulator' => $simulator,
+            'statistics' => $statistics,
+            'cashBoxChart' => $cashBoxChart,
+            'dailyDistributionChart' => $dailyDistributionChart,
+            'valueToWinDistributionChart' => $valueToWinDistributionChart,
+            'nextPlacements' => $nextPlacements,
+            'targetBetOn' => $targetBetOn,
+            'searchBetOn' => $searchBetOn,
+            'nonPlacedBets' => count($nonPlacedBets),
+            'overUnderTarget' => $overUnderTarget,
+            'lastWeekStatistic' => $this->simulationStatisticService->getPlacementChangeComparedToDayBefore($simulator),
+        ]);
+    }
+
     #[Route('/{simulator}/chart/show', name: 'app_tipico_simulation_chart_show')]
     public function showChart(Simulator $simulator): Response
     {

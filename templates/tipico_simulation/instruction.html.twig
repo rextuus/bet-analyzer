@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ simulator.identifier }}{% endblock %}
+
+{% block body %}
+    <div class="simulator-detail-name">{{ simulator.identifier }}</div>
+    <div class="simulator-detail-navi">
+        <div class="link"><a href="{{ path('app_tipico_simulation_dashboard') }}">Dashboard</a></div>
+        <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
+        <div class="link"><a href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">Placements</a></div>
+        <div class="link"><a href="{{ path('app_favorite_add', {simulator: simulator.id}) }}">Add to favorites</a></div>
+    </div>
+
+    <div class="simulator-detail">
+
+        <div class="simulator-detail-widget cashbox">
+            <div class="simulator-detail-widget-col">
+                <div class="simulator-detail-widget-col-e">
+                    <div class="simulator-detail-widget-header">
+                        Possible bets today
+                    </div>
+                    <div class="simulator-detail-widget-content">
+                        {{ nextPlacements|length }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="simulator-detail-widget">
+            <div class="simulator-detail-widget-col">
+                <div class="simulator-detail-widget-col-e">
+                    <div class="simulator-detail-widget-header">
+                        Next fixtures
+                    </div>
+                    <div class="simulator-detail-widget-content">
+                        <div class="upcoming-fixtures-detail">
+                            {{ component('UpcomingFixture', {'simulator' : simulator, 'fixtures' : nextPlacements, 'targetBetOn' : targetBetOn, 'searchBetOn': searchBetOn, 'overUnderTarget': overUnderTarget }) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -121,8 +121,13 @@ final class UpcomingFixture
                                 </span>
                                 <span class="content url">
                                     <span>%s</span>
+                                    <span class="tipico-url">%s</span>
                                     <span>%s</span>
-                                    <span>%s</span>
+                                </span>
+                                <span class="check-state">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50">
+                                        <path fill="#000000" d="M9.293 16.707l-5-5 1.414-1.414 3.586 3.586 8.293-8.293 1.414 1.414-9 9z"/>
+                                    </svg>
                                 </span>
                             </span>
                             <span class="under-col">

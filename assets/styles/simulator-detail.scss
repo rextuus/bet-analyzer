@@ -94,6 +94,15 @@ $borderSize: 4px;
 
                     .upper-col{
                         display: flex;
+
+                        .check-state{
+                            display: none;
+                            &.is-checked{
+                                display: block;
+                                background-color: $positive;
+                                height: fit-content;
+                            }
+                        }
                     }
 
                     .base-odd{

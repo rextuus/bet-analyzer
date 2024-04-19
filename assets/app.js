@@ -170,4 +170,24 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// upcoming fixtrue
+document.addEventListener('DOMContentLoaded', function () {
+    const tipicoLinks = document.querySelectorAll('.tipico-url a');
+
+    tipicoLinks.forEach(function(tipicoLink) {
+        let stateElement = tipicoLink.parentNode.parentNode.parentNode.querySelector('.check-state');
+
+        tipicoLink.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default behavior of the link
+
+
+            // Add the 'is-checked' class to the check-state span
+            stateElement.classList.add('is-checked');
+
+            let newTab = window.open(event.target, '_blank');
+            // newTab.focus();
+        });
+    });
+});
+
 
