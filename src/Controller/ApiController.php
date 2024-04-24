@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Service\Betano\Content\BetanoBackup\BetanoBackupService;
+use App\Service\Betano\Content\BetanoBackup\Data\BetanoBackupData;
 use App\Service\Betano\Message\CollectBetanoFixturesMessage;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
-use BetanoBackupData;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
