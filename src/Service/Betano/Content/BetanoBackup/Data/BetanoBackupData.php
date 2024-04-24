@@ -1,7 +1,10 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Service\Betano\Content\BetanoBackup\Data;
+
 use App\Entity\BetanoBackup;
+use DateTimeInterface;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>

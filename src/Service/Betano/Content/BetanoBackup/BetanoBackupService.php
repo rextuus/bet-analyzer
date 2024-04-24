@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Betano\Content\BetanoBackup;
 
 use App\Entity\BetanoBackup;
-use BetanoBackupData;
+use App\Service\Betano\Content\BetanoBackup\Data\BetanoBackupData;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
