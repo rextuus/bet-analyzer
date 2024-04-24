@@ -37,6 +37,8 @@ class TipicoBetData
 
     private BetOn $result;
 
+    private int $sportRadarId = -1;
+
     public function getTipicoId(): int
     {
         return $this->tipicoId;
@@ -180,6 +182,17 @@ class TipicoBetData
         return $this;
     }
 
+    public function getSportRadarId(): int
+    {
+        return $this->sportRadarId;
+    }
+
+    public function setSportRadarId(int $sportRadarId): TipicoBetData
+    {
+        $this->sportRadarId = $sportRadarId;
+        return $this;
+    }
+
     public function initFromEntity(TipicoBet $bet): TipicoBetData
     {
         $this->setTipicoId($bet->getTipicoId());
@@ -195,6 +208,7 @@ class TipicoBetData
         $this->setEndScoreAway($bet->getEndScoreAway());
         $this->setFinished($bet->isFinished());
         $this->setResult($bet->getResult());
+        $this->setSportRadarId($bet->getSportRadarId());
 
         return $this;
     }
@@ -214,6 +228,7 @@ class TipicoBetData
         $this->setEndScoreAway($apiResponse['endScoreAway']);
         $this->setFinished($apiResponse['finished']);
         $this->setResult(BetOn::from($apiResponse['result']));
+        $this->setSportRadarId($apiResponse['sportRadarId']);
 
         return $this;
     }

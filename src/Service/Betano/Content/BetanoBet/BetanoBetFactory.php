@@ -29,6 +29,8 @@ class BetanoBetFactory
         $betanoBet->setAwayTeamName($data->getAwayTeamName());
         $betanoBet->setStartAtTimeStamp($data->getStartAtTimeStamp());
         $betanoBet->setUrl($data->getUrl());
+        $betanoBet->setSportRadarId($data->getSportRadarId());
+        $betanoBet->setTipicoBet($data->getTipicoBet());
 
         return $betanoBet;
     }

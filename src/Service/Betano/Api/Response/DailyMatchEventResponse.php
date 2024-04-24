@@ -18,6 +18,7 @@ class DailyMatchEventResponse
     private const KEY_PARTICIPANTS_NAME = 'name';
 
     private const KEY_URL = 'url';
+    private const KEY_BET_RADAR_ID = 'betRadarId';
     private const KEY_MARKETS = 'markets';
     private const KEY_MARKETS_NAME = 'name';
     private const KEY_MARKETS_NAME_THREE_WAY = 'Endergebnis';
@@ -59,6 +60,7 @@ class DailyMatchEventResponse
             $data->setBetanoId((int) $event[self::KEY_ID]);
             $data->setStartAtTimeStamp((int) $event[self::KEY_START_TIME]);
             $data->setUrl($event[self::KEY_URL]);
+            $data->setSportRadarId($event[self::KEY_BET_RADAR_ID]);
 
             $participants = $event[self::KEY_PARTICIPANTS];
             $data->setHomeTeamName($participants[0][self::KEY_PARTICIPANTS_NAME]);

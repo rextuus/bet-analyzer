@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Service\Betano\Api\BetanoApiGateway;
+use App\Service\Betano\Content\BetanoBet\BetanoBetService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\TipicoBetSimulationService;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -25,7 +26,8 @@ class TestCommand extends Command
         private readonly TipicoBetSimulationService $betSimulationService,
         private readonly SimulatorService $simulatorService,
         private readonly MessageBusInterface $messageBus,
-        private readonly BetanoApiGateway $apiGateway
+        private readonly BetanoApiGateway $apiGateway,
+        private readonly BetanoBetService $betanoBetService
     ) {
         parent::__construct();
     }
@@ -39,7 +41,7 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $response = $this->apiGateway->getNextDailyMatchEvents();
+        $response = $this->betanoBetService->storeBetanoBetsFromBackupFile('public/backups/betano/04_24_2024/2024-04-24_12-41-40.json');
         dd($response);
 
 //        $sim = $this->simulatorService->findBy(['id' => 80])[0];

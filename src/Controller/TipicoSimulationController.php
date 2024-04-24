@@ -8,10 +8,7 @@ use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterType;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
-use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
-use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListType;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
-use App\Service\Tipico\SimulationProcessors\AgainstStrategy;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use App\Service\Tipico\SimulationStatisticService;
@@ -243,11 +240,5 @@ class TipicoSimulationController extends AbstractController
             'statistics' => $statistics,
             'simulator' => $simulator,
         ]);
-    }
-
-    #[Route('/weekday/{simulator}/detail', name: 'app_tipico_daily_matches')]
-    public function dailyMatches(Simulator $simulator): Response
-    {
-
     }
 }

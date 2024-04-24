@@ -37,6 +37,12 @@ class BetanoBet
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $sportRadarId = null;
+
+    #[ORM\OneToOne(mappedBy: 'correspondedBetanoBet', cascade: ['persist', 'remove'])]
+    private ?TipicoBet $tipicoBet = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +140,40 @@ class BetanoBet
     public function setUrl(string $url): static
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getSportRadarId(): ?int
+    {
+        return $this->sportRadarId;
+    }
+
+    public function setSportRadarId(?int $sportRadarId): static
+    {
+        $this->sportRadarId = $sportRadarId;
+
+        return $this;
+    }
+
+    public function getTipicoBet(): ?TipicoBet
+    {
+        return $this->tipicoBet;
+    }
+
+    public function setTipicoBet(?TipicoBet $tipicoBet): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($tipicoBet === null && $this->tipicoBet !== null) {
+            $this->tipicoBet->setCorrespondedBetanoBet(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($tipicoBet !== null && $tipicoBet->getCorrespondedBetanoBet() !== $this) {
+            $tipicoBet->setCorrespondedBetanoBet($this);
+        }
+
+        $this->tipicoBet = $tipicoBet;
 
         return $this;
     }

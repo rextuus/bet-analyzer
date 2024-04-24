@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Betano\Content\BetanoBet\Data;
 
+use App\Entity\TipicoBet;
+
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
  * @license 2024 DocCheck Community GmbH
@@ -18,6 +20,9 @@ class BetanoBetData
     private float $oddDraw = 0.0;
     private float $oddAway = 0.0;
     private string $url = '-';
+    private int $sportRadarId = -1;
+
+    private TipicoBet $tipicoBet;
 
     public function getBetanoId(): int
     {
@@ -104,6 +109,28 @@ class BetanoBetData
     public function setUrl(string $url): BetanoBetData
     {
         $this->url = $url;
+        return $this;
+    }
+
+    public function getSportRadarId(): int
+    {
+        return $this->sportRadarId;
+    }
+
+    public function setSportRadarId(int $sportRadarId): BetanoBetData
+    {
+        $this->sportRadarId = $sportRadarId;
+        return $this;
+    }
+
+    public function getTipicoBet(): TipicoBet
+    {
+        return $this->tipicoBet;
+    }
+
+    public function setTipicoBet(TipicoBet $tipicoBet): BetanoBetData
+    {
+        $this->tipicoBet = $tipicoBet;
         return $this;
     }
 }

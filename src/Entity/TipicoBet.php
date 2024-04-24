@@ -89,6 +89,12 @@ class TipicoBet
     #[Groups(['tipico_bet'])]
     private ?TipicoHeadToHeadOdd $tipicoHeadToHeadScore = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $sportRadarId = null;
+
+    #[ORM\OneToOne(inversedBy: 'tipicoBet', cascade: ['persist', 'remove'])]
+    private ?BetanoBet $correspondedBetanoBet = null;
+
     public function __construct()
     {
         $this->simulators = new ArrayCollection();
@@ -370,6 +376,30 @@ class TipicoBet
         }
 
         $this->tipicoHeadToHeadScore = $tipicoHeadToHeadScore;
+
+        return $this;
+    }
+
+    public function getSportRadarId(): ?int
+    {
+        return $this->sportRadarId;
+    }
+
+    public function setSportRadarId(?int $sportRadarId): static
+    {
+        $this->sportRadarId = $sportRadarId;
+
+        return $this;
+    }
+
+    public function getCorrespondedBetanoBet(): ?BetanoBet
+    {
+        return $this->correspondedBetanoBet;
+    }
+
+    public function setCorrespondedBetanoBet(?BetanoBet $correspondedBetanoBet): static
+    {
+        $this->correspondedBetanoBet = $correspondedBetanoBet;
 
         return $this;
     }

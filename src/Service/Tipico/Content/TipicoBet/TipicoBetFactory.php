@@ -35,6 +35,7 @@ class TipicoBetFactory
         $tipicoBet->setEndScoreAway($data->getEndScoreAway());
         $tipicoBet->setFinished($data->isFinished());
         $tipicoBet->setResult($data->getResult());
+        $tipicoBet->setSportRadarId($data->getSportRadarId());
 
         return $tipicoBet;
     }

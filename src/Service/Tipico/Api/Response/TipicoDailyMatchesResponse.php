@@ -26,6 +26,7 @@ class TipicoDailyMatchesResponse
     private const KEY_TEAM_ID_1 = 'team1Id';
     private const KEY_TEAM_ID_2 = 'team2Id';
     private const KEY_EVENT_START_TIME = 'eventStartTime';
+    private const KEY_SPORT_RADAR_ID = 'sportRadarMatchId';
 
     private const KEY_ODD_STANDARD = 'standard';
     private const KEY_POINTS_MORE_LESS_THAN = 'points-more-less-than';
@@ -229,6 +230,7 @@ class TipicoDailyMatchesResponse
             $data->setTipicoHomeTeamId($event[self::KEY_TEAM_ID_1]);
             $data->setTipicoAwayTeamId($event[self::KEY_TEAM_ID_2]);
             $data->setStartAtTimeStamp($event[self::KEY_EVENT_START_TIME]);
+            $data->setSportRadarId($event[self::KEY_SPORT_RADAR_ID]);
 
             return true;
         }

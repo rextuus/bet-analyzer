@@ -3,11 +3,8 @@
 namespace App\Command\Tipico;
 
 use App\Service\Tipico\Api\TipicoApiGateway;
-use App\Service\Tipico\TipicoBetSimulationService;
-use DateTime;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -27,7 +24,7 @@ class StoreTipicoBackupFileCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $backupDir = 'backups';
-        $backupDir = $this->kernel->getProjectDir() . '/public/backups';
+        $backupDir = $this->kernel->getProjectDir() . '/public/backups/tipico';
 
         $backupFile = $backupDir . '/' . date('Y-m-d') . '.json';
 

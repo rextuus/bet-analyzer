@@ -9,21 +9,21 @@ namespace App\Service\Betano\Message;
  */
 class CollectBetanoFixturesMessage
 {
-    private int $lastExecutionTime;
+    private int $backupId;
 
-    public function __construct()
+    public function __construct(int $backupFilePath)
     {
-
+        $this->backupId = $backupFilePath;
     }
 
-    public function getLastExecutionTime(): int
+    public function getBackupId(): int
     {
-        return $this->lastExecutionTime;
+        return $this->backupId;
     }
 
-    public function setLastExecutionTime(int $lastExecutionTime): CollectBetanoFixturesMessage
+    public function setBackupId(int $backupId): CollectBetanoFixturesMessage
     {
-        $this->lastExecutionTime = $lastExecutionTime;
+        $this->backupId = $backupId;
         return $this;
     }
 }
