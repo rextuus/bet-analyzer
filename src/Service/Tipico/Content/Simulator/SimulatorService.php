@@ -85,7 +85,7 @@ class SimulatorService
         }
         ksort($distribution);
 
-        $result = [];
+        $result = ['inactive' => 0];
         $active = 0;
         foreach ($distribution as $key => $value){
             $from = $key*5;
@@ -95,10 +95,10 @@ class SimulatorService
             if ($from >= $this->cashBoxLimit){
                 $result[$key] = $value;
                 $active = $active + $value;
+                continue;
             }
+            $result['inactive'] = $result['inactive'] + $value;
         }
-        $inactive = $total - $active;
-        $result['inactive'] = $inactive;
 
         return $result;
     }
