@@ -9,10 +9,7 @@ use App\Service\Sportmonks\Api\ResponseCanTriggerNextMessageInterface;
 use App\Service\Sportmonks\Content\Odd\Data\SpmOddData;
 use App\Service\Sportmonks\Content\Score\Data\SpmScoreData;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class OddAndScoreResponse implements ResponseCanTriggerNextMessageInterface
 {
     /**

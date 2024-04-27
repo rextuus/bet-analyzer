@@ -2,7 +2,7 @@
 
 namespace App\Service\Sportmonks\Content\League;
 
-use App\Entity\SpmLeague;
+use App\Entity\Spm\SpmLeague;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

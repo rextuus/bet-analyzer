@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\SimulationProcessors;
 
-use App\Entity\Simulator;
+use App\Entity\BettingProvider\Simulator;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
@@ -13,10 +13,7 @@ use App\Service\Tipico\Simulation\AdditionalProcessors\NegativeSeriesProcessor;
 use App\Service\Tipico\Simulation\Data\ProcessResult;
 use DateTime;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BothTeamsScoreStrategy extends AbstractSimulationProcessor implements SimulationProcessorInterface
 {
     public const IDENT = 'both_teams_score';

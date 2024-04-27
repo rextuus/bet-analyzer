@@ -8,10 +8,7 @@ use App\Service\Sportmonks\Api\Event\ApiRoute;
 use App\Service\Sportmonks\Api\ResponseCanTriggerNextMessageInterface;
 use App\Service\Sportmonks\Content\Standing\Data\SpmStandingData;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class StandingResponse implements ResponseCanTriggerNextMessageInterface
 {
     /**

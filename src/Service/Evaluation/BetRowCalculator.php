@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Evaluation;
 
-use App\Entity\BetRowOddFilter;
-use App\Entity\SpmFixture;
-use App\Entity\SpmOdd;
-use App\Entity\SpmScore;
+use App\Entity\Spm\BetRowOddFilter;
+use App\Entity\Spm\SpmFixture;
+use App\Entity\Spm\SpmOdd;
+use App\Entity\Spm\SpmScore;
 use App\Form\InitSimpleBetRowsForSeasonData;
 use App\Form\InitSimpleBetRowVariant;
 use App\Service\Evaluation\Content\BetRow\BetRowInterface;
@@ -25,10 +25,7 @@ use App\Service\Sportmonks\Content\Round\SpmRoundService;
 use App\Service\Sportmonks\Content\Score\SpmScoreService;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class BetRowCalculator
 {
 

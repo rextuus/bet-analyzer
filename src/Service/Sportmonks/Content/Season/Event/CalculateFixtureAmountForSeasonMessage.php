@@ -2,7 +2,7 @@
 
 namespace App\Service\Sportmonks\Content\Season\Event;
 
-use App\Entity\SpmSeason;
+use App\Entity\Spm\SpmSeason;
 
 final class CalculateFixtureAmountForSeasonMessage
 {

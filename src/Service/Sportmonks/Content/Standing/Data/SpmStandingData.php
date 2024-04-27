@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Standing\Data;
 
-use App\Entity\SpmStanding;
+use App\Entity\Spm\SpmStanding;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmStandingData
 {
     private int $apiId;

@@ -3,14 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service\Evaluation\Content\PlacedBet;
 
-use App\Entity\PlacedBet;
+use App\Entity\Spm\PlacedBet;
 use App\Service\Evaluation\Content\PlacedBet\Data\PlacedBetData;
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class PlacedBetService
 {
     public function __construct(private readonly PlacedBetRepository $repository, private readonly PlacedBetFactory $factory, private readonly EntityManagerInterface $entityManager)
@@ -47,7 +44,7 @@ class PlacedBetService
     {
         $stored = 0;
         foreach ($placedBets as $placedBet) {
-            if (!$this->repository->findBy(['apiId' => $placedBet->getApiId()])) {
+            if (!$this->repository->findBy(['apiId' => $placedBet->getFixtureApiId()])) {
                 $this->createByData($placedBet, false);
                 $stored++;
             }

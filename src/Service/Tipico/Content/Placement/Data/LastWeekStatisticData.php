@@ -5,10 +5,7 @@ namespace App\Service\Tipico\Content\Placement\Data;
 
 use PHPUnit\Util\Exception;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class LastWeekStatisticData
 {
     /**

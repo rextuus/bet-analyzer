@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\BettingProvider;
 
 use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\TipicoOverUnderOddRepository;
 use Doctrine\ORM\Mapping as ORM;

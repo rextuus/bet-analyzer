@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\BettingProvider\Betano\Content\BetanoBet;
 
-use App\Entity\BetanoBet;
+use App\Entity\BettingProvider\BetanoBet;
 use App\Service\BettingProvider\Betano\Content\BetanoBet\Data\BetanoBetData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BetanoBetFactory
 {
     public function createByData(BetanoBetData $data): BetanoBet

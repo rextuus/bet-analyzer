@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\SeasonSummary\Data;
 
-use App\Entity\SimpleBetRow;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\SimpleBetRow;
+use App\Entity\Spm\SpmSeason;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SeasonSummaryData
 {
     private SpmSeason $season;

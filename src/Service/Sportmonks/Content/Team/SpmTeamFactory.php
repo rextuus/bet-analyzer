@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Team;
 
-use App\Entity\SpmTeam;
+use App\Entity\Spm\SpmTeam;
 use App\Service\Sportmonks\Content\Team\Data\SpmTeamData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmTeamFactory
 {
     public function createByData(SpmTeamData $data): SpmTeam

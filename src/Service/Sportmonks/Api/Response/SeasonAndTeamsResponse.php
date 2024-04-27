@@ -9,10 +9,7 @@ use App\Service\Sportmonks\Api\ResponseCanTriggerNextMessageInterface;
 use App\Service\Sportmonks\Content\Season\Data\SpmSeasonData;
 use App\Service\Sportmonks\Content\Team\Data\SpmTeamData;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SeasonAndTeamsResponse implements ResponseCanTriggerNextMessageInterface
 {
     /**

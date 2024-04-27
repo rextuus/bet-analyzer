@@ -1,22 +1,21 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Service\Evaluation\Content\BetRow\SimpleBetRow;
 
-use App\Entity\BetRowOddFilter;
-use App\Entity\SimpleBetRow;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\BetRowOddFilter;
+use App\Entity\Spm\SimpleBetRow;
+use App\Entity\Spm\SpmSeason;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\Data\SimpleBetRowData;
-use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SimpleBetRowService
 {
-    public function __construct(private readonly SimpleBetRowRepository $repository, private readonly SimpleBetRowFactory $factory, private readonly EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private readonly SimpleBetRowRepository $repository,
+        private readonly SimpleBetRowFactory $factory
+    ) {
     }
 
     public function createByData(SimpleBetRowData $data, $flush = true): SimpleBetRow
@@ -44,24 +43,6 @@ class SimpleBetRowService
     public function findById(int $id): ?SimpleBetRow
     {
         return $this->repository->findOneBy(['id' => $id]);
-    }
-
-    /**
-     * @param $simpleBetRows SimpleBetRowData[]
-     * @return int
-     */
-    public function createMultipleByData(array $simpleBetRows): int
-    {
-        $stored = 0;
-        foreach ($simpleBetRows as $simpleBetRow) {
-            if (!$this->repository->findBy(['apiId' => $simpleBetRow->getApiId()])) {
-                $this->createByData($simpleBetRow, false);
-                $stored++;
-            }
-        }
-        $this->entityManager->flush();
-
-        return $stored;
     }
 
     public function findBySeasonAndFilter(SpmSeason $season, BetRowOddFilter $filter): int

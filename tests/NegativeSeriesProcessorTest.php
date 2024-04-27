@@ -5,10 +5,7 @@ use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 use App\Service\Tipico\Simulation\AdditionalProcessors\NegativeSeriesProcessor;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class NegativeSeriesProcessorTest extends TestCase
 {
     public function setUp(): void

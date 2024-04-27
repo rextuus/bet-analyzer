@@ -2,7 +2,7 @@
 
 namespace App\Service\Tipico\Content\SimulationStrategy;
 
-use App\Entity\SimulationStrategy;
+use App\Entity\BettingProvider\SimulationStrategy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

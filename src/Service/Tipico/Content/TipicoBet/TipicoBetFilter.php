@@ -3,10 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\TipicoBet;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TipicoBetFilter
 {
     public const TABLE_ALIAS_TIPICO_BET = 'f';

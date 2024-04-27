@@ -3,15 +3,12 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\BetRowCombination;
 
-use App\Entity\BetRowCombination;
+use App\Entity\Spm\BetRowCombination;
 use App\Service\Statistic\Content\BetRowCombination\Data\BetRowCombinationData;
 use App\Service\Statistic\Content\BetRowCombination\Data\BetRowCombinationFactory;
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class BetRowCombinationService
 {
     public function __construct(private readonly BetRowCombinationRepository $repository, private readonly BetRowCombinationFactory $factory, private readonly EntityManagerInterface $entityManager)

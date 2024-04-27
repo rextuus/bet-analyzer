@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd;
 
-use App\Entity\TipicoBothTeamsScoreOdd;
+use App\Entity\BettingProvider\TipicoBothTeamsScoreOdd;
 use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\Data\TipicoBothTeamsScoreOddData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TipicoBothTeamsScoreOddService
 {
     public function __construct(private readonly TipicoBothTeamsScoreOddRepository $repository, private readonly TipicoBothTeamsScoreOddFactory $factory)

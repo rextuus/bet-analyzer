@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\OddOutcome;
 
-use App\Entity\BetRowOddFilter;
-use App\Entity\OddOutcome;
-use App\Entity\SpmFixture;
-use App\Entity\SpmScore;
+use App\Entity\Spm\BetRowOddFilter;
+use App\Entity\Spm\OddOutcome;
+use App\Entity\Spm\SpmFixture;
+use App\Entity\Spm\SpmScore;
 use App\Service\Evaluation\BetOn;
 use App\Service\Evaluation\Message\UpdateOddOutcomeMessage;
 use App\Service\Evaluation\NoScoresFoundForFixtureException;
@@ -16,10 +16,7 @@ use App\Service\Sportmonks\Content\Odd\SpmOddService;
 use App\Service\Sportmonks\Content\Score\SpmScoreService;
 use App\Service\Statistic\Content\OddOutcome\Data\OddOutcomeData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class OutcomeCalculator
 {
     public function __construct(
@@ -55,7 +52,6 @@ class OutcomeCalculator
         // check outcome
         $scores = $this->scoreService->findBy(['fixtureApiId' => $fixtureApi]);
         if (!count($scores)) {
-            return;
             throw new NoScoresFoundForFixtureException('Fixture id: ' . $fixtureApi);
         }
 

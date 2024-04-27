@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Service\BettingProvider\BettingProviderBackupFile\Content;
 
-use App\Entity\BettingProviderBackupFile;
+use App\Entity\BettingProvider\BettingProviderBackupFile;
 use App\Service\BettingProvider\BettingProviderBackupFile\Content\Data\BettingProviderBackupFileData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BettingProviderBackupFileFactory
 {
     public function createByData(BettingProviderBackupFileData $data): BettingProviderBackupFile

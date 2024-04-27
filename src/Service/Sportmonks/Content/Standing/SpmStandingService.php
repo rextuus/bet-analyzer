@@ -3,14 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Standing;
 
-use App\Entity\SpmStanding;
+use App\Entity\Spm\SpmStanding;
 use App\Service\Sportmonks\Content\Standing\Data\SpmStandingData;
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmStandingService
 {
     public function __construct(private readonly SpmStandingRepository $repository, private readonly SpmStandingFactory $factory, private readonly EntityManagerInterface $entityManager)

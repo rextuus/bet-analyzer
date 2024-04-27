@@ -3,16 +3,12 @@ declare(strict_types=1);
 
 namespace App\Service\Evaluation;
 
-use App\Entity\BetRowOddFilter;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\BetRowOddFilter;
+use App\Entity\Spm\SpmSeason;
 use App\Service\Evaluation\Content\BetRow\BetRowInterface;
 use App\Service\Evaluation\Content\PlacedBet\BetRowVariant;
-use App\Service\Sportmonks\Content\Odd\Data\OddFilter;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class ClassicBetRowCalculatorInitData
 {
     private BetRowInterface $betRow;

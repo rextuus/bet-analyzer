@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Score;
 
-use App\Entity\SpmScore;
+use App\Entity\Spm\SpmScore;
 use App\Service\Sportmonks\Content\Score\Data\SpmScoreData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmScoreFactory
 {
     public function createByData(SpmScoreData $data): SpmScore

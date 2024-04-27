@@ -2,7 +2,7 @@
 
 namespace App\Service\Statistic\Content\BetRowCombination;
 
-use App\Entity\BetRowCombination;
+use App\Entity\Spm\BetRowCombination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

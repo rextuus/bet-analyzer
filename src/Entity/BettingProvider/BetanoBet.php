@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\BettingProvider;
 
 use App\Service\BettingProvider\Betano\Content\BetanoBet\BetanoBetRepository;
 use Doctrine\ORM\Mapping as ORM;

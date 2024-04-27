@@ -7,10 +7,7 @@ namespace App\Service\BettingProvider\Betano\Api;
 use App\Service\BettingProvider\Betano\Api\Response\DailyMatchEventResponse;
 use App\Service\Sportmonks\Api\GuzzleClientFactory;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BetanoApiGateway
 {
     private const DAILY_MATCH_API_URI = 'https://www.betano.de/api/sport/fussball/anstehende-spiele-heute/?sort=StartTime';
@@ -45,7 +42,7 @@ class BetanoApiGateway
 
         $response = $client->request('GET');
         $data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
-        dd($data);
+
         $response = new DailyMatchEventResponse($data);
         $response->parseResponse();
 

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Spm;
 
 use App\Service\Sportmonks\Content\Round\SpmRoundRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\UniqueConstraint;
 
 #[ORM\Entity(repositoryClass: SpmRoundRepository::class)]
 class SpmRound

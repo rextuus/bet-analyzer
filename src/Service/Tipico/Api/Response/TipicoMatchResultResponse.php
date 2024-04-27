@@ -5,10 +5,7 @@ namespace App\Service\Tipico\Api\Response;
 
 use App\Service\Evaluation\BetOn;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TipicoMatchResultResponse
 {
     private const KEY_BASE = 'event';

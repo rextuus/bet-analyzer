@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic;
 
-use App\Entity\BetRowSummary;
+use App\Entity\Spm\BetRowSummary;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SeasonBetRowDistribution
 {
     private array $variants;

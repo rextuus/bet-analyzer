@@ -3,10 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Evaluation\OutcomeTestCalculation;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TestCalculator
 {
     public function getByValueRangeAndWinPercentage(float $min, float $max, int $percentage): TestBet

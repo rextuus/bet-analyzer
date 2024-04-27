@@ -3,14 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\BetRowSummary;
 
-use App\Entity\BetRowSummary;
+use App\Entity\Spm\BetRowSummary;
 use App\Service\Statistic\Content\BetRowSummary\Data\BetRowSummaryData;
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class BetRowSummaryService
 {
     public function __construct(private readonly BetRowSummaryRepository $repository, private readonly BetRowSummaryFactory $factory, private readonly EntityManagerInterface $entityManager)

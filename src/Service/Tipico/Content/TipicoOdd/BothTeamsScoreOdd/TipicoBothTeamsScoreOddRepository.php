@@ -2,7 +2,7 @@
 
 namespace App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd;
 
-use App\Entity\TipicoBothTeamsScoreOdd;
+use App\Entity\BettingProvider\TipicoBothTeamsScoreOdd;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

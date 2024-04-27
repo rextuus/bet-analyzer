@@ -2,7 +2,7 @@
 
 namespace App\Service\BettingProvider\Betano\Content\BetanoBet;
 
-use App\Entity\BetanoBet;
+use App\Entity\BettingProvider\BetanoBet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Evaluation\Content\PlacedBet;
 
-use App\Entity\PlacedBet;
+use App\Entity\Spm\PlacedBet;
 use App\Service\Evaluation\Content\PlacedBet\Data\PlacedBetData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class PlacedBetFactory
 {
     public function createByData(PlacedBetData $data): PlacedBet

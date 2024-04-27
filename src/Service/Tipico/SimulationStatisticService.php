@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico;
 
-use App\Entity\Simulator;
-use App\Entity\TipicoBet;
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\TipicoBet;
+use App\Entity\BettingProvider\TipicoPlacement;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\Data\LastWeekStatisticData;
 use App\Service\Tipico\Content\Placement\Data\TopSimulatorStatisticData;
@@ -15,15 +15,10 @@ use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Twig\Data\KeyValueListingContainer;
-use DateTime;
 use DateTimeInterface;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\UX\Chartjs\Model\Chart;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class SimulationStatisticService
 {
     public const KEY_WON = 'won';
@@ -379,25 +374,6 @@ class SimulationStatisticService
     public function getUpcomingEventsForSimulator(Simulator $simulator, int $limit = 200): array
     {
         return $this->tipicoBetService->getFixtureForUpcomingFixturesByFilterCount($simulator);
-
-
-        $parameters = json_decode($simulator->getStrategy()->getParameters(), true);
-
-        $targetOddColumn = 'oddHome';
-        if ($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON] === 'X') {
-            $targetOddColumn = 'oddDraw';
-        }
-
-        if ($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON] === '2') {
-            $targetOddColumn = 'oddAway';
-        }
-
-        return $this->tipicoBetService->findUpcomingEventsByRange(
-            (float)$parameters[AbstractSimulationProcessor::PARAMETER_MIN],
-            (float)$parameters[AbstractSimulationProcessor::PARAMETER_MAX],
-            $targetOddColumn,
-            $limit
-        );
     }
 
 

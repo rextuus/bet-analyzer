@@ -2,7 +2,7 @@
 
 namespace App\Service\Tipico\Content\TipicoOdd\HeadToHeadOdd;
 
-use App\Entity\TipicoHeadToHeadOdd;
+use App\Entity\BettingProvider\TipicoHeadToHeadOdd;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

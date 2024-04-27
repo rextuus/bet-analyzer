@@ -2,7 +2,7 @@
 
 namespace App\Service\Statistic\Content\SeasonSummary;
 
-use App\Entity\SeasonSummary;
+use App\Entity\Spm\SeasonSummary;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -2,7 +2,7 @@
 
 namespace App\Service\BettingProvider\BettingProviderBackupFile\Content;
 
-use App\Entity\BettingProviderBackupFile;
+use App\Entity\BettingProvider\BettingProviderBackupFile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

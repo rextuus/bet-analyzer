@@ -6,10 +6,7 @@ namespace App\Service\BettingProvider\Betano\Content\BetanoBackup;
 use App\Entity\BetanoBackup;
 use App\Service\BettingProvider\Betano\Content\BetanoBackup\Data\BetanoBackupData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BetanoBackupService
 {
     public function __construct(private readonly BetanoBackupRepository $repository, private readonly BetanoBackupFactory $factory)

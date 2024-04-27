@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Spm;
 
 use App\Service\Sportmonks\Content\League\SpmLeagueRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\UniqueConstraint;
 
 #[ORM\Entity(repositoryClass: SpmLeagueRepository::class)]
 class SpmLeague

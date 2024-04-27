@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\SeasonStatistic;
+use App\Entity\Spm\SeasonStatistic;
 use App\Service\Evaluation\Message\UpdateOddOutcomeMessage;
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
 use App\Service\Sportmonks\Content\Season\Statistic\Data\SeasonStatisticData;
@@ -24,12 +24,6 @@ class SeasonStatisticController extends AbstractController
 
         return $this->render('season_statistic/index.html.twig', [
             'dtos' => [],
-        ]);
-
-        $dtos = $seasonStatisticService->getViewDtos();
-
-        return $this->render('season_statistic/index.html.twig', [
-            'dtos' => $dtos,
         ]);
     }
 

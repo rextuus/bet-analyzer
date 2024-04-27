@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Standing;
 
-use App\Entity\SpmStanding;
+use App\Entity\Spm\SpmStanding;
 use App\Service\Sportmonks\Content\Standing\Data\SpmStandingData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmStandingFactory
 {
     public function createByData(SpmStandingData $data): SpmStanding

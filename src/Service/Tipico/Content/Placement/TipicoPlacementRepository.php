@@ -2,10 +2,9 @@
 
 namespace App\Service\Tipico\Content\Placement;
 
-use App\Entity\Simulator;
-use App\Entity\SimulatorFavoriteList;
-use App\Entity\SpmSeason;
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\SimulatorFavoriteList;
+use App\Entity\BettingProvider\TipicoPlacement;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

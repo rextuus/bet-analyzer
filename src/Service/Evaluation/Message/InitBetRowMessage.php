@@ -2,11 +2,8 @@
 
 namespace App\Service\Evaluation\Message;
 
-use App\Entity\BetRowOddFilter;
 use App\Form\InitSimpleBetRowsForSeasonData;
 use App\Service\Evaluation\BetOn;
-use App\Service\Evaluation\Content\PlacedBet\BetRowVariant;
-use App\Service\Evaluation\OddAccumulationVariant;
 
 final class InitBetRowMessage
 {

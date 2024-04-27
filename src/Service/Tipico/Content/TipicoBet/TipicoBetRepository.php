@@ -2,11 +2,10 @@
 
 namespace App\Service\Tipico\Content\TipicoBet;
 
-use App\Entity\TipicoBet;
-use App\Entity\TipicoBothTeamsScoreOdd;
-use App\Entity\TipicoHeadToHeadOdd;
-use App\Entity\TipicoOverUnderOdd;
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\TipicoBet;
+use App\Entity\BettingProvider\TipicoBothTeamsScoreOdd;
+use App\Entity\BettingProvider\TipicoHeadToHeadOdd;
+use App\Entity\BettingProvider\TipicoOverUnderOdd;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

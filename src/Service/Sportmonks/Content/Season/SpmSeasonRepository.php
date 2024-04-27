@@ -2,12 +2,10 @@
 
 namespace App\Service\Sportmonks\Content\Season;
 
-use App\Entity\SeasonStatistic;
-use App\Entity\SimpleBetRow;
-use App\Entity\SpmLeague;
-use App\Entity\SpmRound;
-use App\Entity\SpmSeason;
-use App\Entity\SpmStanding;
+use App\Entity\Spm\SeasonStatistic;
+use App\Entity\Spm\SimpleBetRow;
+use App\Entity\Spm\SpmSeason;
+use App\Entity\Spm\SpmStanding;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -7,12 +7,7 @@ use DateTime;
 use Symfony\Component\Notifier\Bridge\Telegram\TelegramOptions;
 use Symfony\Component\Notifier\ChatterInterface;
 use Symfony\Component\Notifier\Message\ChatMessage;
-use function Symfony\Component\Translation\t;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
 class TelegramMessageService
 {
     private const CHAT_ID = '704862488';

@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace App\Service\BettingProvider\BettingProviderBackupFile\Content\Data;
 
-use App\Entity\BettingProviderBackupFile;
+use App\Entity\BettingProvider\BettingProviderBackupFile;
 use App\Service\BettingProvider\BettingProvider;
 use DateTimeInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BettingProviderBackupFileData
 {
     private DateTimeInterface $created;

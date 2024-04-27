@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Spm;
 
 use App\Service\Sportmonks\Content\Season\SpmSeasonRepository;
 use Doctrine\DBAL\Types\Types;

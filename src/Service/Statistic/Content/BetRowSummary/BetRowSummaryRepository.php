@@ -2,7 +2,7 @@
 
 namespace App\Service\Statistic\Content\BetRowSummary;
 
-use App\Entity\BetRowSummary;
+use App\Entity\Spm\BetRowSummary;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

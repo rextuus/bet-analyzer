@@ -2,11 +2,11 @@
 
 namespace App\Service\Evaluation\Content\BetRow\SimpleBetRow;
 
-use App\Entity\BetRowOddFilter;
-use App\Entity\BetRowSummary;
-use App\Entity\SimpleBetRow;
-use App\Entity\SpmLeague;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\BetRowOddFilter;
+use App\Entity\Spm\BetRowSummary;
+use App\Entity\Spm\SimpleBetRow;
+use App\Entity\Spm\SpmLeague;
+use App\Entity\Spm\SpmSeason;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;

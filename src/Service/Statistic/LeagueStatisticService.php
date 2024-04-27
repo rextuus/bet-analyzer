@@ -3,21 +3,17 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic;
 
-use App\Entity\BetRowSummary;
-use App\Entity\SpmLeague;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\BetRowSummary;
+use App\Entity\Spm\SpmLeague;
+use App\Entity\Spm\SpmSeason;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowRepository;
 use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Statistic\Content\BetRowCombination\BetRowCombinationService;
-use App\Service\Statistic\Content\BetRowCombination\Data\BetRowCombinationData;
 use App\Service\Statistic\Dto\League\Row;
 use App\Service\Statistic\Dto\League\RowInformation;
 use Exception;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class LeagueStatisticService
 {
 

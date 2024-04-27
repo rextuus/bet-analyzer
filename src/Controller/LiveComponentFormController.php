@@ -7,12 +7,8 @@ namespace App\Controller;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Contracts\Service\Attribute\Required;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 abstract class LiveComponentFormController extends AbstractController
 {
     private mixed $formTarget;

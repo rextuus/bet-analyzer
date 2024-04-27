@@ -5,10 +5,7 @@ namespace App\Service\Tipico\Simulation\Data;
 
 use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class AdditionalProcessResult
 {
     /**

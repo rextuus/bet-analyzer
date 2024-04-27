@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\SpmLeague;
+use App\Entity\Spm\SpmLeague;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class LeagueStatisticFilterData
 {
     private SpmLeague $league;

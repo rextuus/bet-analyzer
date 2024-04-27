@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Simulation\Data;
 
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\TipicoPlacement;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class PlacementContainer
 {
     /**

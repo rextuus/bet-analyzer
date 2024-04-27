@@ -2,16 +2,14 @@
 
 namespace App\Twig\Components;
 
-use App\Entity\TipicoPlacement;
 use App\Service\Tipico\SimulationStatisticService;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
 final class Simulator
 {
-    public \App\Entity\Simulator $simulator;
+    public \App\Entity\BettingProvider\Simulator $simulator;
 
     public function __construct(
         private readonly SimulationStatisticService $simulationStatisticService,

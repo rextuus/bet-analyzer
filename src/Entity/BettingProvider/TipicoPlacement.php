@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\BettingProvider;
 
 use App\Service\Tipico\Content\Placement\TipicoPlacementRepository;
 use Doctrine\Common\Collections\ArrayCollection;

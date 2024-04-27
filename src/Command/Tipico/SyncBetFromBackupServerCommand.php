@@ -2,7 +2,7 @@
 
 namespace App\Command\Tipico;
 
-use App\Entity\TipicoBet;
+use App\Entity\BettingProvider\TipicoBet;
 use App\Service\Tipico\Api\Response\TipicoDailyMatchesResponse;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
 use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\Data\TipicoBothTeamsScoreOddData;

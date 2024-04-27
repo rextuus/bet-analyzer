@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\BettingProvider\Bwin\Content\BwinBet\Data;
 
-use App\Entity\TipicoBet;
+use App\Entity\BettingProvider\TipicoBet;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BwinBetData
 {
     private string $bwinId;

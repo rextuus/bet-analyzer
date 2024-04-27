@@ -2,8 +2,8 @@
 
 namespace App\Service\Tipico\Content\SimulatorFavoriteList;
 
-use App\Entity\Simulator;
-use App\Entity\SimulatorFavoriteList;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\SimulatorFavoriteList;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -77,7 +77,6 @@ class SimulatorFavoriteListRepository extends ServiceEntityRepository
         $qb->leftJoin('s.tipicoPlacements', 'p');
         $qb->groupBy('l');
 
-        dd($qb->getQuery()->getResult());
         return $qb->getQuery()->getResult();
     }
 }

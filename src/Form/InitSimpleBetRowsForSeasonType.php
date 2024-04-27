@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\SeasonStatistic;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\SeasonStatistic;
+use App\Entity\Spm\SpmSeason;
 use App\Service\Evaluation\OddAccumulationVariant;
 use App\Service\Sportmonks\Content\Season\SpmSeasonRepository;
 use Doctrine\ORM\QueryBuilder;

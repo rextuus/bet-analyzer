@@ -2,7 +2,7 @@
 
 namespace App\Service\Evaluation\Content\BetRowOddFilter;
 
-use App\Entity\BetRowOddFilter;
+use App\Entity\Spm\BetRowOddFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

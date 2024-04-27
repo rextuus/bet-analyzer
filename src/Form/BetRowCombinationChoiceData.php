@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\BetRowCombination;
+use App\Entity\Spm\BetRowCombination;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class BetRowCombinationChoiceData
 {
     private BetRowCombination $combination;

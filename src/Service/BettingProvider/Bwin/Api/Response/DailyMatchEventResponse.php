@@ -9,10 +9,7 @@ use App\Service\BettingProvider\Bwin\Content\BwinBet\Data\BwinBetData;
 use DateTime;
 use Exception;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class DailyMatchEventResponse implements BettingProviderApiResponseInterface
 {
     private const KEY_FIXTURES = 'fixtures';

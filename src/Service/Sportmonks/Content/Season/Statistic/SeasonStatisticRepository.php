@@ -2,7 +2,7 @@
 
 namespace App\Service\Sportmonks\Content\Season\Statistic;
 
-use App\Entity\SeasonStatistic;
+use App\Entity\Spm\SeasonStatistic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

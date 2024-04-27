@@ -2,8 +2,8 @@
 
 namespace App\Twig\Components;
 
-use App\Entity\TipicoOverUnderOdd;
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\TipicoOverUnderOdd;
+use App\Entity\BettingProvider\TipicoPlacement;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]

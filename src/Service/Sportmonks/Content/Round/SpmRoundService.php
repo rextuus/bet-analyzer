@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Round;
 
-use App\Entity\SpmRound;
+use App\Entity\Spm\SpmRound;
 use App\Service\Sportmonks\Content\Round\Data\SpmRoundData;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmRoundService
 {
     public function __construct(private SpmRoundRepository $repository, private SpmRoundFactory $factory)

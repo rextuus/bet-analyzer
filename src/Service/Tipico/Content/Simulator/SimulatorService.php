@@ -3,17 +3,13 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\Simulator;
 
-use App\Entity\Simulator;
-use App\Entity\SimulatorFavoriteList;
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\SimulatorFavoriteList;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use DateTime;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class SimulatorService
 {
     public function __construct(
@@ -89,7 +85,7 @@ class SimulatorService
         }
         ksort($distribution);
 
-        $result = ['inactive' => 0];
+        $result = [];
         $active = 0;
         foreach ($distribution as $key => $value){
             $from = $key*5;

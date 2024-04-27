@@ -2,12 +2,9 @@
 declare(strict_types=1);
 namespace App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\Data;
 
-use App\Entity\TipicoBet;
+use App\Entity\BettingProvider\TipicoBet;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TipicoBothTeamsScoreOddData
 {
     private TipicoBet $bet;

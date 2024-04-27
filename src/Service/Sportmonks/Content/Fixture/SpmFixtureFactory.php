@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Fixture;
 
-use App\Entity\SpmFixture;
+use App\Entity\Spm\SpmFixture;
 use App\Service\Sportmonks\Content\Fixture\Data\SpmFixtureData;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmFixtureFactory
 {
     public function createByData(SpmFixtureData $data): SpmFixture

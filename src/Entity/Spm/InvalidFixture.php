@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Spm;
 
 use App\Service\Sportmonks\Content\Fixture\InvalidFixture\InvalidFixtureRepository;
 use Doctrine\DBAL\Types\Types;

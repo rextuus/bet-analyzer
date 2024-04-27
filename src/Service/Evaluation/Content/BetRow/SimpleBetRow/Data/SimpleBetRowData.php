@@ -3,15 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service\Evaluation\Content\BetRow\SimpleBetRow\Data;
 
-use App\Entity\BetRowOddFilter;
+use App\Entity\Spm\BetRowOddFilter;
 use App\Service\Evaluation\Content\PlacedBet\BetRowVariant;
 use App\Service\Evaluation\OddAccumulationVariant;
-use App\Service\Sportmonks\Content\Odd\Data\OddFilter;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SimpleBetRowData
 {
     private int $leagueApiId;

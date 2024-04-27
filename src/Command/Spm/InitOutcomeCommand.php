@@ -2,13 +2,10 @@
 
 namespace App\Command\Spm;
 
-use App\Entity\SpmFixture;
+use App\Entity\Spm\SpmFixture;
 use App\Service\Evaluation\Message\InitOddOutcomeMessage;
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
-use App\Service\Sportmonks\Content\Odd\SpmOddService;
-use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Sportmonks\Content\Season\Statistic\SeasonStatisticService;
-use App\Service\Statistic\Content\OddOutcome\OutcomeCalculator;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,14 +19,9 @@ use Symfony\Component\Messenger\MessageBusInterface;
 )]
 class InitOutcomeCommand extends Command
 {
-
-
     public function __construct(
-        private SpmSeasonService $seasonService,
         private SpmFixtureService $fixtureService,
         private SeasonStatisticService $seasonStatisticService,
-        private SpmOddService $oddService,
-        private OutcomeCalculator $outcomeCalculator,
         private MessageBusInterface $messageBus
     )
     {
@@ -38,7 +30,6 @@ class InitOutcomeCommand extends Command
 
     protected function configure(): void
     {
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -52,7 +43,6 @@ class InitOutcomeCommand extends Command
         $statistics = $this->seasonStatisticService->findBy(['manuallyConfirmed' => true]);
         $fixtures = [];
         foreach ($statistics as $statistic) {
-
             $f = $this->fixtureService->findBySeasonOrderedByTime(['seasonApiId' => $statistic->getSeasonApiId()]);
             $fixtures = array_merge($fixtures, $f);
         }
@@ -67,7 +57,6 @@ class InitOutcomeCommand extends Command
         $counter = 0;
         $fixtureIds = [];
         foreach ($fixtures as $fixture) {
-
             $fixtureIds[] = $fixture->getApiId();
             if ($counter % 50 === 0) {
                 $message = new InitOddOutcomeMessage();

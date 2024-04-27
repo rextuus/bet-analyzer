@@ -3,10 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\SimulatorFavoriteList;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class FavoriteListStatisticContainer
 {
     private float $currentBalance = 0.0;

@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Service\BettingProvider\Bwin\Content\BwinBet;
 
-use App\Entity\BwinBet;
+use App\Entity\BettingProvider\BwinBet;
 use App\Service\BettingProvider\Bwin\Content\BwinBet\Data\BwinBetData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BwinBetFactory
 {
     public function createByData(BwinBetData $data): BwinBet

@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\Placement;
 
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\TipicoPlacement;
 use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TipicoPlacementFactory
 {
     public function createByData(TipicoPlacementData $data): TipicoPlacement

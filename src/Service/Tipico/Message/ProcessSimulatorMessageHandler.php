@@ -8,10 +8,7 @@ use App\Service\Tipico\TipicoBetSimulationService;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 #[AsMessageHandler]
 class ProcessSimulatorMessageHandler
 {

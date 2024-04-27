@@ -2,7 +2,7 @@
 
 namespace App\Service\BettingProvider\Bwin\Content\BwinBet;
 
-use App\Entity\BwinBet;
+use App\Entity\BettingProvider\BwinBet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

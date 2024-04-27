@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Api;
 
-use App\Entity\SpmSeason;
+use App\Entity\Spm\SpmSeason;
 use App\Service\Sportmonks\Api\Event\ApiCallMessage;
 use App\Service\Sportmonks\Content\Fixture\Data\SpmFixtureData;
 use App\Service\Sportmonks\Content\Fixture\InvalidFixture\Data\InvalidFixtureData;
@@ -21,15 +21,10 @@ use App\Service\Sportmonks\Content\Season\Statistic\SeasonStatisticService;
 use App\Service\Sportmonks\Content\Standing\SpmStandingService;
 use App\Service\Sportmonks\Content\Team\SpmTeamService;
 use DateTime;
-use Exception;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
 class SportsmonkService
 {
 
@@ -54,20 +49,20 @@ class SportsmonkService
         $response = $this->sportsmonkApiGateway->getRoundsInclusiveFixtures($page);
 
         foreach ($response->getRounds() as $round) {
-            if (!$this->roundService->findBy(['apiId' => $round->getApiId()])){
+            if (!$this->roundService->findBy(['apiId' => $round->getApiId()])) {
                 $this->roundService->createByData($round);
             }
         }
 
         foreach ($response->getFixtures() as $fixture) {
-            if ($fixture->isHasOdds()){
-                if (!$this->fixtureService->findBy(['apiId' => $fixture->getApiId()])){
+            if ($fixture->isHasOdds()) {
+                if (!$this->fixtureService->findBy(['apiId' => $fixture->getApiId()])) {
                     $this->fixtureService->createByData($fixture);
                 }
             }
         }
 
-        if ($response->getMessageParameter()){
+        if ($response->getMessageParameter()) {
             $this->dispatchNextPageMessage($response);
         }
     }
@@ -80,11 +75,11 @@ class SportsmonkService
         $storedScores = $this->scoreService->createMultipleByData($response->getScores());
 
         $oddDecorated = false;
-        if ($storedOdds > 0){
+        if ($storedOdds > 0) {
             $oddDecorated = true;
         }
         $scoreDecorated = false;
-        if ($storedScores > 0){
+        if ($storedScores > 0) {
             $scoreDecorated = true;
         }
 
@@ -107,7 +102,7 @@ class SportsmonkService
         // get next decoratable fixture
         $undecorated = $this->fixtureService->findNextUndecoratedFixture();
 
-        if (count($undecorated)){
+        if (count($undecorated)) {
             $response->setMessageParameter($undecorated[0]->getApiId());
             $this->dispatchNextPageMessage($response);
         }
@@ -116,7 +111,7 @@ class SportsmonkService
     public function storeLeagues()
     {
         $response = $this->sportsmonkApiGateway->getLeagues();
-        foreach ($response as $leagueData){
+        foreach ($response as $leagueData) {
             $this->leagueService->createByData($leagueData);
         }
     }
@@ -132,8 +127,8 @@ class SportsmonkService
 
         $seasons = $this->seasonService->findSeasonsWithoutStanding();
 
-        if (count($seasons)){
-            if ($seasons[0]->getApiId() === $response->getNextRoundApiId()){
+        if (count($seasons)) {
+            if ($seasons[0]->getApiId() === $response->getNextRoundApiId()) {
                 $data = (new SpmSeasonData())->initFromEntity($seasons[0]);
                 $this->seasonService->update($seasons[0], $data);
 
@@ -150,34 +145,35 @@ class SportsmonkService
         $response = $this->sportsmonkApiGateway->getSeasonsAndTeams($page);
 
         foreach ($response->getTeams() as $team) {
-            if (!$this->spmTeamService->findBy(['apiId' => $team->getApiId()])){
+            if (!$this->spmTeamService->findBy(['apiId' => $team->getApiId()])) {
                 $this->spmTeamService->createByData($team);
             }
         }
 
         foreach ($response->getSeasons() as $season) {
-            if (!$this->seasonService->findBy(['apiId' => $season->getApiId()])){
+            if (!$this->seasonService->findBy(['apiId' => $season->getApiId()])) {
                 $this->seasonService->createByData($season);
             }
         }
 
-        if ($response->getMessageParameter()){
+        if ($response->getMessageParameter()) {
             $this->dispatchNextPageMessage($response);
         }
     }
+
     public function dispatchNextPageMessage(ResponseCanTriggerNextMessageInterface $response): void
     {
-            $nextPageMessage = new ApiCallMessage($response->getApiRoute());
-            $nextPageMessage->setMessageParameter($response->getMessageParameter());
+        $nextPageMessage = new ApiCallMessage($response->getApiRoute());
+        $nextPageMessage->setMessageParameter($response->getMessageParameter());
 
-            if ($response->getWaitToContinue()) {
-                $envelope = new Envelope($nextPageMessage, [
-                    new DelayStamp(($response->getWaitToContinue() + 60) * 1000)
-                ]);
-                $this->bus->dispatch($envelope);
-            } else {
-                $this->bus->dispatch($nextPageMessage);
-            }
+        if ($response->getWaitToContinue()) {
+            $envelope = new Envelope($nextPageMessage, [
+                new DelayStamp(($response->getWaitToContinue() + 60) * 1000)
+            ]);
+            $this->bus->dispatch($envelope);
+        } else {
+            $this->bus->dispatch($nextPageMessage);
+        }
     }
 
     public function calculateExpectedFixtureAmountForSeason(SpmSeason $spmSeason): void
@@ -186,14 +182,15 @@ class SportsmonkService
             return;
         }
 
-        if ($this->seasonStatisticService->findBy(['seasonApiId' => $spmSeason->getApiId()])){
+        if ($this->seasonStatisticService->findBy(['seasonApiId' => $spmSeason->getApiId()])) {
             return;
         }
         $league = $this->leagueService->findBy(['apiId' => $spmSeason->getLeagueApiId()])[0];
-        $leagueName = '('.$spmSeason->getLeagueApiId().') '.$league->getName().' - '.$league->getShort().' ('.$league->getCountry().')';
+        $leagueName = '(' . $spmSeason->getLeagueApiId() . ') ' . $league->getName() . ' - ' . $league->getShort(
+            ) . ' (' . $league->getCountry() . ')';
 
         $newStandings = $this->spmStandingService->findBy(['seasonApiId' => $spmSeason->getApiId()]);
-        if (count($newStandings) === 0){
+        if (count($newStandings) === 0) {
             //1. api call: get standings for season => standings of the last round
             $response = $this->sportsmonkApiGateway->getStandings($spmSeason->getApiId());
             //2. store standings
@@ -202,9 +199,9 @@ class SportsmonkService
 
         //3. check stage id = 2/3 (regular season)
         $newStandings = $this->spmStandingService->findBy(['seasonApiId' => $spmSeason->getApiId()]);
-        if (!count($newStandings)){
+        if (!count($newStandings)) {
 //            throw new Exception('Could not store standings for season '. $spmSeason->getApiId());
-            dump('Could not store standings for season '. $spmSeason->getApiId());
+            dump('Could not store standings for season ' . $spmSeason->getApiId());
 
             $data = new SeasonStatisticData();
             $data->setMatchDays(0);
@@ -234,7 +231,7 @@ class SportsmonkService
         $stageName = 'Regular Season';
         $isRegularSeason = true;
         if (array_key_exists('name', $stage)) {
-            if ($stage['name'] !== 'Regular Season'){
+            if ($stage['name'] !== 'Regular Season') {
                 $stageName = $stage['name'];
                 $isRegularSeason = false;
             }
@@ -243,15 +240,15 @@ class SportsmonkService
         //4. get the round by standing.round => name is the matchday <=> we know how many matchDays there are
         $round = $this->roundService->findBy(['apiId' => $standing->getRoundApiId()]);
         $matchDays = 0;
-        if (count($round)){
-            $matchDays = (int) $round[0]->getName();
+        if (count($round)) {
+            $matchDays = (int)$round[0]->getName();
         }
 
         //5. calculate matchday by teams (standings found for seasonApiId) and matchDays: teams * teams - teams <=> matchDays * teams/2
         $teams = count($newStandings);
         $expectedMatchdays = $teams * $teams - $teams;
         dump("Teams: $teams");
-        $expectedMatchesAlternative = (int) ($matchDays * (((int)ceil($teams/2))/2));
+        $expectedMatchesAlternative = (int)($matchDays * (((int)ceil($teams / 2)) / 2));
 
         // store information
         $fixturesOfSeason = $this->fixtureService->findBy(['seasonApiId' => $spmSeason->getApiId()]);
@@ -273,7 +270,7 @@ class SportsmonkService
         $data->setManuallyConfirmed(false);
 
         $isFaulty = false;
-        if ($expectedMatchdays !== $expectedMatchesAlternative || $expectedMatchdays === 0 || $expectedMatchesAlternative === 0 || $stageName !== 'Regular Season'){
+        if ($expectedMatchdays !== $expectedMatchesAlternative || $expectedMatchdays === 0 || $expectedMatchesAlternative === 0 || $stageName !== 'Regular Season') {
             $isFaulty = true;
         }
         $data->setIsFaulty($isFaulty);

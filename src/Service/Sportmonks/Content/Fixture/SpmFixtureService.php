@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Fixture;
 
-use App\Entity\SeasonStatistic;
-use App\Entity\SpmFixture;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\SeasonStatistic;
+use App\Entity\Spm\SpmFixture;
+use App\Entity\Spm\SpmSeason;
 use App\Service\Sportmonks\Content\Fixture\Data\SpmFixtureData;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmFixtureService
 {
     public function __construct(private SpmFixtureRepository $repository, private SpmFixtureFactory $factory)

@@ -7,10 +7,7 @@ namespace App\Service\BettingProvider\BettingProviderBackupFile;
 use App\Service\BettingProvider\BettingProvider;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BackupProcessorTargetEntityServiceProvider
 {
     public function __construct(

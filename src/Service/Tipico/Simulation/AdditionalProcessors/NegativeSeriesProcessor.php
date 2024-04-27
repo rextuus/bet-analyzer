@@ -6,10 +6,7 @@ namespace App\Service\Tipico\Simulation\AdditionalProcessors;
 use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 use App\Service\Tipico\Simulation\Data\AdditionalProcessResult;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class NegativeSeriesProcessor
 {
     /**

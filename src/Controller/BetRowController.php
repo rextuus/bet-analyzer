@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\BetRowSummary;
-use App\Entity\SimpleBetRow;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\BetRowSummary;
+use App\Entity\Spm\SimpleBetRow;
+use App\Entity\Spm\SpmSeason;
 use App\Form\BetRowCombinationChoiceData;
 use App\Form\BetRowCombinationChoiceType;
 use App\Form\BetRowCombinationCreateData;
@@ -13,7 +13,6 @@ use App\Form\LeagueStatisticFilterData;
 use App\Form\SeasonStatisticFilterType;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowRepository;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowService;
-use App\Service\Sportmonks\Content\League\SpmLeagueService;
 use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Statistic\BetRowCombinationStatistic;
 use App\Service\Statistic\BetRowCombinationStatisticService;
@@ -97,10 +96,10 @@ class BetRowController extends AbstractController
                 }
             }
 
-            $rows = $leagueStatisticService->calculateDistribution($map);
-            foreach ($rows as $row){
-                $row->setChart($this->createLeagueChart($row->getChartData(), 1));
-            }
+//            $rows = $leagueStatisticService->calculateDistribution($map, 1);
+//            foreach ($rows as $row){
+//                $row->setChart($this->createLeagueChart($row->getChartData(), 1));
+//            }
         }
 
         return $this->render('bet_row/league.html.twig', [

@@ -5,10 +5,7 @@ namespace App\Service\Tipico;
 
 use Symfony\UX\Chartjs\Model\Chart;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class WeekdayStatistic
 {
     private Chart $chart;

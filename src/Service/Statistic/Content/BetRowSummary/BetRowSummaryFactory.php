@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\BetRowSummary;
 
-use App\Entity\BetRowSummary;
+use App\Entity\Spm\BetRowSummary;
 use App\Service\Statistic\Content\BetRowSummary\Data\BetRowSummaryData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class BetRowSummaryFactory
 {
     public function createByData(BetRowSummaryData $data): BetRowSummary

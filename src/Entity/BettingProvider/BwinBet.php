@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\BettingProvider;
 
-use BwinBet\BwinBetRepository;
+use App\Service\BettingProvider\Bwin\Content\BwinBet\BwinBetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BwinBetRepository::class)]

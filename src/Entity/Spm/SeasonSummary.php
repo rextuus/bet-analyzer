@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Spm;
 
 use App\Service\Statistic\Content\SeasonSummary\SeasonSummaryRepository;
 use Doctrine\DBAL\Types\Types;

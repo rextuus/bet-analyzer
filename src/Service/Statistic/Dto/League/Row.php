@@ -5,10 +5,7 @@ namespace App\Service\Statistic\Dto\League;
 
 use Symfony\UX\Chartjs\Model\Chart;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class Row
 {
     private array $displayNames;

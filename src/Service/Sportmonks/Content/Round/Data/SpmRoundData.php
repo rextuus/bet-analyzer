@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Round\Data;
 
-use App\Service\Sportmonks\Content\League\Data\SpmLeagueData;
 use DateTime;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmRoundData
 {
     private int $leagueApiId;

@@ -6,10 +6,7 @@ namespace App\Service\BettingProvider\Betano\Api\Response;
 use App\Service\BettingProvider\Betano\Content\BetanoBet\Data\BetanoBetData;
 use App\Service\BettingProvider\BettingProviderBackupFile\BettingProviderApiResponseInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class DailyMatchEventResponse implements BettingProviderApiResponseInterface
 {
     private const KEY_DATA = 'data';

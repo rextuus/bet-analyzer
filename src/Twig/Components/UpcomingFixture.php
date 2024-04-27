@@ -2,13 +2,12 @@
 
 namespace App\Twig\Components;
 
-use App\Entity\TipicoBet;
-use App\Entity\TipicoOverUnderOdd;
+use App\Entity\BettingProvider\TipicoBet;
+use App\Entity\BettingProvider\TipicoOverUnderOdd;
 use App\Service\Evaluation\BetOn;
 use App\Service\Evaluation\OddVariant;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
-use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use App\Service\Tipico\SimulationStatisticService;
 use DateInterval;
 use DateTime;
@@ -22,15 +21,11 @@ final class UpcomingFixture
      */
     public array $fixtures;
 
-    public ?\App\Entity\Simulator $simulator;
+    public ?\App\Entity\BettingProvider\Simulator $simulator;
 
     public BetOn $targetBetOn;
     public BetOn $searchBetOn;
     public ?float $overUnderTarget = null;
-
-    public function __construct(private SimulationStrategyProcessorProvider $provider)
-    {
-    }
 
     public function getRows(): array
     {

@@ -2,7 +2,7 @@
 
 namespace App\Service\Evaluation\Message;
 
-use App\Entity\SpmSeason;
+use App\Entity\Spm\SpmSeason;
 use App\Form\InitSimpleBetRowsForSeasonData;
 use App\Form\InitSimpleBetRowVariant;
 use App\Service\Evaluation\BetRowCalculator;

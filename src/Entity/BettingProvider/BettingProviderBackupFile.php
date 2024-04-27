@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\BettingProvider;
 
 use App\Service\BettingProvider\BettingProvider;
 use App\Service\BettingProvider\BettingProviderBackupFile\Content\BettingProviderBackupFileRepository;

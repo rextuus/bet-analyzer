@@ -1,21 +1,20 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\OddOutcome;
 
-use App\Entity\OddOutcome;
+use App\Entity\Spm\OddOutcome;
 use App\Service\Evaluation\BetOn;
 use App\Service\Statistic\Content\OddOutcome\Data\OddOutcomeData;
-use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class OddOutcomeService
 {
-    public function __construct(private readonly OddOutcomeRepository $repository, private readonly OddOutcomeFactory $factory, private readonly EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private readonly OddOutcomeRepository $repository,
+        private readonly OddOutcomeFactory $factory
+    ) {
     }
 
     public function createByData(OddOutcomeData $data, $flush = true): OddOutcome
@@ -43,7 +42,7 @@ class OddOutcomeService
     public function findByRangeAndVariant(float $min, float $max, BetOn $betOn): ?OddOutcome
     {
         $results = $this->findBy(['min' => $min, 'max' => $max, 'betOn' => $betOn->value]);
-        if (count($results) === 1){
+        if (count($results) === 1) {
             return $results[0];
         }
 

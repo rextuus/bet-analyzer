@@ -3,10 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\Simulator\Data;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class SimulatorFilterData
 {
     private bool $excludeNegative = true;

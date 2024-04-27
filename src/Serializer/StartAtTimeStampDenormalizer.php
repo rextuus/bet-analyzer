@@ -3,14 +3,10 @@ declare(strict_types=1);
 
 namespace App\Serializer;
 
-use App\Entity\TipicoBet;
-use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
+use App\Entity\BettingProvider\TipicoBet;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class StartAtTimeStampDenormalizer implements DenormalizerInterface
 {
     public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool

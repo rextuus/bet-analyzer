@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\TipicoOdd\OverUnderOdd;
 
-use App\Entity\TipicoOverUnderOdd;
+use App\Entity\BettingProvider\TipicoOverUnderOdd;
 use App\Service\Tipico\Content\TipicoOdd\OverUnderOdd\Data\TipicoOverUnderOddData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TipicoOverUnderOddFactory
 {
     public function createByData(TipicoOverUnderOddData $data): TipicoOverUnderOdd

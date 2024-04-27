@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Odd;
 
-use App\Entity\BetRowOddFilter;
-use App\Entity\SpmFixture;
-use App\Entity\SpmOdd;
-use App\Service\Sportmonks\Content\Odd\Data\OddFilter;
-use App\Service\Sportmonks\Content\Odd\Data\OddSearchFilter;
+use App\Entity\Spm\BetRowOddFilter;
+use App\Entity\Spm\SpmFixture;
+use App\Entity\Spm\SpmOdd;
 use App\Service\Sportmonks\Content\Odd\Data\SpmOddData;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmOddService
 {
     public function __construct(private SpmOddRepository $repository, private SpmOddFactory $factory, private EntityManagerInterface $entityManager)

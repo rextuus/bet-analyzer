@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Spm;
 
 use App\Service\Evaluation\BetOn;
 use App\Service\Evaluation\Content\BetRowOddFilter\BetRowOddFilterRepository;

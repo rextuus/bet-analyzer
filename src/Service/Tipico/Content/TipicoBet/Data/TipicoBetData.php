@@ -2,13 +2,10 @@
 declare(strict_types=1);
 namespace App\Service\Tipico\Content\TipicoBet\Data;
 
-use App\Entity\TipicoBet;
+use App\Entity\BettingProvider\TipicoBet;
 use App\Service\Evaluation\BetOn;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TipicoBetData
 {
     private int $tipicoId;

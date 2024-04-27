@@ -10,10 +10,7 @@ use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use Exception;
 use Symfony\Component\Filesystem\Filesystem;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 abstract class AbstractBettingProviderService
 {
     public function __construct(

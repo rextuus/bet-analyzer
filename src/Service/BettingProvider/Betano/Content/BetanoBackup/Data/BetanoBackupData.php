@@ -6,10 +6,7 @@ namespace App\Service\BettingProvider\Betano\Content\BetanoBackup\Data;
 use App\Entity\BetanoBackup;
 use DateTimeInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BetanoBackupData
 {
     private DateTimeInterface $created;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\BettingProvider\BettingProviderBackupFile\Content;
 
-use App\Entity\BettingProviderBackupFile;
+use App\Entity\BettingProvider\BettingProviderBackupFile;
 use App\Service\BettingProvider\BettingProvider;
 use App\Service\BettingProvider\BettingProviderBackupFile\Content\Data\BettingProviderBackupFileData;
 use App\Service\BettingProvider\BettingProviderBackupFile\Message\StoreBetsForProviderMessage;
@@ -15,10 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BettingProviderBackupFileService
 {
     public function __construct(

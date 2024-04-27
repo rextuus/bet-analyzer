@@ -5,10 +5,7 @@ namespace App\Service\BettingProvider\BettingProviderBackupFile\Message;
 
 use App\Service\BettingProvider\BettingProvider;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class StoreBetsForProviderMessage
 {
     private int $backupId;

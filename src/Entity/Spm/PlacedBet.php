@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Spm;
 
 use App\Service\Evaluation\Content\PlacedBet\BetRowVariant;
 use App\Service\Evaluation\Content\PlacedBet\PlacedBetRepository;

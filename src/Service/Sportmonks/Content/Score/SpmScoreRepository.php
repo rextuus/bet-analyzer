@@ -2,9 +2,8 @@
 
 namespace App\Service\Sportmonks\Content\Score;
 
-use App\Entity\SpmFixture;
-use App\Entity\SpmScore;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\SpmFixture;
+use App\Entity\Spm\SpmScore;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

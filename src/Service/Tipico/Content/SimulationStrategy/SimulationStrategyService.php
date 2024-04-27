@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\SimulationStrategy;
 
-use App\Entity\SimulationStrategy;
+use App\Entity\BettingProvider\SimulationStrategy;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class SimulationStrategyService
 {
     public function __construct(private readonly SimulationStrategyRepository $repository, private readonly SimulationStrategyFactory $factory)

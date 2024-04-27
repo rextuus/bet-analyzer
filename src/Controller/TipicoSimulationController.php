@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Simulator;
-use App\Entity\TipicoBet;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\TipicoBet;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterType;

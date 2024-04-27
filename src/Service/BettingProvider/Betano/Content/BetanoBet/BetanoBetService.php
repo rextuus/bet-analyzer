@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\BettingProvider\Betano\Content\BetanoBet;
 
-use App\Entity\BetanoBet;
+use App\Entity\BettingProvider\BetanoBet;
 use App\Service\BettingProvider\AbstractBettingProviderService;
 use App\Service\BettingProvider\Betano\Api\Response\DailyMatchEventResponse;
 use App\Service\BettingProvider\Betano\Content\BetanoBet\Data\BetanoBetData;
@@ -14,10 +14,7 @@ use App\Service\BettingProvider\BettingProviderBackupFile\BettingProviderService
 use App\Service\BettingProvider\BettingProviderBackupFile\Content\BettingProviderBackupFileService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BetanoBetService extends AbstractBettingProviderService implements BettingProviderServiceInterface
 {
     private BettingProvider $bettingProvider = BettingProvider::BETANO;

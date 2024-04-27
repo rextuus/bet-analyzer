@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Twig\Components\Form;
 
 use App\Controller\LiveComponentFormController;
-use App\Entity\Simulator;
+use App\Entity\BettingProvider\Simulator;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListType;
 use Symfony\Component\Form\FormInterface;

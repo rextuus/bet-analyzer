@@ -2,8 +2,8 @@
 
 namespace App\Service\Tipico\SimulationProcessors;
 
-use App\Entity\Simulator;
-use App\Entity\TipicoBet;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\TipicoBet;
 use App\Service\Tipico\Simulation\Data\PlacementContainer;
 use App\Service\Tipico\Simulation\Data\ProcessResult;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;

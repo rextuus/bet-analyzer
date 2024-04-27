@@ -3,15 +3,12 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\Simulator\Data;
 
-use App\Entity\SimulationStrategy;
-use App\Entity\Simulator;
-use App\Entity\TipicoBet;
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\SimulationStrategy;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\TipicoBet;
+use App\Entity\BettingProvider\TipicoPlacement;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class SimulatorData
 {
     private float $cashBox;

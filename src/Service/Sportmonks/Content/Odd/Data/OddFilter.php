@@ -6,10 +6,7 @@ namespace App\Service\Sportmonks\Content\Odd\Data;
 use App\Service\Evaluation\BetOn;
 use App\Service\Evaluation\OddVariant;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class OddFilter
 {
     private OddVariant $variant;

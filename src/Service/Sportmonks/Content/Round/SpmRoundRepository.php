@@ -2,8 +2,8 @@
 
 namespace App\Service\Sportmonks\Content\Round;
 
-use App\Entity\SpmRound;
-use App\Entity\SpmStanding;
+use App\Entity\Spm\SpmRound;
+use App\Entity\Spm\SpmStanding;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

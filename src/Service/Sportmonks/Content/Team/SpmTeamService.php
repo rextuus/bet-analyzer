@@ -3,14 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Team;
 
-use App\Entity\SpmTeam;
+use App\Entity\Spm\SpmTeam;
 use App\Service\Sportmonks\Content\Team\Data\SpmTeamData;
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmTeamService
 {
     public function __construct(private readonly SpmTeamRepository $repository, private readonly SpmTeamFactory $factory, private readonly EntityManagerInterface $entityManager)

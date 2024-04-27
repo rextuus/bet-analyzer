@@ -2,7 +2,6 @@
 
 namespace App\Service\Evaluation\Message;
 
-use App\Entity\BetRowOddFilter;
 use App\Service\Evaluation\Content\PlacedBet\BetRowVariant;
 use App\Service\Evaluation\OddAccumulationVariant;
 

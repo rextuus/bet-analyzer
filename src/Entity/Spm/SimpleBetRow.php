@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Spm;
 
 use App\Service\Evaluation\Content\BetRow\BetRowInterface;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowRepository;
@@ -92,18 +92,6 @@ class SimpleBetRow implements BetRowInterface
     public function setVariant(BetRowVariant $variant): static
     {
         $this->variant = $variant;
-
-        return $this;
-    }
-
-    public function getAccumulationVariant(): ?string
-    {
-        return $this->accumulationVariant;
-    }
-
-    public function setAccumulationVariant(string $accumulationVariant): static
-    {
-        $this->accumulationVariant = $accumulationVariant;
 
         return $this;
     }

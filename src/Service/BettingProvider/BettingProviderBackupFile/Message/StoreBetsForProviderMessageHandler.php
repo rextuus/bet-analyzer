@@ -8,10 +8,7 @@ use App\Service\BettingProvider\BettingProviderBackupFile\BackupProcessorTargetE
 use Exception;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 #[AsMessageHandler]
 class StoreBetsForProviderMessageHandler
 {

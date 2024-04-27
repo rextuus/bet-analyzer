@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\BettingProvider\Bwin\Content\BwinBet;
 
-use App\Entity\BwinBet;
+use App\Entity\BettingProvider\BwinBet;
 use App\Service\BettingProvider\AbstractBettingProviderService;
 use App\Service\BettingProvider\BettingProvider;
 use App\Service\BettingProvider\BettingProviderBackupFile\BettingProviderApiResponseInterface;
@@ -14,10 +14,7 @@ use App\Service\BettingProvider\Bwin\Api\Response\DailyMatchEventResponse;
 use App\Service\BettingProvider\Bwin\Content\BwinBet\Data\BwinBetData;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class BwinBetService extends AbstractBettingProviderService implements BettingProviderServiceInterface
 {
     private BettingProvider $bettingProvider = BettingProvider::BWIN;

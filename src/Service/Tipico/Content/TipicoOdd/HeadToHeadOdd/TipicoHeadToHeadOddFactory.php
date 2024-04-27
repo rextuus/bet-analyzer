@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\TipicoOdd\HeadToHeadOdd;
 
-use App\Entity\TipicoHeadToHeadOdd;
+use App\Entity\BettingProvider\TipicoHeadToHeadOdd;
 use App\Service\Tipico\Content\TipicoOdd\HeadToHeadOdd\Data\TipicoHeadToHeadOddData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TipicoHeadToHeadOddFactory
 {
     public function createByData(TipicoHeadToHeadOddData $data): TipicoHeadToHeadOdd

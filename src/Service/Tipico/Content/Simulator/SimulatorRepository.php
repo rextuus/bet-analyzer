@@ -2,9 +2,9 @@
 
 namespace App\Service\Tipico\Content\Simulator;
 
-use App\Entity\SimulationStrategy;
-use App\Entity\Simulator;
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\SimulationStrategy;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\TipicoPlacement;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -133,7 +133,6 @@ class SimulatorRepository extends ServiceEntityRepository
         $qb->andWhere($qb->expr()->lte('p.created', ':until'));
         $qb->setParameter('until', $until);
 
-        dd($qb->getQuery()->getResult());
         return $qb->getQuery()->getResult();
     }
 }

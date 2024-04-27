@@ -2,7 +2,7 @@
 
 namespace App\Service\Statistic\Content\OddOutcome;
 
-use App\Entity\OddOutcome;
+use App\Entity\Spm\OddOutcome;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

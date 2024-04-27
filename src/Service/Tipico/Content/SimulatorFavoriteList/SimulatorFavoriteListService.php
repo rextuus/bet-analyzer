@@ -3,14 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\SimulatorFavoriteList;
 
-use App\Entity\Simulator;
-use App\Entity\SimulatorFavoriteList;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\SimulatorFavoriteList;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\SimulatorFavoriteListData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class SimulatorFavoriteListService
 {
     public function __construct(private readonly SimulatorFavoriteListRepository $repository, private readonly SimulatorFavoriteListFactory $factory)

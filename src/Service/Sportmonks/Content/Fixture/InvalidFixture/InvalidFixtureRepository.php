@@ -2,7 +2,7 @@
 
 namespace App\Service\Sportmonks\Content\Fixture\InvalidFixture;
 
-use App\Entity\InvalidFixture;
+use App\Entity\Spm\InvalidFixture;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

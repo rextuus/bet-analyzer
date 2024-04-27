@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico;
 
-use App\Entity\Simulator;
-use App\Entity\TipicoBet;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\TipicoBet;
 use App\Service\Tipico\Api\Response\TipicoDailyMatchesResponse;
 use App\Service\Tipico\Api\TipicoApiGateway;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
@@ -16,10 +16,6 @@ use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
 class TipicoBetSimulationService
 {
     public function __construct(

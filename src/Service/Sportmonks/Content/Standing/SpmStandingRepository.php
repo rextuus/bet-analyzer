@@ -2,7 +2,7 @@
 
 namespace App\Service\Sportmonks\Content\Standing;
 
-use App\Entity\SpmStanding;
+use App\Entity\Spm\SpmStanding;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

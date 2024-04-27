@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Simulator;
-use App\Entity\SimulatorFavoriteList;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\SimulatorFavoriteList;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
@@ -14,9 +14,6 @@ use App\Service\Tipico\Content\SimulatorFavoriteList\SimulatorFavoriteListServic
 use App\Service\Tipico\SimulationStatisticService;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;

@@ -3,18 +3,15 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Content\Placement;
 
-use App\Entity\Simulator;
-use App\Entity\SimulatorFavoriteList;
-use App\Entity\TipicoPlacement;
+use App\Entity\BettingProvider\Simulator;
+use App\Entity\BettingProvider\SimulatorFavoriteList;
+use App\Entity\BettingProvider\TipicoPlacement;
 use App\Service\Tipico\Content\Placement\Data\LastWeekStatisticData;
 use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 use App\Service\Tipico\Content\Placement\Data\TopSimulatorStatisticData;
 use DateTime;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class TipicoPlacementService
 {
     public function __construct(private readonly TipicoPlacementRepository $repository, private readonly TipicoPlacementFactory $factory)

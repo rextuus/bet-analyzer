@@ -2,7 +2,7 @@
 
 namespace App\Service\Tipico\Content\TipicoOdd\OverUnderOdd;
 
-use App\Entity\TipicoOverUnderOdd;
+use App\Entity\BettingProvider\TipicoOverUnderOdd;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\OddOutcome;
 
-use App\Entity\OddOutcome;
+use App\Entity\Spm\OddOutcome;
 use App\Service\Statistic\Content\OddOutcome\Data\OddOutcomeData;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class OddOutcomeFactory
 {
     public function createByData(OddOutcomeData $data): OddOutcome

@@ -3,17 +3,13 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic;
 
-use App\Entity\PlacedBet;
-use App\Entity\SpmFixture;
-use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowService;
+use App\Entity\Spm\PlacedBet;
+use App\Entity\Spm\SpmFixture;
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
 use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Statistic\Content\BetRowCombination\BetRowCombinationService;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class BetRowCombinationStatisticService
 {
     // BetRows should be marked and added/removed to a collection => entity
@@ -25,7 +21,6 @@ class BetRowCombinationStatisticService
         private BetRowCombinationService $betRowCombinationService,
         private SpmFixtureService $fixtureService,
         private SpmSeasonService $seasonService,
-        private SimpleBetRowService $betRowService,
     )
     {
     }

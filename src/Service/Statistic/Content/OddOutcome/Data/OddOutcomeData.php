@@ -3,14 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\OddOutcome\Data;
 
-use App\Entity\OddOutcome;
-use App\Entity\SpmFixture;
+use App\Entity\Spm\OddOutcome;
+use App\Entity\Spm\SpmFixture;
 use App\Service\Evaluation\BetOn;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class OddOutcomeData
 {
     private float $min;

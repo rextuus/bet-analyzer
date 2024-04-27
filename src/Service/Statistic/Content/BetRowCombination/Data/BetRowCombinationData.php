@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\BetRowCombination\Data;
 
-use App\Entity\BetRowCombination;
-use App\Entity\SimpleBetRow;
+use App\Entity\Spm\BetRowCombination;
+use App\Entity\Spm\SimpleBetRow;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class BetRowCombinationData
 {
     /**

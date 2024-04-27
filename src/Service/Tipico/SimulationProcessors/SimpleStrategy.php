@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\SimulationProcessors;
 
-use App\Entity\Simulator;
+use App\Entity\BettingProvider\Simulator;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;

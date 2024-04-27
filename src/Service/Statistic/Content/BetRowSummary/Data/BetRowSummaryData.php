@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic\Content\BetRowSummary\Data;
 
-use App\Entity\SimpleBetRow;
+use App\Entity\Spm\SimpleBetRow;
 use App\Service\Statistic\SeriesStatistic;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class BetRowSummaryData
 {
     private ?SimpleBetRow $betRow;

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Simulator;
+use App\Entity\BettingProvider\Simulator;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +29,6 @@ class AdministrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $form->getData();
 
-            dd("Admin Controller");
             return $this->redirectToRoute(
                 'app_tipico_simulation_detail',
                 ['simulator' => $simulator->getId()]

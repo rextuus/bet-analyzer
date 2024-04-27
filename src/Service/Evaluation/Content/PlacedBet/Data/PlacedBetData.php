@@ -6,10 +6,7 @@ namespace App\Service\Evaluation\Content\PlacedBet\Data;
 use App\Service\Evaluation\Content\BetRow\BetRowInterface;
 use App\Service\Evaluation\Content\PlacedBet\BetRowVariant;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class PlacedBetData
 {
     private int $fixtureApiId;

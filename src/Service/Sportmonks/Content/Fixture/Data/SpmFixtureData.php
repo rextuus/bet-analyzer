@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\Fixture\Data;
 
-use App\Entity\SpmFixture;
-use App\Service\Sportmonks\Content\Round\Data\SpmRoundData;
+use App\Entity\Spm\SpmFixture;
 use DateTime;
 use DateTimeInterface;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmFixtureData
 {
     private int $apiId;
@@ -70,7 +66,7 @@ class SpmFixtureData
         return $this;
     }
 
-    public function getStartingAt(): DateTime
+    public function getStartingAt(): DateTimeInterface
     {
         return $this->startingAt;
     }

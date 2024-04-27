@@ -3,27 +3,22 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic;
 
-use App\Entity\BetRowOddFilter;
-use App\Entity\SimpleBetRow;
-use App\Entity\SpmSeason;
+use App\Entity\Spm\BetRowOddFilter;
+use App\Entity\Spm\SimpleBetRow;
+use App\Entity\Spm\SpmSeason;
 use App\Service\Evaluation\BetOn;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\SimpleBetRowService;
 use App\Service\Evaluation\SlideWindowFactory;
-use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Statistic\Content\BetRowSummary\BetRowSummaryService;
 use App\Service\Statistic\Content\BetRowSummary\Data\BetRowSummaryData;
 use App\Service\Statistic\Content\SeasonSummary\Data\SeasonSummaryData;
 use App\Service\Statistic\Content\SeasonSummary\SeasonSummaryService;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class StatisticService
 {
     public function __construct(
         private readonly SimpleBetRowService  $betRowService,
-        private readonly SpmSeasonService     $seasonService,
         private readonly SlideWindowFactory   $slideWindowFactory,
         private readonly SeasonSummaryService $seasonSummaryService,
         private readonly BetRowSummaryService $betRowSummaryService,

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Spm;
 
 use App\Service\Sportmonks\Content\Standing\SpmStandingRepository;
 use Doctrine\ORM\Mapping as ORM;

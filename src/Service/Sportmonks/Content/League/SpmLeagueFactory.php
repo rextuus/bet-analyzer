@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Service\Sportmonks\Content\League;
 
-use App\Entity\SpmLeague;
+use App\Entity\Spm\SpmLeague;
 use App\Service\Sportmonks\Content\League\Data\SpmLeagueData;
 
-/**
- * @author  Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class SpmLeagueFactory
 {
     public function createByData(SpmLeagueData $data): SpmLeague

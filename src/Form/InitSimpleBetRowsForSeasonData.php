@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\SpmSeason;
+use App\Entity\Spm\SpmSeason;
 use App\Service\Evaluation\OddAccumulationVariant;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2023 DocCheck Community GmbH
- */
+
 class InitSimpleBetRowsForSeasonData
 {
     private SpmSeason $season;
