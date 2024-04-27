@@ -95,6 +95,9 @@ class TipicoBet
     #[ORM\OneToOne(inversedBy: 'tipicoBet', cascade: ['persist', 'remove'])]
     private ?BetanoBet $correspondedBetanoBet = null;
 
+    #[ORM\OneToOne(mappedBy: 'tipicoBet', cascade: ['persist', 'remove'])]
+    private ?BwinBet $bwinBet = null;
+
     public function __construct()
     {
         $this->simulators = new ArrayCollection();
@@ -400,6 +403,23 @@ class TipicoBet
     public function setCorrespondedBetanoBet(?BetanoBet $correspondedBetanoBet): static
     {
         $this->correspondedBetanoBet = $correspondedBetanoBet;
+
+        return $this;
+    }
+
+    public function getBwinBet(): ?BwinBet
+    {
+        return $this->bwinBet;
+    }
+
+    public function setBwinBet(BwinBet $bwinBet): static
+    {
+        // set the owning side of the relation if necessary
+        if ($bwinBet->getTipicoBet() !== $this) {
+            $bwinBet->setTipicoBet($this);
+        }
+
+        $this->bwinBet = $bwinBet;
 
         return $this;
     }

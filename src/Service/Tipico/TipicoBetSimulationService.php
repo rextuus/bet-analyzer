@@ -5,7 +5,6 @@ namespace App\Service\Tipico;
 
 use App\Entity\Simulator;
 use App\Entity\TipicoBet;
-use App\Service\Betano\Api\Response\DailyMatchEventResponse;
 use App\Service\Tipico\Api\Response\TipicoDailyMatchesResponse;
 use App\Service\Tipico\Api\TipicoApiGateway;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;

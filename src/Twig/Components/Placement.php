@@ -14,7 +14,7 @@ final class Placement
 
     public function getRowClass(): string
     {
-        if ($this->placement->isWon()){
+        if ($this->placement->isWon()) {
             return 'increase';
         }
 
@@ -24,7 +24,7 @@ final class Placement
     public function getOutput(): float
     {
         $input = 0.0;
-        if ($this->placement->isWon()){
+        if ($this->placement->isWon()) {
             $input = $this->placement->getInput();
         }
 
@@ -36,7 +36,7 @@ final class Placement
 
     public function getIconPath(): string
     {
-        if ($this->placement->isWon()){
+        if ($this->placement->isWon()) {
             return '<path fill="#415d35" d="M12 4.166l-7.07 7.07 1.414 1.414L12 6.994l5.656 5.656 1.414-1.414z"/>';
         }
 
@@ -46,7 +46,7 @@ final class Placement
     public function getHomeClass(): string
     {
         $fixture = $this->placement->getFixtures()->toArray()[0];
-        if ($fixture->getEndScoreHome() > $fixture->getEndScoreAway()){
+        if ($fixture->getEndScoreHome() > $fixture->getEndScoreAway()) {
             return 'winner-team';
         }
 
@@ -56,7 +56,7 @@ final class Placement
     public function getAwayClass(): string
     {
         $fixture = $this->placement->getFixtures()->toArray()[0];
-        if ($fixture->getEndScoreHome() < $fixture->getEndScoreAway()){
+        if ($fixture->getEndScoreHome() < $fixture->getEndScoreAway()) {
             return 'winner-team';
         }
 
@@ -66,7 +66,7 @@ final class Placement
     public function getDrawClass(): string
     {
         $fixture = $this->placement->getFixtures()->toArray()[0];
-        if ($fixture->getEndScoreHome() === $fixture->getEndScoreAway()){
+        if ($fixture->getEndScoreHome() === $fixture->getEndScoreAway()) {
             return 'winner-team';
         }
 
@@ -81,10 +81,10 @@ final class Placement
     public function getAssetPath(): string
     {
         $fixture = $this->placement->getFixtures()->toArray()[0];
-        if ($fixture->getEndScoreHome() > $fixture->getEndScoreAway()){
+        if ($fixture->getEndScoreHome() > $fixture->getEndScoreAway()) {
             return 'asset/stadium.svg';
         }
-        if ($fixture->getEndScoreHome() < $fixture->getEndScoreAway()){
+        if ($fixture->getEndScoreHome() < $fixture->getEndScoreAway()) {
             return 'asset/train.svg';
         }
         return 'asset/chess.svg';
@@ -96,7 +96,7 @@ final class Placement
         $parts = explode('_', $ident);
         $use = $parts[array_key_last($parts)];
         $overUnderOdds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds()->toArray();
-        if(count($overUnderOdds) && array_key_exists($use, $overUnderOdds)){
+        if (count($overUnderOdds) && array_key_exists($use, $overUnderOdds)) {
             return $overUnderOdds[$use]->getOverValue();
         }
         return '-';
@@ -108,7 +108,7 @@ final class Placement
         $parts = explode('_', $ident);
         $use = $parts[array_key_last($parts)];
         $overUnderOdds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds()->toArray();
-        if(count($overUnderOdds) && array_key_exists($use, $overUnderOdds)){
+        if (count($overUnderOdds) && array_key_exists($use, $overUnderOdds)) {
             return $overUnderOdds[$use]->getUnderValue();
         }
         return '-';
@@ -117,7 +117,7 @@ final class Placement
     public function getBothTeamsScoreOdd(): string
     {
         $bothTeamsScoreOdd = $this->placement->getFixtures()->get(0)->getTipicoBothTeamsScoreBet();
-        if($bothTeamsScoreOdd){
+        if ($bothTeamsScoreOdd) {
             return $bothTeamsScoreOdd->getConditionTrueValue();
         }
         return '-';
@@ -126,7 +126,7 @@ final class Placement
     public function getBothTeamsScoreNotOdd(): string
     {
         $bothTeamsScoreOdd = $this->placement->getFixtures()->get(0)->getTipicoBothTeamsScoreBet();
-        if($bothTeamsScoreOdd){
+        if ($bothTeamsScoreOdd) {
             return $bothTeamsScoreOdd->getConditionFalseValue();
         }
         return '-';
@@ -135,19 +135,22 @@ final class Placement
     public function getOverUnderOddsTable(): string
     {
         $odds = $this->placement->getFixtures()->get(0)->getTipicoOverUnderOdds()->toArray();
-        if (count($odds) === 0){
+        if (count($odds) === 0) {
             return '-';
         }
 
         usort(
             $odds,
             function (TipicoOverUnderOdd $odd1, TipicoOverUnderOdd $odd2) {
-                return $odd1->getTargetValue() > $odd2->getTargetValue();
+                if ($odd1->getTargetValue() === $odd2->getTargetValue()) {
+                    return 0;
+                }
+                return ($odd1->getTargetValue() < $odd2->getTargetValue()) ? -1 : 1;
             }
         );
 
         $rows = [];
-        foreach ($odds as $index => $odd){
+        foreach ($odds as $index => $odd) {
             $rows[] = sprintf(
                 '<tr><td>%.1f</td><td>%s</td><td>%s</td></tr>',
                 $odd->getTargetValue(),
@@ -156,9 +159,9 @@ final class Placement
             );
         }
 
-        if (count($rows) !== 6){
+        if (count($rows) !== 6) {
             for ($rowNr = 0; $rowNr < 6; $rowNr++) {
-                if (!array_key_exists($rowNr, $rows)){
+                if (!array_key_exists($rowNr, $rows)) {
                     $rows[$rowNr] = '<tr><td></td><td>-</td><td>-</td></tr>';
                 }
             }

@@ -2,13 +2,11 @@
 
 namespace App\Controller;
 
-use App\Service\Betano\Content\BetanoBackup\BetanoBackupService;
-use App\Service\Betano\Content\BetanoBackup\Data\BetanoBackupData;
-use App\Service\Betano\Message\CollectBetanoFixturesMessage;
+use App\Service\BettingProvider\Betano\Content\BetanoBackup\BetanoBackupService;
+use App\Service\BettingProvider\BettingProvider;
+use App\Service\BettingProvider\BettingProviderBackupFile\Content\BettingProviderBackupFileService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +24,8 @@ class ApiController extends AbstractController
         private TipicoBetService $tipicoBetService,
         private BetanoBackupService $betanoBackupService,
         private SerializerInterface $serializer,
-        private MessageBusInterface $messageBus
+        private MessageBusInterface $messageBus,
+        private BettingProviderBackupFileService $bettingProviderBackupFileService,
     )
     {
     }
@@ -45,40 +44,16 @@ class ApiController extends AbstractController
     #[Route('/betano/daily', name: 'app_api_store_betano_bets', methods: ['POST'])]
     public function storeBetanoBets(Request $request): Response
     {
-        $jsonData = json_decode($request->getContent(), true);
+        $this->bettingProviderBackupFileService->storeNewBackupRelation(BettingProvider::BETANO, $request);
 
-        $currentDateTime = new DateTime();
-        $timestamp = $currentDateTime->format('Y-m-d_H-i-s');
+        return new JsonResponse('{stored: true}', Response::HTTP_OK);
+    }
 
-        $backupDir = $this->kernel->getProjectDir() . '/public/backups/betano/' . $currentDateTime->format('m_d_Y');
+    #[Route('/bwin/daily', name: 'app_api_store_bwin_bets', methods: ['POST'])]
+    public function storeBwinBets(Request $request): Response
+    {
+        $this->bettingProviderBackupFileService->storeNewBackupRelation(BettingProvider::BWIN, $request);
 
-        $backupFile = $backupDir . '/' . $timestamp . '.json';
-
-        $filesystem = new Filesystem();
-
-        if (!$filesystem->exists($backupDir)) {
-            $filesystem->mkdir($backupDir, 0755);
-        }
-
-        $filesystem->touch($backupFile);
-        $filesystem->appendToFile($backupFile, $request->getContent());
-
-        // store backup entity
-        $data = new BetanoBackupData();
-        $data->setContainedBets(0);
-        $data->setFittedBets(0);
-        $data->setNonFittedBets(0);
-        $data->setAlreadyStoredBets(0);
-
-        $data->setCreated(new DateTime());
-        $data->setIsConsumed(false);
-        $data->setFilePath($backupFile);
-        $betanoBackup = $this->betanoBackupService->createByData($data);
-
-        // move to event
-        $message = new CollectBetanoFixturesMessage($betanoBackup->getId());
-        $this->messageBus->dispatch($message);
-
-        return new JsonResponse($jsonData, Response::HTTP_OK);
+        return new JsonResponse('{stored: true}', Response::HTTP_OK);
     }
 }

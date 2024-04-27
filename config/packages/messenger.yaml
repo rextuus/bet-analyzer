@@ -29,7 +29,7 @@ framework:
             App\Service\Evaluation\Message\InitOddOutcomeMessage: async
             App\Service\Tipico\Message\ProcessSimulatorMessage: async
             App\Service\Tipico\Message\InitSimulatorProcessingMessage: async
-            App\Service\Betano\Message\CollectBetanoFixturesMessage: async
+            App\Service\BettingProvider\BettingProviderBackupFile\Message\StoreBetsForProviderMessage: async
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async

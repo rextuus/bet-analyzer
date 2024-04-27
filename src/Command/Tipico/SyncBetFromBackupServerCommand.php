@@ -37,6 +37,7 @@ class SyncBetFromBackupServerCommand extends Command
         $this->setDescription('Sync Tipico bets from remote server.');
         $this->addArgument('from', InputArgument::REQUIRED, 'from');
         $this->addOption('dry', 'd');
+        $this->addOption('update', 'u');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -62,8 +63,6 @@ class SyncBetFromBackupServerCommand extends Command
         $httpClient = HttpClient::create();
         $server = '35.246.218.255/bet-analyzer/public/index.php';
         $response = $httpClient->request('GET', "http://$server/api/bets?from=$fromDateTimeStamp&until=$untilDateTimeStamp");
-
-        $dry = $input->getOption('dry');
 
         // Deserialize the JSON response into TipicoBet entities
         $tipicoBetsData = $response->toArray();
@@ -93,8 +92,14 @@ class SyncBetFromBackupServerCommand extends Command
         $container->setBothTeamsScoreOdds($bothTeamsScoreOdds);
         $container->setHeadToHeadOdds($headToHeadOdds);
 
+        $dry = $input->getOption('dry');
         if ($dry){
             dump($container);
+            return Command::SUCCESS;
+        }
+
+        $update = $input->getOption('dry');
+        if ($update) {
             return Command::SUCCESS;
         }
 

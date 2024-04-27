@@ -2,19 +2,19 @@
 
 namespace App\Entity;
 
-use App\Service\BettingProvider\Betano\Content\BetanoBet\BetanoBetRepository;
+use BwinBet\BwinBetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: BetanoBetRepository::class)]
-class BetanoBet
+#[ORM\Entity(repositoryClass: BwinBetRepository::class)]
+class BwinBet
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $betanoId = null;
+    #[ORM\Column(length: 255)]
+    private ?string $bwinId = null;
 
     #[ORM\Column(length: 255)]
     private ?string $homeTeamName = null;
@@ -40,7 +40,8 @@ class BetanoBet
     #[ORM\Column(nullable: true)]
     private ?int $sportRadarId = null;
 
-    #[ORM\OneToOne(mappedBy: 'correspondedBetanoBet', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'bwinBet', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?TipicoBet $tipicoBet = null;
 
     public function getId(): ?int
@@ -48,14 +49,14 @@ class BetanoBet
         return $this->id;
     }
 
-    public function getBetanoId(): ?int
+    public function getBwinId(): ?string
     {
-        return $this->betanoId;
+        return $this->bwinId;
     }
 
-    public function setBetanoId(int $betanoId): static
+    public function setBwinId(string $bwinId): static
     {
-        $this->betanoId = $betanoId;
+        $this->bwinId = $bwinId;
 
         return $this;
     }
@@ -149,7 +150,7 @@ class BetanoBet
         return $this->sportRadarId;
     }
 
-    public function setSportRadarId(?int $sportRadarId): static
+    public function setSportRadarId(int $sportRadarId): static
     {
         $this->sportRadarId = $sportRadarId;
 
@@ -161,18 +162,8 @@ class BetanoBet
         return $this->tipicoBet;
     }
 
-    public function setTipicoBet(?TipicoBet $tipicoBet): static
+    public function setTipicoBet(TipicoBet $tipicoBet): static
     {
-        // unset the owning side of the relation if necessary
-        if ($tipicoBet === null && $this->tipicoBet !== null) {
-            $this->tipicoBet->setCorrespondedBetanoBet(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($tipicoBet !== null && $tipicoBet->getCorrespondedBetanoBet() !== $this) {
-            $tipicoBet->setCorrespondedBetanoBet($this);
-        }
-
         $this->tipicoBet = $tipicoBet;
 
         return $this;

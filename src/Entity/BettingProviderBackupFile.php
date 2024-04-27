@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Service\Common\Betano\Content\BetanoBackup\BetanoBackupRepository;
+use App\Service\BettingProvider\BettingProvider;
+use App\Service\BettingProvider\BettingProviderBackupFile\Content\BettingProviderBackupFileRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: BetanoBackupRepository::class)]
-class BetanoBackup
+#[ORM\Entity(repositoryClass: BettingProviderBackupFileRepository::class)]
+class BettingProviderBackupFile
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,16 +25,19 @@ class BetanoBackup
     private ?bool $isConsumed = null;
 
     #[ORM\Column]
-    private ?int $containedBets = null;
+    private ?int $containingBets = null;
 
     #[ORM\Column]
     private ?int $fittedBets = null;
 
     #[ORM\Column]
-    private ?int $alreadyStoredBets = null;
+    private ?int $alreadyFittedBets = null;
 
     #[ORM\Column]
     private ?int $nonFittedBets = null;
+
+    #[ORM\Column(type: "string", enumType: BettingProvider::class)]
+    private BettingProvider $provider;
 
     public function getId(): ?int
     {
@@ -76,14 +80,14 @@ class BetanoBackup
         return $this;
     }
 
-    public function getContainedBets(): ?int
+    public function getContainingBets(): ?int
     {
-        return $this->containedBets;
+        return $this->containingBets;
     }
 
-    public function setContainedBets(int $containedBets): static
+    public function setContainingBets(int $containingBets): static
     {
-        $this->containedBets = $containedBets;
+        $this->containingBets = $containingBets;
 
         return $this;
     }
@@ -100,14 +104,14 @@ class BetanoBackup
         return $this;
     }
 
-    public function getAlreadyStoredBets(): ?int
+    public function getAlreadyFittedBets(): ?int
     {
-        return $this->alreadyStoredBets;
+        return $this->alreadyFittedBets;
     }
 
-    public function setAlreadyStoredBets(int $alreadyStoredBets): static
+    public function setAlreadyFittedBets(int $alreadyFittedBets): static
     {
-        $this->alreadyStoredBets = $alreadyStoredBets;
+        $this->alreadyFittedBets = $alreadyFittedBets;
 
         return $this;
     }
@@ -121,6 +125,17 @@ class BetanoBackup
     {
         $this->nonFittedBets = $nonFittedBets;
 
+        return $this;
+    }
+
+    public function getProvider(): BettingProvider
+    {
+        return $this->provider;
+    }
+
+    public function setProvider(BettingProvider $provider): BettingProviderBackupFile
+    {
+        $this->provider = $provider;
         return $this;
     }
 }

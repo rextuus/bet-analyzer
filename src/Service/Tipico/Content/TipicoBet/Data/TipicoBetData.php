@@ -208,7 +208,7 @@ class TipicoBetData
         $this->setEndScoreAway($bet->getEndScoreAway());
         $this->setFinished($bet->isFinished());
         $this->setResult($bet->getResult());
-        $this->setSportRadarId($bet->getSportRadarId());
+        $this->setSportRadarId($bet->getSportRadarId() ?: -1);
 
         return $this;
     }
@@ -228,7 +228,7 @@ class TipicoBetData
         $this->setEndScoreAway($apiResponse['endScoreAway']);
         $this->setFinished($apiResponse['finished']);
         $this->setResult(BetOn::from($apiResponse['result']));
-        $this->setSportRadarId($apiResponse['sportRadarId']);
+        $this->setSportRadarId(array_key_exists('sportRadarId', $apiResponse) ? $apiResponse['sportRadarId'] : -1);
 
         return $this;
     }
