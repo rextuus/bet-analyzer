@@ -532,20 +532,39 @@ class SimulationStatisticService
     public function calculateAverageIncreaseScore(): array
     {
         $filter = new SimulatorFilterData();
-        $filter->setMinCashBox(100.0);
+        $filter->setMaxResults(100000000);
+        $filter->setMinCashBox(110.0);
+        $filter->setMinBets(100);
         $data = $this->simulatorService->findByFilter($filter);
 
         $results = [];
 
         foreach ($data as $cashbox => $simulator) {
-            $placements = $simulator->getTipicoPlacements()->toArray();
+            $placem = $simulator->getTipicoPlacements()->toArray();
+            $placements = $this->getCashBoxChangeArray($placem);
             // Calculate growth rates
             $growthRates = [];
+            $loserSeriesArray = [];
+            $loserSeries = 0;
+            $lastHighestValue = $placements[0];
             for ($i = 1; $i < count($placements); $i++) {
-                $growthRates[] = ($placements[$i]->getValue() - $placements[$i - 1]->getValue(
-                        )) / $placements[$i - 1]->getValue();
-            }
+                $growthRates[] = ($placements[$i] - $placements[$i - 1]) / $placements[$i - 1];
 
+                if ($placements[$i] < $lastHighestValue) {
+                    $loserSeries++;
+                }
+                if ($placements[$i] >= $lastHighestValue) {
+                    $lastHighestValue = $placements[$i];
+                    $loserSeriesArray[] = $loserSeries;
+                    $loserSeries = 0;
+                }
+            }
+            $loserSeriesArray[] = $loserSeries;
+
+            if (max($loserSeriesArray) > 50) {
+                continue;
+            }
+//            dd($growthRates);
             // Calculate standard deviation of growth rates
             $stdDev = Descriptive::standardDeviation($growthRates);
 
@@ -557,16 +576,17 @@ class SimulationStatisticService
 
             // Perform linear regression
             $X = array_keys($placements);
-//            $Y = array_values($values);
-            $Y = array_map(function (TipicoPlacement $placement) {
-                return $placement->getValue();
-            }, $placements);
+            $Y = array_values($placements);
+//            $Y = array_map(function (TipicoPlacement $placement) {
+//                return $placement->getValue();
+//            }, $placements);
             $points = array_map(null, $X, $Y);
-            $regression = new Linear($points);
 
             $rSquared = 0.0;
             if ($X !== [] && $Y !== []) {
                 try {
+                    $regression = new Linear($points);
+
                     $rSquared = $regression->r2();
                 } catch (\Exception $e) {
                 }
@@ -579,6 +599,7 @@ class SimulationStatisticService
                 'std_dev' => $stdDev,
                 'positive_growth_proportion' => $positiveGrowthProportion,
                 'r_squared' => $rSquared,
+                'highest_losing_series' => max($loserSeriesArray),
                 'composite_score' => $compositeScore,
             ];
         }

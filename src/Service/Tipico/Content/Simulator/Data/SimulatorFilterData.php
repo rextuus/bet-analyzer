@@ -12,6 +12,7 @@ class SimulatorFilterData
     private ?float $maxCashBox = null;
     private ?int $minBets = null;
     private ?int $maxBets = null;
+    private int $maxResults = 20;
 
     public function isExcludeNegative(): bool
     {
@@ -76,6 +77,17 @@ class SimulatorFilterData
     public function setMaxBets(?int $maxBets): SimulatorFilterData
     {
         $this->maxBets = $maxBets;
+        return $this;
+    }
+
+    public function getMaxResults(): int
+    {
+        return $this->maxResults;
+    }
+
+    public function setMaxResults(int $maxResults): SimulatorFilterData
+    {
+        $this->maxResults = $maxResults;
         return $this;
     }
 }

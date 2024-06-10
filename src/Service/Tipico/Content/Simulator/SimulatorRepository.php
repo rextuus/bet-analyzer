@@ -72,7 +72,7 @@ class SimulatorRepository extends ServiceEntityRepository
 
         $qb->groupBy('s');
         $qb->orderBy('s.cashBox', 'DESC');
-        $qb->setMaxResults(20);
+        $qb->setMaxResults($filter->getMaxResults());
 
         return $qb->getQuery()->getResult();
     }

@@ -41,6 +41,7 @@ class GetGrowthRankingCommand extends Command
             $output->writeln(sprintf('<info>%s</info>', $item['std_dev']));
             $output->writeln(sprintf('<info>%s</info>', $item['positive_growth_proportion']));
             $output->writeln(sprintf('<info>%s</info>', $item['r_squared']));
+            $output->writeln(sprintf('<info>%s</info>', $item['highest_losing_series']));
             $output->writeln(sprintf('<info>%s</info>', $item['composite_score']));
             $link = $this->router->generate('app_tipico_simulation_detail', ['simulator' => $item['simulator']->getId()]
             );
