@@ -27,32 +27,78 @@ class FavoriteListStatisticService
         DateTime $until
     ): FavoriteListStatisticContainer
     {
+        $currentDate = new DateTime();
+        $currentDate->setTime(0, 0);
+
         $container = new FavoriteListStatisticContainer();
 
-//        $from = new DateTime();
-//        $from->setTime(0, 0);
-//
-//        $until = new DateTime('+ 1day');
-//        $until->setTime(0, 0);
-
-        $simulators = $this->placementService->findBySimulatorsAndDateTime($favoriteList, $from, $until);
-        $totalBalance = 0.0;
-        $doneBets = 0;
+        $placements = $this->placementService->findBySimulatorsAndDateTime($favoriteList, $from, $until);
+        dump($placements);
+        $total = 0.0;
         $possiblePlacements = 0;
-        foreach ($simulators as $simulator) {
-            $totalBalance = $totalBalance + $simulator['changeVolume'];
-            $doneBets = $doneBets + $simulator['madeBets'];
+        $actuallyMadePlacements = 0;
+        $simulatorContainer = [];
+        foreach ($favoriteList->getSimulators() as $simulator) {
+            $hasBets = false;
+            foreach ($placements as $placement) {
+                if ($placement['id'] !== $simulator->getId()) {
+                    continue;
+                }
+                $hasBets = true;
 
-            $simulator = $this->simulatorService->findBy(['id' => $simulator['id']])[0];
-            $possiblePlacements = $possiblePlacements + count(
-                    $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator)
-                );
+                $currentChangeVolume = $placement['changeVolume'];
+                $total = $total + $currentChangeVolume;
+
+                $class = 'positive';
+                if ($placement['changeVolume'] < 0.0) {
+                    $class = 'negative';
+                }
+
+                $madeBets = $placement['madeBets'];
+                $possibleBets = $placement['madeBets'];
+                $placement = $this->simulatorService->findBy(['id' => $placement['id']])[0];
+
+                // possible and made should only differ on current day. otherwise something is broken => TODO find better way
+                if ($from > $currentDate) {
+                    $possibleBets = count($this->simulationStatisticService->getUpcomingEventsForSimulator($placement));
+                }
+
+                $possiblePlacements = $possiblePlacements + $possibleBets;
+                $actuallyMadePlacements = $actuallyMadePlacements + $madeBets;
+
+                $simulatorData = new FavoriteListStatisticSimulatorContainer();
+                $simulatorData->setSimulator($simulator);
+                $simulatorData->setSimulatorClass($class);
+                $simulatorData->setDonePlacements($madeBets);
+                $simulatorData->setPossiblePlacements($possibleBets);
+                $simulatorData->setCurrentBalance($currentChangeVolume);
+                $simulatorContainer[] = $simulatorData;
+            }
+
+            if (!$hasBets) {
+                $simulatorData = new FavoriteListStatisticSimulatorContainer();
+                $simulatorData->setSimulator($simulator);
+                $simulatorData->setSimulatorClass('negative');
+                $simulatorData->setDonePlacements(0);
+                $simulatorData->setPossiblePlacements(0);
+                $simulatorData->setCurrentBalance(0.0);
+                $simulatorContainer[] = $simulatorData;
+            }
         }
 
-        $container->setPossiblePlacements($possiblePlacements);
-        $container->setCurrentBalance($totalBalance);
-        $container->setDonePlacements($doneBets);
 
+        $totalClass = 'positive';
+        if ($total < 0.0) {
+            $totalClass = 'negative';
+        }
+        $container->setSimulatorDetails($simulatorContainer);
+
+        $container->setPossiblePlacements($possiblePlacements);
+        $container->setCurrentBalance($total);
+        $container->setDonePlacements($madeBets);
+        $container->setListClass($totalClass);
+
+        dump($container);
         return $container;
     }
 }

@@ -156,24 +156,64 @@ final class UpcomingFixture
 
     public function getThreeWayOdds(TipicoBet $fixture, array $cssClasses): string
     {
+        $classHome = $cssClasses[OddVariant::CLASSIC_3_WAY->name][0];
+        $classDraw = $cssClasses[OddVariant::CLASSIC_3_WAY->name][1];
+        $classAway = $cssClasses[OddVariant::CLASSIC_3_WAY->name][2];
+
+        $bwinHome = 0.0;
+        $bwinDraw = 0.0;
+        $bwinAway = 0.0;
+        if ($fixture->getBwinBet()) {
+            $bwinHome = $fixture->getBwinBet()->getOddHome();
+            $bwinDraw = $fixture->getBwinBet()->getOddDraw();
+            $bwinAway = $fixture->getBwinBet()->getOddAway();
+        }
+
+        $betanoHome = 0.0;
+        $betanoDraw = 0.0;
+        $betanoAway = 0.0;
+        if ($fixture->getCorrespondedBetanoBet()) {
+            $betanoHome = $fixture->getCorrespondedBetanoBet()->getOddHome();
+            $betanoDraw = $fixture->getCorrespondedBetanoBet()->getOddDraw();
+            $betanoAway = $fixture->getCorrespondedBetanoBet()->getOddAway();
+        }
+
         return sprintf(
             ' 
                      <span class="three-way-odds-row">
                         <span class="three-way-odds-row-value %s">%.2f</span>
-                    </span> 
-                    <span class="three-way-odds-row">
+                        <span class="three-way-odds-row-value %s">%.2f</span>
                         <span class="three-way-odds-row-value %s">%.2f</span>
                     </span> 
                     <span class="three-way-odds-row">
+                        <span class="three-way-odds-row-value %s">%.2f</span>
+                        <span class="three-way-odds-row-value %s">%.2f</span>
+                        <span class="three-way-odds-row-value %s">%.2f</span>
+                    </span> 
+                    <span class="three-way-odds-row">
+                        <span class="three-way-odds-row-value %s">%.2f</span>
+                        <span class="three-way-odds-row-value %s">%.2f</span>
                         <span class="three-way-odds-row-value %s">%.2f</span>
                     </span> 
                     ',
-            $cssClasses[OddVariant::CLASSIC_3_WAY->name][0],
+            $classHome,
             $fixture->getOddHome(),
-            $cssClasses[OddVariant::CLASSIC_3_WAY->name][1],
+            $classHome,
+            $betanoHome,
+            $classDraw,
+            $bwinHome,
+            $classDraw,
             $fixture->getOddDraw(),
-            $cssClasses[OddVariant::CLASSIC_3_WAY->name][2],
+            $classDraw,
+            $betanoDraw,
+            $classDraw,
+            $bwinDraw,
+            $classAway,
             $fixture->getOddAway(),
+            $classAway,
+            $betanoAway,
+            $classAway,
+            $bwinAway,
         );
     }
 

@@ -10,6 +10,13 @@ class FavoriteListStatisticContainer
     private int $possiblePlacements = 0;
     private int $donePlacements = 0;
 
+    /**
+     * @var FavoriteListStatisticSimulatorContainer[]
+     */
+    private array $simulatorDetails = [];
+
+    private string $listClass = 'negative';
+
     public function getCurrentBalance(): float
     {
         return $this->currentBalance;
@@ -40,6 +47,28 @@ class FavoriteListStatisticContainer
     public function setDonePlacements(int $donePlacements): FavoriteListStatisticContainer
     {
         $this->donePlacements = $donePlacements;
+        return $this;
+    }
+
+    public function getSimulatorDetails(): array
+    {
+        return $this->simulatorDetails;
+    }
+
+    public function setSimulatorDetails(array $simulatorDetails): FavoriteListStatisticContainer
+    {
+        $this->simulatorDetails = $simulatorDetails;
+        return $this;
+    }
+
+    public function getListClass(): string
+    {
+        return $this->listClass;
+    }
+
+    public function setListClass(string $listClass): FavoriteListStatisticContainer
+    {
+        $this->listClass = $listClass;
         return $this;
     }
 }

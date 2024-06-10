@@ -1,37 +1,25 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\Tipico;
 
-use App\Service\BettingProvider\Betano\Api\BetanoApiGateway;
-use App\Service\BettingProvider\Betano\Content\BetanoBet\BetanoBetService;
-use App\Service\BettingProvider\BettingProviderBackupFile\BackupProcessorTargetEntityServiceProvider;
-use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationStatisticService;
-use App\Service\Tipico\TipicoBetSimulationService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 #[AsCommand(
-    name: 'test',
+    name: 'GetGrowthRankingCommand',
     description: 'Add a short description for your command',
 )]
-class TestCommand extends Command
+class GetGrowthRankingCommand extends Command
 {
-
-
     public function __construct(
-        private readonly TipicoBetSimulationService $betSimulationService,
-        private readonly SimulatorService $simulatorService,
-        private readonly MessageBusInterface $messageBus,
-        private readonly BetanoApiGateway $apiGateway,
-        private readonly BetanoBetService $betanoBetService,
-        private readonly BackupProcessorTargetEntityServiceProvider $serviceProvider,
         private readonly SimulationStatisticService $simulationStatisticService,
+        private readonly RouterInterface $router,
     ) {
         parent::__construct();
     }
@@ -47,8 +35,18 @@ class TestCommand extends Command
     {
         $result = $this->simulationStatisticService->calculateAverageIncreaseScore();
 
-        dump($result);
 
+        foreach ($result as $item) {
+            $output->writeln(sprintf('<info>%s</info>', $item['simulator']->getIdentifier()));
+            $output->writeln(sprintf('<info>%s</info>', $item['std_dev']));
+            $output->writeln(sprintf('<info>%s</info>', $item['positive_growth_proportion']));
+            $output->writeln(sprintf('<info>%s</info>', $item['r_squared']));
+            $output->writeln(sprintf('<info>%s</info>', $item['composite_score']));
+            $link = $this->router->generate('app_tipico_simulation_detail', ['simulator' => $item['simulator']->getId()]
+            );
+            $link = 'https://bet-analyzer.wh-company.de' . $link;
+            dump($link);
+        }
         return Command::SUCCESS;
     }
 }

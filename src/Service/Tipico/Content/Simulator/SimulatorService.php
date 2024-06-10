@@ -45,6 +45,15 @@ class SimulatorService
     /**
      * @return Simulator[]
      */
+    public function find(int $id): array
+    {
+        return $this->repository->findBy(['id' => $id]);
+    }
+
+
+    /**
+     * @return Simulator[]
+     */
     public function findAll(): array
     {
         return $this->repository->findAll();

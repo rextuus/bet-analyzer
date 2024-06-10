@@ -10,12 +10,15 @@ use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\Data\LastWeekStatisticData;
 use App\Service\Tipico\Content\Placement\Data\TopSimulatorStatisticData;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
+use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Twig\Data\KeyValueListingContainer;
 use DateTimeInterface;
+use MathPHP\Statistics\Descriptive;
+use MathPHP\Statistics\Regression\Linear;
 use Symfony\UX\Chartjs\Model\Chart;
 
 
@@ -521,5 +524,63 @@ class SimulationStatisticService
         );
 
         return $nonPlacedBets;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function calculateAverageIncreaseScore(): array
+    {
+        $filter = new SimulatorFilterData();
+        $filter->setMinCashBox(100.0);
+        $data = $this->simulatorService->findByFilter($filter);
+
+        $results = [];
+
+        foreach ($data as $cashbox => $simulator) {
+            $placements = $simulator->getTipicoPlacements()->toArray();
+            // Calculate growth rates
+            $growthRates = [];
+            for ($i = 1; $i < count($placements); $i++) {
+                $growthRates[] = ($placements[$i]->getValue() - $placements[$i - 1]->getValue(
+                        )) / $placements[$i - 1]->getValue();
+            }
+
+            // Calculate standard deviation of growth rates
+            $stdDev = Descriptive::standardDeviation($growthRates);
+
+            // Calculate positive growth proportion
+            $positiveGrowthCount = count(array_filter($growthRates, function ($rate) {
+                return $rate > 0;
+            }));
+            $positiveGrowthProportion = $positiveGrowthCount / count($growthRates);
+
+            // Perform linear regression
+            $X = array_keys($placements);
+//            $Y = array_values($values);
+            $Y = array_map(function (TipicoPlacement $placement) {
+                return $placement->getValue();
+            }, $placements);
+            $points = array_map(null, $X, $Y);
+            $regression = new Linear($points);
+            $rSquared = $regression->r2();
+
+            $compositeScore = $positiveGrowthProportion - $stdDev;
+
+            $results[] = [
+                'simulator' => $simulator,
+                'std_dev' => $stdDev,
+                'positive_growth_proportion' => $positiveGrowthProportion,
+                'r_squared' => $rSquared,
+                'composite_score' => $compositeScore,
+            ];
+        }
+
+        // Sort results by composite score in descending order
+        usort($results, function ($a, $b) {
+            return $b['composite_score'] <=> $a['composite_score'];
+        });
+
+        return $results;
     }
 }

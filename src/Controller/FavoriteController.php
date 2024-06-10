@@ -10,6 +10,7 @@ use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListType;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\CreateSimulatorFavoriteListType;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\SimulatorFavoriteListData;
+use App\Service\Tipico\Content\SimulatorFavoriteList\FavoriteListStatisticService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\SimulatorFavoriteListService;
 use App\Service\Tipico\SimulationStatisticService;
 use DateTime;
@@ -28,6 +29,7 @@ class FavoriteController extends AbstractController
         private TipicoPlacementService $placementService,
         private SimulationStatisticService $simulationStatisticService,
         private SimulatorService $simulatorService,
+        private FavoriteListStatisticService $favoriteListStatisticService,
     )
     {
     }
@@ -156,23 +158,30 @@ class FavoriteController extends AbstractController
             $until->setTime(0, 0);
         }
 
-        $simulators = $this->placementService->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
+        $container = $this->favoriteListStatisticService->getStatisticForFavoriteList(
+            $simulatorFavoriteList,
+            $from,
+            $until
+        );
+        $placements = $this->placementService->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
+
         $total = 0.0;
         $possiblePlacements = [];
         $simulatorClass = [];
-        foreach ($simulators as $simulator){
-            $total = $total + $simulator['changeVolume'];
+
+        foreach ($placements as $placement) {
+            $total = $total + $placement['changeVolume'];
 
             $class = 'positive';
-            if ($simulator['changeVolume'] < 0.0){
+            if ($placement['changeVolume'] < 0.0) {
                 $class = 'negative';
             }
             $simulatorClass[] = $class;
 
-            $madeBets = $simulator['madeBets'];
-            $simulator = $this->simulatorService->findBy(['id' => $simulator['id']])[0];
+            $madeBets = $placement['madeBets'];
+            $placement = $this->simulatorService->findBy(['id' => $placement['id']])[0];
             if ($from > $currentDate){
-                $madeBets = count($this->simulationStatisticService->getUpcomingEventsForSimulator($simulator));
+                $madeBets = count($this->simulationStatisticService->getUpcomingEventsForSimulator($placement));
             }
             $possiblePlacements[] = $madeBets;
 
@@ -183,15 +192,16 @@ class FavoriteController extends AbstractController
             $totalClass = 'negative' ;
         }
 
-        //dd($simulators);
+        // history
         return $this->render('favorite/detail.html.twig', [
             'form' => $form->createView(),
-            'simulators' => $simulators,
+            'simulators' => $placements,
             'total' => $total,
             'name' => $simulatorFavoriteList->getIdentifier(),
             'totalClass' => $totalClass,
             'possiblePlacements' => $possiblePlacements,
             'simulatorClass' => $simulatorClass,
+            'container' => $container,
         ]);
     }
 

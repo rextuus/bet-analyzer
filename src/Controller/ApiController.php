@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Service\BettingProvider\Betano\Content\BetanoBackup\BetanoBackupService;
 use App\Service\BettingProvider\BettingProvider;
 use App\Service\BettingProvider\BettingProviderBackupFile\Content\BettingProviderBackupFileService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
@@ -10,8 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -20,11 +17,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ApiController extends AbstractController
 {
     public function __construct(
-        private KernelInterface $kernel,
         private TipicoBetService $tipicoBetService,
-        private BetanoBackupService $betanoBackupService,
         private SerializerInterface $serializer,
-        private MessageBusInterface $messageBus,
         private BettingProviderBackupFileService $bettingProviderBackupFileService,
     )
     {

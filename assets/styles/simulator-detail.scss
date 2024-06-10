@@ -142,6 +142,8 @@ $borderSize: 4px;
                         border: none;
                         display: flex;
                         .three-way-odds-row{
+                            display: flex;
+                            flex-direction: column;
                             @extend .base-odd-row;
                             margin-right: 2px;
                             .three-way-odds-row-value{
