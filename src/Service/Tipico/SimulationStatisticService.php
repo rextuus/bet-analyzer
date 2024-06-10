@@ -565,7 +565,7 @@ class SimulationStatisticService
             $regression = new Linear($points);
 
             $rSquared = 0.0;
-            if ($X !== 0 && $Y !== 0) {
+            if ($X !== [] && $Y !== []) {
                 try {
                     $rSquared = $regression->r2();
                 } catch (\Exception $e) {
