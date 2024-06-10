@@ -17,6 +17,7 @@ use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Twig\Data\KeyValueListingContainer;
 use DateTimeInterface;
+use MathPHP\Exception\BadDataException;
 use MathPHP\Statistics\Descriptive;
 use MathPHP\Statistics\Regression\Linear;
 use Symfony\UX\Chartjs\Model\Chart;
@@ -563,7 +564,11 @@ class SimulationStatisticService
             }, $placements);
             $points = array_map(null, $X, $Y);
             $regression = new Linear($points);
-            $rSquared = $regression->r2();
+            try {
+                $rSquared = $regression->r2();
+            } catch (BadDataException $e) {
+                $rSquared = 0.0;
+            }
 
             $compositeScore = $positiveGrowthProportion - $stdDev;
 
