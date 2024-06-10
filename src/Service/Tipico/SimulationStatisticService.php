@@ -563,10 +563,13 @@ class SimulationStatisticService
             }, $placements);
             $points = array_map(null, $X, $Y);
             $regression = new Linear($points);
-            try {
-                $rSquared = $regression->r2();
-            } catch (\Exception $e) {
-                $rSquared = 0.0;
+
+            $rSquared = 0.0;
+            if ($Y > 0) {
+                try {
+                    $rSquared = $regression->r2();
+                } catch (\Exception $e) {
+                }
             }
 
             $compositeScore = $positiveGrowthProportion - $stdDev;
