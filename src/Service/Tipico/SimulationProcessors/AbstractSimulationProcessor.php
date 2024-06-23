@@ -13,6 +13,7 @@ use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\Simulation\AdditionalProcessors\NegativeSeriesProcessor;
+use App\Service\Tipico\Simulation\AdditionalProcessors\RandomPlacementProcessor;
 use App\Service\Tipico\Simulation\Data\AdditionalProcessResult;
 use App\Service\Tipico\Simulation\Data\PlacementContainer;
 use App\Service\Tipico\Simulation\Data\ProcessResult;
@@ -27,6 +28,7 @@ abstract class AbstractSimulationProcessor
     public const PARAMETER_MAX = 'max';
     public const PARAMETER_NEGATIVE_SERIES_BREAK_POINT = 'negativeSeriesBreakPoint';
     public const PARAMETER_CURRENT_NEGATIVE_SERIES = 'currentNegativeSeries';
+    public const PARAMETER_USE_RANDOM_INPUT = 'useRandomInput';
 
     public function __construct(
         private readonly TipicoPlacementService $placementService,
@@ -34,6 +36,7 @@ abstract class AbstractSimulationProcessor
         private readonly SimulationStrategyService $simulationStrategyService,
         private readonly TipicoBetService $tipicoBetService,
         private readonly NegativeSeriesProcessor $negativeSeriesProcessor,
+        private readonly RandomPlacementProcessor $randomPlacementProcessor,
     )
     {
     }
@@ -82,6 +85,14 @@ abstract class AbstractSimulationProcessor
                 (int) $parameters[self::PARAMETER_CURRENT_NEGATIVE_SERIES],
             );
             $result->setProcessedNegativeSeries(true);
+        }
+
+        if (array_key_exists(self::PARAMETER_USE_RANDOM_INPUT, $parameters)) {
+            $result = $this->randomPlacementProcessor->process(
+                $processResult->getPlacementData(),
+                $parameters[self::PARAMETER_USE_RANDOM_INPUT],
+            );
+            $result->setProcessesRandomInput(true);
         }
 
         return $result;

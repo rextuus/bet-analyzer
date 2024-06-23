@@ -23,6 +23,9 @@ use Symfony\Component\Console\Input\InputInterface;
 )]
 class AbstractSimulatorCommand extends Command
 {
+    public const PARAMETER_NEGATIVE_SERIES = 'negativeSeriesBorder';
+    public const PARAMETER_RANDOM_INPUT = 'randomInput';
+
     protected ?string $searchBetOnTargetValue = null;
 
     public function __construct(
@@ -36,7 +39,8 @@ class AbstractSimulatorCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('negativeSeriesBorder', InputArgument::OPTIONAL, '')
+            ->addArgument(self::PARAMETER_NEGATIVE_SERIES, InputArgument::OPTIONAL, '')
+            ->addArgument(self::PARAMETER_RANDOM_INPUT, InputArgument::IS_ARRAY | InputArgument::OPTIONAL, '')
         ;
     }
 
@@ -72,10 +76,15 @@ class AbstractSimulatorCommand extends Command
 
     protected function addAdditionalParameters(array $parameters, InputInterface $input): array
     {
-        $negativeSeriesBorder = $input->getArgument('negativeSeriesBorder');
+        $negativeSeriesBorder = $input->getArgument(self::PARAMETER_NEGATIVE_SERIES);
         if ($negativeSeriesBorder){
             $parameters[AbstractSimulationProcessor::PARAMETER_CURRENT_NEGATIVE_SERIES] = 0;
             $parameters[AbstractSimulationProcessor::PARAMETER_NEGATIVE_SERIES_BREAK_POINT] = $negativeSeriesBorder;
+        }
+
+        $randomInputs = $input->getArgument(self::PARAMETER_RANDOM_INPUT);
+        if ($randomInputs) {
+            $parameters[AbstractSimulationProcessor::PARAMETER_USE_RANDOM_INPUT] = $randomInputs;
         }
         return $parameters;
     }
@@ -90,21 +99,34 @@ class AbstractSimulatorCommand extends Command
 
     protected function getPotentialNegativeSeriesName(InputInterface $input): string
     {
-        $negativeSeriesBorder = $input->getArgument('negativeSeriesBorder');
+        $negativeSeriesBorder = $input->getArgument(self::PARAMETER_NEGATIVE_SERIES);
 
         if ($negativeSeriesBorder){
             return '_nsb_'.$negativeSeriesBorder;
         }
+
+        $randomInputs = $input->getArgument(self::PARAMETER_RANDOM_INPUT);
+
+        if ($randomInputs) {
+            return str_replace('.', '', '_ri_' . implode('_', $randomInputs));
+        }
+
 
         return '';
     }
 
     protected function getPotentialProcessingIdent(InputInterface $input): ?AdditionalProcessingIdent
     {
-        $negativeSeriesBorder = $input->getArgument('negativeSeriesBorder');
+        $negativeSeriesBorder = $input->getArgument(self::PARAMETER_NEGATIVE_SERIES);
 
         if ($negativeSeriesBorder){
             return AdditionalProcessingIdent::STOP_NEGATIVE_SERIES;
+        }
+
+        $randomInputs = $input->getArgument(self::PARAMETER_RANDOM_INPUT);
+
+        if ($randomInputs) {
+            return AdditionalProcessingIdent::USER_RANDOM_INPUT;
         }
 
         return AdditionalProcessingIdent::EMPTY;

@@ -54,6 +54,11 @@ class InitSimulatorProcessingHandler
             $additional = [AdditionalProcessingIdent::STOP_NEGATIVE_SERIES];
         }
 
+        if ($message->getBulk() === SimulatorProcessBulk::THREE_WAY_SIMULATORS_RANDOM_INPUT) {
+            $strategies = [SimpleStrategy::IDENT];
+            $additional = [AdditionalProcessingIdent::USER_RANDOM_INPUT];
+        }
+
         $simulators = $this->simulatorService->findByStrategies($strategies, $additional);
 
         foreach ($simulators as $simulator){

@@ -10,6 +10,7 @@ use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\Simulation\AdditionalProcessors\NegativeSeriesProcessor;
+use App\Service\Tipico\Simulation\AdditionalProcessors\RandomPlacementProcessor;
 use App\Service\Tipico\Simulation\Data\ProcessResult;
 use DateTime;
 
@@ -23,6 +24,7 @@ class SimpleStrategy extends AbstractSimulationProcessor implements SimulationPr
         protected readonly SimulationStrategyService $simulationStrategyService,
         protected readonly TipicoBetService $tipicoBetService,
         protected readonly NegativeSeriesProcessor $negativeSeriesProcessor,
+        protected readonly RandomPlacementProcessor $randomPlacementProcessor,
     )
     {
         parent::__construct(
@@ -30,7 +32,8 @@ class SimpleStrategy extends AbstractSimulationProcessor implements SimulationPr
             $simulatorService,
             $simulationStrategyService,
             $tipicoBetService,
-            $negativeSeriesProcessor
+            $negativeSeriesProcessor,
+            $randomPlacementProcessor,
         );
     }
 

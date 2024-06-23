@@ -15,6 +15,7 @@ class AdditionalProcessResult
 
     private int $currentNegativeSeries = 0;
     private bool $processedNegativeSeries = false;
+    private bool $processesRandomInput = false;
 
     public function getPlacementData(): array
     {
@@ -46,6 +47,17 @@ class AdditionalProcessResult
     public function setProcessedNegativeSeries(bool $processedNegativeSeries): AdditionalProcessResult
     {
         $this->processedNegativeSeries = $processedNegativeSeries;
+        return $this;
+    }
+
+    public function isProcessesRandomInput(): bool
+    {
+        return $this->processesRandomInput;
+    }
+
+    public function setProcessesRandomInput(bool $processesRandomInput): AdditionalProcessResult
+    {
+        $this->processesRandomInput = $processesRandomInput;
         return $this;
     }
 }
