@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 use App\Service\Tipico\Simulation\AdditionalProcessors\NegativeSeriesProcessor;
+use App\Service\Tipico\Simulation\Data\AdditionalProcessResult;
+use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use PHPUnit\Framework\TestCase;
 
 
@@ -28,10 +30,14 @@ class NegativeSeriesProcessorTest extends TestCase
         $negativeSeriesBreak = 2;
         $currentNegativeSeriesCount = 0;
 
-        $result = $this->service->processNegativeSeriesBreakParameter(
-            $placements,
-            $negativeSeriesBreak,
-            $currentNegativeSeriesCount
+        $result = new AdditionalProcessResult();
+        $result->setPlacementData($placements);
+        $result = $this->service->process(
+            $result,
+            [
+                AbstractSimulationProcessor::PARAMETER_NEGATIVE_SERIES_BREAK_POINT => $negativeSeriesBreak,
+                AbstractSimulationProcessor::PARAMETER_CURRENT_NEGATIVE_SERIES => $currentNegativeSeriesCount
+            ]
         );
 
         $placements = $result->getPlacementData();
@@ -59,10 +65,14 @@ class NegativeSeriesProcessorTest extends TestCase
         $negativeSeriesBreak = 2;
         $currentNegativeSeriesCount = 1;
 
-        $result = $this->service->processNegativeSeriesBreakParameter(
-            $placements,
-            $negativeSeriesBreak,
-            $currentNegativeSeriesCount
+        $result = new AdditionalProcessResult();
+        $result->setPlacementData($placements);
+        $result = $this->service->process(
+            $result,
+            [
+                AbstractSimulationProcessor::PARAMETER_NEGATIVE_SERIES_BREAK_POINT => $negativeSeriesBreak,
+                AbstractSimulationProcessor::PARAMETER_CURRENT_NEGATIVE_SERIES => $currentNegativeSeriesCount
+            ]
         );
 
         $placements = $result->getPlacementData();
@@ -104,10 +114,14 @@ class NegativeSeriesProcessorTest extends TestCase
         $negativeSeriesBreak = 2;
         $currentNegativeSeriesCount = 0;
 
-        $result = $this->service->processNegativeSeriesBreakParameter(
-            $placements,
-            $negativeSeriesBreak,
-            $currentNegativeSeriesCount
+        $result = new AdditionalProcessResult();
+        $result->setPlacementData($placements);
+        $result = $this->service->process(
+            $result,
+            [
+                AbstractSimulationProcessor::PARAMETER_NEGATIVE_SERIES_BREAK_POINT => $negativeSeriesBreak,
+                AbstractSimulationProcessor::PARAMETER_CURRENT_NEGATIVE_SERIES => $currentNegativeSeriesCount
+            ]
         );
 
         $placements = $result->getPlacementData();
@@ -134,10 +148,14 @@ class NegativeSeriesProcessorTest extends TestCase
         $negativeSeriesBreak = 2;
         $currentNegativeSeriesCount = 0;
 
-        $result = $this->service->processNegativeSeriesBreakParameter(
-            $placements,
-            $negativeSeriesBreak,
-            $currentNegativeSeriesCount
+        $result = new AdditionalProcessResult();
+        $result->setPlacementData($placements);
+        $result = $this->service->process(
+            $result,
+            [
+                AbstractSimulationProcessor::PARAMETER_NEGATIVE_SERIES_BREAK_POINT => $negativeSeriesBreak,
+                AbstractSimulationProcessor::PARAMETER_CURRENT_NEGATIVE_SERIES => $currentNegativeSeriesCount
+            ]
         );
 
         $placements = $result->getPlacementData();
@@ -165,10 +183,14 @@ class NegativeSeriesProcessorTest extends TestCase
         $negativeSeriesBreak = 2;
         $currentNegativeSeriesCount = 0;
 
-        $result = $this->service->processNegativeSeriesBreakParameter(
-            $placements,
-            $negativeSeriesBreak,
-            $currentNegativeSeriesCount
+        $result = new AdditionalProcessResult();
+        $result->setPlacementData($placements);
+        $result = $this->service->process(
+            $result,
+            [
+                AbstractSimulationProcessor::PARAMETER_NEGATIVE_SERIES_BREAK_POINT => $negativeSeriesBreak,
+                AbstractSimulationProcessor::PARAMETER_CURRENT_NEGATIVE_SERIES => $currentNegativeSeriesCount
+            ]
         );
 
         $placements = $result->getPlacementData();

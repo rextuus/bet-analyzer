@@ -3,22 +3,26 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Simulation\AdditionalProcessors;
 
-use App\Service\Tipico\Content\Placement\Data\TipicoPlacementData;
 use App\Service\Tipico\Simulation\Data\AdditionalProcessResult;
+use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 
 
-class NegativeSeriesProcessor
+class NegativeSeriesProcessor implements AdditionalProcessorInterface
 {
     /**
-     * @param TipicoPlacementData[] $placementData
+     * @param array<string, mixed> $parameters
      */
-    public function processNegativeSeriesBreakParameter(
-        array $placementData,
-        int $negativeSeriesBreak,
-        int $currentNegativeSeriesCount
+    public function process(
+        AdditionalProcessResult $result,
+        array $parameters
     ): AdditionalProcessResult
     {
+        $placementData = $result->getPlacementData();
+
         $result = new AdditionalProcessResult();
+
+        $negativeSeriesBreak = (int)$parameters[AbstractSimulationProcessor::PARAMETER_NEGATIVE_SERIES_BREAK_POINT];
+        $currentNegativeSeriesCount = (int)$parameters[AbstractSimulationProcessor::PARAMETER_CURRENT_NEGATIVE_SERIES];
 
         $waitForNextWinningFixture = false;
         if ($currentNegativeSeriesCount >= $negativeSeriesBreak) {
@@ -56,6 +60,13 @@ class NegativeSeriesProcessor
         $result->setPlacementData($actuallyDonePlacements);
         $result->setCurrentNegativeSeries($currentNegativeSeriesCount);
 
+        $result->setProcessedNegativeSeries(true);
+
         return $result;
+    }
+
+    public function getIdentifier(): string
+    {
+        return AbstractSimulationProcessor::PARAMETER_NEGATIVE_SERIES_BREAK_POINT;
     }
 }
