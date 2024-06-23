@@ -23,7 +23,11 @@ final class Simulator
         $parameters = json_decode($strategy->getParameters(), true);
         $table = '<table>';
         foreach ($parameters as $key => $parameter) {
-            $t = sprintf('<tr><td>%s</td><td>%s</td></tr>', $key, $parameter);
+            $params = $parameter;
+            if (is_array($parameter)) {
+                $params = implode('-', $parameter);
+            }
+            $t = sprintf('<tr><td>%s</td><td>%s</td></tr>', $key, $params);
             $table = $table . $t;
         }
         $table = $table . '</table>';

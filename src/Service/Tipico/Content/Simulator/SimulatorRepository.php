@@ -61,6 +61,16 @@ class SimulatorRepository extends ServiceEntityRepository
             $qb->setParameter('max', $filter->getMaxCashBox());
         }
 
+        if ($filter->isExcludeNsb()) {
+            $qb->andWhere($qb->expr()->notLike('s.identifier', ':exclude'));
+            $qb->setParameter('exclude', '%nsb%');
+        }
+
+        if ($filter->getWeekday()) {
+            $qb->andWhere('WEEKDAY(p.created) = :weekday');
+            $qb->setParameter('weekday', $filter->getWeekday());
+        }
+
         if ($filter->getMinBets()) {
             $qb->andHaving($qb->expr()->gte('COUNT(p.id)', ':minBets'));
             $qb->setParameter('minBets', $filter->getMinBets());
@@ -71,8 +81,16 @@ class SimulatorRepository extends ServiceEntityRepository
         }
 
         $qb->groupBy('s');
-        $qb->orderBy('s.cashBox', 'DESC');
         $qb->setMaxResults($filter->getMaxResults());
+
+        if ($filter->getWeekDay()) {
+            $orderExpr = "SUM(CASE WHEN p.won = true THEN (p.value - p.input) ELSE 0 END) AS HIDDEN orderValue";
+
+            $qb->addSelect($orderExpr);
+            $qb->orderBy('orderValue', 'DESC');
+        } else {
+            $qb->orderBy('s.cashBox', 'DESC');
+        }
 
         return $qb->getQuery()->getResult();
     }

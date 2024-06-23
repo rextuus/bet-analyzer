@@ -7,6 +7,8 @@ namespace App\Service\Tipico\Content\Simulator\Data;
 class SimulatorFilterData
 {
     private bool $excludeNegative = true;
+    private ?int $weekDay = null;
+    private bool $excludeNsb = true;
     private ?array $variant = null;
     private ?float $minCashBox = null;
     private ?float $maxCashBox = null;
@@ -88,6 +90,29 @@ class SimulatorFilterData
     public function setMaxResults(int $maxResults): SimulatorFilterData
     {
         $this->maxResults = $maxResults;
+        return $this;
+    }
+
+    public function getWeekDay(): ?int
+    {
+        return $this->weekDay;
+    }
+
+    public function setWeekDay(?int $weekDay): SimulatorFilterData
+    {
+        $this->weekDay = $weekDay;
+
+        return $this;
+    }
+
+    public function isExcludeNsb(): bool
+    {
+        return $this->excludeNsb;
+    }
+
+    public function setExcludeNsb(bool $excludeNsb): SimulatorFilterData
+    {
+        $this->excludeNsb = $excludeNsb;
         return $this;
     }
 }
