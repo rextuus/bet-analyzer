@@ -83,22 +83,6 @@ abstract class AbstractSimulationProcessor
             $result = $additionalProcessor->process($result, $parameters);
         }
 
-//        if (array_key_exists(self::PARAMETER_NEGATIVE_SERIES_BREAK_POINT, $parameters)) {
-//            $result = $this->negativeSeriesProcessor->process(
-//                $processResult->getPlacementData(),
-//                $parameters,
-//            );
-//            $result->setProcessedNegativeSeries(true);
-//        }
-//
-//        if (array_key_exists(self::PARAMETER_USE_RANDOM_INPUT, $parameters)) {
-//            $result = $this->randomPlacementProcessor->process(
-//                $processResult->getPlacementData(),
-//                $parameters,
-//            );
-//            $result->setProcessesRandomInput(true);
-//        }
-
         return $result;
     }
 
