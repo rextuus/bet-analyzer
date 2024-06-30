@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SimulatorController!{% endblock %}
+
+{% block body %}
+    {% for upcomingPlacement in upcomingPlacements %}
+        <div class="simulator-detail">
+            <div>{{ upcomingPlacement['simulator'].identifier }}</div>
+            <div class="simulator-detail-widget">
+
+                <div class="upcoming-fixtures-detail">
+                    {{ component('UpcomingFixture', {'simulator' : upcomingPlacement['simulator'], 'fixtures' : upcomingPlacement['upcomingPlacements'], 'targetBetOn' : upcomingPlacement['targetBetOn'], 'searchBetOn': upcomingPlacement['searchBetOn'], 'overUnderTarget': null }) }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

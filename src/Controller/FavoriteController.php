@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\BettingProvider\Simulator;
 use App\Entity\BettingProvider\SimulatorFavoriteList;
+use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
@@ -12,6 +13,7 @@ use App\Service\Tipico\Content\SimulatorFavoriteList\Data\CreateSimulatorFavorit
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\SimulatorFavoriteListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\FavoriteListStatisticService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\SimulatorFavoriteListService;
+use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationStatisticService;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,10 +51,10 @@ class FavoriteController extends AbstractController
         $until = new DateTime('+ 1day');
         $until->setTime(0, 0);
 
-        if ($fromQuery){
+        if ($fromQuery) {
             $from->setTimestamp($fromQuery);
         }
-        if ($untilQuery){
+        if ($untilQuery) {
             $until->setTimestamp($untilQuery);
         }
 
@@ -80,18 +82,20 @@ class FavoriteController extends AbstractController
         $betsToday = [];
         $nextPlacements = [];
         $listClass = [];
-        foreach ($favoriteLists as $favoriteList){
+        foreach ($favoriteLists as $favoriteList) {
             $simulators = $this->placementService->findBySimulatorsAndDateTime($favoriteList, $from, $until);
             $total = 0.0;
             $bets = 0;
             $possiblePlacements = 0;
-            foreach ($simulators as $simulator){
+            foreach ($simulators as $simulator) {
                 $total = $total + $simulator['changeVolume'];
                 $bets = $bets + $simulator['madeBets'];
 
                 $simulator = $this->simulatorService->findBy(['id' => $simulator['id']])[0];
-                $possiblePlacements = $possiblePlacements + count($this->simulationStatisticService->getUpcomingEventsForSimulator($simulator));
-                if ($from < $currentDate){
+                $possiblePlacements = $possiblePlacements + count(
+                        $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator)
+                    );
+                if ($from < $currentDate) {
                     $possiblePlacements = $bets;
                 }
             }
@@ -100,7 +104,7 @@ class FavoriteController extends AbstractController
             $nextPlacements[] = $possiblePlacements;
 
             $class = 'positive';
-            if ($total < 0.0){
+            if ($total < 0.0) {
                 $class = 'negative';
             }
             $listClass[] = $class;
@@ -133,10 +137,10 @@ class FavoriteController extends AbstractController
         $until = new DateTime('+ 1day');
         $until->setTime(0, 0);
 
-        if ($fromQuery){
+        if ($fromQuery) {
             $from->setTimestamp($fromQuery);
         }
-        if ($untilQuery){
+        if ($untilQuery) {
             $until->setTimestamp($untilQuery);
         }
 
@@ -180,16 +184,15 @@ class FavoriteController extends AbstractController
 
             $madeBets = $placement['madeBets'];
             $placement = $this->simulatorService->findBy(['id' => $placement['id']])[0];
-            if ($from > $currentDate){
+            if ($from > $currentDate) {
                 $madeBets = count($this->simulationStatisticService->getUpcomingEventsForSimulator($placement));
             }
             $possiblePlacements[] = $madeBets;
-
         }
 
         $totalClass = 'positive';
-        if ($total < 0.0){
-            $totalClass = 'negative' ;
+        if ($total < 0.0) {
+            $totalClass = 'negative';
         }
 
         // history
@@ -203,6 +206,30 @@ class FavoriteController extends AbstractController
             'simulatorClass' => $simulatorClass,
             'container' => $container,
         ]);
+    }
+
+    #[Route('/place/{simulatorFavoriteList}', name: 'app_favorite_place')]
+    public function place(Request $request, SimulatorFavoriteList $simulatorFavoriteList): Response
+    {
+        $upcomingPlacements = [];
+        foreach ($simulatorFavoriteList->getSimulators() as $simulator) {
+            $entry = [];
+            $entry['simulator'] = $simulator;
+            $entry['upcomingPlacements'] = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator);
+
+            $params = json_decode($simulator->getStrategy()->getParameters(), true);
+            $entry['targetBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON]);
+            $entry['searchBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
+
+            $upcomingPlacements[] = $entry;
+        }
+
+        return $this->render(
+            'favorite/place.html.twig',
+            [
+                'upcomingPlacements' => $upcomingPlacements
+            ]
+        );
     }
 
     #[Route('/create', name: 'app_favorite_create')]
@@ -233,7 +260,11 @@ class FavoriteController extends AbstractController
         $simulatorFavoriteListData = new AddSimulatorToListData();
         $simulatorFavoriteListData->setSimulator($simulator);
 
-        $form = $this->createForm(AddSimulatorToListType::class, $simulatorFavoriteListData, ['simulator' => $simulator,]);
+        $form = $this->createForm(
+            AddSimulatorToListType::class,
+            $simulatorFavoriteListData,
+            ['simulator' => $simulator,]
+        );
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -244,7 +275,10 @@ class FavoriteController extends AbstractController
             $updateData->setSimulators([$data->getSimulator()]);
             $this->favoriteListService->update($favoriteList, $updateData);
 
-            return $this->redirectToRoute('app_tipico_simulation_detail', ['simulator' => $data->getSimulator()->getId()]);
+            return $this->redirectToRoute(
+                'app_tipico_simulation_detail',
+                ['simulator' => $data->getSimulator()->getId()]
+            );
         }
 
         return $this->render('favorite/add.html.twig', [

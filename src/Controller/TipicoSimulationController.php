@@ -58,10 +58,9 @@ class TipicoSimulationController extends AbstractController
 
 
         $from = new DateTime();
-        $from->modify("-1 weeks");
         $from->setTime(0, 0);
-        $until = clone $from;
-        $until->modify('+ 1day');
+
+        $until = new DateTime('+ 1day');
         $until->setTime(0, 0);
 
         return $this->render('tipico_simulation/dashboard.html.twig', [
