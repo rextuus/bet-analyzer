@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Tipico;
+namespace App\Service\Tipico\Duplication;
 
 use App\Entity\BettingProvider\Simulator;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
@@ -12,10 +12,7 @@ use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class SimulatorDuplicationService
 {
     public function __construct(
@@ -24,18 +21,26 @@ class SimulatorDuplicationService
     ) {
     }
 
-    public function duplicateSimulatorAndLimitToWeekday(Simulator $simulator, Weekday $weekday): Simulator
+    /**
+     * @param array<Weekday> $weekdays
+     */
+    public function duplicateSimulatorAndLimitToWeekdays(Simulator $simulator, array $weekdays): Simulator
     {
         $simulatorData = (new SimulatorData())->initFromEntity($simulator);
         $simulatorStrategyData = (new SimulationStrategyData())->initFromEntity($simulator->getStrategy());
         $parameters = json_decode($simulatorStrategyData->getParameters(), true);
-        $parameters[AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS] = [$weekday];
+        $parameters[AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS] = $weekdays;
         $simulatorStrategyData->setParameters(json_encode($parameters));
 
         $strategy = $this->simulationStrategyService->createByData($simulatorStrategyData);
 
         $simulatorData->setCashBox(100.0);
-        $simulatorData->setIdentifier($simulatorData->getIdentifier() . '_' . $weekday->name);
+        $weekDayPostfix = '';
+        foreach ($weekdays as $weekday) {
+            $weekDayPostfix = $weekDayPostfix . '_' . $weekday->name;
+        }
+
+        $simulatorData->setIdentifier($simulatorData->getIdentifier() . $weekDayPostfix);
         $simulatorData->setStrategy($strategy);
         $simulatorData->setFixtures([]);
         $simulatorData->setPlacements([]);

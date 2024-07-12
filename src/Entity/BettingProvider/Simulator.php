@@ -37,6 +37,9 @@ class Simulator
     #[ORM\ManyToMany(targetEntity: SimulatorFavoriteList::class, mappedBy: 'simulators')]
     private Collection $simulatorFavoriteLists;
 
+    #[ORM\OneToOne(mappedBy: 'simulator', cascade: ['persist', 'remove'])]
+    private ?SimulatorDetailStatistic $simulatorDetailStatistic = null;
+
     public function __construct()
     {
         $this->fixtures = new ArrayCollection();
@@ -174,6 +177,28 @@ class Simulator
         if ($this->simulatorFavoriteLists->removeElement($simulatorFavoriteList)) {
             $simulatorFavoriteList->removeSimulator($this);
         }
+
+        return $this;
+    }
+
+    public function getSimulatorDetailStatistic(): ?SimulatorDetailStatistic
+    {
+        return $this->simulatorDetailStatistic;
+    }
+
+    public function setSimulatorDetailStatistic(?SimulatorDetailStatistic $simulatorDetailStatistic): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($simulatorDetailStatistic === null && $this->simulatorDetailStatistic !== null) {
+            $this->simulatorDetailStatistic->setSimulator(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($simulatorDetailStatistic !== null && $simulatorDetailStatistic->getSimulator() !== $this) {
+            $simulatorDetailStatistic->setSimulator($this);
+        }
+
+        $this->simulatorDetailStatistic = $simulatorDetailStatistic;
 
         return $this;
     }

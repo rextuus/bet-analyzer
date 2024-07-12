@@ -127,4 +127,12 @@ class TipicoPlacement
 
         return $this;
     }
+
+    public function getCalculatedValue(): float
+    {
+        if ($this->isWon()) {
+            return $this->getValue() - $this->getInput();
+        }
+        return -$this->getInput();
+    }
 }

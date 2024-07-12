@@ -7,10 +7,7 @@ namespace App\Service\Tipico\Simulation\AdditionalProcessors;
 use App\Service\Tipico\Simulation\Data\AdditionalProcessResult;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class RandomPlacementProcessor implements AdditionalProcessorInterface
 {
     /**

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ simulator.identifier }}{% endblock %}
+
+{% block body %}
+    <div class="simulator-detail-name">{{ simulator.identifier }}</div>
+    <div class="simulator-detail-navi">
+
+    </div>
+    {{ form(form) }}
+{% endblock %}

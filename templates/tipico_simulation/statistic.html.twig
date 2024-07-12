@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ simulator.identifier }}{% endblock %}
+
+{% block body %}
+    <div class="simulator-detail-name">{{ simulator.identifier }}</div>
+    <div class="simulator-detail-navi">
+
+    </div>
+    {% for element in dto.weekDayPlacementDistributions %}
+        <div class="simulator-detail">
+            <div class="simulator-detail-widget">
+                <div class="simulator-detail-widget-header">
+                    {{ element.weekDay.name }} ({{ element.totalSum }})
+                </div>
+                <div class="simulator-detail-widget-content-chart">
+                    {{ render_chart(element.chart) }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

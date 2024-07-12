@@ -9,10 +9,7 @@ use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
+
 class WeekdayFunction extends FunctionNode
 {
     public $dateExpression = null;

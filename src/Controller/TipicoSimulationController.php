@@ -8,10 +8,16 @@ use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterType;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
+use App\Service\Tipico\Duplication\SimulatorDuplicationData;
+use App\Service\Tipico\Duplication\SimulatorDuplicationService;
+use App\Service\Tipico\Duplication\SimulatorDuplicationType;
+use App\Service\Tipico\Message\ProcessSimulatorMessage;
+use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use App\Service\Tipico\SimulationStatisticService;
+use App\Service\Tipico\Statistic\DetailStatisticService;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -19,6 +25,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/tipico/simulation')]
@@ -27,6 +34,7 @@ class TipicoSimulationController extends AbstractController
     public function __construct(
         private readonly SimulatorService $simulatorService,
         private readonly SimulationStatisticService $simulationStatisticService,
+        private readonly MessageBusInterface $messageBus,
     )
     {
     }
@@ -167,6 +175,49 @@ class TipicoSimulationController extends AbstractController
             'nonPlacedBets' => count($nonPlacedBets),
             'overUnderTarget' => $overUnderTarget,
             'lastWeekStatistic' => $this->simulationStatisticService->getPlacementChangeComparedToDayBefore($simulator),
+        ]);
+    }
+
+    #[Route('/{simulator}/statistic', name: 'app_tipico_simulation_statistic')]
+    public function statistic(Simulator $simulator, DetailStatisticService $statisticService): Response
+    {
+        $dto = $statisticService->generateDetailStatisticForSimulator($simulator);
+
+        return $this->render('tipico_simulation/statistic.html.twig', [
+            'simulator' => $simulator,
+            'dto' => $dto
+        ]);
+    }
+
+    #[Route('/{simulator}/duplicate', name: 'app_tipico_simulation_duplicate')]
+    public function duplicate(
+        Request $request,
+        Simulator $simulator,
+        SimulatorDuplicationService $duplicationService
+    ): Response {
+        $data = new SimulatorDuplicationData();
+        $form = $this->createForm(SimulatorDuplicationType::class, $data);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var SimulatorDuplicationData $data */
+            $data = $form->getData();
+            $weekDays = array_map(
+                function (int $value) {
+                    return Weekday::from($value);
+                },
+                $data->getWeekdays()
+            );
+
+            $simulator = $duplicationService->duplicateSimulatorAndLimitToWeekdays($simulator, $weekDays);
+
+            $message = new ProcessSimulatorMessage($simulator->getId());
+            $this->messageBus->dispatch($message);
+        }
+
+        return $this->render('tipico_simulation/duplicate.html.twig', [
+            'simulator' => $simulator,
+            'form' => $form,
         ]);
     }
 

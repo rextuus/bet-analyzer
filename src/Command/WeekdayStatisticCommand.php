@@ -7,8 +7,8 @@ use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\SimulatorFavoriteListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\SimulatorFavoriteListService;
+use App\Service\Tipico\Duplication\SimulatorDuplicationService;
 use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
-use App\Service\Tipico\SimulatorDuplicationService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -72,7 +72,10 @@ class WeekdayStatisticCommand extends Command
                             $simulatorsByCash[$id]
                         )
                     );
-                    $newSimulators[] = $this->duplicationService->duplicateSimulatorAndLimitToWeekday($simulator, $day);
+                    $newSimulators[] = $this->duplicationService->duplicateSimulatorAndLimitToWeekdays(
+                        $simulator,
+                        [$day]
+                    );
                 }
                 $counter++;
             }

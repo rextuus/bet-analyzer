@@ -246,6 +246,53 @@ class SimulationChartService
         return $chart;
     }
 
+    public function getBalanceColoredChart(array $distribution): Chart
+    {
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_BAR);
+
+        $labels = array_keys($distribution);
+
+        // Array to hold color values
+        $colors = [];
+        foreach ($distribution as $value) {
+            if ($value > 0) {
+                $colors[] = '#0b2e13'; // Green for positive values
+            } else {
+                $colors[] = '#600c16'; // Red for negative values
+            }
+        }
+
+        $chart->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Occurrence',
+                    'backgroundColor' => $colors,
+                    'borderColor' => $colors,
+                    'data' => $distribution,
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => 5,
+                    'ticks' => [
+                        'color' => '#ffffff'
+                    ]
+                ],
+                'x' => [
+                    'ticks' => [
+                        'color' => '#ffffff'
+                    ]
+                ]
+            ],
+        ]);
+        return $chart;
+    }
+
     public function getSimulatorCashBoxDistributionChart(array $distribution)
     {
         $chart = $this->chartBuilder->createChart(Chart::TYPE_BAR);
