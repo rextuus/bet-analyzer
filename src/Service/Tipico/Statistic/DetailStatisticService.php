@@ -107,17 +107,22 @@ class DetailStatisticService
             return ($highest === null || $current->getDays() > $highest->getDays()) ? $current : $highest;
         });
 
-        $mostNegative = array_reduce($negativePeriods, function (?NegativePeriod $lowest, ?NegativePeriod $current) {
+        $highestLost = array_reduce($negativePeriods, function (?NegativePeriod $lowest, ?NegativePeriod $current) {
             return ($lowest === null || $current->getCalculatedMinimumAmount() < $lowest->getCalculatedMinimumAmount(
                 )) ? $current : $lowest;
         });
 
-//        dump($mostNegative);
-//        dump($mostNegative->getCalculatedMinimumAmount());
-//        dump($longest);
-//        dd($longest->getDays());
         $dto = new SimulatorDetailStatisticDto();
-        $dto->setWeekDayPlacementDistributions($dailyDistributions);
+        $dto->setHighestLost($highestLost->getCashBoxMinimum());
+        $dto->setLongestNonWinningPeriod($longest->getDays());
+
+
+        usort(
+            $dailyDistributions,
+            function ($a, $b) {
+                return $a->getWeekday()->value <=> $b->getWeekday()->value;
+            }
+        );
 
         foreach ($dailyDistributions as $dailyDistribution) {
             $dailyDistribution->setChart(
@@ -128,6 +133,8 @@ class DetailStatisticService
                 )
             );
         }
+
+        $dto->setWeekDayPlacementDistributions($dailyDistributions);
 
         return $dto;
     }

@@ -8,7 +8,7 @@
 
     </div>
     {% for element in dto.weekDayPlacementDistributions %}
-        <div class="simulator-detail">
+        <div class="simulator-detail {{ element.isActiveClass }}">
             <div class="simulator-detail-widget">
                 <div class="simulator-detail-widget-header">
                     {{ element.weekDay.name }} ({{ element.totalSum }})

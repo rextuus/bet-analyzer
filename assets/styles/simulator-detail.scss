@@ -36,6 +36,15 @@ $borderSize: 4px;
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
+
+    &.currentDay.positive {
+        background-color: #415d35;
+    }
+
+    &.currentDay.negative {
+        background-color: rgba(215, 0, 0, 0.3);
+    }
+
     .simulator-detail-widget{
         .simulator-detail-widget-col{
             .simulator-detail-widget-col-e{

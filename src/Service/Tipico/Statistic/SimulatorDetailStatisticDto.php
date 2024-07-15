@@ -7,16 +7,16 @@ namespace App\Service\Tipico\Statistic;
 use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use App\Service\Tipico\Statistic\PlacementDistribution\WeekDayPlacementDistribution;
 
-/**
- * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
- * @license 2024 DocCheck Community GmbH
- */
 class SimulatorDetailStatisticDto
 {
     /**
      * @var array<WeekDayPlacementDistribution>
      */
     private array $weekDayPlacementDistributions;
+
+    private int $longestNonWinningPeriod;
+
+    private float $highestLost;
 
     public function getWeekDayPlacementDistributionByWeekday(WeekDay $weekDay): ?WeekDayPlacementDistribution
     {
@@ -37,6 +37,28 @@ class SimulatorDetailStatisticDto
     public function setWeekDayPlacementDistributions(array $weekDayPlacementDistributions): SimulatorDetailStatisticDto
     {
         $this->weekDayPlacementDistributions = $weekDayPlacementDistributions;
+        return $this;
+    }
+
+    public function getLongestNonWinningPeriod(): int
+    {
+        return $this->longestNonWinningPeriod;
+    }
+
+    public function setLongestNonWinningPeriod(int $longestNonWinningPeriod): SimulatorDetailStatisticDto
+    {
+        $this->longestNonWinningPeriod = $longestNonWinningPeriod;
+        return $this;
+    }
+
+    public function getHighestLost(): float
+    {
+        return $this->highestLost;
+    }
+
+    public function setHighestLost(float $highestLost): SimulatorDetailStatisticDto
+    {
+        $this->highestLost = $highestLost;
         return $this;
     }
 }

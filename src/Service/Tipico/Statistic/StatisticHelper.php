@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Service\Tipico\Statistic;
 
 use App\Entity\BettingProvider\TipicoPlacement;
+use DateInterval;
+use DateTime;
 
 /**
  * @author Wolfgang Hinzmann <wolfgang.hinzmann@doccheck.com>
@@ -53,11 +55,40 @@ class StatisticHelper
     public static function getDailyPlacementDistributionWithCalculatedCashBoxes(array $placements): array
     {
         $distribution = self::getDailyPlacementDistribution($placements);
-        return array_map(
+        $distribution = array_map(
             function (array $placements) {
                 return self::calculateSumForPlacements($placements);
             },
             $distribution
         );
+
+        // fill empty days
+        $firstDay = array_key_first($distribution);
+        $dates = self::getDates($firstDay);
+
+        $ordered = [];
+        foreach ($dates as $date) {
+            $ordered[$date] = $distribution[$date] ?? 0.0;
+        }
+
+        return $ordered;
+    }
+
+    private static function getDates($startDate)
+    {
+        $dates = [];
+        $start = DateTime::createFromFormat('d-m-Y', $startDate);
+        $now = new DateTime('now');
+        $interval = new DateInterval('P1D');
+
+        $weekday = $start->format('N');
+
+        for ($date = clone $start; $date <= $now; $date->add($interval)) {
+            if ($date->format('N') === $weekday) {
+                $dates[] = $date->format('d-m-Y');
+            }
+        }
+
+        return $dates;
     }
 }
