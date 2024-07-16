@@ -6,6 +6,7 @@ namespace App\Service\Tipico\Statistic;
 
 use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use App\Service\Tipico\Statistic\PlacementDistribution\WeekDayPlacementDistribution;
+use Symfony\UX\Chartjs\Model\Chart;
 
 class SimulatorDetailStatisticDto
 {
@@ -14,9 +15,11 @@ class SimulatorDetailStatisticDto
      */
     private array $weekDayPlacementDistributions;
 
-    private int $longestNonWinningPeriod;
+    private NegativePeriod $longestNonWinningPeriod;
 
-    private float $highestLost;
+    private NegativePeriod $highestLost;
+
+    private Chart $weekDayChart;
 
     public function getWeekDayPlacementDistributionByWeekday(WeekDay $weekDay): ?WeekDayPlacementDistribution
     {
@@ -40,25 +43,36 @@ class SimulatorDetailStatisticDto
         return $this;
     }
 
-    public function getLongestNonWinningPeriod(): int
+    public function getLongestNonWinningPeriod(): NegativePeriod
     {
         return $this->longestNonWinningPeriod;
     }
 
-    public function setLongestNonWinningPeriod(int $longestNonWinningPeriod): SimulatorDetailStatisticDto
+    public function setLongestNonWinningPeriod(NegativePeriod $longestNonWinningPeriod): SimulatorDetailStatisticDto
     {
         $this->longestNonWinningPeriod = $longestNonWinningPeriod;
         return $this;
     }
 
-    public function getHighestLost(): float
+    public function getHighestLost(): NegativePeriod
     {
         return $this->highestLost;
     }
 
-    public function setHighestLost(float $highestLost): SimulatorDetailStatisticDto
+    public function setHighestLost(NegativePeriod $highestLost): SimulatorDetailStatisticDto
     {
         $this->highestLost = $highestLost;
+        return $this;
+    }
+
+    public function getWeekDayChart(): Chart
+    {
+        return $this->weekDayChart;
+    }
+
+    public function setWeekDayChart(Chart $weekDayChart): SimulatorDetailStatisticDto
+    {
+        $this->weekDayChart = $weekDayChart;
         return $this;
     }
 }

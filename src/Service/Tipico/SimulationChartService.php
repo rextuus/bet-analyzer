@@ -255,7 +255,7 @@ class SimulationChartService
         // Array to hold color values
         $colors = [];
         foreach ($distribution as $value) {
-            if ($value > 0) {
+            if ($value > 0.0) {
                 $colors[] = '#0b2e13'; // Green for positive values
             } else {
                 $colors[] = '#600c16'; // Red for negative values

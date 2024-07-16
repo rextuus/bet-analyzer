@@ -4,9 +4,25 @@
 
 {% block body %}
     <div class="simulator-detail-name">{{ simulator.identifier }}</div>
-    <div class="simulator-detail-navi">
+    <div class="simulator-detail-navi"></div>
 
+
+    <div class="simulator-detail">
+        <div class="simulator-detail-widget">
+            <div class="simulator-detail-widget-header">
+                Woche Umsatz pro Spiel
+            </div>
+            <div class="simulator-detail-widget-content-chart">
+                {{ render_chart(dto.weekDayChart) }}
+            </div>
+        </div>
     </div>
+
+    <div class="simulator-detail">
+        {{ component('NegativePeriod', {'negativeSeries' : dto.highestLost, 'variant' : 'highest'}) }}
+        {{ component('NegativePeriod', {'negativeSeries' : dto.longestNonWinningPeriod, 'variant' : 'longest'}) }}
+    </div>
+
     {% for element in dto.weekDayPlacementDistributions %}
         <div class="simulator-detail {{ element.isActiveClass }}">
             <div class="simulator-detail-widget">

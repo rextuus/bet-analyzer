@@ -113,9 +113,8 @@ class DetailStatisticService
         });
 
         $dto = new SimulatorDetailStatisticDto();
-        $dto->setHighestLost($highestLost->getCashBoxMinimum());
-        $dto->setLongestNonWinningPeriod($longest->getDays());
-
+        $dto->setHighestLost($highestLost);
+        $dto->setLongestNonWinningPeriod($longest);
 
         usort(
             $dailyDistributions,
@@ -135,6 +134,14 @@ class DetailStatisticService
         }
 
         $dto->setWeekDayPlacementDistributions($dailyDistributions);
+
+        $dto->setWeekDayChart(
+            $this->chartService->getBalanceColoredChart(
+                StatisticHelper::getWeekdayPlacementDistributionWithCalculatedCashBoxes(
+                    $simulator->getTipicoPlacements()->toArray()
+                )
+            )
+        );
 
         return $dto;
     }

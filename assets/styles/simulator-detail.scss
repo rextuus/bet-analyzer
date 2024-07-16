@@ -254,3 +254,21 @@ $borderSize: 4px;
 
     }
 }
+
+.negative-period {
+    padding: 20px;
+    border: $negative solid 2px;
+    width: fit-content;
+
+    margin-bottom: 20px;
+
+    .np-header {
+        font-size: 2.5em;
+    }
+
+    .np-date {
+        .np-days {
+            font-size: 2.5em;
+        }
+    }
+}
