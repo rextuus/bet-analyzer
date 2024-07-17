@@ -6,6 +6,7 @@ namespace App\Service\Tipico\Content\SimulatorDetailStatistic;
 
 use App\Entity\BettingProvider\SimulatorDetailStatistic;
 use App\Service\Tipico\Content\SimulatorDetailStatistic\Data\SimulatorDetailStatisticData;
+use DateTime;
 
 class SimulatorDetailStatisticService
 {
@@ -27,6 +28,7 @@ class SimulatorDetailStatisticService
         SimulatorDetailStatisticData $data
     ): SimulatorDetailStatistic {
         $simulatorDetailStatistic = $this->factory->mapData($data, $simulatorDetailStatistic);
+        $simulatorDetailStatistic->setEdited(new DateTime('now'));
         $this->repository->save($simulatorDetailStatistic);
         return $simulatorDetailStatistic;
     }

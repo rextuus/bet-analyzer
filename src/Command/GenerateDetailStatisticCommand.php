@@ -3,13 +3,15 @@
 namespace App\Command;
 
 use App\Service\Tipico\Content\Simulator\SimulatorService;
-use App\Service\Tipico\Statistic\DetailStatisticService;
+use App\Service\Tipico\Message\CreateOrUpdateDetailStatisticMessage;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
     name: 'GenerateDetailStatistic',
@@ -18,8 +20,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class GenerateDetailStatisticCommand extends Command
 {
     public function __construct(
-        private SimulatorService $simulatorService,
-        private DetailStatisticService $statisticService
+        private readonly SimulatorService $simulatorService,
+        private readonly MessageBusInterface $bus
     ) {
         parent::__construct();
     }
@@ -27,7 +29,8 @@ class GenerateDetailStatisticCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('simulatorId', InputArgument::REQUIRED, 'Argument description');
+            ->addArgument('simulatorId', InputArgument::OPTIONAL, 'Argument description')
+            ->addOption('all', 'a', InputOption::VALUE_NONE, 'Start calculation for all');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -35,8 +38,19 @@ class GenerateDetailStatisticCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $simulatorId = $input->getArgument('simulatorId');
 
+        $all = $input->getOption('all');
+        if ($all) {
+            foreach ($this->simulatorService->findAllSimulatorIds() as $simulator) {
+                $message = new CreateOrUpdateDetailStatisticMessage($simulator['id']);
+                $this->bus->dispatch($message);
+            }
+            return Command::SUCCESS;
+        }
+
+        $message = new CreateOrUpdateDetailStatisticMessage($simulatorId);
+        $this->bus->dispatch($message);
+
         $simulator = $this->simulatorService->find($simulatorId);
-        $this->statisticService->generateDetailStatisticForSimulator($simulator);
         $io->info(sprintf('Refresh detail statistic for simulator: %s', $simulator->getIdentifier()));
 
         return Command::SUCCESS;

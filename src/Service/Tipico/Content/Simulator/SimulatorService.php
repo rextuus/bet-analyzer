@@ -58,7 +58,7 @@ class SimulatorService
     }
 
     /**
-     * @return int[]
+     * @return array<array<int>>
      */
     public function findAllSimulatorIds(): array
     {

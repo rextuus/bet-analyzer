@@ -31,7 +31,6 @@ class DetailStatisticService
         }
 
         $data->setSimulator($simulator);
-        $data->setCreated(new DateTime());
 
         $orderedPlacements = StatisticHelper::getDailyPlacementDistribution(
             $simulator->getTipicoPlacements()->toArray()
@@ -45,7 +44,7 @@ class DetailStatisticService
         $currentCashBoxMinimum = 0.0;
         $currentCashBoxMinimumDate = array_key_first($orderedPlacements);
 
-        /** @var WeekDayPlacementDistribution $dailyDistributions */
+        /** @var WeekDayPlacementDistribution[] $dailyDistributions */
         $dailyDistributions = [];
         foreach ($orderedPlacements as $day => $placements) {
             // daily sum
