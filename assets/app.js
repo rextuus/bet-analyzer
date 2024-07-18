@@ -12,6 +12,7 @@ import './styles/app.scss';
 import './styles/dashbaord.scss';
 import './styles/simulator-detail.scss';
 import './styles/favorites.scss';
+import './styles/suggestion.scss';
 
 import {startStimulusApp} from '@symfony/stimulus-bridge';
 

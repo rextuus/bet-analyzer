@@ -1,0 +1,9 @@
+<div{{ attributes }}>
+
+    <div class="fs-entry">
+        {{ this.html|raw }}
+        {% for placementSuggestion in this.betPlacementSuggestion.placementSuggestions %}
+            <div>{{ this.simulatorDetail(placementSuggestion.simulator)|raw }}</div>
+        {% endfor %}
+    </div>
+</div>

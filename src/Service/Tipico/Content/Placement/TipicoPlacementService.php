@@ -120,7 +120,12 @@ class TipicoPlacementService
 
     public function findBySimulatorsAndDateTime(SimulatorFavoriteList $simulatorFavoriteList, DateTime $from, DateTime $until)
     {
-        return $this->repository->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
+        $ids = [];
+        foreach ($simulatorFavoriteList->getSimulators() as $simulator) {
+            $ids[] = $simulator->getId();
+        }
+
+        return $this->repository->findBySimulatorsAndDateTime($ids, $from, $until);
     }
 
     public function findTopSimulatorsByWeekday(array $ids)

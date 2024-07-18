@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipico Simulators{% endblock %}
+
+{% block body %}
+    <div class="fs-container">
+
+        {% for betPlacementSuggestion in betPlacementSuggestionsContainer.betPlacementSuggestions %}
+            {{ component('FixtureSuggestion', {'betPlacementSuggestion' : betPlacementSuggestion }) }}
+        {% endfor %}
+
+    </div>
+{% endblock %}

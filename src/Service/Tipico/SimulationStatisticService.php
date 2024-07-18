@@ -13,9 +13,11 @@ use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
+use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Twig\Data\KeyValueListingContainer;
+use DateTime;
 use DateTimeInterface;
 use MathPHP\Statistics\Descriptive;
 use MathPHP\Statistics\Regression\Linear;
@@ -457,11 +459,46 @@ class SimulationStatisticService
         return $distribution;
     }
 
-    public function findTopSimulatorsByWeekday(): array
+    /**
+     * @return array<Simulator>
+     */
+    public function findTopSimulatorsByWeekday(int $usedSimulators = 100, float $minCashBox = 60.0): array
     {
-        $simulatorId = $this->simulatorService->findAllSimulatorIds();
+        $currentDate = new DateTime();
+        $weekDay = Weekday::tryFrom((int)$currentDate->format('N'));
 
-        return $this->tipicoPlacementService->findTopSimulatorsByWeekday($simulatorId);
+        $simulators = $this->simulatorService->findTopSimulatorsByWeekDay($weekDay, $usedSimulators, $minCashBox);
+
+        $orderedSimulators = [];
+        foreach ($simulators as $simulator) {
+            $strategy = $simulator->getStrategy();
+            $strategyParameters = json_decode($simulator->getStrategy()->getParameters(), true);
+
+            if (array_key_exists('negativeSeriesBreakPoint', $strategyParameters)) {
+                continue;
+            }
+
+            // reduce over / under strategies to
+            if ($strategy->getIdentifier() === OverUnderStrategy::IDENT) {
+                $strategyKey = sprintf(
+                    '%.1f-%.1f-%s-%.1f',
+                    $strategyParameters[AbstractSimulationProcessor::PARAMETER_MIN],
+                    $strategyParameters[AbstractSimulationProcessor::PARAMETER_MAX],
+                    $strategyParameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON],
+                    $strategyParameters[OverUnderStrategy::PARAMETER_TARGET_VALUE],
+                );
+
+                $orderedSimulators[$strategyKey] = $simulator;
+            } else {
+                $orderedSimulators[] = $simulator;
+            }
+        }
+
+        return $orderedSimulators;
+//
+//        $simulatorId = $this->simulatorService->findAllSimulatorIds();
+//
+//        return $this->tipicoPlacementService->findTopSimulatorsByWeekday($simulatorId);
     }
 
     /**

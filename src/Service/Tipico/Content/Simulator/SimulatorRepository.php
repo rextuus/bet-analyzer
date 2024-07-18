@@ -6,6 +6,7 @@ use App\Entity\BettingProvider\SimulationStrategy;
 use App\Entity\BettingProvider\Simulator;
 use App\Entity\BettingProvider\TipicoPlacement;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
+use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -150,6 +151,41 @@ class SimulatorRepository extends ServiceEntityRepository
 
         $qb->andWhere($qb->expr()->lte('p.created', ':until'));
         $qb->setParameter('until', $until);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return array<Simulator>
+     */
+    public function findTopSimulatorsByWeekDay(
+        Weekday $weekday,
+        int $usedSimulators = 100,
+        float $cashBoxMin = 60.0
+    ): array {
+        $totalValue = '';
+        match ($weekday) {
+            Weekday::Monday => $totalValue = 'mondayTotal',
+            Weekday::Tuesday => $totalValue = 'tuesdayTotal',
+            Weekday::Wednesday => $totalValue = 'wednesdayTotal',
+            Weekday::Thursday => $totalValue = 'thursdayTotal',
+            Weekday::Friday => $totalValue = 'fridayTotal',
+            Weekday::Saturday => $totalValue = 'saturdayTotal',
+            Weekday::Sunday => $totalValue = 'sundayTotal',
+        };
+
+        $qb = $this->createQueryBuilder('s');
+        $qb->join('s.simulatorDetailStatistic', 'd');
+
+        $qb->where($qb->expr()->gt('d.' . $totalValue, ':minTotal'));
+        $qb->setParameter('minTotal', 0.0);
+
+        $qb->andWhere($qb->expr()->gte('s.cashBox', ':minCashBox'));
+        $qb->setParameter('minCashBox', $cashBoxMin);
+
+        $qb->orderBy('d.' . $totalValue, 'DESC');
+
+        $qb->setMaxResults($usedSimulators);
 
         return $qb->getQuery()->getResult();
     }

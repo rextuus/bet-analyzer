@@ -18,6 +18,8 @@ use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Service\Tipico\SimulationProcessors\SimulationStrategyProcessorProvider;
 use App\Service\Tipico\SimulationStatisticService;
 use App\Service\Tipico\Statistic\DetailStatisticService;
+use App\Service\Tipico\Suggestion\BetPlacementSuggestionContainer;
+use App\Service\Tipico\Suggestion\PlacementSuggestion;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -51,7 +53,7 @@ class TipicoSimulationController extends AbstractController
         $open = array_filter(
             $nextPlacements,
             function (TipicoBet $tipicoBet) use ($current) {
-                return $tipicoBet->getStartAtTimeStamp()/1000 > $current->getTimestamp();
+                return $tipicoBet->getStartAtTimeStamp() / 1000 > $current->getTimestamp();
             }
         );
         $open = count($open);
@@ -153,7 +155,7 @@ class TipicoSimulationController extends AbstractController
         $searchBetOn = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
 
         $overUnderTarget = null;
-        if($strategy->getIdentifier() === OverUnderStrategy::IDENT){
+        if ($strategy->getIdentifier() === OverUnderStrategy::IDENT) {
             $overUnderTarget = $parameters[OverUnderStrategy::PARAMETER_TARGET_VALUE];
         }
 
@@ -235,7 +237,7 @@ class TipicoSimulationController extends AbstractController
         $searchBetOn = BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
 
         $overUnderTarget = null;
-        if($strategy->getIdentifier() === OverUnderStrategy::IDENT){
+        if ($strategy->getIdentifier() === OverUnderStrategy::IDENT) {
             $overUnderTarget = $parameters[OverUnderStrategy::PARAMETER_TARGET_VALUE];
         }
 
@@ -273,10 +275,62 @@ class TipicoSimulationController extends AbstractController
     #[Route('/weekday', name: 'app_tipico_weekday')]
     public function weekDay(): Response
     {
-        $topWeekDaySimulators = $this->simulationStatisticService->findTopSimulatorsByWeekday();
+        $topWeekDaySimulators = $this->simulationStatisticService->findTopSimulatorsByWeekday(50);
 
         return $this->render('tipico_simulation/weekday.html.twig', [
             'topWeekDaySimulators' => $topWeekDaySimulators,
+        ]);
+    }
+
+    #[Route('/weekday/suggestions', name: 'app_tipico_weekday_suggestions')]
+    public function weekDaySuggestions(Request $request): Response
+    {
+        $usedSimulators = $request->query->getInt('sim', 100); // Default to 100 if not sent in the request
+        $cashBoxMin = (float)$request->query->getInt('cash', 140.0);
+
+        $topWeekDaySimulators = $this->simulationStatisticService->findTopSimulatorsByWeekday(
+            $usedSimulators,
+            $cashBoxMin
+        );
+
+        $from = new DateTime();
+        $from->setTime(0, 0);
+
+        $until = clone $from;
+        $until->modify('+1 day');
+        $until->setTime(0, 0);
+
+        $betPlacementSuggestions = new BetPlacementSuggestionContainer();
+        $weekDay = WeekDay::from((new DateTime())->format('N'));
+
+        foreach ($topWeekDaySimulators as $simulator) {
+            $strategy = $simulator->getStrategy();
+            $parameters = json_decode($strategy->getParameters(), true);
+
+            $nextPlacements = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator, 200);
+            foreach ($nextPlacements as $nextPlacement) {
+                $betPlacementSuggestion = $betPlacementSuggestions->getSuggestionByBet($nextPlacement);
+                $betPlacementSuggestion->setWeekday($weekDay);
+
+                $simulatorSuggestion = new PlacementSuggestion();
+
+
+                $simulatorSuggestion->setTargetBetOn(
+                    BetOn::from($parameters[AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON])
+                );
+                if ($strategy->getIdentifier() === OverUnderStrategy::IDENT) {
+                    $simulatorSuggestion->setTargetValue($parameters[OverUnderStrategy::PARAMETER_TARGET_VALUE]);
+                }
+                $simulatorSuggestion->setSimulatorIdent($simulator->getIdentifier());
+                $simulatorSuggestion->setSimulatorId($simulator->getId());
+                $simulatorSuggestion->setSimulator($simulator);
+
+                $betPlacementSuggestion->addPlacementSuggestions($simulatorSuggestion);
+            }
+        }
+
+        return $this->render('tipico_simulation/weekday_suggestion.html.twig', [
+            'betPlacementSuggestionsContainer' => $betPlacementSuggestions,
         ]);
     }
 
@@ -290,5 +344,12 @@ class TipicoSimulationController extends AbstractController
             'statistics' => $statistics,
             'simulator' => $simulator,
         ]);
+    }
+
+    /**
+     * @param array<TipicoBet> $suggestions
+     */
+    public function categorizeSuggestions(array $suggestions): array
+    {
     }
 }

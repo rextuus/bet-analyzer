@@ -7,6 +7,7 @@ use App\Entity\BettingProvider\Simulator;
 use App\Entity\BettingProvider\SimulatorFavoriteList;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
+use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use DateTime;
 
 
@@ -127,5 +128,16 @@ class SimulatorService
         }
 
         return $this->repository->findBySimulatorsWithPlacements($ids, $from, $until);
+    }
+
+    /**
+     * @return array<Simulator>
+     */
+    public function findTopSimulatorsByWeekDay(
+        Weekday $weekday,
+        int $usedSimulators = 100,
+        float $minCashBox = 60.0
+    ): array {
+        return $this->repository->findTopSimulatorsByWeekDay($weekday, $usedSimulators, $minCashBox);
     }
 }

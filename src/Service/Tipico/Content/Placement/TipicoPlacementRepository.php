@@ -3,7 +3,6 @@
 namespace App\Service\Tipico\Content\Placement;
 
 use App\Entity\BettingProvider\Simulator;
-use App\Entity\BettingProvider\SimulatorFavoriteList;
 use App\Entity\BettingProvider\TipicoPlacement;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -65,13 +64,11 @@ class TipicoPlacementRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findBySimulatorsAndDateTime(SimulatorFavoriteList $simulatorFavoriteList, DateTime $from, DateTime $until)
+    /**
+     * @param array<int> $ids
+     */
+    public function findBySimulatorsAndDateTime(array $ids, DateTime $from, DateTime $until)
     {
-        $ids = [];
-        foreach ($simulatorFavoriteList->getSimulators() as $simulator) {
-            $ids[] = $simulator->getId();
-        }
-
         $qb = $this->createQueryBuilder('p');
         $qb->select('s.id, s.identifier, sum(p.value * p.input * p.won) - count(p.id) as changeVolume, count(p.id) as madeBets');
 
