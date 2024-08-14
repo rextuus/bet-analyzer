@@ -8,10 +8,12 @@ use App\Entity\BettingProvider\SimulatorFavoriteList;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
+use App\Service\Tipico\SimulationChartService;
 use App\Service\Tipico\SimulationStatisticService;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use Symfony\UX\Chartjs\Model\Chart;
 
 
 class FavoriteListStatisticService
@@ -20,8 +22,8 @@ class FavoriteListStatisticService
         private TipicoPlacementService $placementService,
         private SimulationStatisticService $simulationStatisticService,
         private SimulatorService $simulatorService,
-    )
-    {
+        private SimulationChartService $simulationChartService,
+    ) {
     }
 
     public function getStatisticForFavoriteList(
@@ -217,5 +219,38 @@ class FavoriteListStatisticService
         }
 
         return $dates;
+    }
+
+    public function getFavoriteListStatisticForTimePeriod(
+        SimulatorFavoriteList $simulatorFavoriteList,
+        ?DateTime $from = null,
+        ?DateTime $until = null
+    ): Chart {
+        if ($from === null) {
+            $from = new DateTime('-28 days');
+            $from->setTime(0, 0);
+        }
+
+        if ($until === null) {
+            $until = new DateTime();
+            $until->setTime(0, 0);
+        }
+
+        $results = [];
+        while ($from <= $until) {
+            $result = $this->placementService->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
+            $results[$from->format('d-m')] = array_sum(
+                array_map(
+                    function (array $item) {
+                        return $item['changeVolume'];
+                    },
+                    $result
+                )
+            );
+            $from->modify('+1 day');
+        }
+
+
+        return $this->simulationChartService->getBalanceColoredChart($results);
     }
 }

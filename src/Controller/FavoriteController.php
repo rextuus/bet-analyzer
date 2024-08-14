@@ -123,7 +123,11 @@ class FavoriteController extends AbstractController
     }
 
     #[Route('/detail/{simulatorFavoriteList}', name: 'app_favorite_detail')]
-    public function detail(Request $request, SimulatorFavoriteList $simulatorFavoriteList): Response
+    public function detail(
+        Request $request,
+        SimulatorFavoriteList $simulatorFavoriteList,
+        FavoriteListStatisticService $favoriteListStatisticService
+    ): Response
     {
         $currentDate = new DateTime();
         $currentDate->setTime(0, 0);
@@ -195,6 +199,8 @@ class FavoriteController extends AbstractController
             $totalClass = 'negative';
         }
 
+        $chart = $favoriteListStatisticService->getFavoriteListStatisticForTimePeriod($simulatorFavoriteList);
+
         // history
         return $this->render('favorite/detail.html.twig', [
             'form' => $form->createView(),
@@ -205,6 +211,8 @@ class FavoriteController extends AbstractController
             'possiblePlacements' => $possiblePlacements,
             'simulatorClass' => $simulatorClass,
             'container' => $container,
+            'favoriteList' => $simulatorFavoriteList,
+            'chart' => $chart,
         ]);
     }
 
