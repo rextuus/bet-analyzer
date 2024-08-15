@@ -69,8 +69,8 @@ class FavoriteListDynamicChart
 
     private function initializeFavoriteListPeriodStatisticData(): void
     {
-        $fromDate = new DateTime('-' . $this->fromYear . ' days');
-        $toDate = new DateTime('-' . $this->toYear . ' days');
+        $fromDate = new DateTime($this->fromYear . ' days');
+        $toDate = new DateTime($this->toYear . ' days');
 
         if ($this->favoriteListPeriodStatisticData === null) {
             $this->favoriteListPeriodStatisticData = $this->favoriteListStatisticService->getFavoriteListStatisticForTimePeriod(

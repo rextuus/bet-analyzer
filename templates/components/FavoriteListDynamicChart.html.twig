@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-2">
                 <label for="fromYear" class="form-label">
-                    From: <code><small>{{ "now"|date_modify('-'~this.fromYear~' day')|date('d.m.Y') }}</small></code>
+                    From: <code><small>{{ "now"|date_modify(this.fromYear~' day')|date('d.m.Y') }}</small></code>
                 </label>
                 <input
                         type="range"
@@ -17,7 +17,7 @@
 
             <div class="col-2">
                 <label for="toYear" class="form-label">
-                    To: <code><small>{{ "now"|date_modify('-'~this.toYear~' day')|date('d.m.Y') }}</small></code>
+                    To: <code><small>{{ "now"|date_modify(this.toYear~' day')|date('d.m.Y') }}</small></code>
                 </label>
                 <input
                         type="range"
