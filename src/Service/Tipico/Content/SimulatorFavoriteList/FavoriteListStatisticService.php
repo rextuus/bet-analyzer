@@ -7,13 +7,13 @@ namespace App\Service\Tipico\Content\SimulatorFavoriteList;
 use App\Entity\BettingProvider\SimulatorFavoriteList;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
+use App\Service\Tipico\Content\SimulatorFavoriteList\Data\FavoriteListPeriodStatisticData;
 use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use App\Service\Tipico\SimulationChartService;
 use App\Service\Tipico\SimulationStatisticService;
 use DateInterval;
 use DatePeriod;
 use DateTime;
-use Symfony\UX\Chartjs\Model\Chart;
 
 
 class FavoriteListStatisticService
@@ -224,33 +224,101 @@ class FavoriteListStatisticService
     public function getFavoriteListStatisticForTimePeriod(
         SimulatorFavoriteList $simulatorFavoriteList,
         ?DateTime $from = null,
-        ?DateTime $until = null
-    ): Chart {
+        ?DateTime $until = null,
+        float $input = 1.0
+    ): FavoriteListPeriodStatisticData {
+        $data = new FavoriteListPeriodStatisticData();
+
+
         if ($from === null) {
             $from = new DateTime('-28 days');
-            $from->setTime(0, 0);
         }
+        $from->setTime(0, 0);
 
         if ($until === null) {
             $until = new DateTime();
-            $until->setTime(0, 0);
         }
+        $until->setTime(0, 0);
 
-        $results = [];
+        $currentUntil = clone $from;
+        $currentUntil->setTime(0, 0);
+        $currentUntil->modify('+1 day');
+
+        $rawValues = [];
+        $madeBets = [];
         while ($from <= $until) {
-            $result = $this->placementService->findBySimulatorsAndDateTime($simulatorFavoriteList, $from, $until);
-            $results[$from->format('d-m')] = array_sum(
+            $result = $this->placementService->findBySimulatorsAndDateTime(
+                $simulatorFavoriteList,
+                $from,
+                $currentUntil
+            );
+            $rawValues[$from->format('d-m')] = array_sum(
                 array_map(
-                    function (array $item) {
-                        return $item['changeVolume'];
+                    function (array $item) use ($input) {
+                        return $item['changeVolume'] * $input;
                     },
                     $result
                 )
             );
+            $madeBets[$from->format('d-m')] = array_sum(
+                array_map(
+                    function (array $item) {
+                        return $item['madeBets'];
+                    },
+                    $result
+                )
+            );
+
+
             $from->modify('+1 day');
+            $currentUntil->modify('+1 day');
         }
 
+        $data->setTotalBalance(
+            array_sum(
+                $rawValues
+            )
+        );
 
-        return $this->simulationChartService->getBalanceColoredChart($results);
+        $data->setRawValues($rawValues);
+        $data->setDailyChart($this->simulationChartService->getBalanceColoredChart($rawValues));
+
+        $data->setTotalChart(
+            $this->simulationChartService->getDailyDistributionChartLine(
+                $this->getDailyPlacementDistribution($rawValues)
+            )
+        );
+        $data->setTotalBets(
+            array_sum(
+                $madeBets
+            )
+        );
+
+//dd($madeBets);
+        return $data;
+    }
+
+    private function getDailyPlacementDistribution(array $rawValues): array
+    {
+        // rawValues: ['day1' => 10.34, 'day2' => 3.45, ... 'dayN' => 5.43]
+        // create a new array with elements like this: ['day1' => 10.34, 'day2' => 10.34 + 3.45, ... 'dayN' => sum of all days]
+        $distribution = [];
+
+        $dayNames = array_keys($rawValues);
+
+        $lastDay = count($rawValues);
+        $currentLastDay = 0;
+
+        while ($currentLastDay < $lastDay) {
+            $sum = 0.0;
+            for ($day = 0; $day < $currentLastDay; $day++) {
+                $sum = $sum + $rawValues[$dayNames[$day]];
+            }
+            $distribution[$dayNames[$currentLastDay]] = $sum;
+
+            $currentLastDay++;
+        }
+
+        return $distribution;
     }
 }

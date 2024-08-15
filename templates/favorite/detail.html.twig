@@ -3,34 +3,41 @@
 {% block title %}Hello SimulatorController!{% endblock %}
 
 {% block body %}
-    <div class="form">
-        {{ form(form) }}
-    </div>
-    <div class="container">
-        <a href="{{ path('app_favorite_place', {simulatorFavoriteList: favoriteList.id}) }}" class="btn btn-primary">Place</a>
-    </div>
-    <div class="container">
-        {{ render_chart(chart) }}
-    </div>
+    {#    <div class="form"> #}
+    {#        {{ form(form) }} #}
+    {#    </div> #}
+
     <div class="favorite-detail">
+        <div class="container mb-4">
         <div class="name">{{ name }}</div>
-        <div class="total {{ container.listClass }}">{{ container.currentBalance }}€</div>
-        {% for simulator in container.simulatorDetails %}
-            <div class="favorite {{ simulator.simulatorClass }}">
-                <div class="row">
-                    <div class="ident">
-                        <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.simulator.id}) }}">{{ simulator.simulator.identifier }}</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="changeVolume">
-                        {{ simulator.currentBalance }}€
-                    </div>
-                    <div class="bets">
-                        {{ simulator.donePlacements }}/{{ simulator.possiblePlacements }}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+        </div>
+        <div class="container mb-4">
+            <a href="{{ path('app_favorite_list', {simulatorFavoriteList: favoriteList.id}) }}" class="btn btn-primary">List</a>
+            <a href="{{ path('app_favorite_place', {simulatorFavoriteList: favoriteList.id}) }}"
+               class="btn btn-primary">Place</a>
+        </div>
+        <div class="container mb-4">
+            <twig:FavoriteListDynamicChart :favoriteList="favoriteList"/>
+        </div>
+
+
+        {#        <div class="total {{ container.listClass }}">{{ container.currentBalance }}€</div> #}
+        {#        {% for simulator in container.simulatorDetails %} #}
+        {#            <div class="favorite {{ simulator.simulatorClass }}"> #}
+        {#                <div class="row"> #}
+        {#                    <div class="ident"> #}
+        {#                        <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.simulator.id}) }}">{{ simulator.simulator.identifier }}</a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#                <div class="row"> #}
+        {#                    <div class="changeVolume"> #}
+        {#                        {{ simulator.currentBalance }}€ #}
+        {#                    </div> #}
+        {#                    <div class="bets"> #}
+        {#                        {{ simulator.donePlacements }}/{{ simulator.possiblePlacements }} #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+        {#        {% endfor %} #}
     </div>
 {% endblock %}

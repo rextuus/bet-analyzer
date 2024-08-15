@@ -199,11 +199,11 @@ class FavoriteController extends AbstractController
             $totalClass = 'negative';
         }
 
-        $chart = $favoriteListStatisticService->getFavoriteListStatisticForTimePeriod($simulatorFavoriteList);
+//        $chart = $favoriteListStatisticService->getFavoriteListStatisticForTimePeriod($simulatorFavoriteList);
 
         // history
         return $this->render('favorite/detail.html.twig', [
-            'form' => $form->createView(),
+//            'form' => $form->createView(),
             'simulators' => $placements,
             'total' => $total,
             'name' => $simulatorFavoriteList->getIdentifier(),
@@ -212,7 +212,7 @@ class FavoriteController extends AbstractController
             'simulatorClass' => $simulatorClass,
             'container' => $container,
             'favoriteList' => $simulatorFavoriteList,
-            'chart' => $chart,
+//            'chart' => $chart,
         ]);
     }
 
@@ -291,6 +291,15 @@ class FavoriteController extends AbstractController
 
         return $this->render('favorite/add.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/test/{simulatorFavoriteList}', name: 'app_favorite_test')]
+    public function test(
+        SimulatorFavoriteList $simulatorFavoriteList,
+    ): Response {
+        return $this->render('favorite/test.html.twig', [
+            'favoriteList' => $simulatorFavoriteList
         ]);
     }
 }

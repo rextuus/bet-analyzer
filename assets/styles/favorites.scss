@@ -17,18 +17,20 @@
     background-color: #33396c;
     max-width: fit-content;
 
-    &.positive{
+    &.positive {
       background-color: $positive;
     }
-    &.negative{
+
+    &.negative {
       background-color: $negative;
     }
 
     padding: 15px;
+
     .row {
       display: flex;
 
-      .cashbox{
+      .cashbox {
         font-size: 1.8em;
         font-weight: bold;
       }
@@ -49,7 +51,8 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  .total{
+
+  .total {
     font-weight: bold;
     font-size: 1.9em;
     padding: 10px;
@@ -58,15 +61,16 @@
     background-color: #1a1c17;
     max-width: fit-content;
 
-    &.positive{
+    &.positive {
       background-color: $positive;
     }
-    &.negative{
+
+    &.negative {
       background-color: $negative;
     }
   }
 
-  .name{
+  .name {
     font-weight: bold;
     font-size: 2.9em;
     padding: 10px;
@@ -84,14 +88,16 @@
     background-color: #3a3a3a;
     max-width: fit-content;
 
-    &.positive{
+    &.positive {
       background-color: $positive;
     }
-    &.negative{
+
+    &.negative {
       background-color: $negative;
     }
 
     padding: 15px;
+
     .row {
       display: flex;
 
@@ -102,7 +108,7 @@
         color: black;
       }
 
-      .changeVolume{
+      .changeVolume {
         font-weight: bold;
       }
 
@@ -112,4 +118,30 @@
     }
 
   }
+
+  .cashbox-chart {
+    //min-width: 400px;
+    max-width: 600px;
+    background-color: $headerColor;
+    //max-height: 250px;
+    border: 5px solid #0a0800;
+    padding: 5px;
+
+    .favorite-list-dynamic-chart {
+      .summary {
+        font-size: 2.5em;
+      }
+
+      .total-balance {
+        &.positive {
+          background-color: $positive;
+        }
+
+        &.negative {
+          background-color: $negative;
+        }
+      }
+    }
+  }
 }
+

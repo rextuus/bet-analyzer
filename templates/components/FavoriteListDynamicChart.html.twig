@@ -1,0 +1,73 @@
+<div {{ attributes }}>
+    <div class="favorite-list-dynamic-chart">
+        <div class="row">
+            <div class="col-2">
+                <label for="fromYear" class="form-label">
+                    From: <code><small>{{ "now"|date_modify('-'~this.fromYear~' day')|date('d.m.Y') }}</small></code>
+                </label>
+                <input
+                        type="range"
+                        class="form-range"
+                        id="fromYear"
+                        data-model="fromYear"
+                        min="-200"
+                        max="{{ toYear }}"
+                >
+            </div>
+
+            <div class="col-2">
+                <label for="toYear" class="form-label">
+                    To: <code><small>{{ "now"|date_modify('-'~this.toYear~' day')|date('d.m.Y') }}</small></code>
+                </label>
+                <input
+                        type="range"
+                        class="form-range"
+                        id="toYear"
+                        data-model="toYear"
+                        min="{{ fromYear }}"
+                        max="0"
+                >
+            </div>
+
+            <div class="col-2">
+                <label for="input" class="form-label">
+                    Input:
+                </label>
+                <input
+                        type="number"
+                        class="form-control"
+                        id="input"
+                        data-model="input"
+                        min="1"
+                        max="10000"
+                        step="0.01"
+                >
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <span class="summary">
+                    <span class="total-balance {{ totalBalance >= 0 ? 'positive' : 'negative' }}">{{ totalBalance }}€</span>
+                    innerhalb der letzten {{ this.toYear - this.fromYear }} Tage mittels
+                    {{ totalBets }} platzierter Wetten
+                </span>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+
+            <div class="cashbox-chart">
+                {{ render_chart(balanceChart) }}
+
+            </div>
+
+            <div class="cashbox-chart">
+                {{ render_chart(chart) }}
+
+            </div>
+        </div>
+    </div>
+</div>

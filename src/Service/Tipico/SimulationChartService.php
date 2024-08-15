@@ -118,6 +118,43 @@ class SimulationChartService
         return $chart;
     }
 
+    public function getDailyDistributionChartLine(array $weekDayStatistics): Chart
+    {
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+
+        $labels = array_keys($weekDayStatistics);
+
+        $chart->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Won',
+                    'backgroundColor' => 'rgb(71, 80, 62)',
+                    'borderColor' => 'rgb(71, 80, 62)',
+                    'data' => $weekDayStatistics,
+                ],
+                [
+                    'pointRadius' => 0.0,
+                    'label' => 'Start',
+                    'backgroundColor' => 'rgb(198, 0, 15)',
+                    'borderColor' => 'rgb(198, 0, 15)',
+                    'data' => array_fill(0, count($labels), 0.0),
+                ],
+            ],
+
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => 20,
+                ],
+            ],
+        ]);
+        return $chart;
+    }
+
     public function getValueToWinDistributionChart(array $valueToWinStatistics): Chart
     {
         $chart = $this->chartBuilder->createChart(Chart::TYPE_BAR);
