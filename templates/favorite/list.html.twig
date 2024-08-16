@@ -3,12 +3,16 @@
 {% block title %}Hello SimulatorController!{% endblock %}
 
 {% block body %}
-    <div class="link"><a href="{{ path('app_tipico_simulation_dashboard') }}">To Weekday</a></div>
-    <div class="link"><a href="{{ path('app_favorite_list', {from: from, until: until}) }}">Today</a></div>
+    {#    <div class="link"><a href="{{ path('app_tipico_simulation_dashboard') }}">To Weekday</a></div> #}
+    {#    <div class="link"><a href="{{ path('app_favorite_list', {from: from, until: until}) }}">Today</a></div> #}
 
-    <div class="form">
-        {{ form(form) }}
+    {#    <div class="form"> #}
+    {#        {{ form(form) }} #}
+    {#    </div> #}
+    <div class="container mb-4 mt-4">
+        <a href="{{ path('app_tipico_simulation_dashboard') }}" class="btn btn-primary">Dashboard</a>
     </div>
+
     <div class="favorite-listing">
         {% for list in lists %}
             <div class="favorite {{ listClass[loop.index - 1] }}">

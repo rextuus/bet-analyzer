@@ -228,14 +228,32 @@ class FavoriteController extends AbstractController
             $params = json_decode($simulator->getStrategy()->getParameters(), true);
             $entry['targetBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON]);
             $entry['searchBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
+            $entry['activeOnCurrentWeekday'] = true;
+
+            if (array_key_exists(AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS, $params)) {
+                $currentWeekday = (new DateTime())->format('N');
+                $weekdays = $params[AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS];
+
+                $entry['activeOnCurrentWeekday'] = false;
+                foreach ($weekdays as $weekday) {
+                    if ($weekday == $currentWeekday) {
+                        $entry['activeOnCurrentWeekday'] = true;
+                    }
+                }
+            }
 
             $upcomingPlacements[] = $entry;
         }
 
+        usort($upcomingPlacements, function ($a, $b) {
+            return $b['activeOnCurrentWeekday'] <=> $a['activeOnCurrentWeekday'];
+        });
+
         return $this->render(
             'favorite/place.html.twig',
             [
-                'upcomingPlacements' => $upcomingPlacements
+                'upcomingPlacements' => $upcomingPlacements,
+                'list' => $simulatorFavoriteList
             ]
         );
     }

@@ -22,9 +22,6 @@ use App\Service\Tipico\Suggestion\BetPlacementSuggestionContainer;
 use App\Service\Tipico\Suggestion\PlacementSuggestion;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -58,13 +55,13 @@ class TipicoSimulationController extends AbstractController
         );
         $open = count($open);
 
-        $lastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7);
-        $beforeLastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(14, 7);
-        $lastSameWeekDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7, 6);
-        $yesterdayStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(1);
-        $currentDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfCurrentDay();
-        $cashBoxChart = $this->simulationStatisticService->getSimulatorCashBoxDistributionChart();
-        $distribution = $this->simulationStatisticService->getActiveSimulators();
+//        $lastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7);
+//        $beforeLastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(14, 7);
+//        $lastSameWeekDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7, 6);
+//        $yesterdayStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(1);
+//        $currentDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfCurrentDay();
+//        $cashBoxChart = $this->simulationStatisticService->getSimulatorCashBoxDistributionChart();
+//        $distribution = $this->simulationStatisticService->getActiveSimulators();
 
 
         $from = new DateTime();
@@ -80,16 +77,16 @@ class TipicoSimulationController extends AbstractController
             'open' => $open,
             'finished' => $total - $open,
             'chartHome' => $chartHome,
-            'lastWeekStatistic' => $lastWeekStatistic,
-            'beforeLastWeekStatistic' => $beforeLastWeekStatistic,
-            'lastSameWeekDayStatistic' => $lastSameWeekDayStatistic,
-            'yesterdayStatistic' => $yesterdayStatistic,
-            'currentDayStatistic' => $currentDayStatistic,
-            'cashBoxChart' => $cashBoxChart,
-            'totalSimulators' => $distribution['total'],
-            'inactiveSimulators' => $distribution['inactive'],
-            'activeSimulators' => $distribution['active'],
-            'inWinSimulators' => $distribution['inWin'],
+//            'lastWeekStatistic' => $lastWeekStatistic,
+//            'beforeLastWeekStatistic' => $beforeLastWeekStatistic,
+//            'lastSameWeekDayStatistic' => $lastSameWeekDayStatistic,
+//            'yesterdayStatistic' => $yesterdayStatistic,
+//            'currentDayStatistic' => $currentDayStatistic,
+//            'cashBoxChart' => $cashBoxChart,
+//            'totalSimulators' => $distribution['total'],
+//            'inactiveSimulators' => $distribution['inactive'],
+//            'activeSimulators' => $distribution['active'],
+//            'inWinSimulators' => $distribution['inWin'],
             'from' => $from->getTimestamp(),
             'until' => $until->getTimestamp(),
         ]);
@@ -104,12 +101,12 @@ class TipicoSimulationController extends AbstractController
             $choices[$ident] = $ident;
         }
 
-        $defaultData = [];
-        $form = $this->createFormBuilder($defaultData)
-            ->add('excludeNegative', CheckboxType::class, ['attr' => ['checked' => 1], 'required' => false])
-            ->add('variant', ChoiceType::class, ['multiple' => true, 'choices' => $choices])
-            ->add('filter', SubmitType::class)
-            ->getForm();
+//        $defaultData = [];
+//        $form = $this->createFormBuilder($defaultData)
+//            ->add('excludeNegative', CheckboxType::class, ['attr' => ['checked' => 1], 'required' => false])
+//            ->add('variant', ChoiceType::class, ['multiple' => true, 'choices' => $choices])
+//            ->add('filter', SubmitType::class)
+//            ->getForm();
 
         $filter = new SimulatorFilterData();
         $form = $this->createForm(SimulatorFilterType::class, $filter);
@@ -119,6 +116,7 @@ class TipicoSimulationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $filter = $form->getData();
         }
+        $filter->setMaxResults(30);
         $simulators = $this->simulatorService->findByFilter($filter);
 
         return $this->render('tipico_simulation/list.html.twig', [

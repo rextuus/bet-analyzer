@@ -35,12 +35,6 @@ final class Simulator
         return $table;
     }
 
-    public function getStatistics(): array
-    {
-        return $this->simulationStatisticService->getStatistics($this->simulator);
-
-    }
-
     public function getBetOutcomeChart(): Chart
     {
         return $this->simulationStatisticService->getBetOutcomeChart($this->simulator);

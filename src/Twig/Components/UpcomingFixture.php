@@ -25,6 +25,7 @@ final class UpcomingFixture
 
     public BetOn $targetBetOn;
     public BetOn $searchBetOn;
+    public bool $isActiveOnWeekDay = true;
     public ?float $overUnderTarget = null;
 
     public function getRows(): array
@@ -91,8 +92,21 @@ final class UpcomingFixture
 
             $matchName =  $fixture->getHomeTeamName() . ' - ' . $fixture->getAwayTeamName();
             $url = '<a href="https://www.google.com/search?q=' . $matchName . ' ' . $start->format('d.m.y H:i') . ' result" target="_blank">Google</a>';
-            $tipicoUrl = '<a href=https://sports.tipico.de/de/heute/default/event/' . $fixture->getTipicoId() . ' result" target="_blank">Tipico</a>';
-            $betanoUrl = '<a href="https://www.betano.de/" class="external-link" target="_blank" data-copy-text="'.$matchName.'">Betano</a>';
+
+
+            if ($this->isActiveOnWeekDay) {
+                $tipicoUrl = '<a href=https://sports.tipico.de/de/heute/default/event/' . $fixture->getTipicoId(
+                    ) . ' " target="_blank">Tipico</a>';
+
+                $betanoUrlValue = $fixture->getCorrespondedBetanoBet(
+                ) ? 'https://betano.de' . $fixture->getCorrespondedBetanoBet()->getUrl() : 'https://www.betano.de/';
+                $betanoUrl = '<a href="' . $betanoUrlValue . '" target="_blank" >Betano</a>';
+            } else {
+                // print names without href attributes
+                $tipicoUrl = '<span>Tipico</span>';
+                $betanoUrl = '<span>Betano</span>';
+            }
+
             $cssClasses = $this->calculateOddMatrix();
 //            dd($cssClasses);
             $mapped[] = sprintf(

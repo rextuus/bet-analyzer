@@ -11,7 +11,6 @@ $borderSize: 4px;
     background-color: $headerColor;
     color: #0a0800;
     border: #0a0800 solid 5px;
-
 }
 
 .simulator-detail-navi {
@@ -269,6 +268,28 @@ $borderSize: 4px;
     .np-date {
         .np-days {
             font-size: 2.5em;
+        }
+    }
+}
+
+.simulator-place {
+    @extend .simulator-detail;
+    display: flex;
+    flex-direction: column;
+
+    .simulator-detail-name {
+        max-width: 100%;
+        font-size: 1.1em;
+        font-weight: bold;
+        margin: 20px;
+        padding: 10px;
+        background-color: $positive;
+        color: #0a0800;
+        border: #0a0800 solid 5px;
+
+        &.inactive {
+            opacity: 0.5;
+            background-color: $neutral;
         }
     }
 }

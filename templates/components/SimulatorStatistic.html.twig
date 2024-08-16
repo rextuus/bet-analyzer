@@ -1,0 +1,15 @@
+<div{{ attributes }}>
+    {% if this.initialLoad %}
+        <button class="btn btn-success" data-action="live#action" data-live-action-param="getStatistic"
+                class="ProductGrid_more">
+            Load Statistic
+        </button>
+    {% else %}
+        {% set statistic = this.statistic %}
+        {% if statistic|length > 0 %}
+            <div class="row">
+                <div class="switchable-content-element active result-content">{{ component('KeyValueListing', {'container' : statistic['result']}) }}</div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>

@@ -1,17 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SimulatorController!{% endblock %}
+{% block title %}{{ list.identifier }} - PlacementsToday{% endblock %}
+
 
 {% block body %}
-    {% for upcomingPlacement in upcomingPlacements %}
-        <div class="simulator-detail">
-            <div>{{ upcomingPlacement['simulator'].identifier }}</div>
-            <div class="simulator-detail-widget">
+    <div class="">
+        <div class="container mb-4 mt-4">
+            <a href="{{ path('app_favorite_detail', {simulatorFavoriteList: list.id}) }}"
+               class="btn btn-primary">Detail</a>
+        </div>
+        {% for upcomingPlacement in upcomingPlacements %}
+            <div class="simulator-place">
+                <div class="simulator-detail-name {{ upcomingPlacement['activeOnCurrentWeekday'] ?: 'inactive' }} ">
+                    <i class="fa-solid fa-cash-register"></i>
 
-                <div class="upcoming-fixtures-detail">
-                    {{ component('UpcomingFixture', {'simulator' : upcomingPlacement['simulator'], 'fixtures' : upcomingPlacement['upcomingPlacements'], 'targetBetOn' : upcomingPlacement['targetBetOn'], 'searchBetOn': upcomingPlacement['searchBetOn'], 'overUnderTarget': null }) }}
+                    {{ upcomingPlacement['simulator'].identifier }}
+                </div>
+                <div class="simulator-detail-widget">
+
+                    <div class="upcoming-fixtures-detail">
+                        {{ component('UpcomingFixture', {'simulator' : upcomingPlacement['simulator'], 'fixtures' : upcomingPlacement['upcomingPlacements'], 'targetBetOn' : upcomingPlacement['targetBetOn'], 'searchBetOn': upcomingPlacement['searchBetOn'], 'overUnderTarget': null, isActiveOnWeekDay: upcomingPlacement['activeOnCurrentWeekday']}) }}
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}
