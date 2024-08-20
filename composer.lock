@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-  "content-hash": "f18fea52f2528269d5ffa3fc7b4082b2",
+  "content-hash": "a57dce8bdee40e37b24c07c8022427fd",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -3853,6 +3853,52 @@
             "time": "2024-02-26T09:27:19+00:00"
         },
         {
+          "name": "sherlockode/configuration-bundle",
+          "version": "v0.7.1",
+          "source": {
+            "type": "git",
+            "url": "https://github.com/sherlockode/configuration-bundle.git",
+            "reference": "41ac8e4119d68b7433d0a38fb0f19073d98b6b97"
+          },
+          "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sherlockode/configuration-bundle/zipball/41ac8e4119d68b7433d0a38fb0f19073d98b6b97",
+            "reference": "41ac8e4119d68b7433d0a38fb0f19073d98b6b97",
+            "shasum": ""
+          },
+          "require": {
+            "php": "^8.0",
+            "symfony/framework-bundle": "^6.0 || ^7.0",
+            "symfony/validator": "^6.0 || ^7.0",
+            "twig/twig": "^3.0"
+          },
+          "require-dev": {
+            "phpunit/phpunit": "^9.6"
+          },
+          "type": "symfony-bundle",
+          "autoload": {
+            "psr-4": {
+              "Sherlockode\\ConfigurationBundle\\": ""
+            }
+          },
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "MIT"
+          ],
+          "authors": [
+            {
+              "name": "Sherlockode",
+              "email": "contact@sherlockode.fr"
+            }
+          ],
+          "description": "Symfony bundle for user-defined configuration values",
+          "support": {
+            "issues": "https://github.com/sherlockode/configuration-bundle/issues",
+            "source": "https://github.com/sherlockode/configuration-bundle/tree/v0.7.1"
+          },
+          "time": "2024-01-26T10:00:35+00:00"
+        },
+      {
             "name": "symfony/apache-pack",
             "version": "v1.0.1",
             "source": {

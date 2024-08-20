@@ -55,6 +55,15 @@
                 </span>
             </div>
         </div>
+        <div class="row">
+            {% set extremeValues = this.extremeValues %}
+            <div class="col-6">
+                <span class="extreme-value max-loose">{{ extremeValues['min'] }}€ am {{ extremeValues['minDate'] }} verloren</span>
+            </div>
+            <div class="col-6">
+                <span class="extreme-value max-win">{{ extremeValues['max'] }}€ am {{ extremeValues['maxDate'] }} gewonnen</span>
+            </div>
+        </div>
         <hr>
 
         <div class="row">

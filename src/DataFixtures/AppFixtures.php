@@ -2,9 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Factory\BettingProvider\SimulatorFactory;
-use App\Factory\BettingProvider\SimulatorFavoriteListFactory;
-use App\Factory\BettingProvider\TipicoBetFactory;
 use App\Factory\BettingProvider\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -17,18 +14,18 @@ class AppFixtures extends Fixture
         // $manager->persist($product);
 
         UserFactory::createOne(['email' => 'admin@test.com']);
-        UserFactory::createMany(10);
-
-        $simulators = SimulatorFactory::createMany(60);
-
-        SimulatorFavoriteListFactory::createMany(5, function () use ($simulators) {
-            return [
-                'addSimulator' => $simulators[array_rand($simulators)]
-            ];
-        });
-
-
-        TipicoBetFactory::createMany(100);
+//        UserFactory::createMany(10);
+//
+//        $simulators = SimulatorFactory::createMany(60);
+//
+//        SimulatorFavoriteListFactory::createMany(5, function () use ($simulators) {
+//            return [
+//                'addSimulator' => $simulators[array_rand($simulators)]
+//            ];
+//        });
+//
+//
+//        TipicoBetFactory::createMany(100);
 
         $manager->flush();
     }

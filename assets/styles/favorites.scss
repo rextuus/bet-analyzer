@@ -145,3 +145,18 @@
   }
 }
 
+.extreme-value {
+  padding: 5px;
+  border-radius: 8px;
+  border: black solid 1px;
+
+  &.max-loose {
+    background-color: $negative;
+  }
+
+  &.max-win {
+    background-color: $positive;
+  }
+}
+
+

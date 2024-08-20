@@ -1,0 +1,11 @@
+# config/packages/sherlockode_configuration.yaml
+sherlockode_configuration:
+  entity_class:
+    parameter: App\Entity\BettingProvider\Parameter
+  parameters:
+    guess_access:
+      label: Allow guest access
+      type: simple
+      options:
+        # it is possible to customize the form type to use for a "simple" parameter type
+        subtype: Symfony\Component\Form\Extension\Core\Type\IntegerType

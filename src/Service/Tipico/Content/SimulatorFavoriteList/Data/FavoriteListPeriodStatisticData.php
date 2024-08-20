@@ -22,6 +22,11 @@ class FavoriteListPeriodStatisticData
     private float $totalBalance;
     private int $totalBets;
 
+    private float $dailyMin;
+    private string $dailyMinDate;
+    private float $dailyMax;
+    private string $dailyMaxDate;
+
     public function getRawValues(): array
     {
         return $this->rawValues;
@@ -85,6 +90,50 @@ class FavoriteListPeriodStatisticData
     public function setTotalBets(int $totalBets): FavoriteListPeriodStatisticData
     {
         $this->totalBets = $totalBets;
+        return $this;
+    }
+
+    public function getDailyMin(): float
+    {
+        return $this->dailyMin;
+    }
+
+    public function setDailyMin(float $dailyMin): FavoriteListPeriodStatisticData
+    {
+        $this->dailyMin = $dailyMin;
+        return $this;
+    }
+
+    public function getDailyMinDate(): string
+    {
+        return $this->dailyMinDate;
+    }
+
+    public function setDailyMinDate(string $dailyMinDate): FavoriteListPeriodStatisticData
+    {
+        $this->dailyMinDate = $dailyMinDate;
+        return $this;
+    }
+
+    public function getDailyMax(): float
+    {
+        return $this->dailyMax;
+    }
+
+    public function setDailyMax(float $dailyMax): FavoriteListPeriodStatisticData
+    {
+        $this->dailyMax = $dailyMax;
+        return $this;
+    }
+
+    public function getDailyMaxDate(): string
+    {
+        return $this->dailyMaxDate;
+    }
+
+    public function setDailyMaxDate(string $dailyMaxDate): FavoriteListPeriodStatisticData
+    {
+        $this->dailyMaxDate = $dailyMaxDate;
         return $this;
     }
 }

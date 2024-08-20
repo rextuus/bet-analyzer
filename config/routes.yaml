@@ -7,3 +7,5 @@ live_component_app:
     path: /app/_components/{_live_component}/{_live_action}
     defaults:
         _live_action: 'get'
+sherlockode_configuration:
+    resource: "@SherlockodeConfigurationBundle/Resources/config/routing.xml"

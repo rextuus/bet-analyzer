@@ -91,6 +91,9 @@
             "config/packages/sentry.yaml"
         ]
     },
+    "sherlockode/configuration-bundle": {
+        "version": "v0.7.1"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

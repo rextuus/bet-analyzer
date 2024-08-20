@@ -67,12 +67,25 @@ class FavoriteListDynamicChart
         return $this->favoriteListPeriodStatisticData->getTotalBets();
     }
 
+    #[ExposeInTemplate]
+    public function getExtremeValues(): array
+    {
+        $this->initializeFavoriteListPeriodStatisticData();
+
+        return [
+            'min' => $this->favoriteListPeriodStatisticData->getDailyMin(),
+            'minDate' => $this->favoriteListPeriodStatisticData->getDailyMinDate(),
+            'max' => $this->favoriteListPeriodStatisticData->getDailyMax(),
+            'maxDate' => $this->favoriteListPeriodStatisticData->getDailyMaxDate(),
+        ];
+    }
+
     private function initializeFavoriteListPeriodStatisticData(): void
     {
-        $fromDate = new DateTime($this->fromYear . ' days');
-        $toDate = new DateTime($this->toYear . ' days');
-
         if ($this->favoriteListPeriodStatisticData === null) {
+            $fromDate = new DateTime($this->fromYear . ' days');
+            $toDate = new DateTime($this->toYear . ' days');
+
             $this->favoriteListPeriodStatisticData = $this->favoriteListStatisticService->getFavoriteListStatisticForTimePeriod(
                 $this->favoriteList,
                 $fromDate,

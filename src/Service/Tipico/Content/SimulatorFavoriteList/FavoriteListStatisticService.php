@@ -246,13 +246,20 @@ class FavoriteListStatisticService
 
         $rawValues = [];
         $madeBets = [];
+        $minDailyChangeVolume = 0.0;
+        $minDailyChangeVolumeDate = null;
+        $maxDailyChangeVolume = 0.0;
+        $maxDailyChangeVolumeDate = null;
+
         while ($from <= $until) {
             $result = $this->placementService->findBySimulatorsAndDateTime(
                 $simulatorFavoriteList,
                 $from,
                 $currentUntil
             );
-            $rawValues[$from->format('d-m')] = array_sum(
+
+            // daily change volume
+            $dailyChangeVolume = array_sum(
                 array_map(
                     function (array $item) use ($input) {
                         return $item['changeVolume'] * $input;
@@ -260,6 +267,18 @@ class FavoriteListStatisticService
                     $result
                 )
             );
+            $rawValues[$from->format('d-m')] = $dailyChangeVolume;
+
+            if ($dailyChangeVolume <= $minDailyChangeVolume) {
+                $minDailyChangeVolume = $dailyChangeVolume;
+                $minDailyChangeVolumeDate = $from->format('d-m');
+            }
+            if ($dailyChangeVolume >= $maxDailyChangeVolume) {
+                $maxDailyChangeVolume = $dailyChangeVolume;
+                $maxDailyChangeVolumeDate = $from->format('d-m');
+            }
+
+            // made bets
             $madeBets[$from->format('d-m')] = array_sum(
                 array_map(
                     function (array $item) {
@@ -279,6 +298,10 @@ class FavoriteListStatisticService
                 $rawValues
             )
         );
+        $data->setDailyMin($minDailyChangeVolume);
+        $data->setDailyMinDate($minDailyChangeVolumeDate);
+        $data->setDailyMax($maxDailyChangeVolume);
+        $data->setDailyMaxDate($maxDailyChangeVolumeDate);
 
         $data->setRawValues($rawValues);
         $data->setDailyChart($this->simulationChartService->getBalanceColoredChart($rawValues));
@@ -294,7 +317,6 @@ class FavoriteListStatisticService
             )
         );
 
-//dd($madeBets);
         return $data;
     }
 
