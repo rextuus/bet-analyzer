@@ -13,6 +13,8 @@ use DateTime;
 
 class SimulatorService
 {
+    public const FILTER_OPTION_IDENTIFIER = 'identifier_filter';
+
     public function __construct(
         private readonly SimulatorRepository $repository,
         private readonly SimulatorFactory $factory,
@@ -115,9 +117,9 @@ class SimulatorService
      * @param string[] $strategyIdents
      * @return array<array<string, int>
      */
-    public function findByStrategies(array $strategyIdents, array $additional): array
+    public function findByStrategies(array $strategyIdents, array $additional, array $filterOptions): array
     {
-        return $this->repository->findByStrategies($strategyIdents, $additional);
+        return $this->repository->findByStrategies($strategyIdents, $additional, $filterOptions);
     }
 
     public function findBySimulatorsWithPlacements(SimulatorFavoriteList $simulatorFavoriteList, DateTime $from, DateTime $until)

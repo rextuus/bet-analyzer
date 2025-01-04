@@ -67,6 +67,7 @@ class SimulatorRepository extends ServiceEntityRepository
             $qb->setParameter('exclude', '%nsb%');
         }
 
+        // TODO this is working?? And where its used?
         if ($filter->getWeekday()) {
             $qb->andWhere('WEEKDAY(p.created) = :weekday');
             $qb->setParameter('weekday', $filter->getWeekday());
@@ -84,6 +85,7 @@ class SimulatorRepository extends ServiceEntityRepository
         $qb->groupBy('s');
         $qb->setMaxResults($filter->getMaxResults());
 
+        // TODO this is working?? And where its used?
         if ($filter->getWeekDay()) {
             $orderExpr = "SUM(CASE WHEN p.won = true THEN (p.value - p.input) ELSE 0 END) AS HIDDEN orderValue";
 
@@ -109,18 +111,30 @@ class SimulatorRepository extends ServiceEntityRepository
 
     /**
      * @param string[] $strategyIdents
+     * @param array<string, string> $filterOptions
      * @return array<array<string, int>
      */
-    public function findByStrategies(array $strategyIdents, array $additional): array
+    public function findByStrategies(array $strategyIdents, array $additional, $filterOptions): array
     {
         $qb = $this->createQueryBuilder('s');
         $qb->select('s.id');
         $qb->leftJoin(SimulationStrategy::class, 'ss', 'WITH', 's.strategy = ss.id');
         $qb->andWhere($qb->expr()->in('ss.identifier', ':strategy'));
         $qb->setParameter('strategy', $strategyIdents);
+
         if (count($additional) > 0){
             $qb->andWhere($qb->expr()->in('ss.additionalProcessingIdent', ':additional'));
             $qb->setParameter('additional', $additional);
+        }
+
+        if (count($filterOptions) > 0) {
+            if (array_key_exists(SimulatorService::FILTER_OPTION_IDENTIFIER, $filterOptions)) {
+                $qb->andWhere($qb->expr()->like('s.identifier', ':filterOption'));
+                $qb->setParameter(
+                    'filterOption',
+                    '%' . $filterOptions[SimulatorService::FILTER_OPTION_IDENTIFIER] . '%'
+                );
+            }
         }
 
         return $qb->getQuery()->getResult();

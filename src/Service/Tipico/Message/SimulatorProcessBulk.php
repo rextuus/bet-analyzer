@@ -13,4 +13,5 @@ enum SimulatorProcessBulk : string
     case HEAD_TO_HEAD_SIMULATORS_NSB = 'head_to_head_simulators_nsb';
     case OVER_UNDER_SIMULATORS_NSB = 'over_under_simulators_nsb';
     case THREE_WAY_SIMULATORS_RANDOM_INPUT = 'three_way_simulators_ri';
+    case TOP_WEEKDAY_SIMULATORS = 'top_weekday_simulators';
 }

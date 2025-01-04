@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Tipico\Message;
 
+use App\Command\WeekdayStatisticCommand;
 use App\Service\Tipico\Content\SimulationStrategy\AdditionalProcessingIdent;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\BothTeamsScoreStrategy;
@@ -24,6 +25,7 @@ class InitSimulatorProcessingHandler
     {
         $strategies = [];
         $additional = [];
+        $filterOptions = [];
         if ($message->getBulk() === SimulatorProcessBulk::THREE_WAY_SIMULATORS){
             $strategies = [SimpleStrategy::IDENT];
         }
@@ -59,7 +61,17 @@ class InitSimulatorProcessingHandler
             $additional = [AdditionalProcessingIdent::USER_RANDOM_INPUT];
         }
 
-        $simulators = $this->simulatorService->findByStrategies($strategies, $additional);
+        if ($message->getBulk() === SimulatorProcessBulk::TOP_WEEKDAY_SIMULATORS) {
+            $strategies = [
+                SimpleStrategy::IDENT,
+                OverUnderStrategy::IDENT,
+                BothTeamsScoreStrategy::IDENT,
+                HeadToHeadStrategy::IDENT
+            ];
+            $filterOptions = [SimulatorService::FILTER_OPTION_IDENTIFIER => WeekdayStatisticCommand::POSTFIX];
+        }
+
+        $simulators = $this->simulatorService->findByStrategies($strategies, $additional, $filterOptions);
 
         foreach ($simulators as $simulator){
             $processMessage = new ProcessSimulatorMessage($simulator['id']);

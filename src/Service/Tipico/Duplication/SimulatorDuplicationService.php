@@ -24,7 +24,11 @@ class SimulatorDuplicationService
     /**
      * @param array<Weekday> $weekdays
      */
-    public function duplicateSimulatorAndLimitToWeekdays(Simulator $simulator, array $weekdays): Simulator
+    public function duplicateSimulatorAndLimitToWeekdays(
+        Simulator $simulator,
+        array $weekdays,
+        ?string $postfix = null
+    ): Simulator
     {
         $simulatorData = (new SimulatorData())->initFromEntity($simulator);
         $simulatorStrategyData = (new SimulationStrategyData())->initFromEntity($simulator->getStrategy());
@@ -36,6 +40,9 @@ class SimulatorDuplicationService
 
         $simulatorData->setCashBox(100.0);
         $weekDayPostfix = '';
+        if ($postfix !== null) {
+            $weekDayPostfix = '_' . $postfix;
+        }
         foreach ($weekdays as $weekday) {
             $weekDayPostfix = $weekDayPostfix . '_' . $weekday->name;
         }
