@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Service\Evaluation;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class SlideWindowFactory
 {
     public function calculateStepsForSlideWindow(float $min, float $max, float $interval): array

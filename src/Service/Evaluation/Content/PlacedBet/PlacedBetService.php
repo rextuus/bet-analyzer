@@ -7,7 +7,9 @@ use App\Entity\Spm\PlacedBet;
 use App\Service\Evaluation\Content\PlacedBet\Data\PlacedBetData;
 use Doctrine\ORM\EntityManagerInterface;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class PlacedBetService
 {
     public function __construct(private readonly PlacedBetRepository $repository, private readonly PlacedBetFactory $factory, private readonly EntityManagerInterface $entityManager)

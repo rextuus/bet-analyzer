@@ -8,6 +8,9 @@ use App\Service\Evaluation\Content\BetRowOddFilter\BetRowOddFilterService;
 use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 #[AsMessageHandler]
 class PlaceBetMessageHandler
 {

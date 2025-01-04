@@ -8,7 +8,9 @@ use App\Entity\Spm\SpmSeason;
 use App\Service\Evaluation\Content\BetRow\BetRowInterface;
 use App\Service\Evaluation\Content\PlacedBet\BetRowVariant;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class ClassicBetRowCalculatorInitData
 {
     private BetRowInterface $betRow;

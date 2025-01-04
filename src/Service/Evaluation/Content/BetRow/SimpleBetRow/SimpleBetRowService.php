@@ -9,7 +9,9 @@ use App\Entity\Spm\SimpleBetRow;
 use App\Entity\Spm\SpmSeason;
 use App\Service\Evaluation\Content\BetRow\SimpleBetRow\Data\SimpleBetRowData;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class SimpleBetRowService
 {
     public function __construct(

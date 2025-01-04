@@ -7,7 +7,9 @@ namespace App\Service\Sportmonks\Content\Round;
 use App\Entity\Spm\SpmRound;
 use App\Service\Sportmonks\Content\Round\Data\SpmRoundData;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class SpmRoundService
 {
     public function __construct(private SpmRoundRepository $repository, private SpmRoundFactory $factory)

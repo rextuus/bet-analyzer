@@ -2,6 +2,9 @@
 
 namespace App\Service\Evaluation\Message;
 
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 final class CalculateSummariesMessage
 {
     private int $seasonApiId;

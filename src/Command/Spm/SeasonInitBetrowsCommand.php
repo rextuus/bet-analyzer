@@ -10,6 +10,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 #[AsCommand(
     name: 'season:init:betrows',
     description: 'Add a short description for your command',

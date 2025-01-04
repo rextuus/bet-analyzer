@@ -5,6 +5,9 @@ namespace App\Service\Evaluation\Message;
 use App\Form\InitSimpleBetRowsForSeasonData;
 use App\Service\Evaluation\BetOn;
 
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 final class InitBetRowMessage
 {
     /*

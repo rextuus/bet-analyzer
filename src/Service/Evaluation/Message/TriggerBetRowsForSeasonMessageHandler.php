@@ -11,6 +11,9 @@ use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 final class TriggerBetRowsForSeasonMessageHandler implements MessageHandlerInterface
 {
 

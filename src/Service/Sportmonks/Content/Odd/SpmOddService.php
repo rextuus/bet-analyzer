@@ -10,7 +10,9 @@ use App\Entity\Spm\SpmOdd;
 use App\Service\Sportmonks\Content\Odd\Data\SpmOddData;
 use Doctrine\ORM\EntityManagerInterface;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class SpmOddService
 {
     public function __construct(private SpmOddRepository $repository, private SpmOddFactory $factory, private EntityManagerInterface $entityManager)

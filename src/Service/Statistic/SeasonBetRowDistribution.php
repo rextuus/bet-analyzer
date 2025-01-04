@@ -5,7 +5,9 @@ namespace App\Service\Statistic;
 
 use App\Entity\Spm\BetRowSummary;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class SeasonBetRowDistribution
 {
     private array $variants;

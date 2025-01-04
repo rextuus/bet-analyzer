@@ -6,7 +6,9 @@ namespace App\Service\Evaluation\Message;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 #[AsMessageHandler]
 class InitOddOutcomeMessageHandler
 {

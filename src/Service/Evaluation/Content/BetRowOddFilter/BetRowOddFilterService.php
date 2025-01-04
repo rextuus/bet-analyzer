@@ -7,7 +7,9 @@ namespace App\Service\Evaluation\Content\BetRowOddFilter;
 use App\Entity\Spm\BetRowOddFilter;
 use App\Service\Evaluation\Content\BetRowOddFilter\Data\BetRowOddFilterData;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class BetRowOddFilterService
 {
     public function __construct(

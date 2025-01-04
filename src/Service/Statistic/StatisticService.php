@@ -14,7 +14,9 @@ use App\Service\Statistic\Content\BetRowSummary\Data\BetRowSummaryData;
 use App\Service\Statistic\Content\SeasonSummary\Data\SeasonSummaryData;
 use App\Service\Statistic\Content\SeasonSummary\SeasonSummaryService;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class StatisticService
 {
     public function __construct(

@@ -9,7 +9,9 @@ use App\Entity\Spm\SpmFixture;
 use App\Entity\Spm\SpmSeason;
 use App\Service\Sportmonks\Content\Fixture\Data\SpmFixtureData;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class SpmFixtureService
 {
     public function __construct(private SpmFixtureRepository $repository, private SpmFixtureFactory $factory)

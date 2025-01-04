@@ -7,7 +7,9 @@ use App\Entity\Spm\SpmScore;
 use App\Service\Sportmonks\Content\Score\Data\SpmScoreData;
 use Doctrine\ORM\EntityManagerInterface;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class SpmScoreService
 {
     public function __construct(private SpmScoreRepository $repository, private SpmScoreFactory $factory, private EntityManagerInterface $entityManager)

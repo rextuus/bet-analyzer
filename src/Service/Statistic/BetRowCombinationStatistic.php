@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Service\Statistic;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class BetRowCombinationStatistic
 {
     private float $total;

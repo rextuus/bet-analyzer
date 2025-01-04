@@ -25,7 +25,9 @@ use App\Service\Sportmonks\Content\Round\SpmRoundService;
 use App\Service\Sportmonks\Content\Score\SpmScoreService;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class BetRowCalculator
 {
 

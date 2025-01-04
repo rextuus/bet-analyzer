@@ -5,6 +5,9 @@ namespace App\Service\Evaluation\Message;
 use App\Service\Evaluation\Content\PlacedBet\BetRowVariant;
 use App\Service\Evaluation\OddAccumulationVariant;
 
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 final class PlaceBetMessage
 {
     /*

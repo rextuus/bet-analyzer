@@ -5,7 +5,9 @@ namespace App\Service\Statistic;
 
 use DateTimeInterface;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class CombinationMadeBetEvent
 {
     private string $shortName;

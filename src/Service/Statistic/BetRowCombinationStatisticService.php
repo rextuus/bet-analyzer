@@ -9,7 +9,9 @@ use App\Service\Sportmonks\Content\Fixture\SpmFixtureService;
 use App\Service\Sportmonks\Content\Season\SpmSeasonService;
 use App\Service\Statistic\Content\BetRowCombination\BetRowCombinationService;
 
-
+/**
+ * @deprecated SPM can be removed. Data are not worthy and won't be used anymore
+ */
 class BetRowCombinationStatisticService
 {
     // BetRows should be marked and added/removed to a collection => entity
