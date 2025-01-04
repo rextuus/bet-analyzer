@@ -165,7 +165,7 @@ class TipicoBetRepository extends ServiceEntityRepository
             $qb->setParameter('until', $until);
         }
 
-        $qb->setMaxResults(500);
+        $qb->setMaxResults(800);
 
         return $qb->getQuery()->getResult();
     }

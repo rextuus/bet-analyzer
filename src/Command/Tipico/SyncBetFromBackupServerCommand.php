@@ -61,7 +61,7 @@ class SyncBetFromBackupServerCommand extends Command
 
         // Call the API endpoint to fetch Tipico bets
         $httpClient = HttpClient::create();
-        $server = '35.246.218.255/bet-analyzer/public/index.php';
+        $server = '34.89.148.146';
         $response = $httpClient->request('GET', "http://$server/api/bets?from=$fromDateTimeStamp&until=$untilDateTimeStamp");
 
         // Deserialize the JSON response into TipicoBet entities

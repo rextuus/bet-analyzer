@@ -5,11 +5,9 @@ namespace App\Command\Tipico;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\SimulationStrategy\Data\SimulationStrategyData;
 use App\Service\Tipico\Content\SimulationStrategy\SimulationStrategyService;
-use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationProcessors\BothTeamsScoreStrategy;
-use App\Service\Tipico\SimulationProcessors\SimpleStrategy;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -58,7 +56,8 @@ class InitBothTeamsScoreSimulatorCommand extends AbstractSimulatorCommand
         $parameters = [
             AbstractSimulationProcessor::PARAMETER_MIN => $min,
             AbstractSimulationProcessor::PARAMETER_MAX => $max,
-            AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => $betOn,
+            AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON => BetOn::AWAY->value,
+            AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON => $betOn,
         ];
 
         $simulationStrategyData = new SimulationStrategyData();

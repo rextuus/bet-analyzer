@@ -5,6 +5,7 @@ namespace App\Service\Tipico;
 
 use App\Entity\BettingProvider\Simulator;
 use App\Entity\BettingProvider\TipicoBet;
+use App\Service\Backup\BackupServerApiService;
 use App\Service\Tipico\Api\Response\TipicoDailyMatchesResponse;
 use App\Service\Tipico\Api\TipicoApiGateway;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
@@ -27,6 +28,7 @@ class TipicoBetSimulationService
         private readonly SimulationStrategyProcessorProvider $processorProvider,
         private readonly TelegramMessageService $telegramMessageService,
         private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly BackupServerApiService $backupServerApiService,
         private readonly float $cashBoxLimit,
     )
     {
@@ -130,6 +132,28 @@ class TipicoBetSimulationService
     {
         $response = $this->tipicoApiGateway->getEventInfo((string)$match->getTipicoId());
         if(!$response){
+            return false;
+        }
+
+        $data = (new TipicoBetData())->initFromEntity($match);
+
+        if ($response->isGameIsFinished()) {
+            $data->setEndScoreHome($response->getHomeGoals());
+            $data->setEndScoreAway($response->getAwayGoals());
+            $data->setResult($response->getResult());
+            $data->setFinished(true);
+
+            $this->tipicoBetService->update($match, $data);
+            return true;
+        }
+
+        return false;
+    }
+
+    public function checkMatchOutcomesFromBackupServer(TipicoBet $match): bool
+    {
+        $response = $this->backupServerApiService->getEventInfo((string)$match->getTipicoId());
+        if (!$response) {
             return false;
         }
 
