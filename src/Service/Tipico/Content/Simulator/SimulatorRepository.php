@@ -84,6 +84,7 @@ class SimulatorRepository extends ServiceEntityRepository
 
         $qb->groupBy('s');
         $qb->setMaxResults($filter->getMaxResults());
+        $qb->setFirstResult($filter->getOffset());
 
         // TODO this is working?? And where its used?
         if ($filter->getWeekDay()) {

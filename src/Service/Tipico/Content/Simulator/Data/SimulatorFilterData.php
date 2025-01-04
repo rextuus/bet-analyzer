@@ -15,6 +15,7 @@ class SimulatorFilterData
     private ?int $minBets = null;
     private ?int $maxBets = null;
     private int $maxResults = 20;
+    private int $offset = 0;
 
     public function isExcludeNegative(): bool
     {
@@ -113,6 +114,17 @@ class SimulatorFilterData
     public function setExcludeNsb(bool $excludeNsb): SimulatorFilterData
     {
         $this->excludeNsb = $excludeNsb;
+        return $this;
+    }
+
+    public function getOffset(): int
+    {
+        return $this->offset;
+    }
+
+    public function setOffset(int $offset): SimulatorFilterData
+    {
+        $this->offset = $offset;
         return $this;
     }
 }

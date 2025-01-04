@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Entity\BettingProvider\Simulator;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\SimulatorFavoriteListData;
@@ -15,6 +16,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'WeekdayStatistic',
@@ -61,46 +63,44 @@ class WeekdayStatisticCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $weekday = $input->getArgument('weekday');
-        $weekday = Weekday::tryFrom($weekday);
+        $io = new SymfonyStyle($input, $output);
 
-        $weekdays = [$weekday];
-        if ($weekday === null) {
-            $weekdays = Weekday::cases();
+        $weekday = $input->getArgument('weekday');
+        $day = Weekday::tryFrom($weekday);
+
+        if ($day === null) {
+            $io->error(sprintf('Weekday %s not found', $weekday));
         }
 
         $excludeWeekdaySpecific = $input->getArgument('excludeWeekdaySpecific');
         if ($excludeWeekdaySpecific) {
-            $output->writeln('Weekday specific simulators will be excluded');
+            $io->writeln('Weekday specific simulators will be excluded');
         }
 
         $removeDuplicates = $input->getArgument('removeDuplicates');
         if ($removeDuplicates) {
-            $output->writeln('Removing duplicates from over/under simulators');
+            $io->writeln('Removing duplicates from over/under simulators');
         }
 
         $minAmountEarned = (float)$input->getArgument('min');
-        $output->writeln('Simulators need to have at least a cashbox amount of ' . $minAmountEarned);
+        $io->writeln('Simulators need to have at least a cashbox amount of ' . $minAmountEarned);
 
         $maxSimulators = $input->getArgument('maxSimulators');
-        $output->writeln('At least ' . $maxSimulators . ' will be added to new Favorite Lists');
+        $io->writeln('At least ' . $maxSimulators . ' will be added to new Favorite Lists');
 
         $isDryRun = $input->getOption('dry-run');
         if ($isDryRun) {
             $output->writeln('Dry run');
         }
 
-        // create filter to get all simulators
-        $filter = new SimulatorFilterData();
-        $filter->setMaxResults(1000000);
-        $filter->setExcludeNegative(false);
+        $io->writeln('Search top simulators for: ' . $day->name);
 
-        $filter->setMinCashBox(60.0);
-        $simulators = $this->simulatorService->findByFilter($filter);
+        $simulatorsByCash = [];
 
-        foreach ($weekdays as $day) {
-            $output->writeln($day->name);
-            $simulatorsByCash = [];
+        $offset = 0;
+        $batchSize = 100;
+        $batchNr = 1;
+        while ($simulators = $this->fetchSimulators($offset, $batchSize)) {
             foreach ($simulators as $simulator) {
                 // remove weekday specific one
                 $skip = false;
@@ -130,99 +130,124 @@ class WeekdayStatisticCommand extends Command
                 }
             }
 
-            // sort for the best ones
-            arsort($simulatorsByCash);
+            $offset += $batchSize;
+            $io->writeln('Processed batch nr. ' . $batchNr);
+            $batchNr++;
+        }
 
-            // reduce the list to 4 x $maxSimulators amount
-            $simulatorsByCash = array_slice($simulatorsByCash, 0, 4 * $maxSimulators, true);
+        // sort for the best ones
+        arsort($simulatorsByCash);
 
-            // remove "duplicates"
-            if ($removeDuplicates) {
-                $overUnderSimulators = [];
+        // reduce the list to 4 x $maxSimulators amount
+        $simulatorsByCash = array_slice($simulatorsByCash, 0, 4 * $maxSimulators, true);
 
-                // sort by exactly cash amount
-                foreach ($simulatorsByCash as $id => $cash) {
-                    $simulator = $this->simulatorService->find($id);
-                    if ($simulator->getStrategy()->getIdentifier() === OverUnderStrategy::IDENT) {
-                        $ident = sprintf('%.2f', $cash);
-                        if (!array_key_exists($ident, $overUnderSimulators)) {
-                            $overUnderSimulators[$ident] = [];
-                        }
-                        $overUnderSimulators[$ident][$id] = $simulator->getIdentifier();
-                    }
-                }
+        // remove "duplicates"
+        if ($removeDuplicates) {
+            $overUnderSimulators = [];
 
-                // remove duplicates
-                $duplicates = [];
-                $seen = [];
-                foreach ($overUnderSimulators as $cashAmount => $simulatorsWithSameAmount) {
-                    foreach ($simulatorsWithSameAmount as $id => $value) {
-                        // Extract the part before `_target` and normalize the search type
-                        if (preg_match('/search_([A-Z]+)(?:_\[\d+\])?_([0-9]+_[0-9]+)_target/', $value, $matches)) {
-                            $searchType = $matches[1]; // Normalized search type (e.g., "OVER" or "UNDER")
-                            $numberPattern = $matches[2]; // The number pattern (e.g., "47_48")
-
-                            // Combine these two as a unique key for grouping
-                            $key = "{$searchType}_{$numberPattern}";
-
-                            // Check if we've seen this combination before
-                            if (isset($seen[$key])) {
-                                // Increment duplicate count
-                                $duplicates[$numberPattern][] = [
-                                    'id' => $id,
-                                    'identifier' => $value,
-                                ];
-                            } else {
-                                // First time seeing this combination
-                                $seen[$key] = true;
-                            }
-                        }
-                    }
-                }
-
-                foreach ($duplicates as $numberPattern => $similarSimulators) {
-                    if (count($similarSimulators) > 1) {
-                        // remove simulators from $simulatorsByCash
-                        foreach ($similarSimulators as $simulator) {
-                            unset($simulatorsByCash[$simulator['id']]);
-                        }
-                    }
-                }
-            }
-
-            $counter = 0;
-            $newSimulators = [];
+            // sort by exactly cash amount
             foreach ($simulatorsByCash as $id => $cash) {
-                if ($counter < $maxSimulators) {
-                    $simulator = $this->simulatorService->find($id);
-                    $output->writeln(
-                        sprintf(
-                            'Copy Simulator %s with win of %.2f',
-                            $simulator->getIdentifier(),
-                            $simulatorsByCash[$id]
-                        )
-                    );
-                    if (!$isDryRun) {
-                        $newSimulators[] = $this->duplicationService->duplicateSimulatorAndLimitToWeekdays(
-                            $simulator,
-                            [$day],
-                            self::POSTFIX,
-                        );
+                $simulator = $this->simulatorService->find($id);
+                if ($simulator->getStrategy()->getIdentifier() === OverUnderStrategy::IDENT) {
+                    $ident = sprintf('%.2f', $cash);
+                    if (!array_key_exists($ident, $overUnderSimulators)) {
+                        $overUnderSimulators[$ident] = [];
                     }
+                    $overUnderSimulators[$ident][$id] = $simulator->getIdentifier();
                 }
-                $counter++;
             }
 
-            if (!$isDryRun) {
-                $favoriteListData = new SimulatorFavoriteListData();
-                $favoriteListData->setIdentifier('Top_simulators_' . $day->name);
-                $favoriteListData->setCreated(new DateTime());
-                $favoriteListData->setSimulators($newSimulators);
+            // remove duplicates
+            $duplicates = [];
+            $seen = [];
+            foreach ($overUnderSimulators as $cashAmount => $simulatorsWithSameAmount) {
+                foreach ($simulatorsWithSameAmount as $id => $value) {
+                    // Extract the part before `_target` and normalize the search type
+                    if (preg_match('/search_([A-Z]+)(?:_\[\d+\])?_([0-9]+_[0-9]+)_target/', $value, $matches)) {
+                        $searchType = $matches[1]; // Normalized search type (e.g., "OVER" or "UNDER")
+                        $numberPattern = $matches[2]; // The number pattern (e.g., "47_48")
 
-                $favoriteList = $this->favoriteListService->createByData($favoriteListData);
+                        // Combine these two as a unique key for grouping
+                        $key = "{$searchType}_{$numberPattern}";
+
+                        // Check if we've seen this combination before
+                        if (isset($seen[$key])) {
+                            // Increment duplicate count
+                            $duplicates[$numberPattern][] = [
+                                'id' => $id,
+                                'identifier' => $value,
+                            ];
+                        } else {
+                            // First time seeing this combination
+                            $seen[$key] = true;
+                        }
+                    }
+                }
+            }
+
+            foreach ($duplicates as $numberPattern => $similarSimulators) {
+                if (count($similarSimulators) > 1) {
+                    // remove simulators from $simulatorsByCash
+                    foreach ($similarSimulators as $simulator) {
+                        unset($simulatorsByCash[$simulator['id']]);
+                    }
+                }
             }
         }
 
+        $counter = 0;
+        $newSimulators = [];
+        foreach ($simulatorsByCash as $id => $cash) {
+            if ($counter < $maxSimulators) {
+                $simulator = $this->simulatorService->find($id);
+                $output->writeln(
+                    sprintf(
+                        'Copy Simulator %s with win of %.2f',
+                        $simulator->getIdentifier(),
+                        $simulatorsByCash[$id]
+                    )
+                );
+                if (!$isDryRun) {
+                    $newSimulators[] = $this->duplicationService->duplicateSimulatorAndLimitToWeekdays(
+                        $simulator,
+                        [$day],
+                        self::POSTFIX,
+                    );
+                }
+            }
+            $counter++;
+        }
+
+        if (!$isDryRun) {
+            $favoriteListData = new SimulatorFavoriteListData();
+            $favoriteListData->setIdentifier('Top_simulators_' . $day->name);
+            $favoriteListData->setCreated(new DateTime());
+            $favoriteListData->setSimulators($newSimulators);
+
+            $favoriteList = $this->favoriteListService->createByData($favoriteListData);
+        }
+
+
         return Command::SUCCESS;
+    }
+
+    /**
+     * @return array<Simulator>|false
+     */
+    private function fetchSimulators(int $offset, int $batchSize): array|false
+    {
+        $filter = new SimulatorFilterData();
+        $filter->setOffset($offset);
+        $filter->setMaxResults($batchSize);
+        $filter->setExcludeNegative(false);
+
+        $filter->setMinCashBox(50.0);
+        $simulators = $this->simulatorService->findByFilter($filter);
+
+        if (count($simulators) > 0) {
+            return $simulators;
+        }
+
+        return false;
     }
 }
