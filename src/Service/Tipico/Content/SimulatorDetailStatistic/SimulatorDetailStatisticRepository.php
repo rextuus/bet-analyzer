@@ -3,7 +3,9 @@
 namespace App\Service\Tipico\Content\SimulatorDetailStatistic;
 
 use App\Entity\BettingProvider\SimulatorDetailStatistic;
+use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -54,4 +56,28 @@ class SimulatorDetailStatisticRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    /**
+     * @return array<SimulatorDetailStatistic>
+     */
+    public function findByWeekdayOrderedDesc(Weekday $weekday): array
+    {
+        $qb = $this->createQueryBuilder('s');
+        match ($weekday) {
+            Weekday::Monday => $this->addSortCondition($qb, 'mondayTotal'),
+            Weekday::Tuesday => $this->addSortCondition($qb, 'tuesdayTotal'),
+            Weekday::Wednesday => $this->addSortCondition($qb, 'wednesdayTotal'),
+            Weekday::Thursday => $this->addSortCondition($qb, 'thursdayTotal'),
+            Weekday::Friday => $this->addSortCondition($qb, 'fridayTotal'),
+            Weekday::Saturday => $this->addSortCondition($qb, 'saturdayTotal'),
+            Weekday::Sunday => $this->addSortCondition($qb, 'sundayTotal'),
+        };
+
+        return $qb->getQuery()->getResult();
+    }
+
+    private function addSortCondition(QueryBuilder $qb, string $sortProperty): void
+    {
+        $qb->orderBy('s.' . $sortProperty, 'DESC');
+    }
 }

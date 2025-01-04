@@ -6,6 +6,7 @@ namespace App\Service\Tipico\Content\SimulatorDetailStatistic;
 
 use App\Entity\BettingProvider\SimulatorDetailStatistic;
 use App\Service\Tipico\Content\SimulatorDetailStatistic\Data\SimulatorDetailStatisticData;
+use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use DateTime;
 
 class SimulatorDetailStatisticService
@@ -39,5 +40,13 @@ class SimulatorDetailStatisticService
     public function findBy(array $conditions): array
     {
         return $this->repository->findBy($conditions);
+    }
+
+    /**
+     * @return array<SimulatorDetailStatistic>
+     */
+    public function findByWeekdayOrderedDesc(Weekday $weekday): array
+    {
+        return $this->repository->findByWeekdayOrderedDesc($weekday);
     }
 }

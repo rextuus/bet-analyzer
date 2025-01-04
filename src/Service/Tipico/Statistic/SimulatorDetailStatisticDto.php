@@ -15,9 +15,9 @@ class SimulatorDetailStatisticDto
      */
     private array $weekDayPlacementDistributions;
 
-    private NegativePeriod $longestNonWinningPeriod;
+    private ?NegativePeriod $longestNonWinningPeriod;
 
-    private NegativePeriod $highestLost;
+    private ?NegativePeriod $highestLost;
 
     private Chart $weekDayChart;
 
@@ -43,23 +43,23 @@ class SimulatorDetailStatisticDto
         return $this;
     }
 
-    public function getLongestNonWinningPeriod(): NegativePeriod
+    public function getLongestNonWinningPeriod(): ?NegativePeriod
     {
         return $this->longestNonWinningPeriod;
     }
 
-    public function setLongestNonWinningPeriod(NegativePeriod $longestNonWinningPeriod): SimulatorDetailStatisticDto
+    public function setLongestNonWinningPeriod(?NegativePeriod $longestNonWinningPeriod): SimulatorDetailStatisticDto
     {
         $this->longestNonWinningPeriod = $longestNonWinningPeriod;
         return $this;
     }
 
-    public function getHighestLost(): NegativePeriod
+    public function getHighestLost(): ?NegativePeriod
     {
         return $this->highestLost;
     }
 
-    public function setHighestLost(NegativePeriod $highestLost): SimulatorDetailStatisticDto
+    public function setHighestLost(?NegativePeriod $highestLost): SimulatorDetailStatisticDto
     {
         $this->highestLost = $highestLost;
         return $this;
