@@ -2,6 +2,7 @@
 
 namespace App\Service\Tipico\Content\SimulatorDetailStatistic;
 
+use App\Entity\BettingProvider\Simulator;
 use App\Entity\BettingProvider\SimulatorDetailStatistic;
 use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -60,9 +61,14 @@ class SimulatorDetailStatisticRepository extends ServiceEntityRepository
     /**
      * @return array<SimulatorDetailStatistic>
      */
-    public function findByWeekdayOrderedDesc(Weekday $weekday): array
+    public function findByWeekdayOrderedDesc(Weekday $weekday, int $limit): array
     {
         $qb = $this->createQueryBuilder('s');
+        $qb->innerJoin(Simulator::class, 'sim', 'WITH', 's.simulator = sim.id');
+
+        $qb->andWhere($qb->expr()->notLike('sim.identifier', ':exclude'));
+        $qb->setParameter('exclude', '%nsb%');
+
         match ($weekday) {
             Weekday::Monday => $this->addSortCondition($qb, 'mondayTotal'),
             Weekday::Tuesday => $this->addSortCondition($qb, 'tuesdayTotal'),
@@ -72,6 +78,8 @@ class SimulatorDetailStatisticRepository extends ServiceEntityRepository
             Weekday::Saturday => $this->addSortCondition($qb, 'saturdayTotal'),
             Weekday::Sunday => $this->addSortCondition($qb, 'sundayTotal'),
         };
+
+        $qb->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
     }

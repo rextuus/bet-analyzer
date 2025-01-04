@@ -45,8 +45,8 @@ class SimulatorDetailStatisticService
     /**
      * @return array<SimulatorDetailStatistic>
      */
-    public function findByWeekdayOrderedDesc(Weekday $weekday): array
+    public function findByWeekdayOrderedDesc(Weekday $weekday, int $limit): array
     {
-        return $this->repository->findByWeekdayOrderedDesc($weekday);
+        return $this->repository->findByWeekdayOrderedDesc($weekday, $limit);
     }
 }
