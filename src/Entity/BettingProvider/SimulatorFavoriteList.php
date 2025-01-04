@@ -112,4 +112,17 @@ class SimulatorFavoriteList
 
         return $this;
     }
+
+    /**
+     * @return array<Simulator>
+     */
+    public function getSimulatorsOrderedByCashBox(): array
+    {
+        $simulators = $this->simulators->toArray();
+        usort($simulators, function ($a, $b) {
+            return $b->getCashbox() <=> $a->getCashbox();
+        });
+
+        return $simulators;
+    }
 }

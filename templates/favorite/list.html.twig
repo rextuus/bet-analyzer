@@ -11,6 +11,14 @@
     {#    </div> #}
     <div class="container mb-4 mt-4">
         <a href="{{ path('app_tipico_simulation_dashboard') }}" class="btn btn-primary">Dashboard</a>
+        <a href="{{ path('app_favorite_list', { 'from': date('-1 year').timestamp }) }}" class="btn btn-primary">1
+            Year</a>
+        <a href="{{ path('app_favorite_list') }}" class="btn btn-primary">Today</a>
+    </div>
+
+    <div class="alert alert-info text-center my-3">
+        <strong>Zeitraum:</strong>
+        Von {{ from|date('d.m.Y H:i:s') }} bis {{ until|date('d.m.Y H:i:s') }}
     </div>
 
     <div class="favorite-listing">
@@ -34,9 +42,9 @@
                 </div>
                 <div class="row">
                     <div class="simulators">
-                        {% for simulator in list.simulators %}
+                        {% for simulator in list.getSimulatorsOrderedByCashBox %}
                             <div class="link">
-                                <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a>
+                                <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a><span> ({{ simulator.cashBox }})</span>
                             </div>
                         {% endfor %}
                     </div>
