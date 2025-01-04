@@ -120,12 +120,12 @@ class WeekdayStatisticCommand extends Command
             $cashBox = 0.0;
             match ($day) {
                 Weekday::Monday => $cashBox = $simulatorStatistic->getMondayTotal(),
-                Weekday::Tuesday => $simulatorStatistic->getTuesdayTotal(),
-                Weekday::Wednesday => $simulatorStatistic->getWednesdayTotal(),
-                Weekday::Thursday => $simulatorStatistic->getThursdayTotal(),
-                Weekday::Friday => $simulatorStatistic->getFridayTotal(),
-                Weekday::Saturday => $simulatorStatistic->getSaturdayTotal(),
-                Weekday::Sunday => $simulatorStatistic->getSundayTotal(),
+                Weekday::Tuesday => $cashBox = $simulatorStatistic->getTuesdayTotal(),
+                Weekday::Wednesday => $cashBox = $simulatorStatistic->getWednesdayTotal(),
+                Weekday::Thursday => $cashBox = $simulatorStatistic->getThursdayTotal(),
+                Weekday::Friday => $cashBox = $simulatorStatistic->getFridayTotal(),
+                Weekday::Saturday => $cashBox = $simulatorStatistic->getSaturdayTotal(),
+                Weekday::Sunday => $cashBox = $simulatorStatistic->getSundayTotal(),
             };
             $simulatorsByCash[$simulatorStatistic->getSimulator()->getId()] = $cashBox;
         }
