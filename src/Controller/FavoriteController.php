@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\BettingProvider\Simulator;
 use App\Entity\BettingProvider\SimulatorFavoriteList;
+use App\Entity\BettingProvider\TipicoBet;
 use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Placement\TipicoPlacementService;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
@@ -15,6 +16,7 @@ use App\Service\Tipico\Content\SimulatorFavoriteList\Data\SimulatorFavoriteListD
 use App\Service\Tipico\Content\SimulatorFavoriteList\FavoriteListStatisticService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\SimulatorFavoriteListService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
+use App\Service\Tipico\SimulationProcessors\OverUnderStrategy;
 use App\Service\Tipico\SimulationStatisticService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -232,6 +234,11 @@ class FavoriteController extends AbstractController
             $entry['searchBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
             $entry['activeOnCurrentWeekday'] = true;
 
+            $entry['overUnderTarget'] = 0.0;
+            if (array_key_exists(OverUnderStrategy::PARAMETER_TARGET_VALUE, $params)) {
+                $entry['overUnderTarget'] = $params[OverUnderStrategy::PARAMETER_TARGET_VALUE];
+            }
+
             if (array_key_exists(AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS, $params)) {
                 $currentWeekday = (new DateTime())->format('N');
                 $weekdays = $params[AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS];
@@ -255,6 +262,68 @@ class FavoriteController extends AbstractController
             'favorite/place.html.twig',
             [
                 'upcomingPlacements' => $upcomingPlacements,
+                'list' => $simulatorFavoriteList
+            ]
+        );
+    }
+
+    #[Route('/place-grouped/{simulatorFavoriteList}', name: 'app_favorite_place_grouped')]
+    public function placeGrouped(Request $request, SimulatorFavoriteList $simulatorFavoriteList): Response
+    {
+        $upcomingPlacements = [];
+        foreach ($simulatorFavoriteList->getSimulators() as $simulator) {
+            $entry = [];
+            $entry['simulator'] = $simulator;
+            $entry['upcomingPlacements'] = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator);
+
+            $params = json_decode($simulator->getStrategy()->getParameters(), true);
+            $entry['targetBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON]);
+            $entry['searchBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
+            $entry['activeOnCurrentWeekday'] = true;
+
+            if (array_key_exists(AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS, $params)) {
+                $currentWeekday = (new DateTime())->format('N');
+                $weekdays = $params[AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS];
+
+                $entry['activeOnCurrentWeekday'] = false;
+                foreach ($weekdays as $weekday) {
+                    if ($weekday == $currentWeekday) {
+                        $entry['activeOnCurrentWeekday'] = true;
+                    }
+                }
+            }
+
+            $upcomingPlacements[] = $entry;
+        }
+
+        usort($upcomingPlacements, function ($a, $b) {
+            return $b['activeOnCurrentWeekday'] <=> $a['activeOnCurrentWeekday'];
+        });
+
+        $invest = 0;
+        $combinedPlacements = [];
+        foreach ($upcomingPlacements as $placementInfo) {
+            foreach ($placementInfo['upcomingPlacements'] as $placement) {
+                /** @var TipicoBet $placement */
+                $key = $placement->getId() . '_' . $placementInfo['targetBetOn']->name;
+                if (!array_key_exists($key, $combinedPlacements)) {
+                    $combinedPlacements[$key] = [];
+                }
+                $combinedPlacements[$key][$placementInfo['simulator']->getIdentifier()] = $placement;
+                $invest++;
+            }
+        }
+
+        uasort($combinedPlacements, function ($a, $b) {
+            return count($b) <=> count($a);
+        });
+
+        return $this->render(
+            'favorite/place_grouped.html.twig',
+            [
+                'placementCount' => count($combinedPlacements),
+                'invest' => $invest,
+                'combinedPlacements' => $combinedPlacements,
                 'list' => $simulatorFavoriteList
             ]
         );

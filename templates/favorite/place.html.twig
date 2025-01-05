@@ -19,7 +19,7 @@
                 <div class="simulator-detail-widget">
 
                     <div class="upcoming-fixtures-detail">
-                        {{ component('UpcomingFixture', {'simulator' : upcomingPlacement['simulator'], 'fixtures' : upcomingPlacement['upcomingPlacements'], 'targetBetOn' : upcomingPlacement['targetBetOn'], 'searchBetOn': upcomingPlacement['searchBetOn'], 'overUnderTarget': null, isActiveOnWeekDay: upcomingPlacement['activeOnCurrentWeekday']}) }}
+                        {{ component('UpcomingFixture', {'simulator' : upcomingPlacement['simulator'], 'fixtures' : upcomingPlacement['upcomingPlacements'], 'targetBetOn' : upcomingPlacement['targetBetOn'], 'searchBetOn': upcomingPlacement['searchBetOn'], 'overUnderTarget': upcomingPlacement['overUnderTarget'], isActiveOnWeekDay: upcomingPlacement['activeOnCurrentWeekday']}) }}
                     </div>
                 </div>
             </div>

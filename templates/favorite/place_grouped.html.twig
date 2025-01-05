@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ list.identifier }} - PlacementsToday{% endblock %}
+
+
+{% block body %}
+    <div class="container mb-4 mt-4">
+        <a href="{{ path('app_favorite_detail', {simulatorFavoriteList: list.id}) }}"
+           class="btn btn-primary">Detail</a>
+    </div>
+
+    <div class="alert alert-info text-center my-3">
+        <strong>Summary:</strong>
+        We have to place {{ placementCount }} bets and need to invest at least {{ invest }}€
+    </div>
+
+    {% for combinedPlacement in combinedPlacements %}
+        {{ component('CombinedPlacement', {'combinedPlacement' : combinedPlacement}) }}
+    {% endfor %}
+
+{% endblock %}

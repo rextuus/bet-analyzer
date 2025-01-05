@@ -9,6 +9,7 @@ use App\Service\Tipico\Content\Simulator\Data\SimulatorData;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Simulation\AdditionalProcessors\Weekday;
 use DateTime;
+use Exception;
 
 
 class SimulatorService
@@ -141,5 +142,18 @@ class SimulatorService
         float $minCashBox = 60.0
     ): array {
         return $this->repository->findTopSimulatorsByWeekDay($weekday, $usedSimulators, $minCashBox);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function findByIdentifier(string $simulatorIdent): Simulator
+    {
+        $simulator = $this->repository->findOneBy(['identifier' => $simulatorIdent]);
+        if (!$simulator) {
+            throw new Exception('No simulator with identifier ' . $simulatorIdent);
+        }
+
+        return $simulator;
     }
 }
