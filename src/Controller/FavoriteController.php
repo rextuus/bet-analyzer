@@ -300,6 +300,7 @@ class FavoriteController extends AbstractController
             return $b['activeOnCurrentWeekday'] <=> $a['activeOnCurrentWeekday'];
         });
 
+        // sort for same bet variants first
         $invest = 0;
         $combinedPlacements = [];
         foreach ($upcomingPlacements as $placementInfo) {
@@ -307,9 +308,13 @@ class FavoriteController extends AbstractController
                 /** @var TipicoBet $placement */
                 $key = $placement->getId() . '_' . $placementInfo['targetBetOn']->name;
                 if (!array_key_exists($key, $combinedPlacements)) {
-                    $combinedPlacements[$key] = [];
+                    $combinedPlacements[$key] = [
+                        'placementId' => $placement->getId(),
+                        'variant' => $placementInfo['targetBetOn']->name,
+                        'placements' => []
+                    ];
                 }
-                $combinedPlacements[$key][$placementInfo['simulator']->getIdentifier()] = $placement;
+                $combinedPlacements[$key]['placements'][$placementInfo['simulator']->getIdentifier()] = $placement;
                 $invest++;
             }
         }
@@ -318,12 +323,44 @@ class FavoriteController extends AbstractController
             return count($b) <=> count($a);
         });
 
+
+        // sort for same fixtures second
+        $groupedPlacements = [];
+        foreach ($combinedPlacements as $key => $placementInfo) {
+            $placementId = $placementInfo['placementId'];
+            $variant = $placementInfo['variant'];
+            if (!array_key_exists($placementId, $groupedPlacements)) {
+                $groupedPlacements[$placementId] = [];
+            }
+            $groupedPlacements[$placementId][$variant] = $placementInfo['placements'];
+        }
+
+        uasort($groupedPlacements, function ($a, $b) {
+            return count($b) <=> count($a);
+        });
+
+
+        uasort($groupedPlacements, function ($a, $b) {
+            // Primary criterion: Total number of subchildren
+            $totalA = array_sum(array_map('count', $a));
+            $totalB = array_sum(array_map('count', $b));
+
+            if ($totalA !== $totalB) {
+                return $totalB <=> $totalA; // Descending order of total subchildren
+            }
+
+            // Secondary criterion: Maximum size of any subchild array
+            $maxA = max(array_map('count', $a));
+            $maxB = max(array_map('count', $b));
+
+            return $maxB <=> $maxA; // Descending order of maximum subchild size
+        });
         return $this->render(
             'favorite/place_grouped.html.twig',
             [
                 'placementCount' => count($combinedPlacements),
                 'invest' => $invest,
-                'combinedPlacements' => $combinedPlacements,
+                'combinedPlacements' => $groupedPlacements,
                 'list' => $simulatorFavoriteList
             ]
         );

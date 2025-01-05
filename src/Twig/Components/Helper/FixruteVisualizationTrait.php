@@ -22,6 +22,7 @@ trait FixruteVisualizationTrait
         string $timeDistance,
         TipicoBet $fixture,
         array $cssClasses,
+        ?array $targetMultiplications = null
     ): string {
         return sprintf(
             '<span class="content-container %s %s">
@@ -68,7 +69,7 @@ trait FixruteVisualizationTrait
             $matchInfo->getClassFinished(),
             $matchInfo->getHomeGoals(),
             $matchInfo->getAwayGoals(),
-            $this->getThreeWayOdds($fixture, $cssClasses),
+            $this->getThreeWayOdds($fixture, $cssClasses, $targetMultiplications),
             $matchInfo->getUrl(),
             $matchInfo->getTipicoUrl(),
             $matchInfo->getBetanoUrl(),
@@ -187,7 +188,7 @@ trait FixruteVisualizationTrait
         );
     }
 
-    public function getThreeWayOdds(TipicoBet $fixture, array $cssClasses): string
+    public function getThreeWayOdds(TipicoBet $fixture, array $cssClasses, ?array $targetMultiplications): string
     {
         $classHome = $cssClasses[OddVariant::CLASSIC_3_WAY->name][0];
         $classDraw = $cssClasses[OddVariant::CLASSIC_3_WAY->name][1];

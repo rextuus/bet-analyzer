@@ -17,7 +17,7 @@ final class CombinedPlacement
     use FixruteVisualizationTrait;
 
     /**
-     * @var array<string, TipicoBet>
+     * @var array<string, array<string,TipicoBet>>
      */
     public array $combinedPlacement;
 
@@ -27,9 +27,76 @@ final class CombinedPlacement
 
     public function getBetOn(): string
     {
-        $simulatorIdent = array_key_first($this->combinedPlacement);
+        $variants = array_keys($this->combinedPlacement);
+        if (count($variants) === 1) {
+            $placements = $this->combinedPlacement[$variants[0]];
+
+            $simulatorIdent = array_key_first($placements);
+            $simulator = $this->simulatorService->findByIdentifier($simulatorIdent);
+            $cssClasses = $this->calculateOddMatrix($simulator);
+
+            return $this->getHtmlForBetVariant($placements, $cssClasses);
+        }
+
+        // we have multiple bet variant for the same game
+        $cssClasses = [];
+        foreach ($this->combinedPlacement as $variantName => $variant) {
+            $simulatorIdent = array_key_first($variant);
+            $simulator = $this->simulatorService->findByIdentifier($simulatorIdent);
+            $cssClasses[] = $this->calculateOddMatrix($simulator);
+        }
+
+        $combined = [];
+
+        foreach ($cssClasses as $set) {
+            foreach ($set as $key => $values) {
+                if (!isset($combined[$key])) {
+                    $combined[$key] = $values;
+                } else {
+                    // Merge arrays
+                    foreach ($values as $index => $value) {
+                        if (!isset($combined[$key][$index]) || str_contains($value, 'is-target')) {
+                            $combined[$key][$index] = $value;
+                        }
+                    }
+                }
+            }
+        }
+//
+//        dump($cssClasses);
+//        dd($combined);
+        $placements = $this->combinedPlacement[$variants[0]];
+
+        return $this->getHtmlForBetVariant($placements, $combined);
+    }
+
+    public function getSimulatorIdents(): string
+    {
+        $variants = array_keys($this->combinedPlacement);
+        if (count($variants) === 1) {
+            $placements = $this->combinedPlacement[$variants[0]];
+
+            return implode('<br>', array_keys($placements));
+        }
+
+        $simulatorIdentifiers = [];
+        foreach ($this->combinedPlacement as $variantName => $variant) {
+            $simulatorIdentifiers[] = $variantName . ' => ' . implode('<br>', array_keys($variant));
+        }
+
+        return implode('<br><br>', $simulatorIdentifiers);
+    }
+
+    /**
+     * @param array $placements
+     * @return void
+     * @throws \Exception
+     */
+    private function getHtmlForBetVariant(array $placements, array $cssClasses): string
+    {
+        $simulatorIdent = array_key_first($placements);
         $simulator = $this->simulatorService->findByIdentifier($simulatorIdent);
-        $fixture = $this->combinedPlacement[$simulatorIdent];
+        $fixture = $placements[$simulatorIdent];
 
         $strategy = $simulator->getStrategy();
         $parameters = json_decode($strategy->getParameters(), true);
@@ -48,8 +115,6 @@ final class CombinedPlacement
 
         $matchInfo = $this->getMatchInfo($fixture, true, $targetBeton, $overUnderTarget);
 
-        $cssClasses = $this->calculateOddMatrix($simulator);
-
         return $this->calculateHtml(
             $matchInfo,
             $startedClass,
@@ -58,10 +123,5 @@ final class CombinedPlacement
             $fixture,
             $cssClasses,
         );
-    }
-
-    public function getSimulatorIdents(): string
-    {
-        return implode('<br>', array_keys($this->combinedPlacement));
     }
 }
