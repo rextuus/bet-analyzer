@@ -15,6 +15,9 @@
             <a href="{{ path('app_favorite_list', {simulatorFavoriteList: favoriteList.id}) }}" class="btn btn-primary">List</a>
             <a href="{{ path('app_favorite_place', {simulatorFavoriteList: favoriteList.id}) }}"
                class="btn btn-primary">Place</a>
+            <a href="{{ path('app_favorite_remove', {simulatorFavoriteList: favoriteList.id}) }}"
+               class="btn btn-primary">Remove Simulators</a>
+
         </div>
         <div class="container mb-4">
             <twig:FavoriteListDynamicChart :favoriteList="favoriteList"/>

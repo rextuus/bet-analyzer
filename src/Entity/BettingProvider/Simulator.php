@@ -202,4 +202,9 @@ class Simulator
 
         return $this;
     }
+
+    public function getIdentifierWithCashBox(): string
+    {
+        return sprintf('%s (%.2f)', $this->getIdentifier(), $this->getCashBox());
+    }
 }

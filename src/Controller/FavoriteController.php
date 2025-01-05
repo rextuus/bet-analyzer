@@ -10,12 +10,14 @@ use App\Service\Tipico\Content\Simulator\SimulatorService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\AddSimulatorToListType;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\CreateSimulatorFavoriteListType;
+use App\Service\Tipico\Content\SimulatorFavoriteList\Data\RemoveSimulatorsType;
 use App\Service\Tipico\Content\SimulatorFavoriteList\Data\SimulatorFavoriteListData;
 use App\Service\Tipico\Content\SimulatorFavoriteList\FavoriteListStatisticService;
 use App\Service\Tipico\Content\SimulatorFavoriteList\SimulatorFavoriteListService;
 use App\Service\Tipico\SimulationProcessors\AbstractSimulationProcessor;
 use App\Service\Tipico\SimulationStatisticService;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -309,6 +311,47 @@ class FavoriteController extends AbstractController
 
         return $this->render('favorite/add.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/remove/{simulatorFavoriteList}', name: 'app_favorite_remove')]
+    public function remove(
+        Request $request,
+        SimulatorFavoriteList $simulatorFavoriteList,
+        EntityManagerInterface $em
+    ): Response {
+        $simulators = $simulatorFavoriteList->getSimulators()->toArray();
+        usort($simulators, function ($a, $b) {
+            return $b->getCashBox() <=> $a->getCashBox(); // Descending order
+        });
+
+
+        $form = $this->createForm(RemoveSimulatorsType::class, null, [
+            'simulators' => $simulators,
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $selectedSimulators = $form->get('simulators')->getData();
+
+            foreach ($selectedSimulators as $simulator) {
+                $simulatorFavoriteList->removeSimulator($simulator);
+            }
+
+            $em->flush();
+
+            $this->addFlash('success', 'Selected simulators have been removed.');
+
+            return $this->redirectToRoute(
+                'app_favorite_detail',
+                ['simulatorFavoriteList' => $simulatorFavoriteList->getId()]
+            ); // Replace with your route name
+        }
+
+        return $this->render('favorite/remove.html.twig', [
+            'form' => $form->createView(),
+            'favoriteList' => $simulatorFavoriteList,
         ]);
     }
 

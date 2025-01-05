@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SimulatorController!{% endblock %}
+
+{% block body %}
+    <h1>Remove Simulators from Favorite List</h1>
+
+    <p>List: {{ favoriteList.identifier }}</p>
+    {{ form(form) }}
+
+    <style>
+        /* Style the container for better spacing */
+        #remove_simulators_simulators {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem; /* Add some spacing between rows */
+        }
+
+        /* Ensure each input-label pair occupies its own row */
+        #remove_simulators_simulators input[type="checkbox"] + label {
+            display: block;
+        }
+    </style>
+{% endblock %}
