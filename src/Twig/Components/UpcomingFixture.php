@@ -23,7 +23,7 @@ final class UpcomingFixture
     public BetOn $targetBetOn;
     public BetOn $searchBetOn;
     public bool $isActiveOnWeekDay = true;
-    public ?float $overUnderTarget = null;
+    public ?float $overUnderTarget = 0.0;
 
     public function getRows(): array
     {

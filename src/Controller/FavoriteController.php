@@ -224,10 +224,12 @@ class FavoriteController extends AbstractController
     public function place(Request $request, SimulatorFavoriteList $simulatorFavoriteList): Response
     {
         $upcomingPlacements = [];
+        $placementCount = 0;
         foreach ($simulatorFavoriteList->getSimulators() as $simulator) {
             $entry = [];
             $entry['simulator'] = $simulator;
             $entry['upcomingPlacements'] = $this->simulationStatisticService->getUpcomingEventsForSimulator($simulator);
+            $placementCount = $placementCount + count($entry['upcomingPlacements']);
 
             $params = json_decode($simulator->getStrategy()->getParameters(), true);
             $entry['targetBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON]);
@@ -261,6 +263,67 @@ class FavoriteController extends AbstractController
         return $this->render(
             'favorite/place.html.twig',
             [
+                'placementCount' => $placementCount,
+                'invest' => $placementCount,
+                'upcomingPlacements' => $upcomingPlacements,
+                'list' => $simulatorFavoriteList
+            ]
+        );
+    }
+
+    #[Route('/place-time/{simulatorFavoriteList}', name: 'app_favorite_place_time_schedule')]
+    public function placeScheduled(Request $request, SimulatorFavoriteList $simulatorFavoriteList): Response
+    {
+        $upcomingPlacements = [];
+        $upcomingPlacementCount = 0;
+        foreach ($simulatorFavoriteList->getSimulators() as $simulator) {
+            foreach ($this->simulationStatisticService->getUpcomingEventsForSimulator($simulator) as $upcomingEvent) {
+                $upcomingPlacementCount = $upcomingPlacementCount + 1;
+
+                $entry = [];
+                $entry['simulator'] = $simulator;
+                $entry['upcomingPlacements'] = [$upcomingEvent];
+
+                $params = json_decode($simulator->getStrategy()->getParameters(), true);
+                $entry['targetBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_TARGET_BET_ON]);
+                $entry['searchBetOn'] = BetOn::from($params[AbstractSimulationProcessor::PARAMETER_SEARCH_BET_ON]);
+                $entry['activeOnCurrentWeekday'] = true;
+
+                $entry['overUnderTarget'] = 0.0;
+                if (array_key_exists(OverUnderStrategy::PARAMETER_TARGET_VALUE, $params)) {
+                    $entry['overUnderTarget'] = $params[OverUnderStrategy::PARAMETER_TARGET_VALUE];
+                }
+
+                if (array_key_exists(AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS, $params)) {
+                    $currentWeekday = (new DateTime())->format('N');
+                    $weekdays = $params[AbstractSimulationProcessor::PARAMETER_ALLOWED_WEEKDAYS];
+
+                    $entry['activeOnCurrentWeekday'] = false;
+                    foreach ($weekdays as $weekday) {
+                        if ($weekday == $currentWeekday) {
+                            $entry['activeOnCurrentWeekday'] = true;
+                        }
+                    }
+                }
+
+                $upcomingPlacements[] = $entry;
+            }
+        }
+
+        usort($upcomingPlacements, function ($a, $b) {
+            return $b['activeOnCurrentWeekday'] <=> $a['activeOnCurrentWeekday'];
+        });
+
+        usort($upcomingPlacements, function ($a, $b) {
+            return $a['upcomingPlacements'][0]->getStartAtTimeStamp(
+                ) <=> $b['upcomingPlacements'][0]->getStartAtTimeStamp();
+        });
+
+        return $this->render(
+            'favorite/place.html.twig',
+            [
+                'placementCount' => $upcomingPlacementCount,
+                'invest' => $upcomingPlacementCount,
                 'upcomingPlacements' => $upcomingPlacements,
                 'list' => $simulatorFavoriteList
             ]

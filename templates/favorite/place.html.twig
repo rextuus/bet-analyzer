@@ -9,6 +9,11 @@
             <a href="{{ path('app_favorite_detail', {simulatorFavoriteList: list.id}) }}"
                class="btn btn-primary">Detail</a>
         </div>
+        <div class="alert alert-info text-center my-3">
+            <strong>Summary:</strong>
+            We have to place {{ placementCount }} bets and need to invest at least {{ invest }}€
+        </div>
+
         {% for upcomingPlacement in upcomingPlacements %}
             <div class="simulator-place">
                 <div class="simulator-detail-name {{ upcomingPlacement['activeOnCurrentWeekday'] ?: 'inactive' }} ">

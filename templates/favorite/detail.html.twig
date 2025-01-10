@@ -12,13 +12,16 @@
         <div class="name">{{ name }}</div>
         </div>
         <div class="container mb-4">
-            <a href="{{ path('app_favorite_list', {simulatorFavoriteList: favoriteList.id}) }}" class="btn btn-primary">List</a>
+            <a href="{{ path('app_favorite_list', {simulatorFavoriteList: favoriteList.id}) }}"
+               class="btn btn-secondary">List</a>
             <a href="{{ path('app_favorite_place', {simulatorFavoriteList: favoriteList.id}) }}"
-               class="btn btn-primary">Place</a>
+               class="btn btn-success">Place (by simulator)</a>
             <a href="{{ path('app_favorite_place_grouped', {simulatorFavoriteList: favoriteList.id}) }}"
-               class="btn btn-primary">Place (grouped)</a>
+               class="btn btn-success">Place (merged)</a>
+            <a href="{{ path('app_favorite_place_time_schedule', {simulatorFavoriteList: favoriteList.id}) }}"
+               class="btn btn-success">Place (time sorted)</a>
             <a href="{{ path('app_favorite_remove', {simulatorFavoriteList: favoriteList.id}) }}"
-               class="btn btn-primary">Remove Simulators</a>
+               class="btn btn-danger">Remove Simulators</a>
 
         </div>
         <div class="container mb-4">
