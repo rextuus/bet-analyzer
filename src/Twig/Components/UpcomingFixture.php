@@ -38,7 +38,7 @@ final class UpcomingFixture
                 $fixture,
                 $this->isActiveOnWeekDay,
                 $this->targetBetOn,
-                $this->overUnderTarget
+                $this->overUnderTarget ?: 0.0
             );
 
             $cssClasses = $this->calculateOddMatrix($this->simulator);
