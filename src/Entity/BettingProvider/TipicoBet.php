@@ -27,7 +27,7 @@ class TipicoBet
     #[Groups(['tipico_bet'])]
     private ?int $tipicoHomeTeamId = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BIGINT)]
     #[Groups(['tipico_bet'])]
     private ?int $tipicoAwayTeamId = null;
 
