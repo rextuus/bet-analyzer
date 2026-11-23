@@ -6,9 +6,9 @@ when@dev:
     monolog:
         handlers:
             main:
-              type: stream
+                type: stream
                 path: "%kernel.logs_dir%/%kernel.environment%.log"
-              level: critical  # Only log critical issues
+                level: critical  # Only log critical issues
 
 when@test:
     monolog:
@@ -43,7 +43,7 @@ when@prod:
                 type: console
                 process_psr_3_messages: false
                 channels: ["!event", "!doctrine"]
-          # Deprecations (alte Abhängigkeiten unter PHP 8.5) würden die Docker-Logs fluten.
+            # Deprecations (alte Abhängigkeiten unter PHP 8.5) würden die Docker-Logs fluten.
             deprecation:
-              type: "null"
+                type: "null"
                 channels: [deprecation]
