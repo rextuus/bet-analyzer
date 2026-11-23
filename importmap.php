@@ -22,9 +22,6 @@ return [
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
-    'chart.js/auto' => [
-        'version' => '3.9.1',
-    ],
     'stimulus-popover' => [
         'version' => '6.2.0',
     ],
@@ -36,5 +33,8 @@ return [
     ],
     '@popperjs/core' => [
         'version' => '2.11.8',
+    ],
+    'chart.js' => [
+        'version' => '3.9.1',
     ],
 ];

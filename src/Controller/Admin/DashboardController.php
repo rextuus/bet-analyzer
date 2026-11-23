@@ -2,19 +2,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\BettingProvider\SimulationStrategy;
-use App\Entity\BettingProvider\Simulator;
-use App\Entity\BettingProvider\SimulatorFavoriteList;
+use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
+#[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
@@ -46,8 +43,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Simulators', 'fas fa-list', Simulator::class);
-        yield MenuItem::linkToCrud('Strategy', 'fas fa-list', SimulationStrategy::class);
-        yield MenuItem::linkToCrud('Lists', 'fas fa-list', SimulatorFavoriteList::class);
+        yield MenuItem::linkTo(SimulatorCrudController::class, 'Simulators', 'fas fa-list');
+        yield MenuItem::linkTo(SimulationStrategyCrudController::class, 'Strategy', 'fas fa-list');
+        yield MenuItem::linkTo(SimulatorFavoriteListCrudController::class, 'Lists', 'fas fa-list');
     }
 }
