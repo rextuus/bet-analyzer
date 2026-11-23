@@ -1,12 +1,4 @@
-$positive: #769467;
-$negative: #FF32324C;
-$neutral: #A28E04D1;
-$headerColor: #2A3954FF;
-
-body {
-    background-color: #343434;
-    color: #ffffff;
-}
+@import "const";
 .table-container{
     //margin: 15px;
     .styled-table {
@@ -71,7 +63,7 @@ body {
 
         .icon-container {
             display: flex;
-            border: black solid 2px;
+          border: $borderColor solid 1px;
             padding: 2px;
 
             .icon {
@@ -99,12 +91,12 @@ body {
 
 
 .switchable-content{
-    border: 2px black solid;
+  border: 1px $borderColor solid;
 
     .switchable-content-header{
         max-width: 25%;
         min-height: 25px;
-        background-color: black;
+      background-color: $textColor;
     }
     .active{
         display: block;
@@ -200,9 +192,9 @@ body {
 
 .top-simulator-statistic{
     background-color: $headerColor;
-    border: #0a0800 solid 5px;
+  border: $borderColor solid 1px;
     //border-top: none;
-    color: #0a0800;
+  color: $textColor;
     padding: 15px;
 
     .top-simulator-statistic-header{
@@ -226,7 +218,7 @@ body {
                 .name{
                     a{
                         text-decoration: none;
-                        color: #6b0000;
+                      color: $linkColor;
                         font-weight: bold;
                     }
                     padding: 5px;

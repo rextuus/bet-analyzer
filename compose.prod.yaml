@@ -1,0 +1,212 @@
+# bet-analyzer – Produktion auf einem einzelnen Server (abyss, Komodo-Stack bet-analyzer).
+# Aufruf (Komodo macht genau das):
+#   docker compose -p bet-analyzer -f compose.prod.yaml --env-file .env.prod.local up -d --build --wait
+# Reihenfolge beim Start: database (gesund) → migrate (Migrationen, einmalig) → app/worker/cron → web.
+# Secrets kommen ausschließlich aus .env.prod.local (Vorlage: .env.prod.dist; Komodo schreibt die Datei bei jedem
+# Deploy aus den im UI hinterlegten Variablen). Ablauf: docs/deployment.md.
+# Die Entwicklungsumgebung (docker-compose.yml) ist davon unabhängig.
+name: bet-analyzer
+
+# Docker-Logs begrenzen (sonst wachsen sie unbegrenzt): je Dienst höchstens 5 × 10 MB.
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: docker/php/Dockerfile
+    target: prod
+  image: bet-analyzer-app:prod
+  # Selbst gebaut, nie aus einer Registry: `docker compose pull` (Komodo „Pull Images“) überspringt den Dienst.
+  pull_policy: build
+  restart: unless-stopped
+  logging: *logging
+  volumes:
+    # JSON-Rohdaten der Buchmacher (Tipico-Tagesliste, Betano/Bwin per API). Pfad steht absolut in der DB
+    # (betting_provider_backup_file.file_path), darum fest unter public/backups – öffentlich ist er nicht,
+    # der Dienst web hängt das Volume nicht ein.
+    - provider_files:/srv/app/public/backups:rw
+  environment:
+    APP_ENV: prod
+    APP_DEBUG: "0"
+    APP_SECRET: ${APP_SECRET:?APP_SECRET fehlt in .env.prod.local}
+    DEFAULT_URI: ${DEFAULT_URI:?DEFAULT_URI fehlt in .env.prod.local}
+    DATABASE_URL: mysql://${MYSQL_USER:-bet_analyzer}:${MYSQL_PASSWORD:?MYSQL_PASSWORD fehlt}@database:3306/${MYSQL_DATABASE:-bet_analyzer}?serverVersion=8.4.13&charset=utf8mb4
+    MESSENGER_TRANSPORT_DSN: doctrine://default?auto_setup=0
+    # Telegram-Feed (Bot-Token im DSN, darum Secret). TELEGRAM_ENABLED=0 schaltet die Nachrichten ab.
+    TELEGRAM_DSN: ${TELEGRAM_DSN:-null://null}
+    TELEGRAM_ENABLED: ${TELEGRAM_ENABLED:-0}
+    SENTRY_DSN: ${SENTRY_DSN:-}
+    # Mailversand (Secret, da Zugangsdaten enthalten sein können). null://null = keine Mails.
+    MAILER_DSN: ${MAILER_DSN:-null://null}
+    CASH_BOX_MIN_LIMIT: ${CASH_BOX_MIN_LIMIT:-80}
+    # Token für /api/* (Header X-Api-Token). Leer = API geschlossen (Standard, die Einlieferer laufen nicht mehr).
+    API_TOKEN: ${API_TOKEN:-}
+    # Zweitserver für SyncBetFromBackupServer (nur von Hand). Leer = nicht vorhanden.
+    BACKUP_SERVER_IP: ${BACKUP_SERVER_IP:-}
+    # Anfragen kommen vom Caddy im Dienst web (Docker-Netz); der prüft seinerseits den VPS (REVERSE_PROXY_IPS).
+    TRUSTED_PROXIES: 127.0.0.1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+    TZ: Europe/Berlin
+
+# app, worker und cron starten erst, wenn die Migrationen durch sind. Schlägt migrate fehl, sind die alten
+# Container schon ersetzt und die neuen starten nicht: Seite unten bis zum Rollback (docs/deployment.md).
+x-after-migrate: &after-migrate
+  database:
+    condition: service_healthy
+  migrate:
+    condition: service_completed_successfully
+
+# Gesund, solange der Prozess die Datenbank erreicht (dort liegen auch die Messenger-Aufträge).
+x-db-healthcheck: &db-healthcheck
+  test: [ "CMD", "php", "bin/console", "dbal:run-sql", "--no-interaction", "SELECT 1" ]
+  interval: 60s
+  timeout: 15s
+  retries: 3
+  start_period: 30s
+
+services:
+  # Einmalig bei jedem Deploy: Datenbank migrieren. Beendet sich mit 0; in Komodo unter ignore_services.
+  migrate:
+    <<: *app
+    restart: "no"
+    command: [ "php", "bin/console", "doctrine:migrations:migrate", "--no-interaction", "--allow-no-migration" ]
+    depends_on:
+      database:
+        condition: service_healthy
+
+  app:
+    <<: *app
+    depends_on: *after-migrate
+    healthcheck:
+      test: [ "CMD-SHELL", "SCRIPT_NAME=/fpm-ping SCRIPT_FILENAME=/fpm-ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 || exit 1" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 20s
+
+  # Messenger-Worker: Simulatoren durchrechnen, Detailstatistiken, eingegangene Betano/Bwin-Dateien, Telegram.
+  # Startet sich nach einer Stunde bzw. 1 GB selbst neu (restart: unless-stopped holt ihn zurück).
+  worker:
+    <<: *app
+    command: [ "php", "-d", "memory_limit=1536M", "bin/console", "messenger:consume", "async", "--time-limit=3600", "--memory-limit=1024M", "--no-interaction" ]
+    depends_on: *after-migrate
+    healthcheck: *db-healthcheck
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2g
+
+  # Geplante Aufgaben (docker/cron/crontab), früher die Crontab von master@securitas.
+  cron:
+    <<: *app
+    command: [ "supercronic", "-passthrough-logs", "/srv/app/docker/cron/crontab" ]
+    depends_on: *after-migrate
+    healthcheck: *db-healthcheck
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1536m
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      target: web
+    image: bet-analyzer-web:prod
+    pull_policy: build
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      # Nur HTTP: HTTPS und Zertifikat macht der Caddy auf dem VPS, der über WireGuard hierher weiterleitet.
+      SERVER_NAME: ":80"
+      # Nur von diesen Adressen gelten X-Forwarded-* (Gast-IP, https): die WireGuard-IP des VPS.
+      REVERSE_PROXY_IPS: ${REVERSE_PROXY_IPS:-private_ranges}
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      # Der einzige Port nach außen, nur auf der WireGuard-Adresse dieses Rechners (HTTP_BIND).
+      - "${HTTP_BIND:?HTTP_BIND fehlt}:${HTTP_PORT:?HTTP_PORT fehlt}:80"
+    # Prüft den ganzen Weg, den auch der VPS nimmt: Caddy → PHP → Datenbank.
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider", "http://127.0.0.1/healthz" ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    depends_on:
+      app:
+        condition: service_healthy
+
+  database:
+    image: mysql:8.4.13
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-bet_analyzer}
+      MYSQL_USER: ${MYSQL_USER:-bet_analyzer}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?MYSQL_PASSWORD fehlt}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD fehlt}
+      TZ: Europe/Berlin
+    # Zeichensatz/Sortierung bleiben beim MySQL-Standard (utf8mb4_0900_ai_ci) – so wie auf securitas (8.0).
+    # Puffer fest begrenzen, damit abyss für die anderen Stacks Luft behält.
+    command:
+      - "--innodb-buffer-pool-size=1G"
+      - "--max-allowed-packet=256M"
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent" ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 60s
+    volumes:
+      - database_data:/var/lib/mysql:rw
+    # Puffer 1 GB + Verbindungen/Sortierpuffer; im Probelauf mit 3 Mio. Platzierungen schon ≈ 1,4 GB.
+    deploy:
+      resources:
+        limits:
+          memory: 3g
+
+  # Datenbank-Dump nach BACKUP_DIR (Standard /srv/bet-analyzer/backups auf dem Host), mit Rotation
+  # (deploy/komodo/db-backup.sh). Startet nie von selbst (Profil), nur per `docker compose run --rm backup <anlass>`:
+  # vor jedem Deploy (pre-deploy.sh, Anlass pre-deploy), täglich über die Komodo-Procedure bet-analyzer-backup
+  # (Anlass daily), oder von Hand.
+  backup:
+    image: mysql:8.4.13
+    profiles: [ "backup" ]
+    restart: "no"
+    logging: *logging
+    entrypoint: [ "sh", "/usr/local/bin/bet-analyzer-db-backup" ]
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-bet_analyzer}
+      MYSQL_PWD: ${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD fehlt}
+      BACKUP_KEEP: ${BACKUP_KEEP:-7}
+    volumes:
+      - ./deploy/komodo/db-backup.sh:/usr/local/bin/bet-analyzer-db-backup:ro
+      # Der Ordner muss auf dem Host schon existieren (einmalig anlegen, docs/deployment.md). Docker legt ihn
+      # so nicht still neu an – ein Tippfehler in BACKUP_DIR lässt die Sicherung scheitern statt ins Leere zu gehen.
+      - type: bind
+        source: ${BACKUP_DIR:-/srv/bet-analyzer/backups}
+        target: /backups
+        bind:
+          create_host_path: false
+    depends_on:
+      database:
+        condition: service_healthy
+
+# Feste Namen, damit die Daten nicht am Projektnamen hängen. Niemals umbenennen.
+# VOLUME_PREFIX nur für Probeläufe setzen (z. B. betanalyzerprobe) – auf dem Server NIE.
+volumes:
+  database_data:
+    name: ${VOLUME_PREFIX:-bet-analyzer}_database_data
+  provider_files:
+    name: ${VOLUME_PREFIX:-bet-analyzer}_provider_files
+  caddy_data:
+    name: ${VOLUME_PREFIX:-bet-analyzer}_caddy_data
+  caddy_config:
+    name: ${VOLUME_PREFIX:-bet-analyzer}_caddy_config

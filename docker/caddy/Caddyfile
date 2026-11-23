@@ -1,0 +1,38 @@
+# bet-analyzer – Caddy vor PHP-FPM. Nur HTTP (SERVER_NAME=":80"): HTTPS macht der Caddy auf dem VPS, der über
+# WireGuard hierher weiterleitet (docs/deployment.md).
+{
+	admin off
+	servers {
+		# Von diesen Adressen (dem Reverse-Proxy) werden X-Forwarded-For/-Proto übernommen: echte Gast-IP
+		# und „kam per HTTPS“. Von allen anderen setzt Caddy die Werte selbst (nicht fälschbar).
+		trusted_proxies static {$REVERSE_PROXY_IPS:private_ranges}
+		client_ip_headers X-Forwarded-For
+	}
+}
+
+{$SERVER_NAME::80} {
+	root * /srv/app/public
+	encode zstd gzip
+
+	request_body {
+		max_size 32MB
+	}
+
+	header {
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Frame-Options "SAMEORIGIN"
+		X-Robots-Tag "noindex, nofollow"
+		-Server
+	}
+
+	# Kompilierte Assets (asset-map:compile) tragen einen Hash im Namen, z. B. app-<32 hex>.js.
+	@hashed path_regexp ^/assets/.+-[0-9a-f]{32}\.\w+$
+	header @hashed Cache-Control "public, max-age=31536000, immutable"
+
+	# Rohdaten der Buchmacher liegen nur im Volume der App, nie öffentlich.
+	respond /backups/* 404
+
+	php_fastcgi app:9000
+	file_server
+}

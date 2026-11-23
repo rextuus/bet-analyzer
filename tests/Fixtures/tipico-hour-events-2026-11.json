@@ -1,0 +1,232 @@
+{
+  "UPCOMING": {
+    "eventsBySport": {
+      "soccer": [
+        "732342710",
+        "732342810"
+      ]
+    },
+    "events": {
+      "732342710": {
+        "id": "732342710",
+        "competitionId": 87604301,
+        "team1": "Real Cartagena",
+        "team2": "Tigres FC",
+        "eventStartTime": 1795135500000,
+        "team1Id": 6119,
+        "team2Id": 89354,
+        "sportRadarMatchId": 76912856,
+        "status": "pre_match"
+      },
+      "732342810": {
+        "id": "732342810",
+        "competitionId": 87604301,
+        "team1": "Real Cundinamarca",
+        "team2": "Deportes Quindio",
+        "eventStartTime": 1795135500000,
+        "team1Id": 1033161,
+        "team2Id": 6110,
+        "sportRadarMatchId": 76912858,
+        "status": "pre_match"
+      }
+    },
+    "matchOddGroups": {
+      "732342710": {
+        "points-more-less-than": [
+          {
+            "fixedParamText": "2.5",
+            "halfTimeResult": null,
+            "id": 90981122710,
+            "originalMarketName": "points-more-less-than",
+            "results": [
+              {
+                "caption": "+",
+                "choiceParam": "+",
+                "id": 244900837510,
+                "quoteFloatValue": 1.6
+              },
+              {
+                "caption": "-",
+                "choiceParam": "-",
+                "id": 244900837410,
+                "quoteFloatValue": 2.15
+              }
+            ],
+            "section": null
+          },
+          {
+            "fixedParamText": "1.5",
+            "halfTimeResult": null,
+            "id": 90981122610,
+            "originalMarketName": "points-more-less-than",
+            "results": [
+              {
+                "caption": "+",
+                "choiceParam": "+",
+                "id": 244900837210,
+                "quoteFloatValue": 1.16
+              },
+              {
+                "caption": "-",
+                "choiceParam": "-",
+                "id": 244900837310,
+                "quoteFloatValue": 4.3
+              }
+            ],
+            "section": null
+          }
+        ],
+        "standard": [
+          {
+            "fixedParamText": null,
+            "halfTimeResult": null,
+            "id": 90981121810,
+            "originalMarketName": "standard",
+            "results": [
+              {
+                "caption": "1",
+                "choiceParam": "1",
+                "id": 244900835110,
+                "quoteFloatValue": 1.1
+              },
+              {
+                "caption": "X",
+                "choiceParam": "X",
+                "id": 244900835010,
+                "quoteFloatValue": 6.0
+              },
+              {
+                "caption": "2",
+                "choiceParam": "2",
+                "id": 244900834910,
+                "quoteFloatValue": 14.0
+              }
+            ],
+            "section": null
+          }
+        ],
+        "score-both": [
+          {
+            "fixedParamText": null,
+            "halfTimeResult": null,
+            "id": 90981123910,
+            "originalMarketName": "score-both",
+            "results": [
+              {
+                "caption": "J",
+                "choiceParam": "J",
+                "id": 244900840410,
+                "quoteFloatValue": 2.2
+              },
+              {
+                "caption": "N",
+                "choiceParam": "N",
+                "id": 244900840310,
+                "quoteFloatValue": 1.55
+              }
+            ],
+            "section": null
+          }
+        ]
+      },
+      "732342810": {
+        "standard": [
+          {
+            "fixedParamText": null,
+            "halfTimeResult": null,
+            "id": 90981125810,
+            "originalMarketName": "standard",
+            "results": [
+              {
+                "caption": "1",
+                "choiceParam": "1",
+                "id": 244900845210,
+                "quoteFloatValue": 3.9
+              },
+              {
+                "caption": "X",
+                "choiceParam": "X",
+                "id": 244900845310,
+                "quoteFloatValue": 2.9
+              },
+              {
+                "caption": "2",
+                "choiceParam": "2",
+                "id": 244900845110,
+                "quoteFloatValue": 1.83
+              }
+            ],
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "fixedParamText": "2.5",
+            "halfTimeResult": null,
+            "id": 90981126810,
+            "originalMarketName": "points-more-less-than",
+            "results": [
+              {
+                "caption": "+",
+                "choiceParam": "+",
+                "id": 244900847910,
+                "quoteFloatValue": 2.45
+              },
+              {
+                "caption": "-",
+                "choiceParam": "-",
+                "id": 244900848010,
+                "quoteFloatValue": 1.45
+              }
+            ],
+            "section": null
+          },
+          {
+            "fixedParamText": "1.5",
+            "halfTimeResult": null,
+            "id": 90981126710,
+            "originalMarketName": "points-more-less-than",
+            "results": [
+              {
+                "caption": "+",
+                "choiceParam": "+",
+                "id": 244900847710,
+                "quoteFloatValue": 1.45
+              },
+              {
+                "caption": "-",
+                "choiceParam": "-",
+                "id": 244900847810,
+                "quoteFloatValue": 2.45
+              }
+            ],
+            "section": null
+          }
+        ],
+        "score-both": [
+          {
+            "fixedParamText": null,
+            "halfTimeResult": null,
+            "id": 90981128110,
+            "originalMarketName": "score-both",
+            "results": [
+              {
+                "caption": "J",
+                "choiceParam": "J",
+                "id": 244900851110,
+                "quoteFloatValue": 1.97
+              },
+              {
+                "caption": "N",
+                "choiceParam": "N",
+                "id": 244900851210,
+                "quoteFloatValue": 1.67
+              }
+            ],
+            "section": null
+          }
+        ]
+      }
+    }
+  }
+}

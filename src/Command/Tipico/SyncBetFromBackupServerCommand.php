@@ -3,6 +3,7 @@
 namespace App\Command\Tipico;
 
 use App\Entity\BettingProvider\TipicoBet;
+use App\Service\Backup\BackupServerApiService;
 use App\Service\Tipico\Api\Response\TipicoDailyMatchesResponse;
 use App\Service\Tipico\Content\TipicoBet\Data\TipicoBetData;
 use App\Service\Tipico\Content\TipicoOdd\BothTeamsScoreOdd\Data\TipicoBothTeamsScoreOddData;
@@ -15,7 +16,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[AsCommand(
@@ -26,7 +26,8 @@ class SyncBetFromBackupServerCommand extends Command
 {
     public function __construct(
         private readonly SerializerInterface $serializer,
-        private readonly TipicoBetSimulationService $betSimulationService
+        private readonly TipicoBetSimulationService $betSimulationService,
+        private readonly BackupServerApiService $backupServerApiService,
     )
     {
         parent::__construct();
@@ -54,15 +55,14 @@ class SyncBetFromBackupServerCommand extends Command
         $fromDate->setTime(0,0);
         $untilDate->setTime(23, 59, 59);
 
-        $fromDateTimeStamp = $fromDate->getTimestamp() * 1000;
-        $untilDateTimeStamp = $untilDate->getTimestamp() * 1000;
-
         $output->writeln(sprintf('Sync bet from %s to %s', $fromDate->format('d/m/y H:i:s'), $untilDate->format('d/m/y H:i:s')));
 
-        // Call the API endpoint to fetch Tipico bets
-        $httpClient = HttpClient::create();
-        $server = '34.89.148.146';
-        $response = $httpClient->request('GET', "http://$server/api/bets?from=$fromDateTimeStamp&until=$untilDateTimeStamp");
+        if (!$this->backupServerApiService->isConfigured()) {
+            $output->writeln('BACKUP_SERVER_IP ist nicht gesetzt – kein Zweitserver konfiguriert.');
+            return Command::FAILURE;
+        }
+
+        $response = $this->backupServerApiService->getBetsForTimeInterval($fromDate, $untilDate);
 
         // Deserialize the JSON response into TipicoBet entities
         $tipicoBetsData = $response->toArray();
@@ -98,7 +98,7 @@ class SyncBetFromBackupServerCommand extends Command
             return Command::SUCCESS;
         }
 
-        $update = $input->getOption('dry');
+        $update = $input->getOption('update');
         if ($update) {
             return Command::SUCCESS;
         }

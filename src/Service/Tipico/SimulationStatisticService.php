@@ -427,9 +427,12 @@ class SimulationStatisticService
         return $this->tipicoBetService->findUpcomingEventsByRange(1.0, 100.0, 'oddHome',5000);
     }
 
-    public function getDailyEventChart(BetOn $betOn = BetOn::HOME): Chart
+    /**
+     * @param TipicoBet[]|null $nextPlacements bereits geladene Tagesspiele (spart eine zweite Abfrage)
+     */
+    public function getDailyEventChart(BetOn $betOn = BetOn::HOME, ?array $nextPlacements = null): Chart
     {
-        $nextPlacements = $this->getDailyEvents();
+        $nextPlacements ??= $this->getDailyEvents();
         $distribution = $this->getDailyEventDistribution($nextPlacements, $betOn);
 
         return $this->chartService->getDailyEventChart($distribution);

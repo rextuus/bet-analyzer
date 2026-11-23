@@ -1,7 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tipico Simulators{% endblock %}
+{% block title %}Cash box · {{ simulator.identifier }}{% endblock %}
 
 {% block body %}
-    {{ render_chart(chart) }}
+    <div class="page-header">
+        <div class="mw-100">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-1">
+                    <li class="breadcrumb-item"><a href="{{ path('app_tipico_simulator_list') }}">Simulators</a></li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">#{{ simulator.id }}</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Cash box</li>
+                </ol>
+            </nav>
+            <h1 class="text-break">{{ simulator.identifier }}</h1>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">{{ render_chart(chart) }}</div>
+    </div>
 {% endblock %}

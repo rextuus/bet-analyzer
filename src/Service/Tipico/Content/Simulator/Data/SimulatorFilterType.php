@@ -26,7 +26,7 @@ class SimulatorFilterType extends AbstractType
         }
 
         $builder
-            ->add('excludeNegative', CheckboxType::class, ['attr' => ['checked' => 1], 'required' => false])
+            ->add('excludeNegative', CheckboxType::class, ['required' => false])
             ->add('variant', ChoiceType::class, ['multiple' => true, 'choices' => $choices, 'required' => false])
             ->add(
                 'minCashBox',

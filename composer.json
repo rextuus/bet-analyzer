@@ -12,6 +12,7 @@
         "doctrine/orm": "^2.16",
         "dragonmantank/cron-expression": "^3.3",
       "easycorp/easyadmin-bundle": "^4.11",
+      "fortawesome/font-awesome": "6.5.2",
         "guzzlehttp/guzzle": "^7.8",
         "knplabs/knp-paginator-bundle": "^6.3",
       "markrogoyski/math-php": "^2.10",
@@ -53,8 +54,9 @@
         "symfony/ux-twig-component": "^2.16",
         "symfony/validator": "6.4.*",
         "symfony/web-link": "6.4.*",
-        "symfony/webpack-encore-bundle": "^2.1",
         "symfony/yaml": "6.4.*",
+      "symfonycasts/sass-bundle": "^0.10.0",
+      "twbs/bootstrap": "5.3.3",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },

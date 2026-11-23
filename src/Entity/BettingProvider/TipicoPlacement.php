@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TipicoPlacementRepository::class)]
+#[ORM\Index(name: 'idx_tipico_placement_simulator_created', columns: ['simulator_id', 'created'])]
 class TipicoPlacement
 {
     #[ORM\Id]

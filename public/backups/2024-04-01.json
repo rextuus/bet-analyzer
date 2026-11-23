@@ -1,0 +1,3147 @@
+{
+  "UPCOMING": {
+    "availableMarkets": {
+      "soccer": [
+        "standard",
+        "points-more-less-than",
+        "handicap",
+        "score-both",
+        "section-points-more-less",
+        "double-chance",
+        "head-to-head",
+        "first-scorer",
+        "section-win",
+        "score-both-halftime"
+      ],
+      "basketball": [
+        "standard",
+        "points-more-less-than",
+        "handicap",
+        "halftime-win"
+      ],
+      "tennis": [
+        "standard",
+        "section-win",
+        "points-more-less-than",
+        "handicap",
+        "tie-break-in-set"
+      ],
+      "baseball": [
+        "standard",
+        "points-more-less-than",
+        "section-win"
+      ]
+    },
+    "source": "UPCOMING",
+    "sportCompetitionMap": {
+      "soccer": [
+        {
+          "name": "Primera Division, Clausura",
+          "parentName": "Costa Rica",
+          "groupId": 3242301,
+          "groupIdString": "3242301",
+          "sportRadarGroupId": 3242,
+          "icon": "soccer",
+          "regionIcon": "cs-flag",
+          "groupInfo": "Costa Rica / Primera Division, Clausura",
+          "hasSeasonEvents": false,
+          "sort": 1
+        },
+        {
+          "name": "Liga de Ascenso, Clausura, Gruppe 1",
+          "parentName": "Costa Rica",
+          "groupId": 77873301,
+          "groupIdString": "77873301",
+          "sportRadarGroupId": 77873,
+          "icon": "soccer",
+          "regionIcon": "cs-flag",
+          "groupInfo": "Costa Rica / Liga de Ascenso, Clausura, Gruppe 1",
+          "hasSeasonEvents": false,
+          "sort": 2
+        }
+      ],
+      "basketball": [
+        {
+          "name": "LBF, Frauen",
+          "parentName": "Brasilien ",
+          "groupId": 5373301,
+          "groupIdString": "5373301",
+          "sportRadarGroupId": 5373,
+          "icon": "basketball",
+          "regionIcon": "br-flag",
+          "groupInfo": "Brasilien  / LBF, Frauen",
+          "hasSeasonEvents": false,
+          "sort": 8
+        }
+      ],
+      "tennis": [
+        {
+          "name": "Houston, USA",
+          "parentName": "ATP",
+          "groupId": 139364301,
+          "groupIdString": "139364301",
+          "sportRadarGroupId": 139364,
+          "icon": "tennis",
+          "regionIcon": "welt_flag",
+          "groupInfo": "ATP / Houston, USA",
+          "hasSeasonEvents": false,
+          "sort": 5
+        },
+        {
+          "name": "Houston, USA, Doppel",
+          "parentName": "ATP",
+          "groupId": 139366301,
+          "groupIdString": "139366301",
+          "sportRadarGroupId": 139366,
+          "icon": "tennis",
+          "regionIcon": "welt_flag",
+          "groupInfo": "ATP / Houston, USA, Doppel",
+          "hasSeasonEvents": false,
+          "sort": 6
+        },
+        {
+          "name": "Bogota, Kolumbien",
+          "parentName": "WTA",
+          "groupId": 141636301,
+          "groupIdString": "141636301",
+          "sportRadarGroupId": 141636,
+          "icon": "tennis",
+          "regionIcon": "welt_flag",
+          "groupInfo": "WTA / Bogota, Kolumbien",
+          "hasSeasonEvents": false,
+          "sort": 9
+        },
+        {
+          "name": "Charleston, USA",
+          "parentName": "WTA",
+          "groupId": 141630301,
+          "groupIdString": "141630301",
+          "sportRadarGroupId": 141630,
+          "icon": "tennis",
+          "regionIcon": "welt_flag",
+          "groupInfo": "WTA / Charleston, USA",
+          "hasSeasonEvents": false,
+          "sort": 11
+        },
+        {
+          "name": "Charleston, USA, Doppel",
+          "parentName": "WTA",
+          "groupId": 141632301,
+          "groupIdString": "141632301",
+          "sportRadarGroupId": 141632,
+          "icon": "tennis",
+          "regionIcon": "welt_flag",
+          "groupInfo": "WTA / Charleston, USA, Doppel",
+          "hasSeasonEvents": false,
+          "sort": 12
+        },
+        {
+          "name": "Mexico City, Mexiko",
+          "parentName": "Challenger",
+          "groupId": 144915301,
+          "groupIdString": "144915301",
+          "sportRadarGroupId": 144915,
+          "icon": "tennis",
+          "regionIcon": "welt_flag",
+          "groupInfo": "Challenger / Mexico City, Mexiko",
+          "hasSeasonEvents": false,
+          "sort": 14
+        }
+      ],
+      "baseball": [
+        {
+          "name": "MLB ",
+          "parentName": "USA",
+          "groupId": 25301,
+          "groupIdString": "25301",
+          "sportRadarGroupId": 25,
+          "icon": "baseball",
+          "regionIcon": "us-flag",
+          "groupInfo": "USA / MLB ",
+          "hasSeasonEvents": false,
+          "sort": 7
+        }
+      ]
+    },
+    "sports": [
+      {
+        "count": 2,
+        "groupId": 1101,
+        "sportId": "soccer",
+        "sort": 1
+      },
+      {
+        "count": 1,
+        "groupId": 2101,
+        "sportId": "basketball",
+        "sort": 2
+      },
+      {
+        "count": 8,
+        "groupId": 5101,
+        "sportId": "tennis",
+        "sort": 3
+      },
+      {
+        "count": 1,
+        "groupId": 3101,
+        "sportId": "baseball",
+        "sort": 7
+      }
+    ],
+    "competitionEventMap": {
+      "3242301": [
+        "603475610"
+      ],
+      "77873301": [
+        "603664910"
+      ],
+      "5373301": [
+        "603701610"
+      ],
+      "141632301": [
+        "603599010",
+        "603598910"
+      ],
+      "141630301": [
+        "603693310",
+        "603693410"
+      ],
+      "139366301": [
+        "603532610"
+      ],
+      "139364301": [
+        "603691610"
+      ],
+      "141636301": [
+        "603693810"
+      ],
+      "144915301": [
+        "603647010"
+      ],
+      "25301": [
+        "603663410"
+      ]
+    },
+    "events": {
+      "603475610": {
+        "id": "603475610",
+        "competitionId": 3242301,
+        "team1": "Municipal Grecia",
+        "team2": "CS Cartagines",
+        "eventStartTime": 1712005200000,
+        "midnightTime": 1711929600000,
+        "team1Id": 316969,
+        "team2Id": 7044,
+        "sportRadarMatchId": 46428523,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Primera Division, Clausura / Municipal Grecia - CS Cartagines",
+        "eventName": "Municipal Grecia - CS Cartagines",
+        "betMarketsCount": 69,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": null,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603664910": {
+        "id": "603664910",
+        "competitionId": 77873301,
+        "team1": "Jacó FC",
+        "team2": "Pfa Antioquia FC",
+        "eventStartTime": 1712005200000,
+        "midnightTime": 1711929600000,
+        "team1Id": 617310,
+        "team2Id": 1037337,
+        "sportRadarMatchId": 48519981,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Liga de Ascenso, Clausura, Gruppe 1 / Jacó FC - Pfa Antioquia FC",
+        "eventName": "Jacó FC - Pfa Antioquia FC",
+        "betMarketsCount": 23,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": null,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603701610": {
+        "id": "603701610",
+        "competitionId": 5373301,
+        "team1": "Bax Catanduva (F)",
+        "team2": "Unisociesc / B. (F)",
+        "eventStartTime": 1712007000000,
+        "midnightTime": 1711929600000,
+        "team1Id": 476938,
+        "team2Id": 988503,
+        "sportRadarMatchId": 47576215,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "LBF, Frauen / Bax Catanduva (F) - Unisociesc / B. (F)",
+        "eventName": "Bax Catanduva (F) - Unisociesc / B. (F)",
+        "betMarketsCount": 8,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": null,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603599010": {
+        "id": "603599010",
+        "competitionId": 141632301,
+        "team1": "Chang S/Xu Y",
+        "team2": "Kichenok/Kichenok",
+        "eventStartTime": 1712001000000,
+        "midnightTime": 1711929600000,
+        "team1Id": 1119787,
+        "team2Id": 41527,
+        "sportRadarMatchId": null,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Charleston, USA, Doppel / Chang S/Xu Y - Kichenok/Kichenok",
+        "eventName": "Chang S/Xu Y - Kichenok/Kichenok",
+        "betMarketsCount": 4,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": 10961037,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603693310": {
+        "id": "603693310",
+        "competitionId": 141630301,
+        "team1": "Liu, C.",
+        "team2": "Rogers, S.",
+        "eventStartTime": 1712002200000,
+        "midnightTime": 1711929600000,
+        "team1Id": 179300,
+        "team2Id": 42459,
+        "sportRadarMatchId": null,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Charleston, USA / Liu, C. - Rogers, S.",
+        "eventName": "Liu, C. - Rogers, S.",
+        "betMarketsCount": 15,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": 10960766,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603532610": {
+        "id": "603532610",
+        "competitionId": 139366301,
+        "team1": "Purcell/Thompson",
+        "team2": "King/Smith",
+        "eventStartTime": 1712002800000,
+        "midnightTime": 1711929600000,
+        "team1Id": 772670,
+        "team2Id": 1119519,
+        "sportRadarMatchId": null,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Houston, USA, Doppel / Purcell/Thompson - King/Smith",
+        "eventName": "Purcell/Thompson - King/Smith",
+        "betMarketsCount": 4,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": null,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603691610": {
+        "id": "603691610",
+        "competitionId": 139364301,
+        "team1": "Kypson, P.",
+        "team2": "Bergs, Z.",
+        "eventStartTime": 1712002800000,
+        "midnightTime": 1711929600000,
+        "team1Id": 234046,
+        "team2Id": 170946,
+        "sportRadarMatchId": null,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Houston, USA / Kypson, P. - Bergs, Z.",
+        "eventName": "Kypson, P. - Bergs, Z.",
+        "betMarketsCount": 15,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": null,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603693810": {
+        "id": "603693810",
+        "competitionId": 141636301,
+        "team1": "Niemeier, J.",
+        "team2": "Brancaccio, N.",
+        "eventStartTime": 1712004300000,
+        "midnightTime": 1711929600000,
+        "team1Id": 255031,
+        "team2Id": 227390,
+        "sportRadarMatchId": null,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Bogota, Kolumbien / Niemeier, J. - Brancaccio, N.",
+        "eventName": "Niemeier, J. - Brancaccio, N.",
+        "betMarketsCount": 9,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": 10960705,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603598910": {
+        "id": "603598910",
+        "competitionId": 141632301,
+        "team1": "Krueger/Stephens",
+        "team2": "Eikeri U/Wu F",
+        "eventStartTime": 1712004600000,
+        "midnightTime": 1711929600000,
+        "team1Id": 1093311,
+        "team2Id": 1119789,
+        "sportRadarMatchId": null,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Charleston, USA, Doppel / Krueger/Stephens - Eikeri/Wu F",
+        "eventName": "Krueger/Stephens - Eikeri/Wu F",
+        "betMarketsCount": 4,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": 10961038,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603647010": {
+        "id": "603647010",
+        "competitionId": 144915301,
+        "team1": "Polmans, M.",
+        "team2": "Schoolkate, T.",
+        "eventStartTime": 1712005200000,
+        "midnightTime": 1711929600000,
+        "team1Id": 80665,
+        "team2Id": 405977,
+        "sportRadarMatchId": null,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Mexico City, Mexiko / Polmans, M. - Schoolkate, T.",
+        "eventName": "Polmans, M. - Schoolkate, T.",
+        "betMarketsCount": 1,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": null,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603693410": {
+        "id": "603693410",
+        "competitionId": 141630301,
+        "team1": "Gracheva, V.",
+        "team2": "Ngounoue, C.",
+        "eventStartTime": 1712007600000,
+        "midnightTime": 1711929600000,
+        "team1Id": 246905,
+        "team2Id": 789688,
+        "sportRadarMatchId": null,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "Charleston, USA / Gracheva, V. - Ngounoue, C.",
+        "eventName": "Gracheva, V. - Ngounoue, C.",
+        "betMarketsCount": 15,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": 10960774,
+        "lsportId": null,
+        "lSportId": null
+      },
+      "603663410": {
+        "id": "603663410",
+        "competitionId": 25301,
+        "team1": "Washington Nation.",
+        "team2": "Pittsburgh Pirates",
+        "eventStartTime": 1712001900000,
+        "midnightTime": 1711929600000,
+        "team1Id": 5930,
+        "team2Id": 3637,
+        "sportRadarMatchId": null,
+        "status": "pre_match",
+        "redCards": null,
+        "type": "live",
+        "date": "heute",
+        "eventInfo": "MLB  / Washington Nation. - Pittsburgh Pirates",
+        "eventName": "Washington Nation. - Pittsburgh Pirates",
+        "betMarketsCount": 8,
+        "currentServer": null,
+        "hasFirstHalfResults": false,
+        "extraTime": false,
+        "penalties": false,
+        "breakBefore": null,
+        "liveOutright": false,
+        "betGeniusId": 10687987,
+        "lsportId": null,
+        "lSportId": null
+      }
+    },
+    "scores": {},
+    "matchOddGroupReplacement": {},
+    "eventsBySport": {
+      "soccer": [
+        "603475610",
+        "603664910"
+      ],
+      "basketball": [
+        "603701610"
+      ],
+      "tennis": [
+        "603599010",
+        "603693310",
+        "603532610",
+        "603691610",
+        "603693810",
+        "603598910",
+        "603647010",
+        "603693410"
+      ],
+      "baseball": [
+        "603663410"
+      ]
+    },
+    "eventsByOdds": {
+      "soccer": {
+        "standard": {
+          "asc": [
+            "603664910",
+            "603475610"
+          ],
+          "desc": [
+            "603664910",
+            "603475610"
+          ]
+        },
+        "first-scorer": {
+          "asc": [
+            "603475610",
+            "603664910"
+          ],
+          "desc": [
+            "603475610",
+            "603664910"
+          ]
+        },
+        "score-both": {
+          "asc": [
+            "603664910",
+            "603475610"
+          ],
+          "desc": [
+            "603664910",
+            "603475610"
+          ]
+        },
+        "head-to-head": {
+          "asc": [
+            "603664910",
+            "603475610"
+          ],
+          "desc": [
+            "603664910",
+            "603475610"
+          ]
+        },
+        "double-chance": {
+          "asc": [
+            "603664910",
+            "603475610"
+          ],
+          "desc": [
+            "603664910",
+            "603475610"
+          ]
+        }
+      },
+      "basketball": {
+        "standard": {
+          "asc": [
+            "603701610"
+          ],
+          "desc": [
+            "603701610"
+          ]
+        }
+      },
+      "tennis": {
+        "standard": {
+          "asc": [
+            "603532610",
+            "603598910",
+            "603599010",
+            "603693810",
+            "603647010",
+            "603693410",
+            "603693310",
+            "603691610"
+          ],
+          "desc": [
+            "603532610",
+            "603598910",
+            "603693810",
+            "603599010",
+            "603647010",
+            "603693410",
+            "603693310",
+            "603691610"
+          ]
+        }
+      },
+      "baseball": {
+        "standard": {
+          "asc": [
+            "603663410"
+          ],
+          "desc": [
+            "603663410"
+          ]
+        }
+      }
+    },
+    "live": false,
+    "pushEligible": false,
+    "matchOddGroups": {
+      "603475610": {
+        "standard": [
+          {
+            "id": 47341624410,
+            "results": [
+              {
+                "id": 127959794910,
+                "caption": "1",
+                "quoteFloatValue": 3.9
+              },
+              {
+                "id": 127959795110,
+                "caption": "X",
+                "quoteFloatValue": 3.2
+              },
+              {
+                "id": 127959795010,
+                "caption": "2",
+                "quoteFloatValue": 1.85
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "double-chance": [
+          {
+            "id": 47341624510,
+            "results": [
+              {
+                "id": 127959795410,
+                "caption": "1X",
+                "quoteFloatValue": 1.77
+              },
+              {
+                "id": 127959795210,
+                "caption": "12",
+                "quoteFloatValue": 1.28
+              },
+              {
+                "id": 127959795310,
+                "caption": "X2",
+                "quoteFloatValue": 1.16
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47341624710,
+            "results": [
+              {
+                "id": 127959795810,
+                "caption": "1",
+                "quoteFloatValue": 1.8
+              },
+              {
+                "id": 127959796010,
+                "caption": "X",
+                "quoteFloatValue": 3.7
+              },
+              {
+                "id": 127959795910,
+                "caption": "2",
+                "quoteFloatValue": 3.2
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1:0",
+            "section": null
+          },
+          {
+            "id": 47341624610,
+            "results": [
+              {
+                "id": 127959795610,
+                "caption": "1",
+                "quoteFloatValue": 5.8
+              },
+              {
+                "id": 127959795510,
+                "caption": "X",
+                "quoteFloatValue": 5.7
+              },
+              {
+                "id": 127959795710,
+                "caption": "2",
+                "quoteFloatValue": 1.27
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0:1",
+            "section": null
+          },
+          {
+            "id": 47341624810,
+            "results": [
+              {
+                "id": 127959796310,
+                "caption": "1",
+                "quoteFloatValue": 1.18
+              },
+              {
+                "id": 127959796110,
+                "caption": "X",
+                "quoteFloatValue": 5.8
+              },
+              {
+                "id": 127959796210,
+                "caption": "2",
+                "quoteFloatValue": 8.5
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2:0",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47341625110,
+            "results": [
+              {
+                "id": 127959796810,
+                "caption": "+",
+                "quoteFloatValue": 1.8
+              },
+              {
+                "id": 127959796910,
+                "caption": "-",
+                "quoteFloatValue": 1.9
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          },
+          {
+            "id": 47341624910,
+            "results": [
+              {
+                "id": 127959796410,
+                "caption": "+",
+                "quoteFloatValue": 1.02
+              },
+              {
+                "id": 127959796510,
+                "caption": "-",
+                "quoteFloatValue": 9.5
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0.5",
+            "section": null
+          },
+          {
+            "id": 47341625010,
+            "results": [
+              {
+                "id": 127959796710,
+                "caption": "+",
+                "quoteFloatValue": 1.25
+              },
+              {
+                "id": 127959796610,
+                "caption": "-",
+                "quoteFloatValue": 3.5
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5",
+            "section": null
+          },
+          {
+            "id": 47341625210,
+            "results": [
+              {
+                "id": 127959797110,
+                "caption": "+",
+                "quoteFloatValue": 2.9
+              },
+              {
+                "id": 127959797010,
+                "caption": "-",
+                "quoteFloatValue": 1.35
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "3.5",
+            "section": null
+          },
+          {
+            "id": 47341625310,
+            "results": [
+              {
+                "id": 127959797210,
+                "caption": "+",
+                "quoteFloatValue": 5.2
+              },
+              {
+                "id": 127959797310,
+                "caption": "-",
+                "quoteFloatValue": 1.12
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "4.5",
+            "section": null
+          },
+          {
+            "id": 47341625410,
+            "results": [
+              {
+                "id": 127959797510,
+                "caption": "+",
+                "quoteFloatValue": 8.5
+              },
+              {
+                "id": 127959797410,
+                "caption": "-",
+                "quoteFloatValue": 1.03
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "5.5",
+            "section": null
+          }
+        ],
+        "first-scorer": [
+          {
+            "id": 47341625510,
+            "results": [
+              {
+                "id": 127959797610,
+                "caption": "1",
+                "quoteFloatValue": 2.35
+              },
+              {
+                "id": 127959797810,
+                "caption": "X",
+                "quoteFloatValue": 9.0
+              },
+              {
+                "id": 127959797710,
+                "caption": "2",
+                "quoteFloatValue": 1.67
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47341625610,
+            "results": [
+              {
+                "id": 127959797910,
+                "caption": "1",
+                "quoteFloatValue": 3.7
+              },
+              {
+                "id": 127959798110,
+                "caption": "X",
+                "quoteFloatValue": 2.1
+              },
+              {
+                "id": 127959798010,
+                "caption": "2",
+                "quoteFloatValue": 2.55
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          },
+          {
+            "id": 47341625710,
+            "results": [
+              {
+                "id": 127959798310,
+                "caption": "1",
+                "quoteFloatValue": 3.3
+              },
+              {
+                "id": 127959798410,
+                "caption": "X",
+                "quoteFloatValue": 2.55
+              },
+              {
+                "id": 127959798210,
+                "caption": "2",
+                "quoteFloatValue": 2.25
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 2
+          }
+        ],
+        "section-points-more-less": [
+          {
+            "id": 47341625810,
+            "results": [
+              {
+                "id": 127959798510,
+                "caption": "+",
+                "quoteFloatValue": 2.65
+              },
+              {
+                "id": 127959798610,
+                "caption": "-",
+                "quoteFloatValue": 1.4
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5",
+            "section": 1
+          },
+          {
+            "id": 47341625910,
+            "results": [
+              {
+                "id": 127959798710,
+                "caption": "+",
+                "quoteFloatValue": 1.35
+              },
+              {
+                "id": 127959798810,
+                "caption": "-",
+                "quoteFloatValue": 2.8
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0.5",
+            "section": 1
+          },
+          {
+            "id": 47341626310,
+            "results": [
+              {
+                "id": 127959799510,
+                "caption": "+",
+                "quoteFloatValue": 6.0
+              },
+              {
+                "id": 127959799610,
+                "caption": "-",
+                "quoteFloatValue": 1.08
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": 1
+          },
+          {
+            "id": 47341626010,
+            "results": [
+              {
+                "id": 127959798910,
+                "caption": "+",
+                "quoteFloatValue": 1.2
+              },
+              {
+                "id": 127959799010,
+                "caption": "-",
+                "quoteFloatValue": 3.9
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0.5",
+            "section": 2
+          },
+          {
+            "id": 47341626210,
+            "results": [
+              {
+                "id": 127959799410,
+                "caption": "+",
+                "quoteFloatValue": 1.97
+              },
+              {
+                "id": 127959799310,
+                "caption": "-",
+                "quoteFloatValue": 1.7
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5",
+            "section": 2
+          },
+          {
+            "id": 47341626110,
+            "results": [
+              {
+                "id": 127959799110,
+                "caption": "+",
+                "quoteFloatValue": 4.1
+              },
+              {
+                "id": 127959799210,
+                "caption": "-",
+                "quoteFloatValue": 1.17
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": 2
+          }
+        ],
+        "score-both": [
+          {
+            "id": 47341626410,
+            "results": [
+              {
+                "id": 127959799810,
+                "caption": "J",
+                "quoteFloatValue": 1.65
+              },
+              {
+                "id": 127959799710,
+                "caption": "N",
+                "quoteFloatValue": 2.05
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "score-both-halftime": [
+          {
+            "id": 47341626510,
+            "results": [
+              {
+                "id": 127959799910,
+                "caption": "J",
+                "quoteFloatValue": 4.2
+              },
+              {
+                "id": 127959800010,
+                "caption": "N",
+                "quoteFloatValue": 1.18
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          },
+          {
+            "id": 47341626610,
+            "results": [
+              {
+                "id": 127959800110,
+                "caption": "J",
+                "quoteFloatValue": 3.2
+              },
+              {
+                "id": 127959800210,
+                "caption": "N",
+                "quoteFloatValue": 1.3
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "head-to-head": [
+          {
+            "id": 47341627410,
+            "results": [
+              {
+                "id": 127959801810,
+                "caption": "1",
+                "quoteFloatValue": 2.65
+              },
+              {
+                "id": 127959801910,
+                "caption": "2",
+                "quoteFloatValue": 1.42
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ]
+      },
+      "603664910": {
+        "standard": [
+          {
+            "id": 47412105110,
+            "results": [
+              {
+                "id": 128159058010,
+                "caption": "1",
+                "quoteFloatValue": 4.0
+              },
+              {
+                "id": 128159057910,
+                "caption": "X",
+                "quoteFloatValue": 3.7
+              },
+              {
+                "id": 128159058110,
+                "caption": "2",
+                "quoteFloatValue": 1.67
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "double-chance": [
+          {
+            "id": 47412105210,
+            "results": [
+              {
+                "id": 128159058310,
+                "caption": "1X",
+                "quoteFloatValue": 1.95
+              },
+              {
+                "id": 128159058410,
+                "caption": "12",
+                "quoteFloatValue": 1.18
+              },
+              {
+                "id": 128159058210,
+                "caption": "X2",
+                "quoteFloatValue": 1.15
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47412105410,
+            "results": [
+              {
+                "id": 128159059010,
+                "caption": "1",
+                "quoteFloatValue": 2.0
+              },
+              {
+                "id": 128159058810,
+                "caption": "X",
+                "quoteFloatValue": 3.9
+              },
+              {
+                "id": 128159058910,
+                "caption": "2",
+                "quoteFloatValue": 2.65
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1:0",
+            "section": null
+          },
+          {
+            "id": 47412105310,
+            "results": [
+              {
+                "id": 128159058610,
+                "caption": "1",
+                "quoteFloatValue": 9.5
+              },
+              {
+                "id": 128159058710,
+                "caption": "X",
+                "quoteFloatValue": 6.2
+              },
+              {
+                "id": 128159058510,
+                "caption": "2",
+                "quoteFloatValue": 1.15
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0:1",
+            "section": null
+          },
+          {
+            "id": 47412105510,
+            "results": [
+              {
+                "id": 128159059110,
+                "caption": "1",
+                "quoteFloatValue": 1.25
+              },
+              {
+                "id": 128159059310,
+                "caption": "X",
+                "quoteFloatValue": 5.5
+              },
+              {
+                "id": 128159059210,
+                "caption": "2",
+                "quoteFloatValue": 6.5
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2:0",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47412105810,
+            "results": [
+              {
+                "id": 128159059910,
+                "caption": "+",
+                "quoteFloatValue": 1.57
+              },
+              {
+                "id": 128159059810,
+                "caption": "-",
+                "quoteFloatValue": 2.25
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          },
+          {
+            "id": 47412105710,
+            "results": [
+              {
+                "id": 128159059710,
+                "caption": "+",
+                "quoteFloatValue": 1.15
+              },
+              {
+                "id": 128159059610,
+                "caption": "-",
+                "quoteFloatValue": 4.6
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5",
+            "section": null
+          },
+          {
+            "id": 47412105910,
+            "results": [
+              {
+                "id": 128159060110,
+                "caption": "+",
+                "quoteFloatValue": 2.4
+              },
+              {
+                "id": 128159060010,
+                "caption": "-",
+                "quoteFloatValue": 1.5
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "3.5",
+            "section": null
+          },
+          {
+            "id": 47412106010,
+            "results": [
+              {
+                "id": 128159060310,
+                "caption": "+",
+                "quoteFloatValue": 4.0
+              },
+              {
+                "id": 128159060210,
+                "caption": "-",
+                "quoteFloatValue": 1.2
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "4.5",
+            "section": null
+          },
+          {
+            "id": 47412105610,
+            "results": [
+              {
+                "id": 128159059510,
+                "caption": "+",
+                "quoteFloatValue": 1.02,
+                "status": "stopped"
+              },
+              {
+                "id": 128159059410,
+                "caption": "-",
+                "quoteFloatValue": 10.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0.5",
+            "section": null
+          },
+          {
+            "id": 47412106110,
+            "results": [
+              {
+                "id": 128159060410,
+                "caption": "+",
+                "quoteFloatValue": 7.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128159060510,
+                "caption": "-",
+                "quoteFloatValue": 1.06,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "5.5",
+            "section": null
+          }
+        ],
+        "section-points-more-less": [
+          {
+            "id": 47412106410,
+            "results": [
+              {
+                "id": 128159061210,
+                "caption": "+",
+                "quoteFloatValue": 2.35
+              },
+              {
+                "id": 128159061310,
+                "caption": "-",
+                "quoteFloatValue": 1.47
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5",
+            "section": 1
+          },
+          {
+            "id": 47446858610,
+            "results": [
+              {
+                "id": 128262878810,
+                "caption": "+",
+                "quoteFloatValue": 1.25
+              },
+              {
+                "id": 128262878910,
+                "caption": "-",
+                "quoteFloatValue": 3.3
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0.5",
+            "section": 1
+          }
+        ],
+        "score-both": [
+          {
+            "id": 47412106510,
+            "results": [
+              {
+                "id": 128159061510,
+                "caption": "J",
+                "quoteFloatValue": 1.5
+              },
+              {
+                "id": 128159061410,
+                "caption": "N",
+                "quoteFloatValue": 2.3
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "head-to-head": [
+          {
+            "id": 47412107010,
+            "results": [
+              {
+                "id": 128159062610,
+                "caption": "1",
+                "quoteFloatValue": 3.0
+              },
+              {
+                "id": 128159062510,
+                "caption": "2",
+                "quoteFloatValue": 1.33
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "first-scorer": [
+          {
+            "id": 47412106210,
+            "results": [
+              {
+                "id": 128159060610,
+                "caption": "1",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128159060710,
+                "caption": "X",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128159060810,
+                "caption": "2",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47412106310,
+            "results": [
+              {
+                "id": 128159060910,
+                "caption": "1",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128159061010,
+                "caption": "X",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128159061110,
+                "caption": "2",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          },
+          {
+            "id": 47412132110,
+            "results": [
+              {
+                "id": 128159138610,
+                "caption": "1",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128159138710,
+                "caption": "X",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128159138510,
+                "caption": "2",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 2
+          }
+        ],
+        "score-both-halftime": [
+          {
+            "id": 47412106610,
+            "results": [
+              {
+                "id": 128159061610,
+                "caption": "J",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128159061710,
+                "caption": "N",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ]
+      },
+      "603701610": {
+        "standard": [
+          {
+            "id": 47419361910,
+            "results": [
+              {
+                "id": 128181469810,
+                "caption": "1",
+                "quoteFloatValue": 4.4
+              },
+              {
+                "id": 128181469910,
+                "caption": "2",
+                "quoteFloatValue": 1.14
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47419362210,
+            "results": [
+              {
+                "id": 128181470510,
+                "caption": "1",
+                "quoteFloatValue": 1.8
+              },
+              {
+                "id": 128181470410,
+                "caption": "2",
+                "quoteFloatValue": 1.83
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "9.5:0",
+            "section": null
+          },
+          {
+            "id": 47419362010,
+            "results": [
+              {
+                "id": 128181470010,
+                "caption": "1",
+                "quoteFloatValue": 2.0
+              },
+              {
+                "id": 128181470110,
+                "caption": "2",
+                "quoteFloatValue": 1.67
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "7.5:0",
+            "section": null
+          },
+          {
+            "id": 47419362310,
+            "results": [
+              {
+                "id": 128181470710,
+                "caption": "1",
+                "quoteFloatValue": 1.95
+              },
+              {
+                "id": 128181470610,
+                "caption": "2",
+                "quoteFloatValue": 1.7
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "8.5:0",
+            "section": null
+          },
+          {
+            "id": 47419362110,
+            "results": [
+              {
+                "id": 128181470310,
+                "caption": "1",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128181470210,
+                "caption": "2",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "10.5:0",
+            "section": null
+          },
+          {
+            "id": 47424668210,
+            "results": [
+              {
+                "id": 128198565610,
+                "caption": "1",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128198565510,
+                "caption": "2",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "11.5:0",
+            "section": null
+          },
+          {
+            "id": 47447689210,
+            "results": [
+              {
+                "id": 128264910710,
+                "caption": "1",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128264910610,
+                "caption": "2",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "12.5:0",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47419362610,
+            "results": [
+              {
+                "id": 128181471210,
+                "caption": "+",
+                "quoteFloatValue": 1.83
+              },
+              {
+                "id": 128181471310,
+                "caption": "-",
+                "quoteFloatValue": 1.87
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "134.5",
+            "section": null
+          },
+          {
+            "id": 47419362510,
+            "results": [
+              {
+                "id": 128181471110,
+                "caption": "+",
+                "quoteFloatValue": 1.72
+              },
+              {
+                "id": 128181471010,
+                "caption": "-",
+                "quoteFloatValue": 2.0
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "133.5",
+            "section": null
+          },
+          {
+            "id": 47419362410,
+            "results": [
+              {
+                "id": 128181470910,
+                "caption": "+",
+                "quoteFloatValue": 1.95
+              },
+              {
+                "id": 128181470810,
+                "caption": "-",
+                "quoteFloatValue": 1.75
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "135.5",
+            "section": null
+          },
+          {
+            "id": 47429722510,
+            "results": [
+              {
+                "id": 128212938810,
+                "caption": "+",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128212938710,
+                "caption": "-",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "131.5",
+            "section": null
+          },
+          {
+            "id": 47429544610,
+            "results": [
+              {
+                "id": 128212443710,
+                "caption": "+",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128212443610,
+                "caption": "-",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "132.5",
+            "section": null
+          },
+          {
+            "id": 47424668310,
+            "results": [
+              {
+                "id": 128198565810,
+                "caption": "+",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              },
+              {
+                "id": 128198565710,
+                "caption": "-",
+                "quoteFloatValue": 1.0,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "136.5",
+            "section": null
+          }
+        ],
+        "halftime-win": [
+          {
+            "id": 47419362710,
+            "results": [
+              {
+                "id": 128181471610,
+                "caption": "1",
+                "quoteFloatValue": 3.1
+              },
+              {
+                "id": 128181471410,
+                "caption": "X",
+                "quoteFloatValue": 8.0
+              },
+              {
+                "id": 128181471510,
+                "caption": "2",
+                "quoteFloatValue": 1.42
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          }
+        ]
+      },
+      "603599010": {
+        "standard": [
+          {
+            "id": 47384836410,
+            "results": [
+              {
+                "id": 128082097710,
+                "caption": "1",
+                "quoteFloatValue": 2.3
+              },
+              {
+                "id": 128082097810,
+                "caption": "2",
+                "quoteFloatValue": 1.5
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47390158710,
+            "results": [
+              {
+                "id": 128096317910,
+                "caption": "1",
+                "quoteFloatValue": 1.5
+              },
+              {
+                "id": 128096318010,
+                "caption": "2",
+                "quoteFloatValue": 2.3
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5:0",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47390158810,
+            "results": [
+              {
+                "id": 128096318210,
+                "caption": "+",
+                "quoteFloatValue": 2.3
+              },
+              {
+                "id": 128096318110,
+                "caption": "-",
+                "quoteFloatValue": 1.5
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47384836510,
+            "results": [
+              {
+                "id": 128082097910,
+                "caption": "1",
+                "quoteFloatValue": 2.2
+              },
+              {
+                "id": 128082098010,
+                "caption": "2",
+                "quoteFloatValue": 1.55
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          }
+        ]
+      },
+      "603693310": {
+        "standard": [
+          {
+            "id": 47417474010,
+            "results": [
+              {
+                "id": 128175611710,
+                "caption": "1",
+                "quoteFloatValue": 1.75
+              },
+              {
+                "id": 128175611810,
+                "caption": "2",
+                "quoteFloatValue": 1.95
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47417474110,
+            "results": [
+              {
+                "id": 128175611910,
+                "caption": "1",
+                "quoteFloatValue": 2.7
+              },
+              {
+                "id": 128175612010,
+                "caption": "2",
+                "quoteFloatValue": 1.4
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0:1.5",
+            "section": null
+          },
+          {
+            "id": 47417474210,
+            "results": [
+              {
+                "id": 128175612110,
+                "caption": "1",
+                "quoteFloatValue": 1.35
+              },
+              {
+                "id": 128175612210,
+                "caption": "2",
+                "quoteFloatValue": 2.95
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5:0",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47417507110,
+            "results": [
+              {
+                "id": 128175697410,
+                "caption": "+",
+                "quoteFloatValue": 2.35
+              },
+              {
+                "id": 128175697510,
+                "caption": "-",
+                "quoteFloatValue": 1.52
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47417474610,
+            "results": [
+              {
+                "id": 128175613110,
+                "caption": "1",
+                "quoteFloatValue": 1.85
+              },
+              {
+                "id": 128175613210,
+                "caption": "2",
+                "quoteFloatValue": 1.85
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          },
+          {
+            "id": 47417474710,
+            "results": [
+              {
+                "id": 128175613310,
+                "caption": "1",
+                "quoteFloatValue": 1.8
+              },
+              {
+                "id": 128175613410,
+                "caption": "2",
+                "quoteFloatValue": 1.9
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 2
+          }
+        ],
+        "tie-break-in-set": [
+          {
+            "id": 47425339010,
+            "results": [
+              {
+                "id": 128200650310,
+                "caption": "J",
+                "quoteFloatValue": 6.5
+              },
+              {
+                "id": 128200650410,
+                "caption": "N",
+                "quoteFloatValue": 1.08
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          }
+        ]
+      },
+      "603532610": {
+        "standard": [
+          {
+            "id": 47366978110,
+            "results": [
+              {
+                "id": 128029564810,
+                "caption": "1",
+                "quoteFloatValue": 1.07
+              },
+              {
+                "id": 128029564710,
+                "caption": "2",
+                "quoteFloatValue": 6.0
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47404838310,
+            "results": [
+              {
+                "id": 128138571410,
+                "caption": "1",
+                "quoteFloatValue": 1.27
+              },
+              {
+                "id": 128138571310,
+                "caption": "2",
+                "quoteFloatValue": 3.2
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0:1.5",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47404838410,
+            "results": [
+              {
+                "id": 128138571510,
+                "caption": "+",
+                "quoteFloatValue": 3.3
+              },
+              {
+                "id": 128138571610,
+                "caption": "-",
+                "quoteFloatValue": 1.25
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47366978210,
+            "results": [
+              {
+                "id": 128029564910,
+                "caption": "1",
+                "quoteFloatValue": 1.1
+              },
+              {
+                "id": 128029565010,
+                "caption": "2",
+                "quoteFloatValue": 5.2
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          }
+        ]
+      },
+      "603691610": {
+        "standard": [
+          {
+            "id": 47417176410,
+            "results": [
+              {
+                "id": 128174646410,
+                "caption": "1",
+                "quoteFloatValue": 1.9
+              },
+              {
+                "id": 128174646310,
+                "caption": "2",
+                "quoteFloatValue": 1.8
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47417176510,
+            "results": [
+              {
+                "id": 128174646610,
+                "caption": "1",
+                "quoteFloatValue": 3.2
+              },
+              {
+                "id": 128174646510,
+                "caption": "2",
+                "quoteFloatValue": 1.3
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0:1.5",
+            "section": null
+          },
+          {
+            "id": 47417176610,
+            "results": [
+              {
+                "id": 128174646710,
+                "caption": "1",
+                "quoteFloatValue": 1.35
+              },
+              {
+                "id": 128174646810,
+                "caption": "2",
+                "quoteFloatValue": 2.95
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5:0",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47417190610,
+            "results": [
+              {
+                "id": 128174677210,
+                "caption": "+",
+                "quoteFloatValue": 2.15
+              },
+              {
+                "id": 128174677110,
+                "caption": "-",
+                "quoteFloatValue": 1.62
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47417177010,
+            "results": [
+              {
+                "id": 128174647810,
+                "caption": "1",
+                "quoteFloatValue": 1.9
+              },
+              {
+                "id": 128174647710,
+                "caption": "2",
+                "quoteFloatValue": 1.8
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          },
+          {
+            "id": 47417177110,
+            "results": [
+              {
+                "id": 128174647910,
+                "caption": "1",
+                "quoteFloatValue": 1.9
+              },
+              {
+                "id": 128174648010,
+                "caption": "2",
+                "quoteFloatValue": 1.8
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 2
+          }
+        ],
+        "tie-break-in-set": [
+          {
+            "id": 47433127310,
+            "results": [
+              {
+                "id": 128222344310,
+                "caption": "J",
+                "quoteFloatValue": 4.0
+              },
+              {
+                "id": 128222344410,
+                "caption": "N",
+                "quoteFloatValue": 1.2
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          }
+        ]
+      },
+      "603693810": {
+        "standard": [
+          {
+            "id": 47417535910,
+            "results": [
+              {
+                "id": 128175775110,
+                "caption": "1",
+                "quoteFloatValue": 1.52
+              },
+              {
+                "id": 128175775210,
+                "caption": "2",
+                "quoteFloatValue": 2.35
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47417536110,
+            "results": [
+              {
+                "id": 128175775510,
+                "caption": "1",
+                "quoteFloatValue": 2.35
+              },
+              {
+                "id": 128175775810,
+                "caption": "2",
+                "quoteFloatValue": 1.52
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0:1.5",
+            "section": null
+          },
+          {
+            "id": 47417536410,
+            "results": [
+              {
+                "id": 128175776010,
+                "caption": "1",
+                "quoteFloatValue": 1.22
+              },
+              {
+                "id": 128175776210,
+                "caption": "2",
+                "quoteFloatValue": 3.8
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5:0",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47417671610,
+            "results": [
+              {
+                "id": 128176190210,
+                "caption": "+",
+                "quoteFloatValue": 2.3
+              },
+              {
+                "id": 128176190310,
+                "caption": "-",
+                "quoteFloatValue": 1.55
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47417537110,
+            "results": [
+              {
+                "id": 128175777710,
+                "caption": "1",
+                "quoteFloatValue": 1.62
+              },
+              {
+                "id": 128175777810,
+                "caption": "2",
+                "quoteFloatValue": 2.15
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          },
+          {
+            "id": 47417537210,
+            "results": [
+              {
+                "id": 128175777910,
+                "caption": "1",
+                "quoteFloatValue": 1.6
+              },
+              {
+                "id": 128175778010,
+                "caption": "2",
+                "quoteFloatValue": 2.2
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 2
+          }
+        ]
+      },
+      "603598910": {
+        "standard": [
+          {
+            "id": 47384836010,
+            "results": [
+              {
+                "id": 128082097010,
+                "caption": "1",
+                "quoteFloatValue": 1.45
+              },
+              {
+                "id": 128082096910,
+                "caption": "2",
+                "quoteFloatValue": 2.45
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47390169510,
+            "results": [
+              {
+                "id": 128096341810,
+                "caption": "1",
+                "quoteFloatValue": 2.3
+              },
+              {
+                "id": 128096341710,
+                "caption": "2",
+                "quoteFloatValue": 1.5
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0:1.5",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47390169610,
+            "results": [
+              {
+                "id": 128096341910,
+                "caption": "+",
+                "quoteFloatValue": 2.3
+              },
+              {
+                "id": 128096342010,
+                "caption": "-",
+                "quoteFloatValue": 1.5
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47384836110,
+            "results": [
+              {
+                "id": 128082097110,
+                "caption": "1",
+                "quoteFloatValue": 1.6
+              },
+              {
+                "id": 128082097210,
+                "caption": "2",
+                "quoteFloatValue": 2.1
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          }
+        ]
+      },
+      "603647010": {
+        "standard": [
+          {
+            "id": 47402054610,
+            "results": [
+              {
+                "id": 128131186710,
+                "caption": "1",
+                "quoteFloatValue": 1.7
+              },
+              {
+                "id": 128131186810,
+                "caption": "2",
+                "quoteFloatValue": 2.05
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47402054710,
+            "results": [
+              {
+                "id": 128131186910,
+                "caption": "1",
+                "quoteFloatValue": 2.7,
+                "status": "stopped"
+              },
+              {
+                "id": 128131187010,
+                "caption": "2",
+                "quoteFloatValue": 1.37,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0:1.5",
+            "section": null
+          },
+          {
+            "id": 47402054810,
+            "results": [
+              {
+                "id": 128131187210,
+                "caption": "1",
+                "quoteFloatValue": 1.32,
+                "status": "stopped"
+              },
+              {
+                "id": 128131187110,
+                "caption": "2",
+                "quoteFloatValue": 2.8,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5:0",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47402069410,
+            "results": [
+              {
+                "id": 128131219810,
+                "caption": "+",
+                "quoteFloatValue": 2.2,
+                "status": "stopped"
+              },
+              {
+                "id": 128131219910,
+                "caption": "-",
+                "quoteFloatValue": 1.55,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47402054910,
+            "results": [
+              {
+                "id": 128131187410,
+                "caption": "1",
+                "quoteFloatValue": 1.75,
+                "status": "stopped"
+              },
+              {
+                "id": 128131187310,
+                "caption": "2",
+                "quoteFloatValue": 1.9,
+                "status": "stopped"
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          }
+        ]
+      },
+      "603693410": {
+        "standard": [
+          {
+            "id": 47417477310,
+            "results": [
+              {
+                "id": 128175618810,
+                "caption": "1",
+                "quoteFloatValue": 1.75
+              },
+              {
+                "id": 128175618710,
+                "caption": "2",
+                "quoteFloatValue": 1.95
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "handicap": [
+          {
+            "id": 47417477410,
+            "results": [
+              {
+                "id": 128175619010,
+                "caption": "1",
+                "quoteFloatValue": 2.65
+              },
+              {
+                "id": 128175618910,
+                "caption": "2",
+                "quoteFloatValue": 1.42
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "0:1.5",
+            "section": null
+          },
+          {
+            "id": 47417477510,
+            "results": [
+              {
+                "id": 128175619110,
+                "caption": "1",
+                "quoteFloatValue": 1.27
+              },
+              {
+                "id": 128175619210,
+                "caption": "2",
+                "quoteFloatValue": 3.4
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "1.5:0",
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47417507810,
+            "results": [
+              {
+                "id": 128175698810,
+                "caption": "+",
+                "quoteFloatValue": 2.35
+              },
+              {
+                "id": 128175698910,
+                "caption": "-",
+                "quoteFloatValue": 1.52
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "2.5",
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47417477910,
+            "results": [
+              {
+                "id": 128175620210,
+                "caption": "1",
+                "quoteFloatValue": 1.75
+              },
+              {
+                "id": 128175620110,
+                "caption": "2",
+                "quoteFloatValue": 1.95
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          },
+          {
+            "id": 47417478010,
+            "results": [
+              {
+                "id": 128175620310,
+                "caption": "1",
+                "quoteFloatValue": 1.72
+              },
+              {
+                "id": 128175620410,
+                "caption": "2",
+                "quoteFloatValue": 2.0
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 2
+          }
+        ],
+        "tie-break-in-set": [
+          {
+            "id": 47425339110,
+            "results": [
+              {
+                "id": 128200650510,
+                "caption": "J",
+                "quoteFloatValue": 6.5
+              },
+              {
+                "id": 128200650610,
+                "caption": "N",
+                "quoteFloatValue": 1.08
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          }
+        ]
+      },
+      "603663410": {
+        "standard": [
+          {
+            "id": 47411981510,
+            "results": [
+              {
+                "id": 128158727110,
+                "caption": "1",
+                "quoteFloatValue": 1.93
+              },
+              {
+                "id": 128158727210,
+                "caption": "2",
+                "quoteFloatValue": 1.85
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": null
+          }
+        ],
+        "points-more-less-than": [
+          {
+            "id": 47411981710,
+            "results": [
+              {
+                "id": 128158727610,
+                "caption": "+",
+                "quoteFloatValue": 2.2
+              },
+              {
+                "id": 128158727510,
+                "caption": "-",
+                "quoteFloatValue": 1.6
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "9.5",
+            "section": null
+          },
+          {
+            "id": 47411981810,
+            "results": [
+              {
+                "id": 128158727710,
+                "caption": "+",
+                "quoteFloatValue": 1.6
+              },
+              {
+                "id": 128158727810,
+                "caption": "-",
+                "quoteFloatValue": 2.2
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "7.5",
+            "section": null
+          },
+          {
+            "id": 47411981910,
+            "results": [
+              {
+                "id": 128158728010,
+                "caption": "+",
+                "quoteFloatValue": 1.8
+              },
+              {
+                "id": 128158727910,
+                "caption": "-",
+                "quoteFloatValue": 1.9
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": "8.5",
+            "section": null
+          }
+        ],
+        "section-win": [
+          {
+            "id": 47411982310,
+            "results": [
+              {
+                "id": 128158728810,
+                "caption": "1",
+                "quoteFloatValue": 3.8
+              },
+              {
+                "id": 128158728710,
+                "caption": "X",
+                "quoteFloatValue": 1.75
+              },
+              {
+                "id": 128158728910,
+                "caption": "2",
+                "quoteFloatValue": 3.7
+              }
+            ],
+            "halfTimeResult": null,
+            "fixedParamText": null,
+            "section": 1
+          }
+        ]
+      }
+    },
+    "outrightOddGroups": {},
+    "sportCompetitionMarketCaptionsMap": {
+      "soccer": {
+        "3242301": {
+          "standard": [
+            "1",
+            "X",
+            "2"
+          ],
+          "double-chance": [
+            "1X",
+            "12",
+            "X2"
+          ],
+          "handicap": [
+            "1",
+            "X",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "first-scorer": [
+            "1",
+            "X",
+            "2"
+          ],
+          "section-win": [
+            "1",
+            "X",
+            "2"
+          ],
+          "section-points-more-less": [
+            "+",
+            "-"
+          ],
+          "score-both": [
+            "J",
+            "N"
+          ],
+          "score-both-halftime": [
+            "J",
+            "N"
+          ],
+          "head-to-head": [
+            "1",
+            "2"
+          ]
+        },
+        "77873301": {
+          "standard": [
+            "1",
+            "X",
+            "2"
+          ],
+          "double-chance": [
+            "1X",
+            "12",
+            "X2"
+          ],
+          "handicap": [
+            "1",
+            "X",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "section-points-more-less": [
+            "+",
+            "-"
+          ],
+          "score-both": [
+            "J",
+            "N"
+          ],
+          "head-to-head": [
+            "1",
+            "2"
+          ],
+          "first-scorer": [
+            "1",
+            "X",
+            "2"
+          ],
+          "section-win": [
+            "1",
+            "X",
+            "2"
+          ],
+          "score-both-halftime": [
+            "J",
+            "N"
+          ]
+        }
+      },
+      "basketball": {
+        "5373301": {
+          "standard": [
+            "1",
+            "2"
+          ],
+          "handicap": [
+            "1",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "halftime-win": [
+            "1",
+            "X",
+            "2"
+          ]
+        }
+      },
+      "tennis": {
+        "141632301": {
+          "standard": [
+            "1",
+            "2"
+          ],
+          "handicap": [
+            "1",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "section-win": [
+            "1",
+            "2"
+          ]
+        },
+        "141630301": {
+          "standard": [
+            "1",
+            "2"
+          ],
+          "handicap": [
+            "1",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "section-win": [
+            "1",
+            "2"
+          ],
+          "tie-break-in-set": [
+            "J",
+            "N"
+          ]
+        },
+        "139366301": {
+          "standard": [
+            "1",
+            "2"
+          ],
+          "handicap": [
+            "1",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "section-win": [
+            "1",
+            "2"
+          ]
+        },
+        "139364301": {
+          "standard": [
+            "1",
+            "2"
+          ],
+          "handicap": [
+            "1",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "section-win": [
+            "1",
+            "2"
+          ],
+          "tie-break-in-set": [
+            "J",
+            "N"
+          ]
+        },
+        "141636301": {
+          "standard": [
+            "1",
+            "2"
+          ],
+          "handicap": [
+            "1",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "section-win": [
+            "1",
+            "2"
+          ]
+        },
+        "144915301": {
+          "standard": [
+            "1",
+            "2"
+          ],
+          "handicap": [
+            "1",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "section-win": [
+            "1",
+            "2"
+          ]
+        }
+      },
+      "baseball": {
+        "25301": {
+          "standard": [
+            "1",
+            "2"
+          ],
+          "points-more-less-than": [
+            "+",
+            "-"
+          ],
+          "section-win": [
+            "1",
+            "X",
+            "2"
+          ]
+        }
+      }
+    },
+    "counts": [
+      {
+        "count": 2,
+        "groupId": 1101,
+        "sportId": "soccer",
+        "sort": 1
+      },
+      {
+        "count": 1,
+        "groupId": 2101,
+        "sportId": "basketball",
+        "sort": 2
+      },
+      {
+        "count": 9,
+        "groupId": 5101,
+        "sportId": "tennis",
+        "sort": 3
+      },
+      {
+        "count": 1,
+        "groupId": 3101,
+        "sportId": "baseball",
+        "sort": 7
+      },
+      {
+        "count": 13,
+        "groupId": null,
+        "sportId": "all",
+        "sort": 2147483647
+      }
+    ]
+  }
+}

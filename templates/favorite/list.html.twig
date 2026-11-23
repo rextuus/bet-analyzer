@@ -1,56 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SimulatorController!{% endblock %}
+{% block title %}Favorites{% endblock %}
 
 {% block body %}
-    {#    <div class="link"><a href="{{ path('app_tipico_simulation_dashboard') }}">To Weekday</a></div> #}
-    {#    <div class="link"><a href="{{ path('app_favorite_list', {from: from, until: until}) }}">Today</a></div> #}
-
-    {#    <div class="form"> #}
-    {#        {{ form(form) }} #}
-    {#    </div> #}
-    <div class="container mb-4 mt-4">
-        <a href="{{ path('app_tipico_simulation_dashboard') }}" class="btn btn-primary">Dashboard</a>
-        <a href="{{ path('app_favorite_list', { 'from': date('-1 year').timestamp }) }}" class="btn btn-primary">1
-            Year</a>
-        <a href="{{ path('app_favorite_list') }}" class="btn btn-primary">Today</a>
+    <div class="page-header">
+        <div>
+            <h1>Favorite lists</h1>
+            <p class="page-subtitle">Period: {{ from|date('d.m.Y H:i') }} – {{ until|date('d.m.Y H:i') }}</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <div class="btn-group" role="group" aria-label="Period">
+                <a href="{{ path('app_favorite_list') }}" class="btn btn-outline-secondary">Today</a>
+                <a href="{{ path('app_favorite_list', { 'from': date('-7 days')|date('U') }) }}"
+                   class="btn btn-outline-secondary">7 days</a>
+                <a href="{{ path('app_favorite_list', { 'from': date('-1 year').timestamp }) }}"
+                   class="btn btn-outline-secondary">1 year</a>
+            </div>
+            <a href="{{ path('app_favorite_create') }}" class="btn btn-primary"><i class="fa-solid fa-plus me-1"></i>New
+                list</a>
+        </div>
     </div>
 
-    <div class="alert alert-info text-center my-3">
-        <strong>Zeitraum:</strong>
-        Von {{ from|date('d.m.Y H:i:s') }} bis {{ until|date('d.m.Y H:i:s') }}
-    </div>
-
-    <div class="favorite-listing">
+    <div class="row g-3">
         {% for list in lists %}
-            <div class="favorite {{ listClass[loop.index - 1] }}">
-                <div class="row">
-                    <div class="cashbox">
-                        {{ balanceToday[loop.index - 1] }}€
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="ident">
-                        <a href="{{ path('app_favorite_detail', {simulatorFavoriteList: list.id, from: from, until: until}) }}">{{ list.identifier }}</a>
-                    </div>
-                    <div class="created">
-                        {{ list.created|date('d-m-Y') }}
-                    </div>
-                    <div class="bets">
-                        {{ betsToday[loop.index - 1] }}/{{ nextPlacements[loop.index - 1] }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="simulators">
-                        {% for simulator in list.getSimulatorsOrderedByCashBox %}
-                            <div class="link">
-                                <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a><span> ({{ simulator.cashBox }})</span>
+            {% set balance = balanceToday[loop.index0] %}
+            <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                            <div>
+                                <a class="h5 mb-0 d-block text-decoration-none"
+                                   href="{{ path('app_favorite_detail', {simulatorFavoriteList: list.id, from: from, until: until}) }}">{{ list.identifier }}</a>
+                                <span class="small text-body-secondary">created {{ list.created|date('d.m.Y') }}</span>
                             </div>
-                        {% endfor %}
+                            <div class="text-end">
+                                <div class="fs-4 fw-bold {{ balance > 0 ? 'value-positive' : (balance < 0 ? 'value-negative') }}">{{ balance|number_format(2, ',', '.') }}
+                                    €
+                                </div>
+                                <span class="small text-body-secondary">{{ betsToday[loop.index0] }}/{{ nextPlacements[loop.index0] }} bets</span>
+                            </div>
+                        </div>
+                        <ul class="list-unstyled mb-0 small">
+                            {% for simulator in list.getSimulatorsOrderedByCashBox %}
+                                <li class="d-flex justify-content-between gap-2 py-1 border-top">
+                                    <a class="text-break"
+                                       href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">{{ simulator.identifier }}</a>
+                                    <span class="text-nowrap {{ simulator.cashBox >= 100 ? 'value-positive' : 'value-negative' }}">{{ simulator.cashBox|number_format(2, ',', '.') }} €</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>
+        {% else %}
+            <div class="col-12"><p class="text-body-secondary">No favorite lists yet.</p></div>
         {% endfor %}
     </div>
-
 {% endblock %}

@@ -1,28 +1,30 @@
-version: '3'
-
+# Lokale Entwicklung: nur die Datenbank (PHP läuft auf dem Host, siehe Makefile).
+# Produktion: compose.prod.yaml (unabhängig davon).
 services:
-  ###> doctrine/doctrine-bundle ###
   database:
-    image: 'mysql:8.0'
-    command: --default-authentication-plugin=mysql_native_password
+    # Dieselbe Version wie in Produktion, damit ein Dump von dort ohne Überraschungen passt.
+    image: mysql:8.4.13
     environment:
-      #      POSTGRES_DB: ${POSTGRES_DB:-app}
-      #      # You should definitely change the password in production
-      #      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      #      POSTGRES_USER: ${POSTGRES_USER:-app}
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: bet_analyzer
       MYSQL_USER: bet_analyzer
-      MYSQL_PASSWORD: 123Katzen
+      MYSQL_PASSWORD: bet_analyzer
+      TZ: Europe/Berlin
+    command:
+      - "--max-allowed-packet=256M"
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -psecret --silent" ]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
     volumes:
-      - db-data:/home/wolfgang/Documents/programming/DB
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
+      - database:/var/lib/mysql:rw
+    # 3306/3307 sind auf diesem Rechner von wedora/meridim belegt.
     ports:
-      - '3306:3306'
-###< doctrine/doctrine-bundle ###
+      - "127.0.0.1:${DB_PORT:-3308}:3306"
 
 volumes:
-  ###> doctrine/doctrine-bundle ###
-  db-data:
-###< doctrine/doctrine-bundle ###
+  # Eigener Name, damit er nie mit dem Produktions-Volume (bet-analyzer_database_data) verwechselt wird.
+  database:
+    name: bet-analyzer-dev_database

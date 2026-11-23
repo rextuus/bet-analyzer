@@ -1,0 +1,8 @@
+// Einstiegspunkt für symfonycasts/sass-bundle (config/packages/symfonycasts_sass.yaml) – eingebunden in
+// base.html.twig. Reihenfolge wie früher in app.js: erst Theme (inkl. Bootstrap), dann die Seiten-Styles.
+@import "theme";
+@import "app";
+@import "dashbaord";
+@import "simulator-detail";
+@import "favorites";
+@import "suggestion";

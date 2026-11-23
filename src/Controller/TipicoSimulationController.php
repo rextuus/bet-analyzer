@@ -8,6 +8,7 @@ use App\Service\Evaluation\BetOn;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterData;
 use App\Service\Tipico\Content\Simulator\Data\SimulatorFilterType;
 use App\Service\Tipico\Content\Simulator\SimulatorService;
+use App\Service\Tipico\Content\TipicoBet\TipicoBetService;
 use App\Service\Tipico\Duplication\SimulatorDuplicationData;
 use App\Service\Tipico\Duplication\SimulatorDuplicationService;
 use App\Service\Tipico\Duplication\SimulatorDuplicationType;
@@ -39,30 +40,28 @@ class TipicoSimulationController extends AbstractController
     }
 
     #[Route('/', name: 'app_tipico_simulation_dashboard')]
-    public function index(): Response
+    public function index(TipicoBetService $tipicoBetService): Response
     {
         $nextPlacements = $this->simulationStatisticService->getDailyEvents();
-        $chartHome = $this->simulationStatisticService->getDailyEventChart();
+        $chartHome = $this->simulationStatisticService->getDailyEventChart(BetOn::HOME, $nextPlacements);
 
         $current = new DateTime();
         $total = count($nextPlacements);
 
-        $open = array_filter(
+        $open = count(
+            array_filter(
             $nextPlacements,
-            function (TipicoBet $tipicoBet) use ($current) {
-                return $tipicoBet->getStartAtTimeStamp() / 1000 > $current->getTimestamp();
-            }
+                static fn(TipicoBet $tipicoBet
+                ): bool => $tipicoBet->getStartAtTimeStamp() / 1000 > $current->getTimestamp()
+            )
         );
-        $open = count($open);
 
-//        $lastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7);
-//        $beforeLastWeekStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(14, 7);
-//        $lastSameWeekDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(7, 6);
-//        $yesterdayStatistic = $this->simulationStatisticService->getTopSimulatorsOfLastDays(1);
-//        $currentDayStatistic = $this->simulationStatisticService->getTopSimulatorsOfCurrentDay();
-//        $cashBoxChart = $this->simulationStatisticService->getSimulatorCashBoxDistributionChart();
-//        $distribution = $this->simulationStatisticService->getActiveSimulators();
-
+        // Datenstand: Liegt das jüngste eingelesene Spiel vor heute, sammelt der Cronjob nichts mehr
+        // (so lief es von 11/2025 bis 11/2026 unbemerkt, als Tipico die API umgestellt hat).
+        $latestStart = $tipicoBetService->findLatestStartTimestamp();
+        $latestMatch = null === $latestStart ? null : (new DateTime())->setTimestamp(intdiv($latestStart, 1000));
+        $today = (new DateTime())->setTime(0, 0);
+        $dataIsStale = null === $latestMatch || $latestMatch < $today;
 
         $from = new DateTime();
         $from->setTime(0, 0);
@@ -77,16 +76,8 @@ class TipicoSimulationController extends AbstractController
             'open' => $open,
             'finished' => $total - $open,
             'chartHome' => $chartHome,
-//            'lastWeekStatistic' => $lastWeekStatistic,
-//            'beforeLastWeekStatistic' => $beforeLastWeekStatistic,
-//            'lastSameWeekDayStatistic' => $lastSameWeekDayStatistic,
-//            'yesterdayStatistic' => $yesterdayStatistic,
-//            'currentDayStatistic' => $currentDayStatistic,
-//            'cashBoxChart' => $cashBoxChart,
-//            'totalSimulators' => $distribution['total'],
-//            'inactiveSimulators' => $distribution['inactive'],
-//            'activeSimulators' => $distribution['active'],
-//            'inWinSimulators' => $distribution['inWin'],
+            'latestMatch' => $latestMatch,
+            'dataIsStale' => $dataIsStale,
             'from' => $from->getTimestamp(),
             'until' => $until->getTimestamp(),
         ]);
@@ -267,6 +258,7 @@ class TipicoSimulationController extends AbstractController
 
         return $this->render('tipico_simulation/chart_show.html.twig', [
             'chart' => $chart,
+            'simulator' => $simulator,
         ]);
     }
 

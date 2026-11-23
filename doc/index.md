@@ -7,8 +7,8 @@ Step-by-step instructions to install and set up the project.
 ```bash
 # Example commands for installation
 composer install
-npm install
-npm run build
+php bin/console importmap:install
+php bin/console sass:build   # oder: make install
 ```
 
 ## Duplicate Simulators

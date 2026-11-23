@@ -1,0 +1,910 @@
+[
+  {
+    "id": 4709,
+    "tipicoId": 602008010,
+    "tipicoHomeTeamId": 7629,
+    "tipicoAwayTeamId": 3211,
+    "homeTeamName": "Huracan",
+    "awayTeamName": "River Plate",
+    "startAtTimeStamp": 1711755000000,
+    "oddHome": 4.6,
+    "oddDraw": 3.3,
+    "oddAway": 1.77,
+    "endScoreHome": 1,
+    "endScoreAway": 0,
+    "finished": true,
+    "result": "1",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6137,
+        "overValue": 2.0,
+        "underValue": 1.7,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6138,
+        "overValue": 1.03,
+        "underValue": 8.5,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6139,
+        "overValue": 1.3,
+        "underValue": 3.2,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6140,
+        "overValue": 3.5,
+        "underValue": 1.25,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6141,
+        "overValue": 6.5,
+        "underValue": 1.07,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6142,
+        "overValue": 12.0,
+        "underValue": 1.0,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 930,
+      "conditionTrueValue": 1.83,
+      "conditionFalseValue": 1.85
+    },
+    "tipicoHeadToHeadScore": null
+  },
+  {
+    "id": 4710,
+    "tipicoId": 602113510,
+    "tipicoHomeTeamId": 3167,
+    "tipicoAwayTeamId": 3157,
+    "homeTeamName": "Cobresal",
+    "awayTeamName": "CD Palestino",
+    "startAtTimeStamp": 1711755000000,
+    "oddHome": 2.6,
+    "oddDraw": 3.1,
+    "oddAway": 2.5,
+    "endScoreHome": 0,
+    "endScoreAway": 2,
+    "finished": true,
+    "result": "2",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6143,
+        "overValue": 1.72,
+        "underValue": 1.97,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6144,
+        "overValue": 1.01,
+        "underValue": 10.5,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6145,
+        "overValue": 1.22,
+        "underValue": 3.7,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6146,
+        "overValue": 2.8,
+        "underValue": 1.37,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6147,
+        "overValue": 5.7,
+        "underValue": 1.1,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6148,
+        "overValue": 12.0,
+        "underValue": 1.0,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 931,
+      "conditionTrueValue": 1.55,
+      "conditionFalseValue": 2.2
+    },
+    "tipicoHeadToHeadScore": null
+  },
+  {
+    "id": 4711,
+    "tipicoId": 602963710,
+    "tipicoHomeTeamId": 6001,
+    "tipicoAwayTeamId": 5250,
+    "homeTeamName": "CD Macar\u00e1",
+    "awayTeamName": "Barcelona SC",
+    "startAtTimeStamp": 1711756800000,
+    "oddHome": 2.1,
+    "oddDraw": 3.4,
+    "oddAway": 2.95,
+    "endScoreHome": 1,
+    "endScoreAway": 1,
+    "finished": true,
+    "result": "X",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6149,
+        "overValue": 1.9,
+        "underValue": 1.8,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6150,
+        "overValue": 1.04,
+        "underValue": 7.8,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6151,
+        "overValue": 1.27,
+        "underValue": 3.4,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6152,
+        "overValue": 3.5,
+        "underValue": 1.25,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6153,
+        "overValue": 5.8,
+        "underValue": 1.09,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6154,
+        "overValue": 12.0,
+        "underValue": 1.0,
+        "targetValue": 5.5
+      },
+      {
+        "id": 8927,
+        "overValue": 1.9,
+        "underValue": 1.8,
+        "targetValue": 2.5
+      },
+      {
+        "id": 8928,
+        "overValue": 1.04,
+        "underValue": 7.8,
+        "targetValue": 0.5
+      },
+      {
+        "id": 8929,
+        "overValue": 1.27,
+        "underValue": 3.4,
+        "targetValue": 1.5
+      },
+      {
+        "id": 8930,
+        "overValue": 3.5,
+        "underValue": 1.25,
+        "targetValue": 3.5
+      },
+      {
+        "id": 8931,
+        "overValue": 5.8,
+        "underValue": 1.09,
+        "targetValue": 4.5
+      },
+      {
+        "id": 8932,
+        "overValue": 9.5,
+        "underValue": 1.02,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 932,
+      "conditionTrueValue": 1.67,
+      "conditionFalseValue": 2.0
+    },
+    "tipicoHeadToHeadScore": null
+  },
+  {
+    "id": 4712,
+    "tipicoId": 602620210,
+    "tipicoHomeTeamId": 63760,
+    "tipicoAwayTeamId": 48431,
+    "homeTeamName": "Cusco FC",
+    "awayTeamName": "Union Comercio",
+    "startAtTimeStamp": 1711756800000,
+    "oddHome": 1.2,
+    "oddDraw": 5.2,
+    "oddAway": 12.0,
+    "endScoreHome": 1,
+    "endScoreAway": 0,
+    "finished": true,
+    "result": "1",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6155,
+        "overValue": 1.62,
+        "underValue": 2.15,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6156,
+        "overValue": 1.03,
+        "underValue": 8.5,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6157,
+        "overValue": 1.17,
+        "underValue": 4.3,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6158,
+        "overValue": 2.5,
+        "underValue": 1.45,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6159,
+        "overValue": 4.2,
+        "underValue": 1.18,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6160,
+        "overValue": 7.0,
+        "underValue": 1.06,
+        "targetValue": 5.5
+      },
+      {
+        "id": 8933,
+        "overValue": 1.6,
+        "underValue": 2.2,
+        "targetValue": 2.5
+      },
+      {
+        "id": 8934,
+        "overValue": 1.03,
+        "underValue": 8.5,
+        "targetValue": 0.5
+      },
+      {
+        "id": 8935,
+        "overValue": 1.16,
+        "underValue": 4.4,
+        "targetValue": 1.5
+      },
+      {
+        "id": 8936,
+        "overValue": 2.45,
+        "underValue": 1.47,
+        "targetValue": 3.5
+      },
+      {
+        "id": 8937,
+        "overValue": 4.2,
+        "underValue": 1.18,
+        "targetValue": 4.5
+      },
+      {
+        "id": 8938,
+        "overValue": 6.7,
+        "underValue": 1.07,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 933,
+      "conditionTrueValue": 2.05,
+      "conditionFalseValue": 1.65
+    },
+    "tipicoHeadToHeadScore": null
+  },
+  {
+    "id": 4713,
+    "tipicoId": 603126610,
+    "tipicoHomeTeamId": 53121,
+    "tipicoAwayTeamId": 399447,
+    "homeTeamName": "Celaya FC",
+    "awayTeamName": "Tlaxcala FC",
+    "startAtTimeStamp": 1711756800000,
+    "oddHome": 1.37,
+    "oddDraw": 4.3,
+    "oddAway": 6.8,
+    "endScoreHome": 1,
+    "endScoreAway": 1,
+    "finished": true,
+    "result": "X",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6161,
+        "overValue": 1.67,
+        "underValue": 2.05,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6162,
+        "overValue": 1.0,
+        "underValue": 12.0,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6163,
+        "overValue": 1.2,
+        "underValue": 3.9,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6164,
+        "overValue": 2.65,
+        "underValue": 1.42,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6165,
+        "overValue": 5.2,
+        "underValue": 1.12,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6166,
+        "overValue": 10.5,
+        "underValue": 1.01,
+        "targetValue": 5.5
+      },
+      {
+        "id": 8939,
+        "overValue": 1.67,
+        "underValue": 2.05,
+        "targetValue": 2.5
+      },
+      {
+        "id": 8940,
+        "overValue": 1.0,
+        "underValue": 12.0,
+        "targetValue": 0.5
+      },
+      {
+        "id": 8941,
+        "overValue": 1.2,
+        "underValue": 3.9,
+        "targetValue": 1.5
+      },
+      {
+        "id": 8942,
+        "overValue": 2.65,
+        "underValue": 1.42,
+        "targetValue": 3.5
+      },
+      {
+        "id": 8943,
+        "overValue": 5.2,
+        "underValue": 1.12,
+        "targetValue": 4.5
+      },
+      {
+        "id": 8944,
+        "overValue": 10.5,
+        "underValue": 1.01,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 934,
+      "conditionTrueValue": 1.83,
+      "conditionFalseValue": 1.83
+    },
+    "tipicoHeadToHeadScore": null
+  },
+  {
+    "id": 4714,
+    "tipicoId": 602960710,
+    "tipicoHomeTeamId": 6105,
+    "tipicoAwayTeamId": 6975,
+    "homeTeamName": "CD Popular Junior",
+    "awayTeamName": "Deportivo La Equidad",
+    "startAtTimeStamp": 1711758600000,
+    "oddHome": 1.65,
+    "oddDraw": 3.2,
+    "oddAway": 5.3,
+    "endScoreHome": 1,
+    "endScoreAway": 0,
+    "finished": true,
+    "result": "1",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6167,
+        "overValue": 2.0,
+        "underValue": 1.7,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6168,
+        "overValue": 1.04,
+        "underValue": 7.8,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6169,
+        "overValue": 1.32,
+        "underValue": 3.1,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6170,
+        "overValue": 3.5,
+        "underValue": 1.25,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6171,
+        "overValue": 7.8,
+        "underValue": 1.04,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6172,
+        "overValue": 12.0,
+        "underValue": 1.0,
+        "targetValue": 5.5
+      },
+      {
+        "id": 8945,
+        "overValue": 2.0,
+        "underValue": 1.7,
+        "targetValue": 2.5
+      },
+      {
+        "id": 8946,
+        "overValue": 1.04,
+        "underValue": 7.8,
+        "targetValue": 0.5
+      },
+      {
+        "id": 8947,
+        "overValue": 1.32,
+        "underValue": 3.1,
+        "targetValue": 1.5
+      },
+      {
+        "id": 8948,
+        "overValue": 3.5,
+        "underValue": 1.25,
+        "targetValue": 3.5
+      },
+      {
+        "id": 8949,
+        "overValue": 7.8,
+        "underValue": 1.04,
+        "targetValue": 4.5
+      },
+      {
+        "id": 8950,
+        "overValue": 12.0,
+        "underValue": 1.0,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 935,
+      "conditionTrueValue": 1.9,
+      "conditionFalseValue": 1.75
+    },
+    "tipicoHeadToHeadScore": {
+      "id": 772,
+      "homeTeamValue": 1.17,
+      "awayTeamValue": 4.3
+    }
+  },
+  {
+    "id": 4715,
+    "tipicoId": 603333610,
+    "tipicoHomeTeamId": 1038319,
+    "tipicoAwayTeamId": 159944,
+    "homeTeamName": "CF Orgullo Reynosa",
+    "awayTeamName": "Coras de Nayarit",
+    "startAtTimeStamp": 1711759500000,
+    "oddHome": 1.37,
+    "oddDraw": 3.9,
+    "oddAway": 7.5,
+    "endScoreHome": 2,
+    "endScoreAway": 1,
+    "finished": true,
+    "result": "1",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6173,
+        "overValue": 1.87,
+        "underValue": 1.83,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6174,
+        "overValue": 1.25,
+        "underValue": 3.5,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6175,
+        "overValue": 3.2,
+        "underValue": 1.3,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6176,
+        "overValue": 5.3,
+        "underValue": 1.11,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6177,
+        "overValue": 1.0,
+        "underValue": 1.0,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6178,
+        "overValue": 10.0,
+        "underValue": 1.01,
+        "targetValue": 5.5
+      },
+      {
+        "id": 8951,
+        "overValue": 1.87,
+        "underValue": 1.83,
+        "targetValue": 2.5
+      },
+      {
+        "id": 8952,
+        "overValue": 1.25,
+        "underValue": 3.5,
+        "targetValue": 1.5
+      },
+      {
+        "id": 8953,
+        "overValue": 3.2,
+        "underValue": 1.3,
+        "targetValue": 3.5
+      },
+      {
+        "id": 8954,
+        "overValue": 5.3,
+        "underValue": 1.11,
+        "targetValue": 4.5
+      },
+      {
+        "id": 8955,
+        "overValue": 1.0,
+        "underValue": 1.0,
+        "targetValue": 0.5
+      },
+      {
+        "id": 8956,
+        "overValue": 10.0,
+        "underValue": 1.01,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 936,
+      "conditionTrueValue": 2.05,
+      "conditionFalseValue": 1.62
+    },
+    "tipicoHeadToHeadScore": {
+      "id": 773,
+      "homeTeamValue": 1.09,
+      "awayTeamValue": 5.8
+    }
+  },
+  {
+    "id": 4716,
+    "tipicoId": 601647410,
+    "tipicoHomeTeamId": 1941,
+    "tipicoAwayTeamId": 1940,
+    "homeTeamName": "Puebla FC",
+    "awayTeamName": "Tigres UANL",
+    "startAtTimeStamp": 1711760400000,
+    "oddHome": 4.1,
+    "oddDraw": 3.7,
+    "oddAway": 1.75,
+    "endScoreHome": 2,
+    "endScoreAway": 3,
+    "finished": true,
+    "result": "2",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6179,
+        "overValue": 1.65,
+        "underValue": 2.1,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6180,
+        "overValue": 1.0,
+        "underValue": 12.0,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6181,
+        "overValue": 1.18,
+        "underValue": 4.2,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6182,
+        "overValue": 2.6,
+        "underValue": 1.42,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6183,
+        "overValue": 4.5,
+        "underValue": 1.16,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6184,
+        "overValue": 7.8,
+        "underValue": 1.04,
+        "targetValue": 5.5
+      },
+      {
+        "id": 8957,
+        "overValue": 1.62,
+        "underValue": 2.15,
+        "targetValue": 2.5
+      },
+      {
+        "id": 8958,
+        "overValue": 1.0,
+        "underValue": 12.0,
+        "targetValue": 0.5
+      },
+      {
+        "id": 8959,
+        "overValue": 1.18,
+        "underValue": 4.2,
+        "targetValue": 1.5
+      },
+      {
+        "id": 8960,
+        "overValue": 2.55,
+        "underValue": 1.45,
+        "targetValue": 3.5
+      },
+      {
+        "id": 8961,
+        "overValue": 4.3,
+        "underValue": 1.17,
+        "targetValue": 4.5
+      },
+      {
+        "id": 8962,
+        "overValue": 7.8,
+        "underValue": 1.04,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 937,
+      "conditionTrueValue": 1.57,
+      "conditionFalseValue": 2.25
+    },
+    "tipicoHeadToHeadScore": {
+      "id": 774,
+      "homeTeamValue": 3.0,
+      "awayTeamValue": 1.33
+    }
+  },
+  {
+    "id": 4717,
+    "tipicoId": 602961610,
+    "tipicoHomeTeamId": 6576,
+    "tipicoAwayTeamId": 7048,
+    "homeTeamName": "Perez Zeledon",
+    "awayTeamName": "Santos Guapiles",
+    "startAtTimeStamp": 1711760400000,
+    "oddHome": 1.9,
+    "oddDraw": 3.2,
+    "oddAway": 3.7,
+    "endScoreHome": 2,
+    "endScoreAway": 1,
+    "finished": true,
+    "result": "1",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6185,
+        "overValue": 2.0,
+        "underValue": 1.7,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6186,
+        "overValue": 1.04,
+        "underValue": 7.8,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6187,
+        "overValue": 1.32,
+        "underValue": 3.1,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6188,
+        "overValue": 3.5,
+        "underValue": 1.25,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6189,
+        "overValue": 6.2,
+        "underValue": 1.08,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6190,
+        "overValue": 9.5,
+        "underValue": 1.02,
+        "targetValue": 5.5
+      },
+      {
+        "id": 8963,
+        "overValue": 2.0,
+        "underValue": 1.7,
+        "targetValue": 2.5
+      },
+      {
+        "id": 8964,
+        "overValue": 1.04,
+        "underValue": 7.8,
+        "targetValue": 0.5
+      },
+      {
+        "id": 8965,
+        "overValue": 1.32,
+        "underValue": 3.1,
+        "targetValue": 1.5
+      },
+      {
+        "id": 8966,
+        "overValue": 3.5,
+        "underValue": 1.25,
+        "targetValue": 3.5
+      },
+      {
+        "id": 8967,
+        "overValue": 6.2,
+        "underValue": 1.08,
+        "targetValue": 4.5
+      },
+      {
+        "id": 8968,
+        "overValue": 9.5,
+        "underValue": 1.02,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 938,
+      "conditionTrueValue": 1.75,
+      "conditionFalseValue": 1.9
+    },
+    "tipicoHeadToHeadScore": {
+      "id": 775,
+      "homeTeamValue": 1.45,
+      "awayTeamValue": 2.5
+    }
+  },
+  {
+    "id": 4718,
+    "tipicoId": 601647610,
+    "tipicoHomeTeamId": 1939,
+    "tipicoAwayTeamId": 1950,
+    "homeTeamName": "Club America",
+    "awayTeamName": "Atletico San Luis",
+    "startAtTimeStamp": 1711764000000,
+    "oddHome": 1.4,
+    "oddDraw": 4.7,
+    "oddAway": 6.2,
+    "endScoreHome": 2,
+    "endScoreAway": 1,
+    "finished": true,
+    "result": "1",
+    "tipicoOverUnderOdds": [
+      {
+        "id": 6191,
+        "overValue": 1.5,
+        "underValue": 2.4,
+        "targetValue": 2.5
+      },
+      {
+        "id": 6192,
+        "overValue": 1.0,
+        "underValue": 12.0,
+        "targetValue": 0.5
+      },
+      {
+        "id": 6193,
+        "overValue": 1.13,
+        "underValue": 4.9,
+        "targetValue": 1.5
+      },
+      {
+        "id": 6194,
+        "overValue": 2.25,
+        "underValue": 1.55,
+        "targetValue": 3.5
+      },
+      {
+        "id": 6195,
+        "overValue": 4.3,
+        "underValue": 1.17,
+        "targetValue": 4.5
+      },
+      {
+        "id": 6196,
+        "overValue": 6.2,
+        "underValue": 1.08,
+        "targetValue": 5.5
+      },
+      {
+        "id": 8969,
+        "overValue": 1.5,
+        "underValue": 2.4,
+        "targetValue": 2.5
+      },
+      {
+        "id": 8970,
+        "overValue": 1.0,
+        "underValue": 12.0,
+        "targetValue": 0.5
+      },
+      {
+        "id": 8971,
+        "overValue": 1.13,
+        "underValue": 4.9,
+        "targetValue": 1.5
+      },
+      {
+        "id": 8972,
+        "overValue": 2.25,
+        "underValue": 1.55,
+        "targetValue": 3.5
+      },
+      {
+        "id": 8973,
+        "overValue": 4.3,
+        "underValue": 1.17,
+        "targetValue": 4.5
+      },
+      {
+        "id": 8974,
+        "overValue": 6.2,
+        "underValue": 1.08,
+        "targetValue": 5.5
+      }
+    ],
+    "tipicoBothTeamsScoreBet": {
+      "id": 939,
+      "conditionTrueValue": 1.62,
+      "conditionFalseValue": 2.15
+    },
+    "tipicoHeadToHeadScore": {
+      "id": 776,
+      "homeTeamValue": 1.14,
+      "awayTeamValue": 4.7
+    }
+  }
+]

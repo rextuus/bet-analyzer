@@ -1,7 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SimulatorController!{% endblock %}
+{% block title %}New favorite list{% endblock %}
 
 {% block body %}
-{{ form(form) }}
+    <div class="page-header">
+        <div>
+            <h1>New favorite list</h1>
+
+        </div>
+    </div>
+    <div class="card" style="max-width: 48rem">
+        <div class="card-body">
+            {{ form(form) }}
+        </div>
+    </div>
 {% endblock %}

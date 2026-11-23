@@ -42,6 +42,11 @@ class TipicoBetService
         return $this->repository->findBy($conditions);
     }
 
+    public function findLatestStartTimestamp(): ?int
+    {
+        return $this->repository->findLatestStartTimestamp();
+    }
+
     public function findByTipicoId(int $tipicoId): ?TipicoBet
     {
         return $this->repository->findOneBy(['tipicoId' => $tipicoId]);

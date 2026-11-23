@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TipicoBetRepository::class)]
+#[ORM\Index(name: 'idx_tipico_bet_tipico_id', columns: ['tipico_id'])]
+#[ORM\Index(name: 'idx_tipico_bet_start', columns: ['start_at_time_stamp'])]
+#[ORM\Index(name: 'idx_tipico_bet_finished_start', columns: ['finished', 'start_at_time_stamp'])]
 class TipicoBet
 {
     #[ORM\Id]

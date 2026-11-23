@@ -1,0 +1,1100 @@
+{
+  "0": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "10bet",
+    "slug": "10bet"
+  },
+  "1": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "188BET",
+    "slug": "188bet"
+  },
+  "2": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 1.0,
+    "name": "18Bet",
+    "slug": "18bet"
+  },
+  "3": {
+    "latencyLiveInSec": 0.5,
+    "latencyPreGameInSec": 0.5,
+    "name": "198Bet",
+    "slug": "198bet"
+  },
+  "4": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "1xBet",
+    "slug": "1xbet"
+  },
+  "5": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "1xBit",
+    "slug": "1xbit"
+  },
+  "6": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "20Bet",
+    "slug": "20bet"
+  },
+  "7": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "22Bet",
+    "slug": "22bet"
+  },
+  "8": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 0.4,
+    "name": "31Bet",
+    "slug": "31bet"
+  },
+  "9": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "32Red",
+    "slug": "32red"
+  },
+  "10": {
+    "latencyLiveInSec": 1.1,
+    "latencyPreGameInSec": 1.1,
+    "name": "3et",
+    "slug": "3et"
+  },
+  "11": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "7Bet LT",
+    "slug": "7bet.lt"
+  },
+  "12": {
+    "latencyLiveInSec": 1.2,
+    "latencyPreGameInSec": 1.2,
+    "name": "Admiral AT",
+    "slug": "admiral"
+  },
+  "13": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "All British Casino",
+    "slug": "allbritishcasino"
+  },
+  "14": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "AlphaWin",
+    "slug": "alphawin"
+  },
+  "15": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Apuesta Total",
+    "slug": "apuestatotal"
+  },
+  "16": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "ATG SE",
+    "slug": "atg.se"
+  },
+  "17": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Bally Bet",
+    "slug": "ballybet"
+  },
+  "18": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "BC.Game",
+    "slug": "bcgame"
+  },
+  "19": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "Bet3000",
+    "slug": "bet3000"
+  },
+  "20": {
+    "latencyLiveInSec": 0.2,
+    "latencyPreGameInSec": 0.3,
+    "name": "bet365",
+    "slug": "bet365"
+  },
+  "21": {
+    "latencyLiveInSec": 0.2,
+    "latencyPreGameInSec": 0.3,
+    "name": "bet365 DE",
+    "slug": "bet365.de"
+  },
+  "22": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Bet9ja",
+    "slug": "bet9ja"
+  },
+  "23": {
+    "latencyLiveInSec": 0.5,
+    "latencyPreGameInSec": 0.5,
+    "name": "Betano",
+    "slug": "betano"
+  },
+  "24": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Betcenter BE",
+    "slug": "betcenter.be"
+  },
+  "25": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Betcity NL",
+    "slug": "betcity"
+  },
+  "26": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "BetClic FR",
+    "slug": "betclic.fr"
+  },
+  "27": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "BetClic PL",
+    "slug": "betclic.pl"
+  },
+  "28": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "BetClic PT",
+    "slug": "betclic.pt"
+  },
+  "29": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "BetFair Exchange",
+    "slug": "betfair-ex"
+  },
+  "30": {
+    "latencyLiveInSec": 1.1,
+    "latencyPreGameInSec": 1.1,
+    "name": "BetFair Sportsbook",
+    "slug": "betfair-spb"
+  },
+  "31": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "Betfred",
+    "slug": "betfred"
+  },
+  "32": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "Betfury",
+    "slug": "betfury"
+  },
+  "33": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 0.4,
+    "name": "BetiBet",
+    "slug": "betibet"
+  },
+  "34": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "Betika KE",
+    "slug": "betika"
+  },
+  "35": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "BetMGM",
+    "slug": "betmgm"
+  },
+  "36": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "Betnacional",
+    "slug": "betnacional"
+  },
+  "37": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "BetOnRed",
+    "slug": "betonred"
+  },
+  "38": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "BetParx",
+    "slug": "betparx"
+  },
+  "39": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "BetPlay",
+    "slug": "betplay"
+  },
+  "40": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "BetRivers",
+    "slug": "betrivers"
+  },
+  "41": {
+    "latencyLiveInSec": 0.8,
+    "latencyPreGameInSec": 0.8,
+    "name": "Betsafe",
+    "slug": "betsafe"
+  },
+  "42": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "Betsafe LT",
+    "slug": "betsafe.lt"
+  },
+  "43": {
+    "latencyLiveInSec": 0.8,
+    "latencyPreGameInSec": 0.8,
+    "name": "Betsson",
+    "slug": "betsson"
+  },
+  "44": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "BetUK",
+    "slug": "betuk"
+  },
+  "45": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "Betway",
+    "slug": "betway"
+  },
+  "46": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "BetWinner",
+    "slug": "betwinner"
+  },
+  "47": {
+    "latencyLiveInSec": 0.5,
+    "latencyPreGameInSec": 0.5,
+    "name": "BFB247",
+    "slug": "bfb247"
+  },
+  "48": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Bingoal BE",
+    "slug": "bingoal.be"
+  },
+  "49": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "Bluechip",
+    "slug": "bluechip"
+  },
+  "50": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Bolsa de Aposta Sportsbook",
+    "slug": "bolsadeaposta-spb"
+  },
+  "51": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "Borgata Online Sports",
+    "slug": "borgata"
+  },
+  "52": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "BoyleSports",
+    "slug": "boylesports"
+  },
+  "53": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "Bpremium",
+    "slug": "bpremium"
+  },
+  "54": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "Bwin",
+    "slug": "bwin"
+  },
+  "55": {
+    "latencyLiveInSec": 1.2,
+    "latencyPreGameInSec": 1.2,
+    "name": "Caliente MX",
+    "slug": "caliente"
+  },
+  "56": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "CampeonBet",
+    "slug": "campeonbet"
+  },
+  "57": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "CASHPOINT",
+    "slug": "cashpoint"
+  },
+  "58": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Cloudbet",
+    "slug": "cloudbet"
+  },
+  "59": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "Coolbet",
+    "slug": "coolbet"
+  },
+  "60": {
+    "latencyLiveInSec": 0.9,
+    "latencyPreGameInSec": 0.9,
+    "name": "Coral",
+    "slug": "coral"
+  },
+  "61": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "Cricbaba",
+    "slug": "cricbaba"
+  },
+  "62": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 1.0,
+    "name": "DACHBET",
+    "slug": "dachbet"
+  },
+  "63": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 1.0,
+    "name": "Dafabet",
+    "slug": "dafabet"
+  },
+  "64": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Draftkings",
+    "slug": "draftkings"
+  },
+  "65": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 1.0,
+    "name": "Dream.bet",
+    "slug": "dreambet"
+  },
+  "66": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Duelbits",
+    "slug": "duelbits"
+  },
+  "67": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 1.2,
+    "name": "ESPN Bet",
+    "slug": "espnbet"
+  },
+  "68": {
+    "latencyLiveInSec": 0.8,
+    "latencyPreGameInSec": 0.8,
+    "name": "Esportiva Bet",
+    "slug": "esportivabet"
+  },
+  "69": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "Estrela Bet",
+    "slug": "estrelabet"
+  },
+  "70": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "FanDuel",
+    "slug": "fanduel"
+  },
+  "71": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.8,
+    "name": "FDJ",
+    "slug": "fdj"
+  },
+  "72": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "FEZbet",
+    "slug": "fezbet"
+  },
+  "73": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Fortebet UG",
+    "slug": "fortebet.ug"
+  },
+  "74": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 0.4,
+    "name": "FreshBet",
+    "slug": "freshbet"
+  },
+  "75": {
+    "latencyLiveInSec": 0.5,
+    "latencyPreGameInSec": 0.5,
+    "name": "Fun88 UK",
+    "slug": "fun88.co.uk"
+  },
+  "76": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "Gamebookers",
+    "slug": "gamebookers"
+  },
+  "77": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 0.4,
+    "name": "Goldenbet",
+    "slug": "goldenbet"
+  },
+  "78": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "GreatWin",
+    "slug": "greatwin"
+  },
+  "79": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Grosvenor",
+    "slug": "grosvenor"
+  },
+  "80": {
+    "latencyLiveInSec": 1.3,
+    "latencyPreGameInSec": 1.3,
+    "name": "Hollywoodbets",
+    "slug": "hollywoodbets"
+  },
+  "81": {
+    "latencyLiveInSec": 0.5,
+    "latencyPreGameInSec": 0.5,
+    "name": "INDIBET",
+    "slug": "indibet"
+  },
+  "82": {
+    "latencyLiveInSec": 0.8,
+    "latencyPreGameInSec": 0.8,
+    "name": "Inkabet",
+    "slug": "inkabet"
+  },
+  "83": {
+    "latencyLiveInSec": 0.8,
+    "latencyPreGameInSec": 0.8,
+    "name": "Interwetten",
+    "slug": "interwetten"
+  },
+  "84": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "IviBet",
+    "slug": "ivibet"
+  },
+  "85": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "JackBit",
+    "slug": "jackbit"
+  },
+  "86": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Jacks",
+    "slug": "jacks"
+  },
+  "87": {
+    "latencyLiveInSec": 0.8,
+    "latencyPreGameInSec": 0.8,
+    "name": "Kaiyun Sports",
+    "slug": "kaiyun"
+  },
+  "88": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "KTO",
+    "slug": "kto"
+  },
+  "89": {
+    "latencyLiveInSec": 0.9,
+    "latencyPreGameInSec": 0.9,
+    "name": "Ladbrokes",
+    "slug": "ladbrokes"
+  },
+  "90": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "Ladbrokes DE",
+    "slug": "ladbrokes.de"
+  },
+  "91": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "LeoVegas",
+    "slug": "leovegas"
+  },
+  "92": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "LibraBet",
+    "slug": "librabet"
+  },
+  "93": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "LiliBet",
+    "slug": "lilibet"
+  },
+  "94": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "LiveScoreBet",
+    "slug": "livescorebet"
+  },
+  "95": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Lottoland",
+    "slug": "lottoland"
+  },
+  "96": {
+    "latencyLiveInSec": 1.4,
+    "latencyPreGameInSec": 1.4,
+    "name": "MARCAapuestas",
+    "slug": "marcaapuestas"
+  },
+  "97": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "MegaPari",
+    "slug": "megapari"
+  },
+  "98": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "MelBet",
+    "slug": "melbet"
+  },
+  "99": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "Merkur Bets",
+    "slug": "merkurbets"
+  },
+  "100": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Mozzart Bet",
+    "slug": "mozzartbet"
+  },
+  "101": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "MrBit RO",
+    "slug": "mrbit.ro"
+  },
+  "102": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "MrGreen",
+    "slug": "mrgreen"
+  },
+  "103": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 0.4,
+    "name": "MyStake",
+    "slug": "mystake"
+  },
+  "104": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "N1Bet",
+    "slug": "n1bet"
+  },
+  "105": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "Napoleon Sports BE",
+    "slug": "napoleonsports.be"
+  },
+  "106": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.8,
+    "name": "NetBet",
+    "slug": "netbet"
+  },
+  "107": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 1.0,
+    "name": "Nextbet",
+    "slug": "nextbet"
+  },
+  "108": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "Ninecasino",
+    "slug": "ninecasino"
+  },
+  "109": {
+    "latencyLiveInSec": 0.8,
+    "latencyPreGameInSec": 0.8,
+    "name": "NordicBet",
+    "slug": "nordicbet"
+  },
+  "110": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "OddSet",
+    "slug": "oddset"
+  },
+  "111": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "OdiBets",
+    "slug": "odibets"
+  },
+  "112": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "Paddy Power",
+    "slug": "paddypower"
+  },
+  "113": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "paf",
+    "slug": "paf"
+  },
+  "114": {
+    "latencyLiveInSec": 0.5,
+    "latencyPreGameInSec": 0.5,
+    "name": "PremiumBet77",
+    "slug": "pb77"
+  },
+  "115": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Pinnacle Sports",
+    "slug": "pinnacle"
+  },
+  "116": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Piwi247",
+    "slug": "piwi247"
+  },
+  "117": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "Pix Bet",
+    "slug": "pixbet"
+  },
+  "118": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "PMU",
+    "slug": "pmu"
+  },
+  "119": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "PointsBet",
+    "slug": "pointsbet"
+  },
+  "120": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "PokerStars",
+    "slug": "pokerstars"
+  },
+  "121": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Powbet",
+    "slug": "powbet"
+  },
+  "122": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "PS3838",
+    "slug": "ps3838"
+  },
+  "123": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Qbet",
+    "slug": "qbet"
+  },
+  "124": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "QuickWin",
+    "slug": "quickwin"
+  },
+  "125": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Rabona",
+    "slug": "rabona"
+  },
+  "126": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "RajBet",
+    "slug": "rajbets"
+  },
+  "127": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "RocketPlay",
+    "slug": "rocketplay"
+  },
+  "128": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "Rollbit",
+    "slug": "rollbit"
+  },
+  "129": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 0.4,
+    "name": "Rolletto",
+    "slug": "rolletto"
+  },
+  "130": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "Roobet",
+    "slug": "roobet"
+  },
+  "131": {
+    "latencyLiveInSec": 0.8,
+    "latencyPreGameInSec": 0.8,
+    "name": "Rushbet CO",
+    "slug": "rushbet.co"
+  },
+  "132": {
+    "latencyLiveInSec": 0.7,
+    "latencyPreGameInSec": 0.7,
+    "name": "SBOBET",
+    "slug": "sbobet"
+  },
+  "133": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "SharpBet",
+    "slug": "sharpbet"
+  },
+  "134": {
+    "latencyLiveInSec": 4.0,
+    "latencyPreGameInSec": 4.0,
+    "name": "SingBet",
+    "slug": "singbet"
+  },
+  "135": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "Sisal IT",
+    "slug": "sisal"
+  },
+  "136": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "SkyBet",
+    "slug": "skybet"
+  },
+  "137": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "888Sport",
+    "slug": "sport888"
+  },
+  "138": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "888Sport IT",
+    "slug": "sport888.it"
+  },
+  "139": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Sportaza",
+    "slug": "sportaza"
+  },
+  "140": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "SportingBet",
+    "slug": "sportingbet"
+  },
+  "141": {
+    "latencyLiveInSec": 0.5,
+    "latencyPreGameInSec": 0.5,
+    "name": "sportwetten.de",
+    "slug": "sportwetten.de"
+  },
+  "142": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "SportyBet",
+    "slug": "sportybet"
+  },
+  "143": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Spreadex",
+    "slug": "spreadex"
+  },
+  "144": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Stake.com",
+    "slug": "stake"
+  },
+  "145": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Starcasino BE",
+    "slug": "starcasino"
+  },
+  "146": {
+    "latencyLiveInSec": 0.5,
+    "latencyPreGameInSec": 0.5,
+    "name": "Stoiximan",
+    "slug": "stoiximan"
+  },
+  "147": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "STS PL",
+    "slug": "sts.pl"
+  },
+  "148": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "SugarHouse",
+    "slug": "sugarhouse"
+  },
+  "149": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "Sultanbet",
+    "slug": "sultanbet"
+  },
+  "150": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Superbet",
+    "slug": "superbet"
+  },
+  "151": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "Svenska Spel",
+    "slug": "svenskaspel"
+  },
+  "152": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "TABtouch",
+    "slug": "tabtouch"
+  },
+  "153": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 1.2,
+    "name": "theScore",
+    "slug": "thescore"
+  },
+  "154": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Tipico DE",
+    "slug": "tipico"
+  },
+  "155": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "TipTorro",
+    "slug": "tiptorro"
+  },
+  "156": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Unibet",
+    "slug": "unibet"
+  },
+  "157": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Unibet BE",
+    "slug": "unibet.be"
+  },
+  "158": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Unibet UK",
+    "slug": "unibet.co.uk"
+  },
+  "159": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Unibet AU",
+    "slug": "unibet.com.au"
+  },
+  "160": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Unibet DK",
+    "slug": "unibet.dk"
+  },
+  "161": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Unibet FR",
+    "slug": "unibet.fr"
+  },
+  "162": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Unibet IT",
+    "slug": "unibet.it"
+  },
+  "163": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Unibet NL",
+    "slug": "unibet.nl"
+  },
+  "164": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Unibet RO",
+    "slug": "unibet.ro"
+  },
+  "165": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Unibet SE",
+    "slug": "unibet.se"
+  },
+  "166": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Vave",
+    "slug": "vave"
+  },
+  "167": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Vbet",
+    "slug": "vbet"
+  },
+  "168": {
+    "latencyLiveInSec": 1.3,
+    "latencyPreGameInSec": 1.3,
+    "name": "Vertex",
+    "slug": "vertex"
+  },
+  "169": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "Virginbet",
+    "slug": "virginbet"
+  },
+  "170": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.4,
+    "name": "Vistabet",
+    "slug": "vistabet"
+  },
+  "171": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "Wazamba",
+    "slug": "wazamba"
+  },
+  "172": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 1.0,
+    "name": "WELTBET",
+    "slug": "weltbet"
+  },
+  "173": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "Wettarena",
+    "slug": "wettarena"
+  },
+  "174": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.3,
+    "name": "WilliamHill",
+    "slug": "williamhill"
+  },
+  "175": {
+    "latencyLiveInSec": 0.5,
+    "latencyPreGameInSec": 0.5,
+    "name": "Winamax DE",
+    "slug": "winamax.de"
+  },
+  "176": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.8,
+    "name": "WinBet BG",
+    "slug": "winbet"
+  },
+  "177": {
+    "latencyLiveInSec": "",
+    "latencyPreGameInSec": 0.6,
+    "name": "WinBet RO",
+    "slug": "winbet.ro"
+  },
+  "178": {
+    "latencyLiveInSec": 0.6,
+    "latencyPreGameInSec": 0.6,
+    "name": "Winpot MX",
+    "slug": "winpot.mx"
+  },
+  "179": {
+    "latencyLiveInSec": 1.0,
+    "latencyPreGameInSec": 0.4,
+    "name": "Winz.io",
+    "slug": "winz.io"
+  },
+  "180": {
+    "latencyLiveInSec": 0.4,
+    "latencyPreGameInSec": 0.4,
+    "name": "WOLFBET",
+    "slug": "wolfbet"
+  },
+  "181": {
+    "latencyLiveInSec": 1.2,
+    "latencyPreGameInSec": 1.2,
+    "name": "WPlay CO",
+    "slug": "wplay.co"
+  },
+  "182": {
+    "latencyLiveInSec": 0.3,
+    "latencyPreGameInSec": 0.3,
+    "name": "YesPlay",
+    "slug": "yesplay"
+  }
+}

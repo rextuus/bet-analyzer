@@ -1,25 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tipico Simulators{% endblock %}
+{% block title %}Simulators{% endblock %}
 
 {% block body %}
-
-    <div class="filter">
-        {{ form(filter) }}
+    <div class="page-header">
+        <div>
+            <h1>Simulators</h1>
+            <p class="page-subtitle">Top {{ simulators|length }} by cash box. Every simulator starts with 100 €.</p>
+        </div>
     </div>
-    <div class="table-container">
-        <table class="styled-table">
+
+    <div class="card filter-card mb-4">
+        <div class="card-header"><i class="fa-solid fa-filter me-2"></i>Filter</div>
+        <div class="card-body">
+            {{ form(filter) }}
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Ident</th>
-                <th>Cashbox change</th>
+                <th>Strategy</th>
+                <th class="text-end">Cash box</th>
+                <th>Course</th>
                 <th>Statistics</th>
             </tr>
             </thead>
             <tbody>
             {% for simulator in simulators %}
                 {{ component('Simulator', {'simulator' : simulator}) }}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-body-secondary p-4">No simulator matches this filter.</td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>

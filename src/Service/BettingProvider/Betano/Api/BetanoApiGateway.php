@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service\BettingProvider\Betano\Api;
 
 use App\Service\BettingProvider\Betano\Api\Response\DailyMatchEventResponse;
-use App\Service\Sportmonks\Api\GuzzleClientFactory;
+use App\Service\Http\GuzzleClientFactory;
 
 
 class BetanoApiGateway

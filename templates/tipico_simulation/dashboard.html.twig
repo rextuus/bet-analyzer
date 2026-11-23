@@ -1,84 +1,102 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Simulation Dashboard{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block body %}
-    <div class="simulation-dashboard">
-        <div class="header">
-            {{ total }} Upcoming bets for {{ "now"|date("d.m.Y") }}
+    <div class="page-header">
+        <div>
+            <h1>Today, {{ "now"|date("d.m.Y") }}</h1>
+            <p class="page-subtitle">Tipico matches with odds, collected daily at 00:10 and checked for results every
+                hour.</p>
+        </div>
+    </div>
 
-            <div class="progress-container">
-                <div class="time-left" id="time-left"></div>
-                <div class="progress-bar" id="progress-bar"></div>
+    {% if dataIsStale %}
+        <div class="alert alert-warning d-flex gap-3 align-items-start" role="alert">
+            <i class="fa-solid fa-triangle-exclamation mt-1"></i>
+            <div>
+                <strong>No matches for today.</strong>
+                {% if latestMatch %}
+                    The newest match in the database starts on {{ latestMatch|date('d.m.Y H:i') }}.
+                {% else %}
+                    The database contains no matches yet.
+                {% endif %}
+                Collecting odds may be broken – check the logs of the <code>cron</code> service.
             </div>
-
-
-
         </div>
-        <div class="navi">
-            <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
-            <div class="link"><a href="{{ path('app_favorite_list', {from: from, until: until}) }}">To Favorite List</a></div>
-            <div class="link"><a href="{{ path('app_tipico_weekday') }}">To Weekday</a></div>
-        </div>
-        <div class="overview">
-            <span class="finished">Finished: <span class="finished-value">{{ finished }}</span></span>
-            <span class="open">To go: {{ open }}</span>
-        </div>
-        <div class="statistic-panel">
+    {% endif %}
 
-            {#            <div> #}
-            {#                {{ component('TopSimulatorStatistic', {'statisticData' : beforeLastWeekStatistic}) }} #}
-            {#            </div> #}
-            {#            <div> #}
-            {#                {{ component('TopSimulatorStatistic', {'statisticData' : lastWeekStatistic}) }} #}
-            {#            </div> #}
-            {#            <div> #}
-            {#                {{ component('TopSimulatorStatistic', {'statisticData' : lastSameWeekDayStatistic}) }} #}
-            {#            </div> #}
-            {#            <div> #}
-            {#                {{ component('TopSimulatorStatistic', {'statisticData' : yesterdayStatistic, 'headerText': 'Yesterday'}) }} #}
-            {#            </div> #}
-            {#            <div> #}
-            {#                {{ component('TopSimulatorStatistic', {'statisticData' : currentDayStatistic, 'headerText': 'Today'}) }} #}
-            {#            </div> #}
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="stat-label">Matches today</div>
+                <div class="stat-value">{{ total }}</div>
+                <div class="stat-hint">with 1X2 odds</div>
+            </div>
         </div>
-
-        <div class="chart-board">
-            <div class="cashbox-chart">
-                <div class="cashbox-chart-header">
-                    {#                    <span class="total">Total: {{ totalSimulators }}</span> #}
-                    {#                    <span class="active">Active: {{ activeSimulators }}</span> #}
-                    {#                    <span class="inactive">Inactive: {{ inactiveSimulators }}</span> #}
-                    {#                    <span class="in-win">Winning: {{ inWinSimulators }}</span> #}
+        <div class="col-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="stat-label">Started</div>
+                <div class="stat-value">{{ finished }}</div>
+                <div class="stat-hint">kick-off has passed</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="stat-label">Upcoming</div>
+                <div class="stat-value">{{ open }}</div>
+                <div class="stat-hint">not started yet</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="stat-label">Next result check</div>
+                <div class="stat-value" id="time-left">--:--</div>
+                <div class="ba-progress mt-2">
+                    <div class="ba-progress-bar" id="progress-bar"></div>
                 </div>
-                {#                {{ render_chart(cashBoxChart) }} #}
             </div>
-            <div class="cashbox-chart">
-                <div class="cashbox-chart-header">
-                    Home-odd distribution
-                </div>
-                {{ render_chart(chartHome) }}
-            </div>
-{#            <div class="switchable-content">#}
-{#                <div class="switchable-content-header">#}
-{#                    Switch#}
-{#                </div>#}
-{#                <div class="switchable-content-element active">#}
-{#                    Home distribution#}
-{#                    {{ render_chart(chartHome) }}#}
-{#                </div>#}
-{#                <div class="switchable-content-element inactive">#}
-{#                    Draw distribution#}
-{#                    {{ render_chart(chartDraw) }}#}
-{#                </div>#}
-{#                <div class="switchable-content-element inactive">#}
-{#                    Away distribution#}
-{#                    {{ render_chart(chartAway) }}#}
-{#                </div>#}
-{#            </div>#}
         </div>
-        <div class="simulation-dashboard-upcoming">
-{#            {{ component('UpcomingFixture', {'fixtures' : nextPlacements, 'targetBetOn' : betOn, 'searchBetOn': betOn }) }}#}
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <a class="quick-link" href="{{ path('app_tipico_simulator_list') }}">
+                <i class="fa-solid fa-robot"></i>
+                <span>
+                    <span class="quick-link-title d-block">Simulators</span>
+                    <span class="quick-link-text">Filter and compare all strategies</span>
+                </span>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a class="quick-link" href="{{ path('app_favorite_list', {from: from, until: until}) }}">
+                <i class="fa-solid fa-star"></i>
+                <span>
+                    <span class="quick-link-title d-block">Favorites</span>
+                    <span class="quick-link-text">Today's placements of your favorite lists</span>
+                </span>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a class="quick-link" href="{{ path('app_tipico_weekday') }}">
+                <i class="fa-solid fa-calendar-week"></i>
+                <span>
+                    <span class="quick-link-title d-block">Weekdays</span>
+                    <span class="quick-link-text">Which simulators work on which day</span>
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Home odd distribution of today's matches</div>
+        <div class="card-body">
+            {% if total > 0 %}
+                {{ render_chart(chartHome, {'style': 'max-height: 320px'}) }}
+            {% else %}
+                <p class="text-body-secondary mb-0">No matches for today yet.</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

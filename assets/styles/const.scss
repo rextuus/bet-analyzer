@@ -1,11 +1,26 @@
-$headerColor: #2A3954FF;
-$neutral: #A28E04D1;
-$positive: #769467;
-$negative: #FF32324C;
-$notRunning: rgba(52, 45, 45, 0.82);
+// BetAnalyzer – Farben. Dunkles Schema mit hellem Text; Flächen heben sich nur leicht vom Hintergrund ab.
+$pageBackground: #0f1420;
+$surface: #182031;
+$surface2: #1f2940;
+$borderColor: #2c3854;
+$textColor: #e6ebf4;
+$mutedColor: #93a0b8;
+$linkColor: #7eb6ff;
+$accent: #e0b33a;
 
-$progressBar: #A28E04D1;
+$positiveSolid: #3fb27f;
+$negativeSolid: #e5566a;
+$neutralSolid: #d9a404;
 
-$searchBorder: #a80000;
-$targetBackground: #192525;
-$targetColor: #cecece;
+// Ältere Namen (von den Seiten-Styles benutzt) – jetzt auf das neue Schema abgebildet.
+$headerColor: $surface;
+$neutral: rgba(217, 164, 4, .32);
+$positive: rgba(63, 178, 127, .32);
+$negative: rgba(229, 86, 106, .32);
+$notRunning: rgba(147, 160, 184, .18);
+
+$progressBar: $accent;
+
+$searchBorder: #e5566a;
+$targetBackground: #12302a;
+$targetColor: #e6ebf4;

@@ -18,6 +18,13 @@ framework:
     php_errors:
         log: true
 
+when@prod:
+  framework:
+    # Anfragen kommen über den Caddy im Dienst web (Docker-Netz) bzw. dahinter vom VPS – beides private
+    # Adressen (compose.prod.yaml setzt TRUSTED_PROXIES). Damit erkennt Symfony https und die Gast-IP.
+    trusted_proxies: '%env(TRUSTED_PROXIES)%'
+    trusted_headers: [ 'x-forwarded-for', 'x-forwarded-proto', 'x-forwarded-host', 'x-forwarded-port' ]
+
 when@test:
     framework:
         test: true

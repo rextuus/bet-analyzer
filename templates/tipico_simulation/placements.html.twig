@@ -1,12 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tipico Simulators{% endblock %}
+{% block title %}Placements · {{ simulator.identifier }}{% endblock %}
 
 {% block body %}
-
-    <h1>{{ simulator.identifier }}</h1>
-    <div class="table-container">
-        <table class="styled-table">
+    <div class="page-header">
+        <div class="mw-100">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-1">
+                    <li class="breadcrumb-item"><a href="{{ path('app_tipico_simulator_list') }}">Simulators</a></li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">#{{ simulator.id }}</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Placements</li>
+                </ol>
+            </nav>
+            <h1 class="text-break">{{ simulator.identifier }}</h1>
+            <p class="page-subtitle">{{ placements|length }} placements</p>
+        </div>
+    </div>
+    <div class="table-container table-responsive">
+        <table class="styled-table table align-middle">
             <thead>
             <tr>
                 <th>Date</th>

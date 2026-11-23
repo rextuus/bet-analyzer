@@ -7,8 +7,8 @@
     font-size: 4.8em;
     font-weight: bold;
     background-color: $headerColor;
-    color: #0a0800;
-    border: #0a0800 solid 5px;
+    color: $textColor;
+    border: $borderColor solid 1px;
 
     .progress-container {
       position: relative;
@@ -39,7 +39,7 @@
       left: 50%;
       transform: translateX(-50%);
       font-size: 0.4em;
-      color: #333;
+      color: $textColor;
     }
 
 
@@ -52,7 +52,7 @@
   }
 
   .overview{
-    border: #0a0800 solid 5px;
+    border: $borderColor solid 1px;
     //border-top: none;
 
     font-size: 1.7em;
@@ -64,7 +64,7 @@
     display: flex;
     flex-direction: column;
     background-color: $headerColor;
-    color: #0a0800;
+    color: $textColor;
     //max-width: fit-content;
     height: fit-content;
     .finished{
@@ -87,7 +87,7 @@
     max-width: 600px;
     background-color: $headerColor;
     //max-height: 250px;
-    border: 5px solid #0a0800;
+    border: 1px solid $borderColor;
     padding: 5px;
 
     .cashbox-chart-header{
@@ -123,9 +123,10 @@
       margin-right: 20px;
       a{
         text-decoration: none;
-        color: #0a0800;
+        color: $textColor;
       }
-      border: 2px solid #0a0800;
+
+      border: 1px solid $borderColor;
       background-color: $headerColor;
       padding: 5px;
     }
@@ -149,14 +150,14 @@
           padding: 10px;
           margin: 20px;
           font-size: 1.3em;
-          color: #0a0800;
+          color: $textColor;
 
           //odds
           .target, .non-target {
             padding: 5px;
             border-radius: 8px;
             background-color: #ababab;
-            color: #0a0800;
+            color: $textColor;
             margin-right: 2px;
             font-size: 1.2em;
           }
@@ -176,7 +177,7 @@
                     padding: 5px;
                     border-radius: 8px;
                     background-color: #e8e8e8;
-                    color: #0a0800;
+                    color: $textColor;
                     margin-right: 2px;
                     font-size: 1.2em;
                   }

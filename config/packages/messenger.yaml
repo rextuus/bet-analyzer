@@ -19,14 +19,6 @@ framework:
             Symfony\Component\Mailer\Messenger\SendEmailMessage: async
             Symfony\Component\Notifier\Message\ChatMessage: async
             Symfony\Component\Notifier\Message\SmsMessage: async
-            App\Service\Sportmonks\Api\Event\ApiCallMessage: async
-            App\Service\Sportmonks\Content\Season\Event\CalculateFixtureAmountForSeasonMessage: async
-            App\Service\Evaluation\Message\PlaceBetMessage: async
-            App\Service\Evaluation\Message\InitBetRowMessage: async
-            App\Service\Evaluation\Message\TriggerBetRowsForSeasonMessage: async
-            App\Service\Evaluation\Message\CalculateSummariesMessage: async
-            App\Service\Evaluation\Message\UpdateOddOutcomeMessage: async
-            App\Service\Evaluation\Message\InitOddOutcomeMessage: async
             App\Service\Tipico\Message\ProcessSimulatorMessage: async
             App\Service\Tipico\Message\InitSimulatorProcessingMessage: async
             App\Service\BettingProvider\BettingProviderBackupFile\Message\StoreBetsForProviderMessage: async

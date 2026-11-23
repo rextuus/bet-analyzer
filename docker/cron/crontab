@@ -1,0 +1,13 @@
+# bet-analyzer – geplante Aufgaben (Dienst cron in compose.prod.yaml, supercronic, Zeitzone Europe/Berlin).
+# Übernommen aus der Crontab von master@securitas (Stand 20.11.2026); auskommentierte Einträge von dort fehlen
+# hier bewusst. supercronic startet einen Job nicht erneut, solange der vorige Lauf noch läuft.
+# Format: Minute Stunde Tag Monat Wochentag Befehl
+
+# Rohdaten der Tipico-Tagesliste ablegen (public/backups/tipico/JJJJ-MM-TT.json, Volume provider_files)
+3 0 * * * php -d memory_limit=512M bin/console StoreTipicoBackupFileCommand --no-interaction
+# Tagesspiele mit Quoten einlesen
+10 0 * * * php -d memory_limit=1G bin/console CollectDailyMatchesCommand --no-interaction
+# Ergebnisse beendeter Spiele nachtragen
+5 * * * * php -d memory_limit=1G bin/console CheckMatchOutcomes --no-interaction
+# Simulatoren (Dreiweg) auf neue Ergebnisse anwenden – die Arbeit selbst macht der Worker
+15 */4 * * * php -d memory_limit=512M bin/console ProcessSimulators three_way_simulators --no-interaction

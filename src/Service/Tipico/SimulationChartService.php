@@ -11,6 +11,12 @@ use Symfony\UX\Chartjs\Model\Chart;
 
 class SimulationChartService
 {
+    // Farben wie in assets/styles/const.scss (dunkles Schema)
+    private const COLOR_POSITIVE = '#3fb27f';
+    private const COLOR_NEGATIVE = '#e5566a';
+    private const COLOR_ACCENT = '#e0b33a';
+    private const COLOR_MUTED = '#93a0b8';
+
     public function __construct(
         private readonly ChartBuilderInterface $chartBuilder
     )
@@ -42,16 +48,16 @@ class SimulationChartService
                 [
                     'pointRadius' => 1.5,
                     'label' => 'CashBox',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
+                    'backgroundColor' => self::COLOR_POSITIVE,
+                    'borderColor' => self::COLOR_POSITIVE,
                     'Color' => '#ffffff',
                     'data' => $cashBoxValues,
                 ],
                 [
                     'pointRadius' => 0.0,
                     'label' => 'Start',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
+                    'backgroundColor' => self::COLOR_NEGATIVE,
+                    'borderColor' => self::COLOR_NEGATIVE,
                     'data' => array_fill(0, count($nr), 100.0),
                 ],
             ],
@@ -63,12 +69,12 @@ class SimulationChartService
                     'suggestedMin' => 120.0,
                     'suggestedMax' => 80.0,
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ],
                 'x' => [
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ],
             ],
@@ -94,14 +100,14 @@ class SimulationChartService
             'datasets' => [
                 [
                     'label' => 'Won',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
+                    'backgroundColor' => self::COLOR_POSITIVE,
+                    'borderColor' => self::COLOR_POSITIVE,
                     'data' => $wins,
                 ],
                 [
                     'label' => 'Loose',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
+                    'backgroundColor' => self::COLOR_NEGATIVE,
+                    'borderColor' => self::COLOR_NEGATIVE,
                     'data' => $looses,
                 ],
             ],
@@ -129,15 +135,15 @@ class SimulationChartService
             'datasets' => [
                 [
                     'label' => 'Won',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
+                    'backgroundColor' => self::COLOR_POSITIVE,
+                    'borderColor' => self::COLOR_POSITIVE,
                     'data' => $weekDayStatistics,
                 ],
                 [
                     'pointRadius' => 0.0,
                     'label' => 'Start',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
+                    'backgroundColor' => self::COLOR_NEGATIVE,
+                    'borderColor' => self::COLOR_NEGATIVE,
                     'data' => array_fill(0, count($labels), 0.0),
                 ],
             ],
@@ -173,14 +179,14 @@ class SimulationChartService
             'datasets' => [
                 [
                     'label' => 'Win rate',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
+                    'backgroundColor' => self::COLOR_POSITIVE,
+                    'borderColor' => self::COLOR_POSITIVE,
                     'data' => $wonPercentages,
                 ],
                 [
                     'label' => 'Occurrence',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
+                    'backgroundColor' => self::COLOR_NEGATIVE,
+                    'borderColor' => self::COLOR_NEGATIVE,
                     'data' => $distributions,
                 ],
             ],
@@ -221,15 +227,15 @@ class SimulationChartService
                 [
                     'pointRadius' => 1.5,
                     'label' => '',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
+                    'backgroundColor' => self::COLOR_POSITIVE,
+                    'borderColor' => self::COLOR_POSITIVE,
                     'data' => $betOutcomes,
                 ],
                 [
                     'pointRadius' => 0.0,
                     'label' => '',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
+                    'backgroundColor' => self::COLOR_NEGATIVE,
+                    'borderColor' => self::COLOR_NEGATIVE,
                     'data' => array_fill(0, count($nr), 0.0),
                 ],
             ],
@@ -257,8 +263,8 @@ class SimulationChartService
             'datasets' => [
                 [
                     'label' => 'Occurrence',
-                    'backgroundColor' => '#A28E04D1',
-                    'borderColor' => '#A28E04D1',
+                    'backgroundColor' => self::COLOR_ACCENT,
+                    'borderColor' => self::COLOR_ACCENT,
                     'data' => $distribution,
                 ],
             ],
@@ -270,12 +276,12 @@ class SimulationChartService
                     'suggestedMin' => 0,
                     'suggestedMax' => 5,
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ],
                 'x' => [
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ]
             ],
@@ -293,9 +299,9 @@ class SimulationChartService
         $colors = [];
         foreach ($distribution as $value) {
             if ($value > 0.0) {
-                $colors[] = '#0b2e13'; // Green for positive values
+                $colors[] = self::COLOR_POSITIVE; // Green for positive values
             } else {
-                $colors[] = '#600c16'; // Red for negative values
+                $colors[] = self::COLOR_NEGATIVE; // Red for negative values
             }
         }
 
@@ -317,12 +323,12 @@ class SimulationChartService
                     'suggestedMin' => 0,
                     'suggestedMax' => 5,
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ],
                 'x' => [
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ]
             ],
@@ -341,8 +347,8 @@ class SimulationChartService
             'datasets' => [
                 [
                     'label' => 'Occurrence',
-                    'backgroundColor' => '#A28E04D1',
-                    'borderColor' => '#A28E04D1',
+                    'backgroundColor' => self::COLOR_ACCENT,
+                    'borderColor' => self::COLOR_ACCENT,
                     'data' => $distribution,
                 ],
             ],
@@ -354,12 +360,12 @@ class SimulationChartService
                     'suggestedMin' => 0,
                     'suggestedMax' => 5,
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ],
                 'x' => [
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ]
             ],
@@ -401,16 +407,16 @@ class SimulationChartService
                 [
                     'pointRadius' => 1.5,
                     'label' => 'CashBox',
-                    'backgroundColor' => 'rgb(71, 80, 62)',
-                    'borderColor' => 'rgb(71, 80, 62)',
+                    'backgroundColor' => self::COLOR_POSITIVE,
+                    'borderColor' => self::COLOR_POSITIVE,
                     'Color' => '#ffffff',
                     'data' => $cashBoxValues,
                 ],
                 [
                     'pointRadius' => 0.0,
                     'label' => 'Start',
-                    'backgroundColor' => 'rgb(198, 0, 15)',
-                    'borderColor' => 'rgb(198, 0, 15)',
+                    'backgroundColor' => self::COLOR_NEGATIVE,
+                    'borderColor' => self::COLOR_NEGATIVE,
                     'data' => array_fill(0, count($nr), 0.0),
                 ],
             ],
@@ -422,12 +428,12 @@ class SimulationChartService
                     'suggestedMin' => 0.0,
                     'suggestedMax' => 10.0,
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ],
                 'x' => [
                     'ticks' => [
-                        'color' => '#ffffff'
+                        'color' => self::COLOR_MUTED
                     ]
                 ],
             ],

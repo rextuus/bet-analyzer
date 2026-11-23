@@ -1,11 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ simulator.identifier }}{% endblock %}
+{% block title %}Duplicate · {{ simulator.identifier }}{% endblock %}
 
 {% block body %}
-    <div class="simulator-detail-name">{{ simulator.identifier }}</div>
-    <div class="simulator-detail-navi">
-
+    <div class="page-header">
+        <div class="mw-100">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-1">
+                    <li class="breadcrumb-item"><a href="{{ path('app_tipico_simulator_list') }}">Simulators</a></li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ path('app_tipico_simulation_detail', {simulator: simulator.id}) }}">#{{ simulator.id }}</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Duplicate</li>
+                </ol>
+            </nav>
+            <h1 class="text-break">{{ simulator.identifier }}</h1>
+            <p class="page-subtitle">Create variants of this simulator.</p>
+        </div>
     </div>
-    {{ form(form) }}
+    <div class="card" style="max-width: 48rem">
+        <div class="card-body">
+            {{ form(form) }}
+        </div>
+    </div>
 {% endblock %}

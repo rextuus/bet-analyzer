@@ -1,51 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ name }} - Detail{% endblock %}
+{% block title %}{{ name }}{% endblock %}
 
 {% block body %}
-    {#    <div class="form"> #}
-    {#        {{ form(form) }} #}
-    {#    </div> #}
-
-    <div class="favorite-detail">
-        <div class="container mb-4">
-        <div class="name">{{ name }}</div>
+    <div class="page-header">
+        <div class="mw-100">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-1">
+                    <li class="breadcrumb-item"><a href="{{ path('app_favorite_list') }}">Favorites</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ name }}</li>
+                </ol>
+            </nav>
+            <h1 class="text-break">{{ name }}</h1>
         </div>
-        <div class="container mb-4">
-            <a href="{{ path('app_favorite_list', {simulatorFavoriteList: favoriteList.id}) }}"
-               class="btn btn-secondary">List</a>
-            <a href="{{ path('app_favorite_place', {simulatorFavoriteList: favoriteList.id}) }}"
-               class="btn btn-success">Place (by simulator)</a>
-            <a href="{{ path('app_favorite_place_grouped', {simulatorFavoriteList: favoriteList.id}) }}"
-               class="btn btn-success">Place (merged)</a>
-            <a href="{{ path('app_favorite_place_time_schedule', {simulatorFavoriteList: favoriteList.id}) }}"
-               class="btn btn-success">Place (time sorted)</a>
+        <div class="d-flex flex-wrap gap-2">
+            <div class="btn-group" role="group" aria-label="Place bets">
+                <a href="{{ path('app_favorite_place', {simulatorFavoriteList: favoriteList.id}) }}"
+                   class="btn btn-primary"><i class="fa-solid fa-cash-register me-1"></i>Place (by simulator)</a>
+                <a href="{{ path('app_favorite_place_grouped', {simulatorFavoriteList: favoriteList.id}) }}"
+                   class="btn btn-outline-primary">Merged</a>
+                <a href="{{ path('app_favorite_place_time_schedule', {simulatorFavoriteList: favoriteList.id}) }}"
+                   class="btn btn-outline-primary">By time</a>
+            </div>
             <a href="{{ path('app_favorite_remove', {simulatorFavoriteList: favoriteList.id}) }}"
-               class="btn btn-danger">Remove Simulators</a>
-
+               class="btn btn-outline-danger"><i class="fa-solid fa-trash me-1"></i>Remove simulators</a>
         </div>
-        <div class="container mb-4">
-            <twig:FavoriteListDynamicChart :favoriteList="favoriteList"/>
-        </div>
+    </div>
 
-
-        {#        <div class="total {{ container.listClass }}">{{ container.currentBalance }}€</div> #}
-        {#        {% for simulator in container.simulatorDetails %} #}
-        {#            <div class="favorite {{ simulator.simulatorClass }}"> #}
-        {#                <div class="row"> #}
-        {#                    <div class="ident"> #}
-        {#                        <a href="{{ path('app_tipico_simulation_detail', {simulator: simulator.simulator.id}) }}">{{ simulator.simulator.identifier }}</a> #}
-        {#                    </div> #}
-        {#                </div> #}
-        {#                <div class="row"> #}
-        {#                    <div class="changeVolume"> #}
-        {#                        {{ simulator.currentBalance }}€ #}
-        {#                    </div> #}
-        {#                    <div class="bets"> #}
-        {#                        {{ simulator.donePlacements }}/{{ simulator.possiblePlacements }} #}
-        {#                    </div> #}
-        {#                </div> #}
-        {#            </div> #}
-        {#        {% endfor %} #}
+    <div class="favorite-detail p-0">
+        <twig:FavoriteListDynamicChart :favoriteList="favoriteList"/>
     </div>
 {% endblock %}

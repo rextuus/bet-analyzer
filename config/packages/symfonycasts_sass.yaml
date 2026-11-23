@@ -1,0 +1,10 @@
+symfonycasts_sass:
+  root_sass:
+    - '%kernel.project_dir%/assets/styles/main.scss'
+  sass_options:
+    # Bootstrap-SCSS kommt aus dem Composer-Paket twbs/bootstrap.
+    load_path:
+      - '%kernel.project_dir%/vendor/twbs'
+    quiet_deps: true
+  # Immer das vom Bundle geladene Dart-Sass (var/dart-sass) nehmen, nie ein zufälliges `sass` aus dem PATH.
+  search_for_binary: false

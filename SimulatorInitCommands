@@ -1,0 +1,252 @@
+// Three way: 50 (1.1-1.2 ... 5.9-6.0) * 9 = 450
+php bin/console InitDefaultSimpleSimulators 1 1 ✓
+php bin/console InitDefaultSimpleSimulators 1 X ✓
+php bin/console InitDefaultSimpleSimulators 1 2 ✓
+php bin/console InitDefaultSimpleSimulators X 1 ✓
+php bin/console InitDefaultSimpleSimulators X X ✓
+php bin/console InitDefaultSimpleSimulators X 2 ✓
+php bin/console InitDefaultSimpleSimulators 2 1 ✓
+php bin/console InitDefaultSimpleSimulators 2 X ✓
+php bin/console InitDefaultSimpleSimulators 2 2 ✓
+
+// both teams score: 50 * 10 = 500
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 1 both_teams_score ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand X both_teams_score ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 2 both_teams_score ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score both_teams_score ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score_not both_teams_score ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 1 both_teams_score_not ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand X both_teams_score_not ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 2 both_teams_score_not ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score_not both_teams_score_not ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score both_teams_score_not ✓
+
+// over/under: 50 * 10 * 5 (varianten: 0.5, 1.5 ...) = 5000
+php bin/console InitDefaultOverUnderSimulatorsCommand 1 over ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand 1 under ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand X over ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand X under ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand 2 over ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand 2 under ✓
+
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 0.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 1.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 2.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 3.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 5.5 ✓
+
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 0.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 1.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 2.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 3.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 4.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 5.5 ✓
+
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 0.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 1.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 2.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 3.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 4.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 5.5 ✓
+
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 0.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 1.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 2.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 3.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 4.5 ✓
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 5.5 ✓
+
+
+// head to head
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 1 head_to_head_home ✓
+php bin/console InitDefaultHeadToHeadSimulatorsCommand X head_to_head_home ✓
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 2 head_to_head_home ✓
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 1 head_to_head_away ✓
+php bin/console InitDefaultHeadToHeadSimulatorsCommand X head_to_head_away ✓
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 2 head_to_head_away ✓
+
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_home head_to_head_home ✓
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_home head_to_head_away ✓
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_away head_to_head_away ✓
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_away head_to_head_home ✓
+
+// Three way: 50 (1.1-1.2 ... 5.9-6.0) * 9 = 450 Negative series
+php bin/console InitDefaultSimpleSimulators 1 1 3 ✓
+php bin/console InitDefaultSimpleSimulators 1 X 3 ✓
+php bin/console InitDefaultSimpleSimulators 1 2 3 ✓
+php bin/console InitDefaultSimpleSimulators X 1 3 ✓
+php bin/console InitDefaultSimpleSimulators X X 3 ✓
+php bin/console InitDefaultSimpleSimulators X 2 3 ✓
+php bin/console InitDefaultSimpleSimulators 2 1 3 ✓
+php bin/console InitDefaultSimpleSimulators 2 X 3 ✓
+php bin/console InitDefaultSimpleSimulators 2 2 3 ✓
+
+php bin/console InitDefaultSimpleSimulators 1 1 2 ✓
+php bin/console InitDefaultSimpleSimulators 1 X 2 ✓
+php bin/console InitDefaultSimpleSimulators 1 2 2 ✓
+php bin/console InitDefaultSimpleSimulators X 1 2 ✓
+php bin/console InitDefaultSimpleSimulators X X 2 ✓
+php bin/console InitDefaultSimpleSimulators X 2 2 ✓
+php bin/console InitDefaultSimpleSimulators 2 1 2 ✓
+php bin/console InitDefaultSimpleSimulators 2 X 2 ✓
+php bin/console InitDefaultSimpleSimulators 2 2 2 ✓
+
+php bin/console InitDefaultSimpleSimulators 1 1 4 ✓
+php bin/console InitDefaultSimpleSimulators 1 X 4 ✓
+php bin/console InitDefaultSimpleSimulators 1 2 4 ✓
+php bin/console InitDefaultSimpleSimulators X 1 4 ✓
+php bin/console InitDefaultSimpleSimulators X X 4 ✓
+php bin/console InitDefaultSimpleSimulators X 2 4 ✓
+php bin/console InitDefaultSimpleSimulators 2 1 4 ✓
+php bin/console InitDefaultSimpleSimulators 2 X 4 ✓
+php bin/console InitDefaultSimpleSimulators 2 2 4 ✓
+
+// both teams score: 50 * 10 = 500 Negative series
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 1 both_teams_score 2 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand X both_teams_score 2 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 2 both_teams_score 2 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score both_teams_score 2 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score_not both_teams_score 2 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 1 both_teams_score_not 2 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand X both_teams_score_not 2 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 2 both_teams_score_not 2 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score_not both_teams_score_not 2 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score both_teams_score_not 2 ✓
+
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 1 both_teams_score 3 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand X both_teams_score 3 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 2 both_teams_score 3 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score both_teams_score 3 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score_not both_teams_score 3 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 1 both_teams_score_not 3 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand X both_teams_score_not 3 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 2 both_teams_score_not 3 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score_not both_teams_score_not 3 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score both_teams_score_not 3 ✓
+
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 1 both_teams_score 4 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand X both_teams_score 4 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 2 both_teams_score 4 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score both_teams_score 4 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score_not both_teams_score 4 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 1 both_teams_score_not 4 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand X both_teams_score_not 4 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand 2 both_teams_score_not 4 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score_not both_teams_score_not 4 ✓
+php bin/console InitDefaultBothTeamsScoreSimulatorsCommand both_teams_score both_teams_score_not 4 ✓
+
+// head to head negative series
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 1 head_to_head_home 2 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand X head_to_head_home 2 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 2 head_to_head_home 2 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 1 head_to_head_away 2 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand X head_to_head_away 2 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 2 head_to_head_away 2 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_home head_to_head_home 2 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_home head_to_head_away 2 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_away head_to_head_away 2 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_away head_to_head_home 2
+
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 1 head_to_head_home 3 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand X head_to_head_home 3 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 2 head_to_head_home 3 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 1 head_to_head_away 3 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand X head_to_head_away 3 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 2 head_to_head_away 3 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_home head_to_head_home 3 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_home head_to_head_away 3 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_away head_to_head_away 3 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_away head_to_head_home 3
+
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 1 head_to_head_home 4 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand X head_to_head_home 4 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 2 head_to_head_home 4 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 1 head_to_head_away 4 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand X head_to_head_away 4 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand 2 head_to_head_away 4 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_home head_to_head_home 4 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_home head_to_head_away 4 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_away head_to_head_away 4 &&
+php bin/console InitDefaultHeadToHeadSimulatorsCommand head_to_head_away head_to_head_home 4
+
+
+// over/under: 50 * 10 * 5 (varianten: 0.5, 1.5 ...) = 5000 Negative series
+php bin/console InitDefaultOverUnderSimulatorsCommand 1 over null 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand 1 under null 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand X over null 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand X under null 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand 2 over null 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand 2 under null 2 &&
+
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 0.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 1.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 2.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 3.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand over over 5.5 2 &&
+
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 0.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 1.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 2.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 3.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 4.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand over under 5.5 2 &&
+
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 0.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 1.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 2.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 3.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 4.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under over 5.5 2 &&
+
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 0.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 1.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 2.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 3.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 4.5 2 &&
+php bin/console InitDefaultOverUnderSimulatorsCommand under under 5.5 2
+
+
+// random input
+php bin/console InitDefaultSimpleSimulators 1 1 '' 1 1.5 2 2.5 3
+
+php bin/console InitDefaultSimpleSimulators 1 1 '' 1 1.5 2 2.5 3 &&
+php bin/console InitDefaultSimpleSimulators 1 X '' 1 1.5 2 2.5 3 &&
+php bin/console InitDefaultSimpleSimulators 1 2 '' 1 1.5 2 2.5 3 &&
+php bin/console InitDefaultSimpleSimulators X 1 '' 1 1.5 2 2.5 3 &&
+php bin/console InitDefaultSimpleSimulators X X '' 1 1.5 2 2.5 3 &&
+php bin/console InitDefaultSimpleSimulators X 2 '' 1 1.5 2 2.5 3 &&
+php bin/console InitDefaultSimpleSimulators 2 1 '' 1 1.5 2 2.5 3 &&
+php bin/console InitDefaultSimpleSimulators 2 X '' 1 1.5 2 2.5 3 &&
+php bin/console InitDefaultSimpleSimulators 2 2 '' 1 1.5 2 2.5 3
+
+TODO
+// head to head
+
+php bin/console ProcessSimulators three_way_simulators
+php bin/console ProcessSimulators over_under_simulators
+php bin/console ProcessSimulators both_teams_score_simulators
+php bin/console ProcessSimulators head_to_head_simulators
+
+php bin/console ProcessSimulators three_way_simulators_nsb
+php bin/console ProcessSimulators both_teams_score_simulators_nsb
+php bin/console ProcessSimulators head_to_head_simulators_nsb
+php bin/console ProcessSimulators over_under_simulators_nsb
+
+php bin/console ProcessSimulators three_way_simulators_ri
+
+Crontab
+25 0 * * * php /var/www/bet-analyzer/bin/console ProcessSimulators three_way_simulators
+55 0 * * * php /var/www/bet-analyzer/bin/console ProcessSimulators both_teams_score_simulators
+25 1 * * * php /var/www/bet-analyzer/bin/console ProcessSimulators over_under_simulators
+55 1 * * * php /var/www/bet-analyzer/bin/console ProcessSimulators head_to_head_simulators
+
+25 3 * * * php /var/www/bet-analyzer/bin/console ProcessSimulators three_way_simulators_nsb
+55 3 * * * php /var/www/bet-analyzer/bin/console ProcessSimulators both_teams_score_simulators_nsb
+25 4 * * * php /var/www/bet-analyzer/bin/console ProcessSimulators over_under_simulators_nsb
+55 4 * * * php /var/www/bet-analyzer/bin/console ProcessSimulators head_to_head_simulators_nsb
+
+
+
+
+
+sudo nano /etc/systemd/system/bet-analyzer-messenger-consumer.service

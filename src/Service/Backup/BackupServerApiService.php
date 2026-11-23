@@ -15,6 +15,11 @@ class BackupServerApiService
     {
     }
 
+    public function isConfigured(): bool
+    {
+        return '' !== trim($this->serverIp);
+    }
+
     public function getBetsForTimeInterval(DateTime $from, DateTime $until): ResponseInterface
     {
         $fromDateTimeStamp = $from->getTimestamp() * 1000;

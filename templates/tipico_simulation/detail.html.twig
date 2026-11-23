@@ -3,164 +3,126 @@
 {% block title %}{{ simulator.identifier }}{% endblock %}
 
 {% block body %}
-    <div class="simulator-detail-name">{{ simulator.identifier }}</div>
-    <div class="simulator-detail-navi">
-        <div class="link"><a href="{{ path('app_tipico_simulation_dashboard') }}">Dashboard</a></div>
-        <div class="link"><a href="{{ path('app_tipico_simulator_list') }}">To Simulator List</a></div>
-        <div class="link"><a href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">Placements</a></div>
-        <div class="link"><a href="{{ path('app_favorite_add', {simulator: simulator.id}) }}">Add to favorites</a></div>
-        <div class="link"><a
-                    href="{{ path('app_tipico_simulation_statistic', {simulator: simulator.id}) }}">Statistic</a></div>
+    <div class="page-header">
+        <div class="mw-100">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-1">
+                    <li class="breadcrumb-item"><a href="{{ path('app_tipico_simulator_list') }}">Simulators</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">#{{ simulator.id }}</li>
+                </ol>
+            </nav>
+            <h1 class="text-break">{{ simulator.identifier }}</h1>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-primary" href="{{ path('app_favorite_add', {simulator: simulator.id}) }}">
+                <i class="fa-solid fa-star me-1"></i>Add to favorites
+            </a>
+            <a class="btn btn-outline-secondary"
+               href="{{ path('app_tipico_simulation_placements', {simulator: simulator.id}) }}">
+                <i class="fa-solid fa-list me-1"></i>Placements
+            </a>
+            <a class="btn btn-outline-secondary"
+               href="{{ path('app_tipico_simulation_statistic', {simulator: simulator.id}) }}">
+                <i class="fa-solid fa-chart-column me-1"></i>Statistic
+            </a>
+            <a class="btn btn-outline-secondary"
+               href="{{ path('app_tipico_simulation_duplicate', {simulator: simulator.id}) }}">
+                <i class="fa-solid fa-clone me-1"></i>Duplicate
+            </a>
+        </div>
     </div>
 
-    <twig:Modal:AjaxFormModalLink
-            modalTitle="Hallo"
-            classes="btn btn-outline-secondary"
-            formUrl="{{ url('app_administration_add', {'simulator' : simulator.id}) }}">
-            Add
-    </twig:Modal:AjaxFormModalLink>
-
-
-    <div class="simulator-detail">
-
-        <div class="simulator-detail-widget cashbox">
-            <div class="simulator-detail-widget-col">
-                <div class="simulator-detail-widget-col-e">
-                    <div class="simulator-detail-widget-header">
-                        CashBox
-                    </div>
-                    <div class="simulator-detail-widget-content">
-                        {{ simulator.cashBox }} €
-                    </div>
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-lg-4">
+            <div class="stat-tile">
+                <div class="stat-label">Cash box</div>
+                <div class="stat-value {{ simulator.cashBox >= 100 ? 'value-positive' : 'value-negative' }}">
+                    {{ simulator.cashBox|number_format(2, ',', '.') }} €
                 </div>
-
-                <div class="simulator-detail-widget-col-e">
-                    <div class="simulator-detail-widget-header">
-                        Possible bets today
-                    </div>
-                    <div class="simulator-detail-widget-content">
-                        {{ nextPlacements|length }}
-                    </div>
-                </div>
-
-                <div class="simulator-detail-widget-col-e">
-                    <div class="simulator-detail-widget-header">
-                        Non made bets
-                    </div>
-                    <div class="simulator-detail-widget-content">
-                        {{ nonPlacedBets }}
-                    </div>
-                </div>
-
-                <div class="simulator-detail-widget-col-e">
-                    <div class="simulator-detail-widget-header">
-                        Performance
-                    </div>
-                    <div class="simulator-detail-widget-content">
-                        {{ component('KeyValueListing', {'container' : statistics['result']}) }}
-                    </div>
-                </div>
+                <div class="stat-hint">started with 100 €</div>
             </div>
         </div>
-
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-col">
-                <div class="simulator-detail-widget-col-e">
-                    <div class="simulator-detail-widget-header">
-                        Last Week
-                    </div>
-                    <div class="simulator-detail-widget-content">
-                        {{ component('LastWeekStatistic', {'statisticData' : lastWeekStatistic}) }}
-                    </div>
-                </div>
-
-                <div class="simulator-detail-widget-col-e">
-                    <div class="simulator-detail-widget-header">
-                        Next fixtures
-                    </div>
-                    <div class="simulator-detail-widget-content">
-                        <div class="upcoming-fixtures-detail">
-                            {{ component('UpcomingFixture', {'simulator' : simulator, 'fixtures' : nextPlacements, 'targetBetOn' : targetBetOn, 'searchBetOn': searchBetOn, 'overUnderTarget': overUnderTarget }) }}
-                        </div>
-                    </div>
-                </div>
+        <div class="col-6 col-lg-4">
+            <div class="stat-tile">
+                <div class="stat-label">Possible bets today</div>
+                <div class="stat-value">{{ nextPlacements|length }}</div>
             </div>
         </div>
-
-{#        <div class="simulator-detail-widget">#}
-{#            <div class="simulator-detail-widget-header">#}
-{#                Next fixtures#}
-{#            </div>#}
-{#            <div class="simulator-detail-widget-content">#}
-{#                <div class="upcoming-fixtures-detail">#}
-{#                    {{ component('UpcomingFixture', {'fixtures' : nextPlacements, 'betOn' : betOn}) }}#}
-
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-
-
-    </div>
-
-    <div class="simulator-detail">
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                CashBox Changes
-            </div>
-            <div class="simulator-detail-widget-content-chart">
-                {{ render_chart(cashBoxChart) }}
-            </div>
-        </div>
-
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                Win Ratio by weekdays
-            </div>
-            <div class="simulator-detail-widget-content-chart">
-                {{ render_chart(dailyDistributionChart) }}
-            </div>
-        </div>
-
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                Win Ratio by odds
-            </div>
-            <div class="simulator-detail-widget-content-chart">
-                {{ render_chart(valueToWinDistributionChart) }}
+        <div class="col-6 col-lg-4">
+            <div class="stat-tile">
+                <div class="stat-label">Skipped bets</div>
+                <div class="stat-value">{{ nonPlacedBets }}</div>
+                <div class="stat-hint">matched, but not placed</div>
             </div>
         </div>
     </div>
 
-    <div class="simulator-detail">
-
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                Daily Ratio
-            </div>
-            <div class="simulator-detail-widget-content">
-                {{ component('KeyValueListing', {'container' : statistics['dailyRatios']}) }}
-            </div>
+    <div class="card mb-4">
+        <div class="card-header">Last 7 days</div>
+        <div class="card-body overflow-x-auto">
+            {{ component('LastWeekStatistic', {'statisticData' : lastWeekStatistic}) }}
         </div>
-
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                Win Ratio by odds (search values)
-            </div>
-            <div class="simulator-detail-widget-content">
-                {{ component('KeyValueListing', {'container' : statistics['valueDistributionByBetOn']}) }}
-            </div>
-        </div>
-
-
-        <div class="simulator-detail-widget">
-            <div class="simulator-detail-widget-header">
-                Win Ratio by odds (target values)
-            </div>
-            <div class="simulator-detail-widget-content">
-                {{ component('KeyValueListing', {'container' : statistics['valueDistribution']}) }}
-            </div>
-        </div>
-
     </div>
 
+    <div class="row g-3 mb-4">
+        <div class="col-lg-4">
+            <div class="card h-100">
+                <div class="card-header">Performance</div>
+                <div class="card-body">
+                    {{ component('KeyValueListing', {'container' : statistics['result']}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card h-100">
+                <div class="card-header">Cash box course</div>
+                <div class="card-body">
+                    {{ render_chart(cashBoxChart) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">Next fixtures</div>
+        <div class="card-body upcoming-fixtures-detail">
+            {{ component('UpcomingFixture', {'simulator' : simulator, 'fixtures' : nextPlacements, 'targetBetOn' : targetBetOn, 'searchBetOn': searchBetOn, 'overUnderTarget': overUnderTarget }) }}
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-header">Win ratio by weekday</div>
+                <div class="card-body">{{ render_chart(dailyDistributionChart) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-header">Win ratio by odd</div>
+                <div class="card-body">{{ render_chart(valueToWinDistributionChart) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header">Daily ratio</div>
+                <div class="card-body">{{ component('KeyValueListing', {'container' : statistics['dailyRatios']}) }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header">Win ratio by odd (search values)</div>
+                <div class="card-body">{{ component('KeyValueListing', {'container' : statistics['valueDistributionByBetOn']}) }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header">Win ratio by odd (target values)</div>
+                <div class="card-body">{{ component('KeyValueListing', {'container' : statistics['valueDistribution']}) }}</div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

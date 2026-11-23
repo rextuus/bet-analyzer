@@ -17,22 +17,21 @@ final class Simulator
     {
     }
 
-    public function getDescription(): string
+    /**
+     * Strategie-Parameter zur Anzeige (Listen werden mit „-“ verbunden). Escaping übernimmt Twig.
+     *
+     * @return array<string, string>
+     */
+    public function getParameters(): array
     {
-        $strategy = $this->simulator->getStrategy();
-        $parameters = json_decode($strategy->getParameters(), true);
-        $table = '<table>';
-        foreach ($parameters as $key => $parameter) {
-            $params = $parameter;
-            if (is_array($parameter)) {
-                $params = implode('-', $parameter);
-            }
-            $t = sprintf('<tr><td>%s</td><td>%s</td></tr>', $key, $params);
-            $table = $table . $t;
-        }
-        $table = $table . '</table>';
+        $parameters = json_decode($this->simulator->getStrategy()->getParameters(), true) ?? [];
 
-        return $table;
+        $result = [];
+        foreach ($parameters as $key => $parameter) {
+            $result[(string) $key] = is_array($parameter) ? implode('-', $parameter) : (string) $parameter;
+        }
+
+        return $result;
     }
 
     public function getBetOutcomeChart(): Chart
@@ -43,6 +42,22 @@ final class Simulator
     public function getCashBoxChart(bool $timeBased = true): Chart
     {
         return $this->simulationStatisticService->getCashBoxChart($this->simulator, $timeBased);
+    }
+
+    /**
+     * Kleiner Verlauf für die Tabellenzeile: ohne Legende und Datumsachse, feste Höhe.
+     */
+    public function getCompactCashBoxChart(): Chart
+    {
+        $chart = $this->getCashBoxChart(true);
+        $chart->setOptions(array_replace_recursive($chart->getOptions(), [
+            'maintainAspectRatio' => false,
+            'plugins' => ['legend' => ['display' => false]],
+            'scales' => ['x' => ['display' => false]],
+            'elements' => ['point' => ['radius' => 0]],
+        ]));
+
+        return $chart;
     }
 
     public function getDailyDistributionChart(): Chart

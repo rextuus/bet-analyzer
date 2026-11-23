@@ -1,27 +1,11 @@
 <div class="key-value-listing" {{ attributes }}>
-    <table>
-        {% set keys = this.keys %}
+    <table class="table table-sm mb-0">
         {% set values = this.values %}
-        {% for key in keys %}
-            {% if loop.index % 2 == 0 %}
-            <tr class="key-value-listing-row-even">
-                <td>
-                    {{ key }}
-                </td>
-                <td>
-                    {{ values[loop.index-1] }}
-                </td>
+        {% for key in this.keys %}
+            <tr>
+                <td class="text-body-secondary">{{ key }}</td>
+                <td class="text-end fw-semibold">{{ values[loop.index0] }}</td>
             </tr>
-            {% else %}
-                <tr class="key-value-listing-row-odd">
-                    <td>
-                        {{ key }}
-                    </td>
-                    <td>
-                        {{ values[loop.index-1] }}
-                    </td>
-                </tr>
-            {% endif %}
         {% endfor %}
     </table>
 </div>

@@ -1,5 +1,8 @@
 framework:
     asset_mapper:
-        # The paths to make available to the asset mapper.
+      # The paths to make available to the asset mapper (Pfad: Namensraum).
         paths:
-            - assets/
+          assets/: ''
+          # Font Awesome (Composer-Paket fortawesome/font-awesome): CSS + Webfonts, eingebunden in base.html.twig
+          vendor/fortawesome/font-awesome/css/: fontawesome/css
+          vendor/fortawesome/font-awesome/webfonts/: fontawesome/webfonts

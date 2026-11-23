@@ -34,6 +34,19 @@ class TipicoBetRepository extends ServiceEntityRepository
     }
 
     /**
+     * Startzeit (ms) des zuletzt eingelesenen Spiels – zeigt, ob das tägliche Einlesen noch läuft.
+     */
+    public function findLatestStartTimestamp(): ?int
+    {
+        $value = $this->createQueryBuilder('t')
+            ->select('MAX(t.startAtTimeStamp)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return null === $value ? null : (int) $value;
+    }
+
+    /**
      * @return TipicoBet[]
      */
     public function findAllUndecoratedMatches(): array

@@ -1,26 +1,16 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
-require('@fortawesome/fontawesome-free/css/all.min.css');
-require('@fortawesome/fontawesome-free/js/all.js');
-// any CSS you import will output into a single css file (app.css in this case)
-import './styles/const.scss';
-import './styles/app.scss';
-import './styles/dashbaord.scss';
-import './styles/simulator-detail.scss';
-import './styles/favorites.scss';
-import './styles/suggestion.scss';
+// Einstiegspunkt der AssetMapper-Importmap ({{ importmap('app') }} in base.html.twig).
+// Die Styles (assets/styles/main.scss, über symfonycasts/sass-bundle) und Font Awesome bindet base.html.twig ein.
+import 'bootstrap';
+import './bootstrap.js';
 
-import {startStimulusApp} from '@symfony/stimulus-bridge';
-
-export const app = startStimulusApp(require.context(
-    '@symfony/stimulus-bridge/lazy-controller-loader!./controllers/app',
-    true,
-    /\.(j|t)sx?$/
-));
+// Chart.js (symfony/ux-chartjs) an das dunkle Schema anpassen – gilt für alle Diagramme der App.
+document.addEventListener('chartjs:init', (event) => {
+    const Chart = event.detail.Chart;
+    Chart.defaults.color = '#93a0b8';
+    Chart.defaults.borderColor = 'rgba(147, 160, 184, 0.15)';
+    Chart.defaults.font.family = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+    Chart.defaults.plugins.legend.labels.boxWidth = 12;
+});
 
 // JavaScript to toggle visibility of content elements
 let containerElements = document.querySelectorAll('.switchable-content-header');
@@ -84,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const timeLeftDisplay = document.getElementById('time-left');
 
     if (progressBar && timeLeftDisplay){
-        // Adjust this value according to the specific minute you want to wait for
-        const targetMinute = 10; // Wait for the 10th minute of every hour
+        // Ergebnisse werden stündlich zur Minute 5 geprüft (CheckMatchOutcomes, docker/cron/crontab).
+        const targetMinute = 5;
 
         function updateProgressBar() {
             const currentTime = new Date();
@@ -106,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const minutes = Math.floor((timeUntilNextExecution % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeUntilNextExecution % (1000 * 60)) / 1000);
-            timeLeftDisplay.textContent = `Next bet updates: ${pad(minutes)}:${pad(seconds)}`;
+            timeLeftDisplay.textContent = `${pad(minutes)}:${pad(seconds)}`;
 
             if (timeUntilNextExecution <= 0) {
                 progressBar.classList.add('fill');

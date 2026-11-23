@@ -1,0 +1,130 @@
+# bet-analyzer – Komodo-Ressourcen (Resource Sync). Feldnamen geprüft gegen komodo_client 2.3.2 (docs.rs:
+# StackConfig, ProcedureConfig, RunStackService) und komo.do/docs/automate/sync-resources; Aufbau wie bei hub/Wedora.
+# Annahme: `server` (nicht `server_id`) – so im Beispiel auf komo.do und so bei hub/Wedora im Einsatz.
+#
+# Einbinden: Komodo → Syncs → New Resource Sync, Quelle = dieses Repo, Resource Path = deploy/komodo/bet-analyzer.toml.
+# Hier stehen keine Secrets. Alles in doppelten eckigen Klammern sind Komodo-Secrets (Settings → Variables,
+# Häkchen „Secret“); die Liste steht in .env.prod.dist und docs/deployment.md. Nicht geheime Werte stehen direkt hier.
+# Achtung: Komodo ersetzt eine unbekannte Variable nicht und meldet auch keinen Fehler. Deshalb prüft
+# pre-deploy.sh die geschriebene .env.prod.local und bricht ab, wenn noch ein Platzhalter darin steht.
+
+[[stack]]
+name = "bet-analyzer"
+description = "Sammelt jeden Tag Wett-Quoten und lässt Simulatoren auf diesen laufen"
+tags = ["bet-analyzer", "projekt"]
+# Ein Sync legt den Stack nur an bzw. gleicht ihn an. Deployt wird bewusst von Hand („Deploy“).
+deploy = false
+
+[stack.config]
+# Name des Servers in Komodo (Servers-Liste), nicht der Hostname.
+server = "abyss"
+# Quick-Links im Kopf des Stacks
+links = [
+  "https://bet-analyzer.wh-company.de",
+  "https://github.com/rextuus/bet-analyzer",
+  "http://localhost:9121/projekte/#bet-analyzer",
+]
+
+# Quelle: GitHub-Repo. git_account = Benutzername eines unter Settings → Providers für github.com
+# hinterlegten Accounts mit Token (das Token muss rextuus/bet-analyzer lesen dürfen).
+git_provider = "github.com"
+git_https = true
+git_account = "rextuus"
+repo = "rextuus/bet-analyzer"
+branch = "main"
+# Leer = neuester Commit von branch. Für einen Rollback hier einen Commit-Hash eintragen und deployen.
+commit = ""
+# Nicht neu klonen; Daten liegen ohnehin außerhalb (Named Volumes bet-analyzer_*, BACKUP_DIR).
+reclone = false
+
+# Ergibt: docker compose -p bet-analyzer -f compose.prod.yaml --env-file .env.prod.local …
+# project_name MUSS „bet-analyzer“ bleiben; die Volumes sind zusätzlich per name: in compose.prod.yaml festgenagelt.
+file_paths = ["compose.prod.yaml"]
+project_name = "bet-analyzer"
+env_file_path = ".env.prod.local"
+
+# Wird bei jedem Deploy nach .env.prod.local geschrieben (KEY=wert, Rechte 600).
+# Kommentare in diesem Block landen ebenfalls in der Datei: dort nie Platzhalter erwähnen.
+environment = """
+# Öffentliche Adresse; TLS macht der Caddy auf dem VPS
+DEFAULT_URI = https://bet-analyzer.wh-company.de
+
+# Secrets
+APP_SECRET = [[BET_ANALYZER_APP_SECRET]]
+MYSQL_PASSWORD = [[BET_ANALYZER_MYSQL_PASSWORD]]
+MYSQL_ROOT_PASSWORD = [[BET_ANALYZER_MYSQL_ROOT_PASSWORD]]
+TELEGRAM_DSN = [[BET_ANALYZER_TELEGRAM_DSN]]
+SENTRY_DSN = [[BET_ANALYZER_SENTRY_DSN]]
+MAILER_DSN = [[BET_ANALYZER_MAILER_DSN]]
+
+# Datenbank (nicht ändern, sonst passt es nicht mehr zum bestehenden Volume)
+MYSQL_DATABASE = bet_analyzer
+MYSQL_USER = bet_analyzer
+
+# Fachliche Einstellungen
+TELEGRAM_ENABLED = 1
+CASH_BOX_MIN_LIMIT = 80
+
+# Eingang: Caddy auf dem VPS (10.0.0.1), WireGuard, abyss 10.0.0.2:8198
+HTTP_BIND = 10.0.0.2
+HTTP_PORT = 8198
+REVERSE_PROXY_IPS = 10.0.0.1
+
+# Sicherungen (Host-Pfad, einmalig anlegen) und wie viele Dumps je Anlass bleiben (Dump ist groß)
+BACKUP_DIR = /srv/bet-analyzer/backups
+BACKUP_KEEP = 7
+"""
+
+# Images für app/worker/cron/migrate/web werden auf dem Server gebaut (docker compose build vor up).
+run_build = true
+# Kein „compose pull“ vor jedem Deploy: mysql ist auf eine feste Version gepinnt, up holt fehlende Images selbst.
+auto_pull = false
+destroy_before_deploy = false
+
+# Ergibt: docker compose … up -d --wait --wait-timeout 300 – Erfolg erst, wenn alle Dienste „healthy“ sind.
+# Beim ersten Start nach dem Import braucht MySQL länger (große Datenbank), darum 600 s.
+extra_args = ["--wait", "--wait-timeout", "600"]
+
+# migrate läuft bei jedem Deploy einmal und beendet sich, backup läuft nur auf Abruf.
+ignore_services = ["migrate", "backup"]
+
+# Vor dem Bauen: Datenbank sichern (läuft im Periphery-Container im Stack-Ordner; Exit ≠ 0 bricht ab).
+pre_deploy.path = "."
+pre_deploy.command = "sh deploy/komodo/pre-deploy.sh"
+
+# Nach erfolgreichem up: Zustand ins Deploy-Log, alte bet-analyzer-Images aufräumen.
+post_deploy.path = "."
+post_deploy.command = "sh deploy/komodo/post-deploy.sh"
+
+# Kein automatisches Deploy bei Push oder neuen Images – deployt wird bewusst.
+webhook_enabled = false
+poll_for_updates = false
+auto_update = false
+send_alerts = true
+
+# ---------------------------------------------------------------------------------------------------------
+# Tägliche Datenbanksicherung: `docker compose run --rm --no-TTY --no-deps backup daily` im Stack
+# (bet-analyzer-db-<zeit>-daily.sql.gz in /srv/bet-analyzer/backups, 7 bleiben liegen). Komodo macht vorher ein
+# `git pull` im Stack-Ordner (deployt aber nichts). no_deps: ein noch nicht deployter Commit mit geändertem
+# database-Dienst würde die Datenbank sonst nebenbei neu erstellen. Läuft der Stack nicht, scheitert der Dump
+# absichtlich, und Komodo alarmiert (failure_alert). 00:30: nach dem Einlesen der Tagesspiele (00:03/00:10),
+# mit viel Abstand zum Neustart um 04:30.
+
+[[procedure]]
+name = "bet-analyzer-backup"
+description = "bet-analyzer: täglicher Datenbank-Dump nach /srv/bet-analyzer/backups (Rotation: BACKUP_KEEP)"
+tags = ["bet-analyzer", "projekt"]
+
+[procedure.config]
+schedule_format = "English"
+schedule = "Every day at 00:30"
+schedule_timezone = "Europe/Berlin"
+schedule_enabled = true
+schedule_alert = false
+failure_alert = true
+
+[[procedure.config.stage]]
+name = "Datenbank sichern"
+executions = [
+  { execution.type = "RunStackService", execution.params = { stack = "bet-analyzer", service = "backup", command = ["daily"], no_tty = true, no_deps = true } },
+]
