@@ -1,0 +1,455 @@
+{% extends 'base.html.twig' %}
+
+{% macro pct(value, signed = false) -%}
+    {%- if value is null -%}–{%- else -%}
+        {{- signed and value > 0 ? '+' : '' }}{{ (value * 100)|number_format(1, '.', ',') }} %
+    {%- endif -%}
+{%- endmacro %}
+
+{% macro roi(value) -%}
+    {%- import _self as m -%}
+    <span class="{{ value is null ? '' : (value >= 0 ? 'text-success' : 'text-danger') }}">{{ m.pct(value, true) }}</span>
+{%- endmacro %}
+
+{% macro int(value) -%}{{ value|number_format(0, '.', ',') }}{%- endmacro %}
+
+{% block title %}Analysis{% endblock %}
+
+{% block body %}
+    {% import _self as f %}
+
+    <div class="page-header">
+        <div>
+            <h1>Analysis</h1>
+            <p class="page-subtitle">
+                Did the collected odds and the simulators ever beat the bookmaker? Every return assumes a stake of 1 per
+                bet.
+                {% if snapshot %}
+                    Calculated {{ snapshot.computedAt|date('d.m.Y H:i') }} in {{ (snapshot.durationMs / 1000)|number_format(1) }} s, refreshed every night at 05:40.
+                {% endif %}
+            </p>
+        </div>
+        <form method="post" action="{{ path('app_analysis_refresh') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('analysis_refresh') }}">
+            <button type="submit" class="btn btn-sm btn-outline-secondary">
+                <i class="fa-solid fa-rotate me-1"></i>Recalculate now
+            </button>
+        </form>
+    </div>
+
+    {% if report is null %}
+        <div class="card">
+            <div class="card-body">
+                <p class="mb-2"><strong>No analysis yet.</strong></p>
+                <p class="text-body-secondary mb-0">
+                    The analysis runs over all matches and simulator bets and takes a while, so it is not calculated
+                    when the page opens.
+                    Start it with <em>Recalculate now</em> (the worker does it in the background) or run
+                    <code>bin/console bet-analyzer:analysis:refresh</code>. Otherwise it appears after the next nightly
+                    run.
+                </p>
+            </div>
+        </div>
+    {% else %}
+        {% set c = report.coverage %}
+        {% set s = report.simulators %}
+        {% set p = report.persistence %}
+
+        {# --- Summary ---------------------------------------------------------------------------------------- #}
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3">
+                <div class="stat-tile">
+                    <div class="stat-label">Matches</div>
+                    <div class="stat-value">{{ f.int(c.total) }}</div>
+                    <div class="stat-hint">{{ c.firstMatch ? c.firstMatch|date('d.m.Y') ~ ' – ' ~ c.lastMatch|date('d.m.Y') : 'none yet' }}</div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="stat-tile">
+                    <div class="stat-label">Bookmaker margin</div>
+                    <div class="stat-value">{{ f.pct(c.margin) }}</div>
+                    <div class="stat-hint">average on Tipico 1X2</div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="stat-tile">
+                    <div class="stat-label">Simulator return</div>
+                    <div class="stat-value">{{ f.roi(s.roi) }}</div>
+                    <div class="stat-hint">{{ f.int(s.placements) }} simulated bets</div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="stat-tile">
+                    <div class="stat-label">Best decile later</div>
+                    <div class="stat-value">{{ p and p.deciles ? f.roi(p.deciles[0].after) : '–' }}</div>
+                    <div class="stat-hint">
+                        {% if p and p.deciles %}was {{ f.pct(p.deciles[0].before, true) }} before{% else %}not enough data{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# --- Data ------------------------------------------------------------------------------------------- #}
+        <h2 class="h4 mt-5 mb-3">Data</h2>
+        <div class="row g-3 mb-3">
+            <div class="col-lg-5">
+                <div class="card h-100">
+                    <div class="card-header">What was collected</div>
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                            <tr>
+                                <th>Market</th>
+                                <th class="text-end">Matches</th>
+                                <th class="text-end">Share</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for market in c.markets %}
+                                <tr>
+                                    <td>{{ market.label }}</td>
+                                    <td class="text-end font-monospace">{{ f.int(market.count) }}</td>
+                                    <td class="text-end font-monospace">{{ c.total > 0 ? f.pct(market.count / c.total) : '–' }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body small text-body-secondary">
+                        {{ f.int(c.finished) }} matches have a result
+                        ({{ c.total > 0 ? f.pct(c.finished / c.total) : '–' }}).
+                        {{ f.int(c.missingResult) }} older matches never got one, {{ f.int(c.pendingResult) }} are
+                        waiting for the hourly check
+                        and {{ f.int(c.upcoming) }} have not started yet.
+                        {% set finished = c.results.home + c.results.draw + c.results.away %}
+                        {% if finished > 0 %}
+                            Results: home win {{ f.pct(c.results.home / finished) }}, draw {{ f.pct(c.results.draw / finished) }},
+                            away win {{ f.pct(c.results.away / finished) }}.
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="card h-100">
+                    <div class="card-header">Matches per month</div>
+                    <div class="card-body">
+                        {{ render_chart(charts.monthlyMatches, {'style': 'height: 300px'}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# --- Markets ---------------------------------------------------------------------------------------- #}
+        <h2 class="h4 mt-5 mb-1">Markets</h2>
+        <p class="text-body-secondary mb-3">
+            What a fixed rule would have returned over all finished matches. “Implied” is the probability from the odd
+            with the
+            margin removed: when it matches the hit rate, the odds are fair and the bookmaker earns from the margin
+            alone.
+        </p>
+        <div class="row g-3 mb-3">
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header">1X2: always bet on … <span
+                                class="text-body-secondary fw-normal small">({{ f.int(report.threeWay.bets) }} matches)</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th class="text-end">Hit rate</th>
+                                <th class="text-end">Implied</th>
+                                <th class="text-end">Return</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for row in report.threeWay.rows %}
+                                <tr>
+                                    <td>{{ row.label }}</td>
+                                    <td class="text-end font-monospace">{{ f.pct(row.hit) }}</td>
+                                    <td class="text-end font-monospace">{{ f.pct(row.implied) }}</td>
+                                    <td class="text-end font-monospace">{{ f.roi(row.roi) }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header">Return by odd (home, draw and away together)</div>
+                    <div class="card-body">
+                        {{ render_chart(charts.oddBuckets, {'style': 'height: 260px'}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-lg-7">
+                <div class="card h-100">
+                    <div class="card-header">Over/under goals</div>
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                            <tr>
+                                <th>Line</th>
+                                <th class="text-end">Bets</th>
+                                <th class="text-end">Over hit</th>
+                                <th class="text-end">Implied</th>
+                                <th class="text-end">Over</th>
+                                <th class="text-end">Under</th>
+                                <th class="text-end">Margin</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for row in report.overUnder %}
+                                <tr>
+                                    <td class="font-monospace">{{ row.target|number_format(1) }}</td>
+                                    <td class="text-end font-monospace">{{ f.int(row.bets) }}</td>
+                                    <td class="text-end font-monospace">{{ f.pct(row.hitOver) }}</td>
+                                    <td class="text-end font-monospace">{{ f.pct(row.impliedOver) }}</td>
+                                    <td class="text-end font-monospace">{{ f.roi(row.roiOver) }}</td>
+                                    <td class="text-end font-monospace">{{ f.roi(row.roiUnder) }}</td>
+                                    <td class="text-end font-monospace">{{ f.pct(row.margin) }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card h-100">
+                    <div class="card-header">Other markets</div>
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th class="text-end">Bets</th>
+                                <th class="text-end">Return</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% set btts = report.bothTeamsScore %}
+                            {% set h2h = report.headToHead %}
+                            <tr>
+                                <td>Both teams score: yes</td>
+                                <td class="text-end font-monospace">{{ f.int(btts.bets) }}</td>
+                                <td class="text-end font-monospace">{{ f.roi(btts.roiYes) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Both teams score: no</td>
+                                <td class="text-end font-monospace">{{ f.int(btts.bets) }}</td>
+                                <td class="text-end font-monospace">{{ f.roi(btts.roiNo) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Head-to-head: home</td>
+                                <td class="text-end font-monospace">{{ f.int(h2h.bets) }}</td>
+                                <td class="text-end font-monospace">{{ f.roi(h2h.roiHome) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Head-to-head: away</td>
+                                <td class="text-end font-monospace">{{ f.int(h2h.bets) }}</td>
+                                <td class="text-end font-monospace">{{ f.roi(h2h.roiAway) }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body small text-body-secondary">
+                        Both teams score: hit rate {{ f.pct(btts.hitYes) }}, implied {{ f.pct(btts.impliedYes) }},
+                        margin {{ f.pct(btts.margin) }}.
+                        Head-to-head returns the stake on a draw.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# --- Simulators ------------------------------------------------------------------------------------- #}
+        <h2 class="h4 mt-5 mb-3">Simulators</h2>
+        <div class="row g-3 mb-3">
+            <div class="col-6 col-lg-3">
+                <div class="stat-tile">
+                    <div class="stat-label">Simulators</div>
+                    <div class="stat-value">{{ f.int(s.total) }}</div>
+                    <div class="stat-hint">{{ f.int(s.active) }} placed bets</div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="stat-tile">
+                    <div class="stat-label">In profit</div>
+                    <div class="stat-value">{{ f.int(s.inProfit) }}</div>
+                    <div class="stat-hint">{{ f.int(s.inLoss) }} below their 100 € start</div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="stat-tile">
+                    <div class="stat-label">Net result</div>
+                    <div class="stat-value">{{ f.roi(s.roi) }}</div>
+                    <div class="stat-hint">{{ s.net|number_format(0, '.', ',') }} € on {{ f.int(s.stake) }} € stake
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="stat-tile">
+                    <div class="stat-label">Last bet placed</div>
+                    <div class="stat-value fs-4">{{ s.lastPlacement ? s.lastPlacement|date('d.m.Y') : '–' }}</div>
+                    <div class="stat-hint">first {{ s.firstPlacement ? s.firstPlacement|date('d.m.Y') : '–' }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-lg-5">
+                <div class="card h-100">
+                    <div class="card-header">By strategy</div>
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                            <tr>
+                                <th>Strategy</th>
+                                <th class="text-end">Simulators</th>
+                                <th class="text-end">In profit</th>
+                                <th class="text-end">Ø result</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for row in report.strategies %}
+                                <tr>
+                                    <td>{{ row.strategy }}</td>
+                                    <td class="text-end font-monospace">{{ f.int(row.simulators) }}</td>
+                                    <td class="text-end font-monospace">{{ f.int(row.inProfit) }}</td>
+                                    <td class="text-end font-monospace {{ row.averageResult >= 0 ? 'text-success' : 'text-danger' }}">{{ row.averageResult|number_format(1) }}
+                                        €
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="card h-100">
+                    <div class="card-header">Return of all simulator bets per month</div>
+                    <div class="card-body">
+                        {{ render_chart(charts.placementMonths, {'style': 'height: 260px'}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if p and p.deciles %}
+            <div class="card mb-3">
+                <div class="card-header">Do good simulators stay good?</div>
+                <div class="card-body">
+                    <p class="text-body-secondary">
+                        {{ f.int(p.simulators) }} simulators with at least {{ p.minPlacements }} bets in both halves of
+                        the period,
+                        sorted into deciles by their return from {{ p.firstPeriod[0]|date('d.m.Y') }}
+                        to {{ p.firstPeriod[1]|date('d.m.Y') }}
+                        (grey). Red is the return of the same simulators from {{ p.secondPeriod[0]|date('d.m.Y') }}
+                        to {{ p.secondPeriod[1]|date('d.m.Y') }}.
+                        If the best simulators had found something real, the left red bars would stay higher than the
+                        rest.
+                    </p>
+                    {{ render_chart(charts.persistence, {'style': 'height: 300px'}) }}
+                    <p class="small text-body-secondary mt-3 mb-0">
+                        In profit in the first half: {{ f.int(p.profitBefore) }}, in the
+                        second: {{ f.int(p.profitAfter) }}, in both: {{ f.int(p.profitBoth) }}.
+                        {% if p.top50 %}
+                            The {{ p.top50.simulators }} best simulators went from {{ f.pct(p.top50.before, true) }} to {{ f.pct(p.top50.after, true) }}.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="card mb-3">
+            <div class="card-header">Best simulators by cash box</div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                    <tr>
+                        <th>Simulator</th>
+                        <th>Strategy</th>
+                        <th class="text-end">Bets</th>
+                        <th class="text-end">Cash box</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in report.topSimulators %}
+                        <tr>
+                            <td class="text-break"><a
+                                        href="{{ path('app_tipico_simulation_detail', {simulator: row.id}) }}">{{ row.identifier }}</a>
+                            </td>
+                            <td>{{ row.strategy }}</td>
+                            <td class="text-end font-monospace">{{ f.int(row.placements) }}</td>
+                            <td class="text-end font-monospace">{{ row.cashBox|number_format(2) }} €</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body small text-body-secondary">
+                With thousands of variants on the same data, some end up far ahead by chance. The decile chart above
+                shows whether that lasts.
+            </div>
+        </div>
+
+        {# --- Line shopping ---------------------------------------------------------------------------------- #}
+        <h2 class="h4 mt-5 mb-1">Comparing bookmakers</h2>
+        <p class="text-body-secondary mb-3">
+            Matches that also have odds from a second bookmaker. “Best of both” takes the higher odd for each outcome.
+            The odds were fetched at different times, so surebets (both odds together below 100 %) were not necessarily
+            available at once.
+        </p>
+        <div class="row g-3 mb-3">
+            {% for provider in report.lineShopping %}
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            Tipico vs. {{ provider.provider }}
+                            <span class="text-body-secondary fw-normal small">
+                                ({{ f.int(provider.matches) }} matches{% if provider.firstMatch %}, {{ provider.firstMatch|date('m/Y') }} – {{ provider.lastMatch|date('m/Y') }}{% endif %})
+                            </span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-end">Margin</th>
+                                    <th class="text-end">Home</th>
+                                    <th class="text-end">Draw</th>
+                                    <th class="text-end">Away</th>
+                                    <th class="text-end">Surebets</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for row in provider.rows %}
+                                    <tr>
+                                        <td>{{ row.label }}</td>
+                                        <td class="text-end font-monospace">{{ f.pct(row.margin) }}</td>
+                                        <td class="text-end font-monospace">{{ f.roi(row.roiHome) }}</td>
+                                        <td class="text-end font-monospace">{{ f.roi(row.roiDraw) }}</td>
+                                        <td class="text-end font-monospace">{{ f.roi(row.roiAway) }}</td>
+                                        <td class="text-end font-monospace">
+                                            {{ f.int(row.surebets) }}{% if row.surebetMargin %} <span
+                                                    class="text-body-secondary">
+                                                (Ø {{ f.pct(row.surebetMargin) }})</span>{% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

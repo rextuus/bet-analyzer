@@ -23,6 +23,7 @@ framework:
             App\Service\Tipico\Message\InitSimulatorProcessingMessage: async
             App\Service\BettingProvider\BettingProviderBackupFile\Message\StoreBetsForProviderMessage: async
             App\Service\Tipico\Message\CreateOrUpdateDetailStatisticMessage: async
+            App\Service\Analysis\Message\RefreshMarketReportMessage: async
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async

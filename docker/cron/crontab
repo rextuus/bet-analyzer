@@ -11,3 +11,5 @@
 5 * * * * php -d memory_limit=1G bin/console CheckMatchOutcomes --no-interaction
 # Simulatoren (Dreiweg) auf neue Ergebnisse anwenden – die Arbeit selbst macht der Worker
 15 */4 * * * php -d memory_limit=512M bin/console ProcessSimulators three_way_simulators --no-interaction
+# Marktanalyse für /analysis neu berechnen (läuft über alle Platzierungen, einige Sekunden bis Minuten)
+40 5 * * * php -d memory_limit=1G bin/console bet-analyzer:analysis:refresh --no-interaction

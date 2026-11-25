@@ -46,6 +46,10 @@
                             <a class="nav-link {{ route starts with 'app_tipico_weekday' ? 'active' }}"
                                href="{{ path('app_tipico_weekday') }}"><i class="fa-solid fa-calendar-week"></i>Weekdays</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ route starts with 'app_analysis' ? 'active' }}"
+                               href="{{ path('app_analysis') }}"><i class="fa-solid fa-magnifying-glass-chart"></i>Analysis</a>
+                        </li>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('admin') }}"><i class="fa-solid fa-sliders"></i>Admin</a>
